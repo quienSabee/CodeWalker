@@ -1,22 +1,16 @@
-﻿using SharpDX.Direct3D11;
+﻿using SharpDX.Direct3D;
+using SharpDX.Direct3D11;
 using SharpDX.DXGI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Device = SharpDX.Direct3D11.Device;
-using Buffer = SharpDX.Direct3D11.Buffer;
-using Resource = SharpDX.Direct3D11.Resource;
-using MapFlags = SharpDX.Direct3D11.MapFlags;
 using SharpDX.Mathematics.Interop;
-using SharpDX.Direct3D;
+using System;
+using Buffer = SharpDX.Direct3D11.Buffer;
+using Device = SharpDX.Direct3D11.Device;
+using Resource = SharpDX.Direct3D11.Resource;
 
 namespace CodeWalker.Rendering
 {
     public static class DXUtility
     {
-
         public static Buffer CreateBuffer(Device device, int size, ResourceUsage usage, BindFlags bindFlags, CpuAccessFlags cpuAccessFlags, ResourceOptionFlags miscFlags, int structByteStride)
         {
             BufferDescription desc = new BufferDescription();
@@ -38,7 +32,6 @@ namespace CodeWalker.Rendering
             return b;
         }
 
-
         public static Texture2D CreateTexture2D(Device device, int width, int height, int mipLevels, int arraySize, Format format, int sampleCount, int sampleQuality, ResourceUsage usage, BindFlags bindFlags, CpuAccessFlags cpuAccessFlags, ResourceOptionFlags miscFlags)
         {
             Texture2DDescription td = new Texture2DDescription();
@@ -55,6 +48,7 @@ namespace CodeWalker.Rendering
             Texture2D t = new Texture2D(device, td);
             return t;
         }
+
         //static ComPtr<ID3D11Texture2D> CreateTexture2D(UINT width, UINT height, UINT mipLevels, UINT arraySize, DXGI_FORMAT format, UINT sampleCount, UINT sampleQuality, D3D11_USAGE usage, UINT bindFlags, UINT cpuAccessFlags, UINT miscFlags, const void* data, const string& name)
         //{
         //    D3D11_TEXTURE2D_DESC td;
@@ -78,7 +72,6 @@ namespace CodeWalker.Rendering
         //    DXManager::AddVramUsage(ElementSize(format) * width * height * arraySize);
         //    return t;
         //}
-
 
         public static SamplerState CreateSamplerState(Device device, TextureAddressMode addressU, TextureAddressMode addressV, TextureAddressMode addressW, RawColor4 border, Comparison comparisonFunc, Filter filter, int maxAnisotropy, float maxLOD, float minLOD, float mipLODBias)
         {
@@ -185,7 +178,6 @@ namespace CodeWalker.Rendering
             return uav;
         }
 
-
         public static RenderTargetView CreateRenderTargetView(Device device, Resource renderTarget, Format format, RenderTargetViewDimension viewDimension, int mipSlice, int arraySize, int firstArraySlice)
         {
             RenderTargetView rtv;
@@ -224,7 +216,6 @@ namespace CodeWalker.Rendering
             return rtv;
         }
 
-
         public static DepthStencilView CreateDepthStencilView(Device device, Texture2D depthStencil, Format format, DepthStencilViewDimension viewDimension)
         {
             DepthStencilViewDescription dsvd = new DepthStencilViewDescription();
@@ -235,6 +226,7 @@ namespace CodeWalker.Rendering
             DepthStencilView dsv = new DepthStencilView(device, depthStencil, dsvd);
             return dsv;
         }
+
         public static DepthStencilView CreateDepthStencilView(Device device, Texture2D depthStencil, Format format, int arraySlice)
         {
             DepthStencilViewDescription dsvd = new DepthStencilViewDescription();
@@ -247,7 +239,6 @@ namespace CodeWalker.Rendering
             DepthStencilView dsv = new DepthStencilView(device, depthStencil, dsvd);
             return dsv;
         }
-
 
         public static DepthStencilState CreateDepthStencilState(Device device, bool depthEnable, DepthWriteMask writeMask, Comparison func, bool stencilEnable, byte stencilReadMask, byte stencilWriteMask, DepthStencilOperationDescription frontFace, DepthStencilOperationDescription backFace)
         {
@@ -263,6 +254,7 @@ namespace CodeWalker.Rendering
             DepthStencilState s = new DepthStencilState(device, dsd);
             return s;
         }
+
         public static DepthStencilState CreateDepthStencilState(Device device, bool depthEnable, DepthWriteMask writeMask)
         {
             DepthStencilOperationDescription frontFace = new DepthStencilOperationDescription();
@@ -290,7 +282,6 @@ namespace CodeWalker.Rendering
             return CreateDepthStencilState(device, depthEnable, writeMask, Comparison.LessEqual, stencil, rm, wm, frontFace, backFace);
         }
 
-
         public static RasterizerState CreateRasterizerState(Device device, FillMode fillMode, CullMode cullMode, bool depthClipEnable, bool scissorEnable, bool multisampleEnable, int depthBias, float depthBiasClamp, float slopeScaledDepthBias)
         {
             RasterizerStateDescription drd = new RasterizerStateDescription();
@@ -307,14 +298,17 @@ namespace CodeWalker.Rendering
             RasterizerState rs = new RasterizerState(device, drd);
             return rs;
         }
+
         public static RasterizerState CreateRasterizerState(Device device, FillMode fillMode, CullMode cullMode, bool depthClipEnable, bool scissorEnable, bool multisampleEnable)
         {
             return CreateRasterizerState(device, fillMode, cullMode, depthClipEnable, scissorEnable, multisampleEnable, 0, 0.0f, 0.0f);
         }
+
         public static RasterizerState CreateRasterizerState(Device device, FillMode fillMode, CullMode cullMode, bool depthClipEnable, bool multisampleEnable)
         {
             return CreateRasterizerState(device, fillMode, cullMode, depthClipEnable, false, multisampleEnable);
         }
+
         public static RasterizerState CreateRasterizerState(Device device, bool depthClipEnable, bool multisampleEnable)
         {
             return CreateRasterizerState(device, FillMode.Solid, CullMode.Back, depthClipEnable, false, multisampleEnable);
@@ -335,7 +329,6 @@ namespace CodeWalker.Rendering
             BlendState bs = new BlendState(device, bsd);
             return bs;
         }
-
 
         public static int ElementSize(Format format)
         {
@@ -459,9 +452,5 @@ namespace CodeWalker.Rendering
                     return 0;
             }
         }
-
-
-
-
     }
 }

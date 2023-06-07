@@ -15,7 +15,6 @@ using CodeWalker.World;
 
 namespace CodeWalker.Rendering
 {
-
     public struct BoundingSphereVSSceneVars
     {
         public Matrix ViewProj;
@@ -235,5 +234,4 @@ namespace CodeWalker.Rendering
         Sphere = 1,
         Box = 2,
     }
-
 }

@@ -150,7 +150,6 @@ namespace CodeWalker.Rendering
 
         public void UpdateCloudsLocals(Clouds clouds, ShaderGlobalLights lights)
         {
-
             CloudsLocalVars.Vars.gSunDirection = lights.CurrentSunDir;
             CloudsLocalVars.Vars.gSunColor = ((Vector4)lights.Params.LightDirColour).XYZ();
             CloudsLocalVars.Vars.gUVOffset1 = clouds.AnimOverrides.UVOffset1;
@@ -164,8 +163,6 @@ namespace CodeWalker.Rendering
             CloudsLocalVars.Vars.cloudLayerAnimScale3 = clouds.AnimOverrides.cloudLayerAnimScale3;
             CloudsLocalVars.Vars.gUVOffsetArr0 = Vector4.Zero;
             CloudsLocalVars.Vars.gUVOffsetArr1 = Vector4.Zero;
-
-
         }
 
         public override void SetShader(DeviceContext context)

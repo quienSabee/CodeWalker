@@ -7061,17 +7061,6 @@ namespace CodeWalker.Project
             return CurrentProjectFile.ContainsYtd(ytd);
         }
 
-
-
-
-
-
-
-
-
-
-
-
         public void GetVisibleYmaps(Camera camera, Dictionary<MetaHash, YmapFile> ymaps)
         {
             if (hidegtavmap)

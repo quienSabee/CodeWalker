@@ -38,7 +38,6 @@ namespace CodeWalker.Rendering
 
         private DeviceContext context;
 
-
         public float timeofday = 12.0f;
         public bool controltimeofday = true;
         public bool timerunning = false;
@@ -49,11 +48,9 @@ namespace CodeWalker.Rendering
         private Vector4 currentWindVec = Vector4.Zero;
         private float currentWindTime = 0.0f;
 
-
         public bool usedynamiclod = Settings.Default.DynamicLOD; //for ymap view
         public float lodthreshold = 50.0f / (0.1f + (float)Settings.Default.DetailDist); //to match formula for the DetailTrackBar value
         public bool waitforchildrentoload = true;
-
 
         public bool controllightdir = false; //if not, use timecycle
         public float lightdirx = 2.25f;//radians // approx. light dir on map satellite view
@@ -62,25 +59,19 @@ namespace CodeWalker.Rendering
         public bool renderclouds = true;
         public bool rendermoon = true;
 
-
         public Timecycle timecycle = new Timecycle();
         public Weather weather = new Weather();
         public Clouds clouds = new Clouds();
-
-
 
         private ShaderGlobalLights globalLights = new ShaderGlobalLights();
         public bool rendernaturalambientlight = true;
         public bool renderartificialambientlight = true;
 
-
         public bool MapViewEnabled = false;
         public float MapViewDetail = 1.0f;
 
-
         private UnitQuad markerquad = null;
         public bool markerdepthclip = Settings.Default.MarkerDepthClip;
-
 
         private RenderLodManager LodManager = new RenderLodManager();
 
@@ -124,9 +115,7 @@ namespace CodeWalker.Rendering
 
         public bool swaphemisphere = false;//can be used to get better lighting in model viewers
 
-
         public MapSelectionMode SelectionMode = MapSelectionMode.Entity; //to assist in rendering embedded collisions properly...
-
 
         public BoundsShaderMode boundsmode = BoundsShaderMode.None;
         public bool renderboundsclip = Settings.Default.BoundsDepthClip;
@@ -143,7 +132,6 @@ namespace CodeWalker.Rendering
         public List<VertexTypePC> SelectionLineVerts = new List<VertexTypePC>();
         public List<VertexTypePC> SelectionTriVerts = new List<VertexTypePC>();
 
-
         private YmapEntityDef SelectedCarGenEntity = new YmapEntityDef(); //placeholder entity object for drawing cars
 
         public DrawableBase SelectedDrawable = null;
@@ -152,22 +140,13 @@ namespace CodeWalker.Rendering
         public Dictionary<DrawableGeometry, bool> SelectionGeometryDrawFlags = new Dictionary<DrawableGeometry, bool>();
         public bool SelectionFlagsTestAll = false; //to test all renderables for draw flags; for model form
 
-
-
-
         public List<RenderedDrawable> RenderedDrawables = new List<RenderedDrawable>(); //queued here for later hit tests...
         public List<RenderedBoundComposite> RenderedBoundComps = new List<RenderedBoundComposite>();
         public bool RenderedDrawablesListEnable = false; //whether or not to add rendered drawables to the list
         public bool RenderedBoundCompsListEnable = false; //whether or not to add rendered bound comps to the list
 
-
         private List<YtdFile> tryGetRenderableSDtxds = new List<YtdFile>();
         private List<YtdFile> tryGetRenderableHDtxds = new List<YtdFile>();
-
-
-
-
-
 
         public Renderer(DXForm form, GameFileCache cache)
         {
@@ -182,7 +161,6 @@ namespace CodeWalker.Rendering
             var s = Settings.Default;
             camera = new Camera(s.CameraSmoothing, s.CameraSensitivity, s.CameraFieldOfView);
         }
-
 
         public bool Init()
         {
@@ -254,26 +232,20 @@ namespace CodeWalker.Rendering
             currentRealTime += elapsed;
             currentElapsedTime = elapsed;
 
-
-
             UpdateTimeOfDay(elapsed);
-
 
             weather.Update(elapsed);
 
             clouds.Update(elapsed);
 
-
             UpdateWindVector(elapsed);
 
             UpdateGlobalLights();
-
 
             camera.SetMousePosition(mouseX, mouseY);
 
             camera.Update(elapsed);
         }
-
 
         public void BeginRender(DeviceContext ctx)
         {
@@ -284,9 +256,6 @@ namespace CodeWalker.Rendering
             shaders.BeginFrame(context, currentRealTime, currentElapsedTime);
 
             shaders.EnsureShaderTextures(gameFileCache, renderableCache);
-
-
-
 
             SelectionLineVerts.Clear();
             SelectionTriVerts.Clear();
@@ -340,8 +309,6 @@ namespace CodeWalker.Rendering
             return rcItemsPending;
         }
 
-
-
         public void SetTimeOfDay(float hour)
         {
             timeofday = hour;
@@ -381,7 +348,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
         public string GetStatusText()
         {
             int rgc = (shaders != null) ? shaders.RenderedGeometries : 0;
@@ -395,25 +361,25 @@ namespace CodeWalker.Rendering
             return string.Format("Drawn: {0} geom, Loaded: {1} dr, {2} tx, Vram: {3}, Fps: {4}", rgc, crc, ctc, vram, fps);
         }
 
-
-
         public void Invalidate(Bounds bounds)
         {
             renderableCache.Invalidate(bounds);
         }
+
         public void Invalidate(BasePathData path)
         {
             renderableCache.Invalidate(path);
         }
+
         public void Invalidate(YmapGrassInstanceBatch batch)
         {
             renderableCache.Invalidate(batch);
         }
+
         public void Invalidate(YmapLODLight lodlight)
         {
             renderableCache.Invalidate(lodlight);
         }
-
 
         public void UpdateSelectionDrawFlags(DrawableModel model, DrawableGeometry geom, bool rem)
         {
@@ -449,8 +415,6 @@ namespace CodeWalker.Rendering
                 }
             }
         }
-
-
 
         private void UpdateTimeOfDay(float elapsed)
         {

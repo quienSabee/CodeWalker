@@ -10,20 +10,14 @@ namespace CodeWalker.World
 {
     public class Space
     {
-
         public LinkedList<Entity> TemporaryEntities = new LinkedList<Entity>();
         public LinkedList<Entity> PersistentEntities = new LinkedList<Entity>();
         public List<Entity> EnabledEntities = new List<Entity>(); //built each frame
 
         private GameFileCache GameFileCache = null;
 
-
-
-
         public SpaceMapDataStore MapDataStore;
         public SpaceBoundsStore BoundsStore;
-
-
 
         private Dictionary<MetaHash, MetaHash> interiorLookup = new Dictionary<MetaHash, MetaHash>();
         private Dictionary<MetaHash, YmfInterior> interiorManifest = new Dictionary<MetaHash, YmfInterior>();
@@ -38,7 +32,6 @@ namespace CodeWalker.World
 
         public bool Inited = false;
 
-
         public SpaceNodeGrid NodeGrid;
         private Dictionary<uint, YndFile> AllYnds = new Dictionary<uint, YndFile>();
 
@@ -50,46 +43,31 @@ namespace CodeWalker.World
         private int CurrentHour;
         private MetaHash CurrentWeather;
 
-
         public void Init(GameFileCache gameFileCache, Action<string> updateStatus)
         {
             GameFileCache = gameFileCache;
 
-
             updateStatus("Scanning manifests...");
-
             InitManifestData();
 
-
             updateStatus("Scanning caches...");
-
             InitCacheData();
 
-
             updateStatus("Building map data store...");
-
             InitMapDataStore();
 
-
             updateStatus("Building bounds store...");
-
             InitBoundsStore();
 
-
             updateStatus("Loading paths...");
-
             InitNodeGrid();
 
-
             updateStatus("Loading nav meshes...");
-
             InitNavGrid();
-
 
             Inited = true;
             updateStatus("World initialised.");
         }
-
 
         private void InitManifestData()
         {
@@ -172,7 +150,6 @@ namespace CodeWalker.World
             //    }
             //}
             //string str = sb.ToString();
-
         }
 
         private void InitCacheData()
@@ -223,10 +200,7 @@ namespace CodeWalker.World
                     {
                         filedates2[filedate.FileID] = filedate;
                     }
-
                 }
-
-
 
                 foreach (var node in cache.AllMapNodes)
                 {
@@ -268,9 +242,6 @@ namespace CodeWalker.World
                     usedboundsdict[item.Name] = item;
                 }
             }
-
-
-
 
             //try and generate the cache data for uncached ymaps... mainly for mod maps!
             var maprpfs = GameFileCache.ActiveMapRpfFiles;
@@ -322,31 +293,22 @@ namespace CodeWalker.World
                     }
                 }
             }
-
-
         }
 
         private void InitMapDataStore()
         {
-
             MapDataStore = new SpaceMapDataStore();
-
             MapDataStore.Init(nodedict.Values.ToList());
-
         }
 
         private void InitBoundsStore()
         {
-
             BoundsStore = new SpaceBoundsStore();
-
             BoundsStore.Init(boundsdict.Values.ToList());
-
         }
 
         private void InitNodeGrid()
         {
-
             NodeGrid = new SpaceNodeGrid();
             AllYnds.Clear();
 
@@ -375,7 +337,6 @@ namespace CodeWalker.World
                     }
                 }
             }
-
 
             Vector3 corner = new Vector3(-8192, -8192, -2048);
             Vector3 cellsize = new Vector3(512, 512, 4096);
@@ -493,7 +454,6 @@ namespace CodeWalker.World
             }
 
             //string str = sb.ToString();
-
         }
 
         private void AddRpfYnds(RpfFile rpffile, Dictionary<uint, RpfFileEntry> yndentries)
@@ -580,7 +540,6 @@ namespace CodeWalker.World
                 var node = ynodes[i];
                 if (node.Links == null) continue;
 
-
                 var nvert = new EditorVertex();
                 nvert.Position = node.Position;
                 nvert.Colour = (uint)node.Colour.ToRgba();
@@ -641,15 +600,10 @@ namespace CodeWalker.World
         }
         public void BuildYndData(YndFile ynd, List<EditorVertex> tverts = null, List<YndLink> tlinks = null, List<YndLink> nlinks = null)
         {
-
             BuildYndLinks(ynd, tlinks, nlinks);
-
             BuildYndJuncs(ynd);
-
             BuildYndVerts(ynd, tverts);
-
         }
-
 
         private void InitNavGrid()
         {
@@ -680,7 +634,6 @@ namespace CodeWalker.World
                 }
             }
 
-
             for (int x = 0; x < NavGrid.CellCountX; x++)
             {
                 for (int y = 0; y < NavGrid.CellCountY; y++)
@@ -696,7 +649,6 @@ namespace CodeWalker.World
                     }
                 }
             }
-
         }
 
         private void AddRpfYnvs(RpfFile rpffile, Dictionary<uint, RpfFileEntry> ynventries)
@@ -716,9 +668,7 @@ namespace CodeWalker.World
                 }
             }
         }
-
-
-
+        
         public void Update(float elapsed)
         {
             if (!Inited) return;
@@ -726,9 +676,7 @@ namespace CodeWalker.World
 
             if (elapsed > 0.1f) elapsed = 0.1f;
 
-
             Collisions.Clear();
-
 
             EnabledEntities.Clear();
             foreach (var e in PersistentEntities)
@@ -739,8 +687,6 @@ namespace CodeWalker.World
             {
                 if (e.Enabled) EnabledEntities.Add(e);
             }
-
-
 
             float gravamt = -9.8f;
             Vector3 dvgrav = new Vector3(0, 0, gravamt * elapsed); //gravity acceleration vector
@@ -811,14 +757,12 @@ namespace CodeWalker.World
                                     break;
                                 }
 
-
                                 //if ((coll.PreT <= 0))// || (coll.SphereHit.Normal == hitn))
                                 //{
                                 //    //ae.Velocity = Vector3.Zero; //same collision twice? abort?
                                 //    break;
                                 //}
                             }
-
                             e.Momentum = e.Velocity * e.Mass;
                         }
                         e.WasColliding = true;
@@ -835,17 +779,12 @@ namespace CodeWalker.World
                     e.EntityDef.Position = e.Position;
                 }
 
-
                 if ((e.Lifetime > 0.0f) && (e.Age > e.Lifetime))
                 {
                     TemporaryEntities.Remove(e);
                 }
-
             }
-
-
         }
-
 
         public SpaceEntityCollision FindFirstCollision(Entity e, float elapsed)
         {
@@ -954,8 +893,6 @@ namespace CodeWalker.World
             PersistentEntities.Remove(e);
         }
 
-
-
         private bool IsYmapAvailable(uint ymaphash, int hour, MetaHash weather)
         {
             MetaHash ymapname = new MetaHash(ymaphash);
@@ -1009,7 +946,6 @@ namespace CodeWalker.World
             }
         }
 
-
         public void GetVisibleBounds(Camera cam, int gridrange, bool[] layers, List<BoundsStoreItem> boundslist)
         {
             if (!Inited) return;
@@ -1022,7 +958,6 @@ namespace CodeWalker.World
             var items = BoundsStore.GetItems(ref min, ref max, layers);
             boundslist.AddRange(items);
         }
-
 
         public void GetVisibleYnds(Camera cam, List<YndFile> ynds)
         {
@@ -1038,15 +973,12 @@ namespace CodeWalker.World
 
         }
 
-
         public void GetVisibleYnvs(Camera cam, int gridrange, List<YnvFile> ynvs)
         {
             if (!Inited) return;
             if (NavGrid == null) return;
 
-
             ynvs.Clear();
-
 
             var pos = NavGrid.GetCellPos(cam.Position);
             int minx = Math.Min(Math.Max(pos.X - gridrange, 0), NavGrid.CellCountX-1);
@@ -1069,10 +1001,7 @@ namespace CodeWalker.World
                     }
                 }
             }
-
-
         }
-
 
         public SpaceRayIntersectResult RayIntersect(Ray ray, float maxdist = float.MaxValue, bool[] layers = null)
         {
@@ -1171,9 +1100,6 @@ namespace CodeWalker.World
                 }
             }
 
-
-
-
             if (res.Hit)
             {
                 res.Position = ray.Position + ray.Direction * res.HitDist;
@@ -1183,6 +1109,7 @@ namespace CodeWalker.World
 
             return res;
         }
+
         public SpaceRayIntersectResult RayIntersectEntity(ref Ray ray, YmapEntityDef ent, float maxdist = float.MaxValue)
         {
             var res = new SpaceRayIntersectResult();
@@ -1239,6 +1166,7 @@ namespace CodeWalker.World
 
             return res;
         }
+
         public SpaceRayIntersectResult RayIntersectInterior(ref Ray ray, YmapEntityDef mlo, float maxdist = float.MaxValue)
         {
             var res = new SpaceRayIntersectResult();
@@ -1326,7 +1254,6 @@ namespace CodeWalker.World
                     }
                 }
             }
-
             return res;
         }
 
@@ -1414,7 +1341,6 @@ namespace CodeWalker.World
                 }
             }
 
-
             //if (hit)
             //{
             //    hitpos = ray.Position + ray.Direction * itemhitdist;
@@ -1424,6 +1350,7 @@ namespace CodeWalker.World
 
             return res;
         }
+
         public SpaceSphereIntersectResult SphereIntersectEntity(ref BoundingSphere sph, YmapEntityDef ent)
         {
             var res = new SpaceSphereIntersectResult();
@@ -1471,9 +1398,9 @@ namespace CodeWalker.World
                     }
                 }
             }
-
             return res;
         }
+
         public SpaceSphereIntersectResult SphereIntersectInterior(ref BoundingSphere sph, YmapEntityDef mlo)
         {
             var res = new SpaceSphereIntersectResult();
@@ -1550,7 +1477,6 @@ namespace CodeWalker.World
                     }
                 }
             }
-
             return res;
         }
 
@@ -1564,10 +1490,7 @@ namespace CodeWalker.World
 
             return true;
         }
-
     }
-
-
 
     public struct SpaceBoundsKey
     {
@@ -1579,7 +1502,6 @@ namespace CodeWalker.World
             Position = position;
         }
     }
-
 
     public class SpaceMapDataStore
     {
@@ -1610,6 +1532,7 @@ namespace CodeWalker.World
 
             return VisibleItems;
         }
+
         public List<MapDataStoreNode> GetItems(ref Vector3 min, ref Vector3 max) //get items intersecting a box, using the entities extents
         {
             VisibleItems.Clear();
@@ -1621,6 +1544,7 @@ namespace CodeWalker.World
 
             return VisibleItems;
         }
+
         public List<MapDataStoreNode> GetItems(ref Ray ray) //get items intersecting a ray, using the entities extents
         {
             VisibleItems.Clear();
@@ -1633,6 +1557,7 @@ namespace CodeWalker.World
             return VisibleItems;
         }
     }
+
     public class SpaceMapDataStoreNode
     {
         public SpaceMapDataStore Owner = null;
@@ -1736,6 +1661,7 @@ namespace CodeWalker.World
                 }
             }
         }
+
         public void GetItems(ref Vector3 min, ref Vector3 max, List<MapDataStoreNode> items) //get items intersecting a box, using the entities extents
         {
             if ((max.X >= BBMin.X) && (min.X <= BBMax.X) && (max.Y >= BBMin.Y) && (min.Y <= BBMax.Y))
@@ -1766,6 +1692,7 @@ namespace CodeWalker.World
                 }
             }
         }
+
         public void GetItems(ref Ray ray, List<MapDataStoreNode> items) //get items intersecting a ray, using the entities extents
         {
             var bb = new BoundingBox(BBMin, BBMax);
@@ -1798,7 +1725,6 @@ namespace CodeWalker.World
             }
         }
     }
-
 
     public class SpaceBoundsStore
     {
@@ -1841,6 +1767,7 @@ namespace CodeWalker.World
             return VisibleItems;
         }
     }
+
     public class SpaceBoundsStoreNode
     {
         public SpaceBoundsStore Owner = null;
@@ -1946,6 +1873,7 @@ namespace CodeWalker.World
                 }
             }
         }
+
         public void GetItems(ref Ray ray, List<BoundsStoreItem> items, bool[] layers = null)
         {
             var box = new BoundingBox(BBMin, BBMax);
@@ -1981,7 +1909,6 @@ namespace CodeWalker.World
             }
         }
     }
-
 
     public class SpaceNodeGrid
     {
@@ -2020,7 +1947,6 @@ namespace CodeWalker.World
             return null;
         }
 
-
         public YndNode GetYndNode(ushort areaid, ushort nodeid)
         {
             var cell = GetCell(areaid);
@@ -2032,6 +1958,7 @@ namespace CodeWalker.World
         }
 
     }
+
     public class SpaceNodeGridCell
     {
         public int X;
@@ -2046,9 +1973,7 @@ namespace CodeWalker.World
             Y = y;
             ID = y * 32 + x;
         }
-
     }
-
 
     public class SpaceNavGrid
     {
@@ -2101,6 +2026,7 @@ namespace CodeWalker.World
             y = (y < 0) ? 0 : (y >= CellCountY) ? CellCountY-1 : y;
             return new Vector2I(x, y);
         }
+
         public SpaceNavGridCell GetCell(Vector2I g)
         {
             var cell = Cells[g.X, g.Y];
@@ -2111,22 +2037,22 @@ namespace CodeWalker.World
             }
             return cell;
         }
+
         public SpaceNavGridCell GetCell(Vector3 p)
         {
             return GetCell(GetCellPos(p));
         }
-
 
         public Vector3 GetCellMin(SpaceNavGridCell cell)
         {
             Vector3 c = new Vector3(cell.X, cell.Y, 0);
             return new Vector3(CornerX, CornerY, 0) + (c * CellSize);
         }
+
         public Vector3 GetCellMax(SpaceNavGridCell cell)
         {
             return GetCellMin(cell) + new Vector3(CellSize, CellSize, 0.0f);
         }
-
     }
     public class SpaceNavGridCell
     {
@@ -2147,10 +2073,7 @@ namespace CodeWalker.World
             FileX = x * 3;
             FileY = y * 3;
         }
-
     }
-
-
 
     public struct SpaceRayIntersectResult
     {
@@ -2187,6 +2110,7 @@ namespace CodeWalker.World
             TestedPolyCount += r.TestedPolyCount;
         }
     }
+
     public struct SpaceSphereIntersectResult
     {
         public bool Hit;

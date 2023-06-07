@@ -133,7 +133,6 @@ namespace CodeWalker.Rendering
 
             Monitor.Enter(updateSyncRoot);
 
-
             //load the queued items if possible
             int renderablecount = renderables.LoadProc(currentDevice, MaxItemsPerLoop);
             int texturecount = textures.LoadProc(currentDevice, MaxItemsPerLoop);
@@ -143,7 +142,6 @@ namespace CodeWalker.Rendering
             int distlodlightcount = distlodlights.LoadProc(currentDevice, MaxItemsPerLoop);
             int pathbatchcount = pathbatches.LoadProc(currentDevice, MaxItemsPerLoop);
             int waterquadcount = waterquads.LoadProc(currentDevice, MaxItemsPerLoop);
-
 
             bool itemsStillPending = 
                 (renderablecount >= MaxItemsPerLoop) ||
@@ -155,14 +153,12 @@ namespace CodeWalker.Rendering
                 (pathbatchcount >= MaxItemsPerLoop) ||
                 (waterquadcount >= MaxItemsPerLoop);
 
-
             //todo: change this to unload only when necessary (ie when something is loaded)
             var now = DateTime.UtcNow;
             var deltat = (now - LastUpdate).TotalSeconds;
             var unloadt = (now - LastUnload).TotalSeconds;
             if ((unloadt > UnloadTime) && (deltat < 0.25)) //don't try the unload on every loop... or when really busy
             {
-
                 //unload items that haven't been used in longer than the cache period.
                 renderables.UnloadProc();
                 textures.UnloadProc();
@@ -175,7 +171,6 @@ namespace CodeWalker.Rendering
 
                 LastUnload = DateTime.UtcNow;
             }
-
 
             LastUpdate = DateTime.UtcNow;
 
@@ -200,61 +195,68 @@ namespace CodeWalker.Rendering
         {
             return renderables.Get(drawable);
         }
+
         public RenderableTexture GetRenderableTexture(Texture texture)
         {
             return textures.Get(texture);
         }
+
         public RenderableBoundComposite GetRenderableBoundComp(Bounds bound)
         {
             return boundcomps.Get(bound);
         }
+
         public RenderableInstanceBatch GetRenderableInstanceBatch(YmapGrassInstanceBatch batch)
         {
             return instbatches.Get(batch);
         }
+
         public RenderableDistantLODLights GetRenderableDistantLODLights(YmapDistantLODLights lights)
         {
             return distlodlights.Get(lights);
         }
+
         public RenderableLODLights GetRenderableLODLights(YmapFile ymap)
         {
             return lodlights.Get(ymap);
         }
+
         public RenderablePathBatch GetRenderablePathBatch(BasePathData pathdata)
         {
             return pathbatches.Get(pathdata);
         }
+
         public RenderableWaterQuad GetRenderableWaterQuad(WaterQuad quad)
         {
             return waterquads.Get(quad);
         }
 
-
-
         public void Invalidate(Bounds bounds)
         {
             boundcomps.Invalidate(bounds);
         }
+
         public void Invalidate(BasePathData path)
         {
             pathbatches.Invalidate(path);
         }
+
         public void Invalidate(YmapGrassInstanceBatch batch)
         {
             instbatches.Invalidate(batch);
         }
+
         public void Invalidate(YmapLODLight lodlight)
         {
             lodlights.Invalidate(lodlight.LodLights?.Ymap);
             distlodlights.Invalidate(lodlight.DistLodLights);
         }
+
         public void InvalidateImmediate(YmapLODLights lodlightsonly)
         {
             lodlights.UpdateImmediate(lodlightsonly?.Ymap, currentDevice);
         }
-
     }
-
 
     public abstract class RenderableCacheItem<TKey>
     {
@@ -297,6 +299,7 @@ namespace CodeWalker.Rendering
                 return itemsToLoad.Count;
             }
         }
+
         public int CurrentLoadedCount
         {
             get
@@ -304,6 +307,7 @@ namespace CodeWalker.Rendering
                 return loadeditems.Count;
             }
         }
+
         public int CurrentCacheCount
         {
             get
@@ -325,7 +329,6 @@ namespace CodeWalker.Rendering
             keysToInvalidate = new ConcurrentQueue<TKey>();
             CacheUse = 0;
         }
-
 
         public int LoadProc(Device device, int maxitemsperloop)
         {
@@ -407,7 +410,6 @@ namespace CodeWalker.Rendering
                 item.LoadQueued = false;
                 Interlocked.Add(ref CacheUse, -item.DataSize);
             }
-
         }
 
         public TVal Get(TKey key)
@@ -429,7 +431,6 @@ namespace CodeWalker.Rendering
             return item;
         }
 
-
         public void Invalidate(TKey key)
         {
             if (key == null) return;
@@ -437,6 +438,7 @@ namespace CodeWalker.Rendering
             keysToInvalidate.Enqueue(key);
 
         }
+
         public void UpdateImmediate(TKey key, Device device)
         {
             TVal item;

@@ -15,12 +15,12 @@ using CodeWalker.World;
 
 namespace CodeWalker.Rendering
 {
-
     public struct BasicShaderVSSceneVars
     {
         public Matrix ViewProj;
         public Vector4 WindVector;
     }
+
     public struct BasicShaderVSEntityVars
     {
         public Vector4 CamRel;
@@ -32,10 +32,12 @@ namespace CodeWalker.Rendering
         public Vector3 Scale;
         public uint IsInstanced;
     }
+
     public struct BasicShaderVSModelVars
     {
         public Matrix Transform;
     }
+
     public struct BasicShaderVSGeomVars
     {
         public uint EnableTint;
@@ -46,6 +48,7 @@ namespace CodeWalker.Rendering
         public Vector4 globalAnimUV0;
         public Vector4 globalAnimUV1;
     }
+
     public struct BasicShaderPSSceneVars
     {
         public ShaderGlobalLightParams GlobalLights;
@@ -54,6 +57,7 @@ namespace CodeWalker.Rendering
         public uint RenderModeIndex; //colour/texcoord index
         public uint RenderSamplerCoord; //which texcoord to use in single texture mode
     }
+
     public struct BasicShaderPSGeomVars
     {
         public uint EnableTexture;//1+=diffuse1, 2+=diffuse2
@@ -77,12 +81,14 @@ namespace CodeWalker.Rendering
         public uint SpecOnly;
         public Vector4 TextureAlphaMask;
     }
+
     public struct BasicShaderInstGlobalMatrix
     {
         public Vector4 Row1;
         public Vector4 Row2;
         public Vector4 Row3;
     }
+
     public struct BasicShaderInstGlobals
     {
         public BasicShaderInstGlobalMatrix M0;
@@ -94,6 +100,7 @@ namespace CodeWalker.Rendering
         public BasicShaderInstGlobalMatrix M6;
         public BasicShaderInstGlobalMatrix M7;
     }
+
     public struct BasicShaderInstLocals
     {
         public Vector3 vecBatchAabbMin;
@@ -253,7 +260,6 @@ namespace CodeWalker.Rendering
 
             InitInstGlobalVars();
 
-
             //supported layouts - requires Position, Normal, Colour, Texcoord
             layouts.Add(VertexType.Default, new InputLayout(device, vspnctbytes, VertexTypeGTAV.GetLayout(VertexType.Default)));
             layouts.Add(VertexType.PNCH2, new InputLayout(device, vspnctbytes, VertexTypeGTAV.GetLayout(VertexType.PNCH2, VertexDeclarationTypes.GTAV3)));//TODO?
@@ -262,8 +268,6 @@ namespace CodeWalker.Rendering
             layouts.Add(VertexType.PNCCT, new InputLayout(device, vspncctbytes, VertexTypeGTAV.GetLayout(VertexType.PNCCT)));
             layouts.Add(VertexType.PNCCTT, new InputLayout(device, vspnccttbytes, VertexTypeGTAV.GetLayout(VertexType.PNCCTT)));
             layouts.Add(VertexType.PNCCTTTT, new InputLayout(device, vspncctttbytes, VertexTypeGTAV.GetLayout(VertexType.PNCCTTTT)));//TODO..?
-
-
 
             //normalmap layouts - requires Position, Normal, Colour, Texcoord, Tangent (X)
             layouts.Add(VertexType.DefaultEx, new InputLayout(device, vspnctxbytes, VertexTypeGTAV.GetLayout(VertexType.DefaultEx)));
@@ -277,8 +281,6 @@ namespace CodeWalker.Rendering
             layouts.Add(VertexType.PNCTTTX_3, new InputLayout(device, vspnctttxbytes, VertexTypeGTAV.GetLayout(VertexType.PNCTTTX_3)));
             layouts.Add(VertexType.PNCTTTTX, new InputLayout(device, vspnctttxbytes, VertexTypeGTAV.GetLayout(VertexType.PNCTTTTX)));//TODO
             layouts.Add(VertexType.PNCCTTTX, new InputLayout(device, vspncctttxbytes, VertexTypeGTAV.GetLayout(VertexType.PNCCTTTX)));
-
-
 
             //skinned layouts
             layouts.Add(VertexType.PBBNCT, new InputLayout(device, vspbbnctbytes, VertexTypeGTAV.GetLayout(VertexType.PBBNCT)));
@@ -294,9 +296,6 @@ namespace CodeWalker.Rendering
             //PBBCCT todo
             //PBBNC todo
 
-
-
-
             texsampler = new SamplerState(device, new SamplerStateDescription()
             {
                 AddressU = TextureAddressMode.Wrap,
@@ -310,6 +309,7 @@ namespace CodeWalker.Rendering
                 MinimumLod = 0,
                 MipLodBias = 0,
             });
+
             texsampleranis = new SamplerState(device, new SamplerStateDescription()
             {
                 AddressU = TextureAddressMode.Wrap,
@@ -323,6 +323,7 @@ namespace CodeWalker.Rendering
                 MinimumLod = 0,
                 MipLodBias = 0,
             });
+
             texsamplertnt = new SamplerState(device, new SamplerStateDescription()
             {
                 AddressU = TextureAddressMode.Clamp,
@@ -336,6 +337,7 @@ namespace CodeWalker.Rendering
                 MinimumLod = 0,
                 MipLodBias = 0,
             });
+
             texsamplertntyft = new SamplerState(device, new SamplerStateDescription()
             {
                 AddressU = TextureAddressMode.Wrap,
@@ -349,7 +351,6 @@ namespace CodeWalker.Rendering
                 MinimumLod = 0,
                 MipLodBias = 0,
             });
-
 
             cube = new UnitCube(device, vsboxbytes, false, false, true);
             sphere = new UnitSphere(device, vsspherebytes, 4);
@@ -402,7 +403,6 @@ namespace CodeWalker.Rendering
             InstGlobalVars.Vars.M7.Row3 = new Vector4(m7.Row3, 1);
 
         }
-
 
         private void SetVertexShader(DeviceContext context, VertexType type)
         {
@@ -492,7 +492,6 @@ namespace CodeWalker.Rendering
             context.VertexShader.Set(vs);
         }
 
-
         public override void SetShader(DeviceContext context)
         {
             context.PixelShader.Set(Deferred ? basicpsdef : basicps);
@@ -538,7 +537,6 @@ namespace CodeWalker.Rendering
                     break;
             }
 
-
             VSSceneVars.Vars.ViewProj = Matrix.Transpose(camera.ViewProjMatrix);
             VSSceneVars.Vars.WindVector = WindVector;
             VSSceneVars.Update(context);
@@ -562,7 +560,6 @@ namespace CodeWalker.Rendering
                 InstGlobalVars.Update(context);
                 InstGlobalVars.Flag = true;
             }
-
         }
 
         public override void SetEntityVars(DeviceContext context, ref RenderableInst rend)
@@ -764,7 +761,6 @@ namespace CodeWalker.Rendering
                 }
             }
 
-
             PSGeomVars.Vars.EnableTexture = (usediff ? 1u : 0u) + (usediff2 ? 2u : 0u);
             PSGeomVars.Vars.EnableTint = pstintflag;
             PSGeomVars.Vars.EnableNormalMap = usebump ? 1u : 0u;
@@ -888,15 +884,12 @@ namespace CodeWalker.Rendering
             InstLocalVars.Update(context);
             InstLocalVars.SetVSCBuffer(context, 6);
 
-
             context.VertexShader.SetShaderResource(2, batch.GrassInstanceBuffer.SRV);
         }
 
 
         public void RenderBoundGeom(DeviceContext context, RenderableBoundGeometryInst inst)
         {
-
-
             VSEntityVars.Vars.CamRel = new Vector4(inst.Inst.CamRel, 0.0f);
             VSEntityVars.Vars.Orientation = inst.Inst.Orientation;
             VSEntityVars.Vars.Scale = inst.Inst.Scale;
@@ -940,7 +933,6 @@ namespace CodeWalker.Rendering
             VSGeomVars.Update(context);
             VSGeomVars.SetVSCBuffer(context, 4);
 
-
             if (inst.Geom.VertexBuffer != null) //render the triangles
             {
                 SetVertexShader(context, VertexType.Default);
@@ -979,10 +971,7 @@ namespace CodeWalker.Rendering
                 context.VertexShader.SetShaderResource(1, inst.Geom.CylinderBuffer.SRV);
                 cylinder.DrawInstanced(context, inst.Geom.CylinderBuffer.StructCount);
             }
-
-
         }
-
 
         public override void UnbindResources(DeviceContext context)
         {
@@ -1011,7 +1000,6 @@ namespace CodeWalker.Rendering
             context.VertexShader.Set(null);
             context.PixelShader.Set(null);
         }
-
 
         public void Dispose()
         {

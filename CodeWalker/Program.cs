@@ -1,4 +1,5 @@
 ﻿using CodeWalker.Properties;
+using CodeWalker.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,8 @@ namespace CodeWalker
         [STAThread]
         static void Main(string[] args)
         {
+            //CubemapRenderer.RenderCubemap();
+            CubemapRenderer.Foo2();
 
             bool menumode = false;
             bool explorermode = false;

@@ -108,19 +108,12 @@ namespace CodeWalker.Rendering
                 device = dev;
                 swapchain = sc;
 
-
                 var factory = swapchain.GetParent<Factory>(); //ignore windows events...
                 factory.MakeWindowAssociation(form.Form.Handle, WindowAssociationFlags.IgnoreAll);
 
-
-
                 context = device.ImmediateContext;
 
-
-
                 CreateRenderBuffers();
-
-
 
                 dxform.Form.Load += Dxform_Load;
                 dxform.Form.FormClosing += Dxform_FormClosing;
@@ -141,7 +134,6 @@ namespace CodeWalker.Rendering
                 return false;
             }
         }
-
 
         private void Cleanup()
         {
@@ -171,6 +163,7 @@ namespace CodeWalker.Rendering
 
             GC.Collect();
         }
+
         private void CreateRenderBuffers()
         {
             if (targetview != null) targetview.Dispose();
@@ -205,6 +198,7 @@ namespace CodeWalker.Rendering
             Viewport.X = 0;
             Viewport.Y = 0;
         }
+
         private void Resize()
         {
             if (Resizing) return;
@@ -232,6 +226,7 @@ namespace CodeWalker.Rendering
                 StartRenderLoop();
             }
         }
+
         private void Dxform_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!e.Cancel)
@@ -246,15 +241,18 @@ namespace CodeWalker.Rendering
                 Cleanup();
             }
         }
+
         private void Dxform_ClientSizeChanged(object sender, EventArgs e)
         {
             Resize();
         }
+
         private void DxForm_ResizeBegin(object sender, EventArgs e)
         {
             beginSize = dxform.Form.ClientSize;
             Resizing = true;
         }
+
         private void DxForm_ResizeEnd(object sender, EventArgs e)
         {
             Resizing = false;
@@ -264,17 +262,18 @@ namespace CodeWalker.Rendering
             }
         }
 
-
         public void Start()
         {
             dxform.InitScene(device);
             StartRenderLoop();
         }
+
         private void StartRenderLoop()
         {
             Running = true;
             new Thread(new ThreadStart(RenderLoop)).Start();
         }
+
         private void RenderLoop()
         {
             while (Running)
@@ -340,26 +339,22 @@ namespace CodeWalker.Rendering
             }
         }
 
-
         public void ClearRenderTarget(DeviceContext ctx)
         {
             ctx.ClearRenderTargetView(targetview, clearcolour);
             ctx.ClearDepthStencilView(depthview, DepthStencilClearFlags.Depth, 0.0f, 0);
         }
+
         public void ClearDepth(DeviceContext ctx)
         {
             ctx.ClearDepthStencilView(depthview, DepthStencilClearFlags.Depth, 0.0f, 0);
         }
+
         public void SetDefaultRenderTarget(DeviceContext ctx)
         {
             ctx.OutputMerger.SetRenderTargets(depthview, targetview);
             ctx.Rasterizer.SetViewport(Viewport);
             //ctx.Rasterizer.State = RasterizerStateSolid;
         }
-
-
-
-
-
     }
 }
