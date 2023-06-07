@@ -18,7 +18,6 @@ cbuffer VSModelVars : register(b3)
     float4x4 Transform;
 }
 
-
 struct VS_INPUT
 {
     float4 Position  : POSITION;
@@ -43,12 +42,9 @@ struct VS_OUTPUT
     float4 o9 : TEXCOORD9; //                 9   xyzw        9     NONE   float   xyzw
 };
 
-
-
 VS_OUTPUT main(VS_INPUT input)
 {
     VS_OUTPUT output;
-
 
     float3 spos = input.Position.xyz * Scale.xyz*0.05;
     float3 bpos = mulvq(spos, Orientation);
@@ -65,7 +61,6 @@ VS_OUTPUT main(VS_INPUT input)
     float2 o5xy = (gUVOffset[0].zw * cloudLayerAnimScale2) + (tc * gRescaleUV2) + gUVOffset2;
     float2 o5zw = (gUVOffset[1].xy * cloudLayerAnimScale3) + (tc * gRescaleUV3) + gUVOffset3;
 
-
     output.Position = cpos;
     output.o0 = 0;
     output.o1 = float4(bnorm, vc.w);
@@ -80,14 +75,6 @@ VS_OUTPUT main(VS_INPUT input)
 
 	return output;
 }
-
-
-
-
-
-
-
-
 
 /*
 //clouds_animsoft.fxc_VSCloudsVertScatterPiercing
@@ -392,7 +379,5 @@ mov o11.yzw, l(0,0,0,0)
 
 ret 
 // Approximately 135 instruction slots used
-
-
 
 */

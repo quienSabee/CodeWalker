@@ -63,7 +63,6 @@ namespace CodeWalker
             return 0;
         }
 
-
         public static Vector4 Floor(this Vector4 v)
         {
             return new Vector4((float)Math.Floor(v.X), (float)Math.Floor(v.Y), (float)Math.Floor(v.Z), (float)Math.Floor(v.W));
@@ -83,7 +82,6 @@ namespace CodeWalker
             return new Quaternion(v);
         }
     }
-
 
     public struct Vector2I
     {
@@ -106,7 +104,6 @@ namespace CodeWalker
             return X.ToString() + ", " + Y.ToString();
         }
 
-
         public static Vector2I operator +(Vector2I a, Vector2I b)
         {
             return new Vector2I(a.X + b.X, a.Y + b.Y);
@@ -118,8 +115,6 @@ namespace CodeWalker
         }
 
     }
-
-
 
     public static class BoundingBoxMath
     {
@@ -140,8 +135,6 @@ namespace CodeWalker
         }
 
     }
-
-
 
     public struct BoundingCapsule
     {
@@ -205,7 +198,6 @@ namespace CodeWalker
             return Vector3.Normalize((pa - h * ba) / c.Radius);
         }
 
-
         public static bool Intersects(this BoundingSphere sph, ref BoundingCapsule capsule, out Vector3 norm)
         {
             var dist = LineMath.PointSegmentDistance(ref sph.Center, ref capsule.PointA, ref capsule.PointB);
@@ -223,8 +215,6 @@ namespace CodeWalker
         }
 
     }
-
-
 
     public struct BoundingCylinder
     {
@@ -284,11 +274,8 @@ namespace CodeWalker
 
     }
 
-
-
     public static class LineMath
     {
-
 
         public static float PointSegmentDistance(ref Vector3 v, ref Vector3 a, ref Vector3 b)
         {
@@ -335,7 +322,6 @@ namespace CodeWalker
         }
 
     }
-
 
     public static class TriangleMath
     {
@@ -388,7 +374,5 @@ namespace CodeWalker
         }
 
     }
-
-
 
 }

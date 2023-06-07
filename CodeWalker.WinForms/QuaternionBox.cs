@@ -19,7 +19,6 @@ namespace CodeWalker.WinForms
             InitializeComponent();
         }
 
-
         public Quaternion Value
         {
             get
@@ -51,7 +50,6 @@ namespace CodeWalker.WinForms
             ValueChanged(this, null);
         }
 
-
         private void UpdateFromValue()
         {
             suppressEvents = true;
@@ -59,7 +57,6 @@ namespace CodeWalker.WinForms
             UpdateEulerUpDowns();
             suppressEvents = false;
         }
-
 
         private void UpdateFromTextBox()
         {
@@ -100,12 +97,6 @@ namespace CodeWalker.WinForms
             UpdateFromValue();
             RaiseValueChanged();
         }
-
-
-
-
-
-
 
         private static Quaternion ParseQuaternionString(string s)
         {
@@ -180,8 +171,6 @@ namespace CodeWalker.WinForms
             var rads = deg * (float)(Math.PI / 180.0);
             return Quaternion.RotationYawPitchRoll(rads.Y, rads.X, rads.Z);
         }
-
-
 
         private void QuaternionTextBox_TextChanged(object sender, EventArgs e)
         {

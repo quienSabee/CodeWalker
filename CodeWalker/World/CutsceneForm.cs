@@ -48,8 +48,6 @@ namespace CodeWalker.World
             InitializeComponent();
         }
 
-
-
         public void UpdateAnimation(float elapsed)
         {
             if (Cutscene != null)
@@ -97,10 +95,6 @@ namespace CodeWalker.World
             Cutscene.Render(renderer);
 
         }
-
-
-
-
 
         private void SelectCutscene(CutsceneDropdownItem dditem)
         {
@@ -170,7 +164,6 @@ namespace CodeWalker.World
             Cursor = Cursors.Default;
         }
 
-
         private void LoadTreeView(Cutscene cs)
         {
             CutsceneTreeView.Nodes.Clear();
@@ -216,15 +209,11 @@ namespace CodeWalker.World
                     }
                 }
 
-
-
                 csnode.Expand();
                 CutsceneTreeView.SelectedNode = csnode;
             }
 
         }
-
-
 
         private void UpdateTimeTrackBar()
         {
@@ -238,8 +227,6 @@ namespace CodeWalker.World
             var dur = Cutscene?.Duration ?? 0.0f;
             TimeLabel.Text = tim.ToString("0.00") + " / " + dur.ToString("0.00");
         }
-
-
 
         private void PlayAudio(float playTime = 0.0f)
         {
@@ -288,7 +275,6 @@ namespace CodeWalker.World
             }
         }
 
-
         private void CutsceneForm_Load(object sender, EventArgs e)
         {
             if (!GameFileCache.IsInited) return;//what to do here?
@@ -312,7 +298,6 @@ namespace CodeWalker.World
 
             CutsceneComboBox.Items.Clear();
             CutsceneComboBox.Items.AddRange(dditems.ToArray());
-
 
         }
 
@@ -469,7 +454,6 @@ namespace CodeWalker.World
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class Cutscene
     {
         public CutFile CutFile { get; set; } = null;
@@ -480,13 +464,11 @@ namespace CodeWalker.World
         public float[] CameraCutList { get; set; } = null;
         public YcdFile[] Ycds { get; set; } = null;
 
-
         public float Duration { get; set; } = 0.0f;
         public float PlaybackTime { get; set; } = 0.0f;
         private bool Seeking = false;
 
         public bool EnableSubtitles { get; set; } = true;
-
 
         public Dictionary<int, CutObject> Objects { get; set; } = null;
         public Dictionary<int, CutsceneObject> SceneObjects { get; set; } = null;
@@ -504,7 +486,6 @@ namespace CodeWalker.World
         public Vector3 Position { get; set; }
         public Quaternion Rotation { get; set; }
 
-
         public CutsceneObject CameraObject = null;
         public float CameraNearClip { get; set; } = 0.5f;
         public float CameraFarClip { get; set; } = 12000.0f;
@@ -513,8 +494,6 @@ namespace CodeWalker.World
 
         public AudioPlayer SoundPlayer { get; set; } = null;
         public float SoundStartOffset { get; set; }
-
-
 
         public void Init(CutFile cutFile, GameFileCache gfc, WorldForm wf, AudioDatabase adb)
         {
@@ -527,7 +506,6 @@ namespace CodeWalker.World
             if (csf == null) return;
             if (gfc == null) return;
 
-
             Duration = csf.fTotalDuration;
             CameraCutList = csf.cameraCutList;
             Position = csf.vOffset;
@@ -536,7 +514,6 @@ namespace CodeWalker.World
             LoadEvents = RecastArray<CutEvent>(csf.pCutsceneLoadEventList);
             PlayEvents = RecastArray<CutEvent>(csf.pCutsceneEventList);
             ConcatDatas = csf.concatDataList;
-
 
             LoadYcds();
             CreateSceneObjects();
@@ -568,7 +545,6 @@ namespace CodeWalker.World
                 }
             }
         }
-
 
         public void Update(float newTime)
         {
@@ -608,7 +584,6 @@ namespace CodeWalker.World
 
             float cutOffset = newTime - cutStart;//offset into the current cut
 
-
             void updateObjectTransform(CutsceneObject obj, ClipMapEntry cme, ushort boneTag, byte posTrack, byte rotTrack)
             {
                 if (cme != null)
@@ -643,9 +618,6 @@ namespace CodeWalker.World
                 }
             }
 
-
-
-
             var ycd = (cutIndex < (Ycds?.Length ?? 0)) ? Ycds[cutIndex] : null;
             if (ycd?.CutsceneMap != null)
             {
@@ -656,7 +628,6 @@ namespace CodeWalker.World
                     ycd.CutsceneMap.TryGetValue(CameraObject.Name, out cme);
 
                     updateObjectTransform(CameraObject, cme, 0, 7, 8);
-
 
                     if (cme != null)
                     {
@@ -719,14 +690,9 @@ namespace CodeWalker.World
                     }
                 }
 
-
-
-
             }
 
-
         }
-
 
         public void Render(Renderer renderer)
         {
@@ -766,10 +732,6 @@ namespace CodeWalker.World
             }
 
         }
-
-
-
-
 
         private void RaiseEvents(float upToTime)
         {
@@ -814,7 +776,6 @@ namespace CodeWalker.World
                 Rotation = Quaternion.RotationAxis(Vector3.UnitZ, c.fRotation * 0.0174532925f); //is this right?
             }
             NextConcatData = i;
-
 
         }
         private void RaiseEvent(CutEvent e)
@@ -880,7 +841,6 @@ namespace CodeWalker.World
             var args = e.EventArgs as CutLoadSceneEventArgs;
             if (args == null)
             { return; }
-
 
             Position = args.vOffset;
             Rotation = Quaternion.RotationAxis(Vector3.UnitZ, args.fRotation * 0.0174532925f);//is this right?
@@ -1170,7 +1130,6 @@ namespace CodeWalker.World
                 });
             }
 
-
         }
         private void CameraCut(CutEvent e)
         {
@@ -1182,12 +1141,10 @@ namespace CodeWalker.World
             if (oe == null)
             { return; }
 
-
             CutsceneObject obj = null;
             SceneObjects.TryGetValue(oe.iObjectId, out obj);
             if (obj == null)
             { return; }
-
 
             var pos = Position;
             var rot = Rotation * Quaternion.RotationAxis(Vector3.UnitX, 1.57079632679f);
@@ -1248,8 +1205,6 @@ namespace CodeWalker.World
         {
         }
 
-
-
         private T[] RecastArray<T>(object[] arr) where T : class
         {
             if (arr == null) return null;
@@ -1261,13 +1216,11 @@ namespace CodeWalker.World
             return r;
         }
 
-
         private void CreateSceneObjects()
         {
             SceneObjects = new Dictionary<int, CutsceneObject>();
 
             if (Objects == null) return;
-
 
             var refCounts = new Dictionary<MetaHash, int>();
 
@@ -1318,7 +1271,6 @@ namespace CodeWalker.World
         public AudioPlayer SoundPlayer { get; set; }
 
         public bool Enabled { get; set; } = false;
-
 
         public void Init(CutObject obj, GameFileCache gfc, AudioDatabase adb)
         {
@@ -1423,7 +1375,6 @@ namespace CodeWalker.World
                 }
             }
 
-
             if (SoundInfo is Dat54StreamingSound strsnd)
             {
                 int dur = strsnd.Duration;
@@ -1503,7 +1454,6 @@ namespace CodeWalker.World
             if (SoundInfo == null)
             { }
 
-
         }
 
         private void InitPed(CutPedModelObject ped, GameFileCache gfc)
@@ -1562,14 +1512,10 @@ namespace CodeWalker.World
 
         }
 
-
         public override string ToString()
         {
             return CutObject?.ToString() ?? (ObjectID.ToString() + ": " + Name.ToString());
         }
     }
-
-
-
 
 }

@@ -24,7 +24,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             RpfFileEntry = entry;
 
-
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
             {
@@ -45,8 +44,6 @@ namespace CodeWalker.GameFiles
                 string err = ex.ToString();
             }
 
-
-
             Loaded = true;
 
         }
@@ -58,9 +55,7 @@ namespace CodeWalker.GameFiles
             return data;
         }
 
-
     }
-
 
     public class YvrXml : MetaXmlBase
     {

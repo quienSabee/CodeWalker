@@ -20,7 +20,6 @@ namespace CodeWalker.Rendering
         //bool ResetOnDestroy = false;
         int RenderTargetCount = 1;
 
-
         public void Dispose()
         {
             if (OrigRenderTargetViewArr != null)
@@ -79,8 +78,6 @@ namespace CodeWalker.Rendering
 
             Dispose();
         }
-
-
 
     };
 }

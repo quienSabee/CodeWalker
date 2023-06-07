@@ -24,7 +24,6 @@
    This file contains only SHA1 hashes of all interesting values. There is NO key.
 */
 
-
 //shamelessly stolen
 
 using CodeWalker.Core.Properties;
@@ -63,10 +62,7 @@ namespace CodeWalker.GameFiles
         // hash lookup-table...
         public static byte[] PC_LUT; // 256
 
-
         public static uint[] PC_AWC_KEY; // 16
-
-
 
         public static void Generate(byte[] exeData, Action<string> updateStatus) //Stream exeStr)// 
         {
@@ -102,8 +98,6 @@ namespace CodeWalker.GameFiles
             PC_LUT = HashSearch.SearchHash(exeStr, GTA5KeyHashes.PC_LUT_HASH, 0x100);
             //updateStatus("ng hash LUTs found");
 
-
-
             updateStatus("Calculating NG encryption tables...");
             PC_NG_ENCRYPT_TABLES = new uint[17][][];
             for (int i = 0; i < 17; i++)
@@ -127,9 +121,6 @@ namespace CodeWalker.GameFiles
                     PC_NG_ENCRYPT_LUTs[i][j] = new GTA5NGLUT();
             }
 
-
-
-
             updateStatus("Calculating NG encryption tables (1/17)...");
             PC_NG_ENCRYPT_TABLES[0] = RandomGauss.Solve(PC_NG_DECRYPT_TABLES[0]);
             //updateStatus("ng encrypt table 1 of 17 calculated");
@@ -152,7 +143,6 @@ namespace CodeWalker.GameFiles
             updateStatus("Complete.");
         }
 
-
         public static void GenerateV2(byte[] exeData, Action<string> updateStatus)
         {
             var exeStr = new MemoryStream(exeData);
@@ -162,8 +152,6 @@ namespace CodeWalker.GameFiles
 
             updateStatus?.Invoke("Complete.");
         }
-
-
 
         public static void LoadFromPath(string path = ".\\Keys", string key = null)
         {
@@ -187,9 +175,6 @@ namespace CodeWalker.GameFiles
             CryptoIO.WriteLuts(path + "\\gtav_ng_encrypt_luts.dat", PC_NG_ENCRYPT_LUTs);
             File.WriteAllBytes(path + "\\gtav_hash_lut.dat", PC_LUT);
         }
-
-
-
 
         private static void GenerateMagicData(string path = ".\\Keys")
         {
@@ -224,7 +209,6 @@ namespace CodeWalker.GameFiles
 
             db = GTACrypto.EncryptAESData(db, PC_AES_KEY);
 
-
             Random rnd = new Random((int)JenkHash.GenHash(PC_AES_KEY));
             int dbl = db.Length;
             byte[] rb1 = new byte[dbl];
@@ -258,7 +242,6 @@ namespace CodeWalker.GameFiles
                 PC_AES_KEY = Convert.FromBase64String(key);
             }
             //GenerateMagicData();
-
 
             Random rnd = new Random((int)JenkHash.GenHash(PC_AES_KEY));
             byte[] m = Resources.magic;
@@ -312,11 +295,7 @@ namespace CodeWalker.GameFiles
             PC_AWC_KEY = b4;
         }
 
-
     }
-
-
-
 
     public static class GTA5KeyHashes
     {
@@ -706,8 +685,6 @@ namespace CodeWalker.GameFiles
         public static byte[] PC_LUT_HASH = new byte[] { 0x88, 0xD3, 0x79, 0x3B, 0x8E, 0x7A, 0x6C, 0xAC, 0xAA, 0x8B, 0x89, 0x28, 0x97, 0xBE, 0x72, 0x8D, 0x9E, 0x7F, 0xBA, 0xD4 };
     }
 
-
-
     public class GTA5NGLUT
     {
         public byte[][] LUT0;
@@ -772,20 +749,17 @@ namespace CodeWalker.GameFiles
                             result[j] = (byte[])buffer.Clone();
                 }
 
-
             });
 
             return result;
         }
     }
 
-
     public class RandomGaussRow
     {
         //private bool[] A = new bool[1024];
         private ulong[] A = new ulong[16];
         public bool B;
-
 
         public bool GetA(int idx)
         {
@@ -1144,8 +1118,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     public class CryptoIO
     {
         public static byte[][] ReadNgKeys(string fileName)
@@ -1177,10 +1149,8 @@ namespace CodeWalker.GameFiles
                 result[i] = rd.ReadBytes(272);
             }
 
-
             return result;
         }
-
 
         public static void WriteNgKeys(string fileName, byte[][] keys)
         {
@@ -1257,8 +1227,6 @@ namespace CodeWalker.GameFiles
             return result;
         }
 
-
-
         public static void WriteNgTables(string fileName, uint[][][] tableData)
         {
             //var fs = new FileStream(fileName, FileMode.Create);
@@ -1334,7 +1302,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             fs.Close();
 
             return result;
@@ -1383,7 +1350,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             return result;
         }
 
@@ -1428,8 +1394,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     public class GTA5Hash
     {
         public static byte[] LUT;
@@ -1454,7 +1418,6 @@ namespace CodeWalker.GameFiles
 
              */
 
-
             uint result = 0;
             for (int index = 0; index < text.Length; index++)
             {
@@ -1465,6 +1428,5 @@ namespace CodeWalker.GameFiles
             return 32769 * ((9 * result >> 11) ^ (9 * result));
         }
     }
-
 
 }

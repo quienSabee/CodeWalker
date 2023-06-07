@@ -19,7 +19,6 @@ namespace CodeWalker.Tools
         private volatile bool InProgress = false;
         private volatile bool AbortOperation = false;
 
-
         public ExtractScriptsForm()
         {
             InitializeComponent();
@@ -92,7 +91,6 @@ namespace CodeWalker.Tools
                 }
             }
 
-
             InProgress = true;
             AbortOperation = false;
 
@@ -113,10 +111,8 @@ namespace CodeWalker.Tools
 
                     UpdateDumpStatus(string.Format("Scanning {0} for keys...", dmpfi.Name));
 
-
                     byte[] exedat = File.ReadAllBytes(dmppath);
                     GTA5Keys.Generate(exedat, UpdateDumpStatus);
-
 
                     UpdateDumpStatus("Saving found keys...");
 
@@ -187,8 +183,6 @@ namespace CodeWalker.Tools
                 InProgress = false;
             });
         }
-
-
 
         private void UpdateDumpStatus(string text)
         {

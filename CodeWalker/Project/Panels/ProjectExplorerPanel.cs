@@ -28,7 +28,6 @@ namespace CodeWalker.Project.Panels
             InitializeComponent();
         }
 
-
         public void LoadProjectTree(ProjectFile projectFile)
         {
             ProjectTreeView.Nodes.Clear();
@@ -40,7 +39,6 @@ namespace CodeWalker.Project.Panels
 
             var projnode = ProjectTreeView.Nodes.Add(pcstr + CurrentProjectFile.Name);
             projnode.Tag = CurrentProjectFile;
-
 
             if (CurrentProjectFile.YmapFiles.Count > 0)
             {
@@ -559,8 +557,6 @@ namespace CodeWalker.Project.Panels
 
             node.Nodes.Clear();
 
-
-
             if ((ynd.Nodes != null) && (ynd.Nodes.Length > 0))
             {
                 var nodesnode = node.Nodes.Add("Nodes (" + ynd.Nodes.Length.ToString() + ")");
@@ -585,7 +581,6 @@ namespace CodeWalker.Project.Panels
 
             node.Nodes.Clear();
 
-
             TreeNode n;
             n = node.Nodes.Add("Edit Polygon");
             n.Name = "EditPoly";
@@ -599,7 +594,6 @@ namespace CodeWalker.Project.Panels
             n.Name = "EditPoint";
             n.Tag = ynv; //this tag should get updated with the selected point!
 
-
         }
         private void LoadTrainTrackTreeNodes(TrainTrack track, TreeNode node)
         {
@@ -608,8 +602,6 @@ namespace CodeWalker.Project.Panels
             if (!string.IsNullOrEmpty(node.Name)) return; //named nodes are eg Nodes
 
             node.Nodes.Clear();
-
-
 
             if ((track.Nodes != null) && (track.Nodes.Count > 0))
             {
@@ -704,9 +696,7 @@ namespace CodeWalker.Project.Panels
 
             node.Nodes.Clear();
 
-
             if (rel.RelDatasSorted == null) return; //nothing to see here
-
 
             var zones = new List<Dat151AmbientZone>();
             var emitters = new List<Dat151AmbientRule>();
@@ -743,8 +733,6 @@ namespace CodeWalker.Project.Panels
                 }
             }
 
-
-
             if (zones.Count > 0)
             {
                 var n = node.Nodes.Add("Ambient Zones (" + zones.Count.ToString() + ")");
@@ -759,7 +747,6 @@ namespace CodeWalker.Project.Panels
                 }
             }
 
-
             if (emitters.Count > 0)
             {
                 var n = node.Nodes.Add("Ambient Emitters (" + emitters.Count.ToString() + ")");
@@ -773,8 +760,6 @@ namespace CodeWalker.Project.Panels
                     tnode.Tag = emitter;
                 }
             }
-
-
 
             if (zonelists.Count > 0)
             {
@@ -828,10 +813,7 @@ namespace CodeWalker.Project.Panels
                 }
             }
 
-
         }
-
-
 
         public void SetProjectHasChanged(bool changed)
         {
@@ -1048,14 +1030,6 @@ namespace CodeWalker.Project.Panels
                 }
             }
         }
-
-
-
-
-
-
-
-
 
         private TreeNode GetChildTreeNode(TreeNode node, string name)
         {
@@ -1571,10 +1545,6 @@ namespace CodeWalker.Project.Panels
             }
             return null;
         }
-
-
-
-
 
         public void DeselectNode()
         {
@@ -2101,9 +2071,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
-
-
         public void UpdateYmapTreeNode(YmapFile ymap)
         {
             var tn = FindYmapTreeNode(ymap);
@@ -2313,8 +2280,6 @@ namespace CodeWalker.Project.Panels
                 tn.Text = room.NameHash.ToString();
             }
         }
-
-
 
         public void RemoveEntityTreeNode(YmapEntityDef ent)
         {
@@ -2594,13 +2559,8 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
-
-
-
         public event ProjectExplorerItemSelectHandler OnItemSelected;
         public event ProjectExplorerItemActivateHandler OnItemActivated;
-
 
         private void ClearSelectedNodes()
         {
@@ -2611,7 +2571,6 @@ namespace CodeWalker.Project.Panels
             }
             SelectedNodes.Clear();
         }
-
 
         private void ProjectTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {

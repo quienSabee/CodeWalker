@@ -88,10 +88,8 @@ namespace CodeWalker.GameFiles
             BBMax = r.ReadVector3();
             Length = r.ReadUInt32();
 
-
             if (Length != (r.Length - r.Position))
             { }
-
 
             var dlen = (int)Length;
             if (Compressed > 0)
@@ -186,7 +184,6 @@ namespace CodeWalker.GameFiles
                 Length = (uint)d.Length;
             }
 
-
             w.Write(Magic);
             w.Write(VersionMajor);
             w.Write(VersionMinor);
@@ -206,7 +203,6 @@ namespace CodeWalker.GameFiles
             }
             w.Write(d);
         }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -238,11 +234,6 @@ namespace CodeWalker.GameFiles
             MinHeights = InvertImage(Xml.GetChildRawByteArray(node, "MinHeights"), Width, Height);
         }
 
-
-
-
-
-
         private byte[] InvertImage(byte[] i, int w, int h)
         {
             //inverts the image vertically
@@ -255,10 +246,6 @@ namespace CodeWalker.GameFiles
             }
             return o;
         }
-
-
-
-
 
         public string GetPGM()
         {
@@ -280,8 +267,6 @@ namespace CodeWalker.GameFiles
 
             return sb.ToString();
         }
-
-
 
         public struct CompHeader
         {
@@ -310,7 +295,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
     public class HmapXml : MetaXmlBase
     {
 
@@ -333,9 +317,7 @@ namespace CodeWalker.GameFiles
             return sb.ToString();
         }
 
-
     }
-
 
     public class XmlHmap
     {
@@ -354,9 +336,6 @@ namespace CodeWalker.GameFiles
             return hmf;
         }
 
-
     }
-
-
 
 }

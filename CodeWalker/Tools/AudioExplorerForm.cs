@@ -18,14 +18,12 @@ namespace CodeWalker.Tools
         private List<string> NameComboItems = new List<string>();
         private Dictionary<string, RelData> NameComboLookup = new Dictionary<string, RelData>();
 
-
         public AudioExplorerForm(GameFileCache gfc)
         {
             GameFileCache = gfc;
             InitializeComponent();
             LoadDropDowns();
         }
-
 
         private void LoadDropDowns()
         {
@@ -55,8 +53,6 @@ namespace CodeWalker.Tools
             }
             NameComboBox.AutoCompleteCustomSource.AddRange(NameComboItems.ToArray());
 
-
-
             TypeComboBox.Items.Clear();
             TypeComboBox.Items.Add("(All types)");
             void addTypeItem(string filetype, object item)
@@ -73,7 +69,6 @@ namespace CodeWalker.Tools
             foreach (var e in Enum.GetValues(typeof(Dat54SoundType))) addTypeItem("Sounds", e);
             foreach (var e in Enum.GetValues(typeof(Dat151RelType))) addTypeItem("Game", e);
             TypeComboBox.SelectedIndex = 0;
-
 
         }
 
@@ -121,7 +116,6 @@ namespace CodeWalker.Tools
                 NameComboBox.Text = "(Start typing to search...)";
                 NameComboBox.Items.Clear();
             }
-
 
         }
 
@@ -175,7 +169,6 @@ namespace CodeWalker.Tools
             return hashes?.Distinct()?.Where(h => h != item.NameHash); //try avoid infinite loops...
         }
 
-
         private void LoadItemHierarchy(RelData item, TreeNode parentNode = null)
         {
             TreeNode node;
@@ -193,12 +186,10 @@ namespace CodeWalker.Tools
 
             node.Tag = item;
 
-
             if ((item is Dat22Category) && (parentNode != null) && (!(parentNode.Tag is Dat22Category))) //don't bother expanding out categories, too spammy!
             {
                 return;
             }
-
 
             var speech = GetUniqueHashes(item.GetSpeechHashes(), item);
             var synths = GetUniqueHashes(item.GetSynthHashes(), item);
@@ -207,7 +198,6 @@ namespace CodeWalker.Tools
             var categs = GetUniqueHashes(item.GetCategoryHashes(), item);
             var sounds = GetUniqueHashes(item.GetSoundHashes(), item);
             var games = GetUniqueHashes(item.GetGameHashes(), item);
-
 
             if (speech != null)
             {
@@ -259,7 +249,6 @@ namespace CodeWalker.Tools
                 }
             }
 
-
             if (parentNode == null)
             {
                 var totnodes = node.GetNodeCount(true);
@@ -283,7 +272,6 @@ namespace CodeWalker.Tools
 
         }
 
-
         private void SelectItem(RelData item)
         {
 
@@ -292,7 +280,6 @@ namespace CodeWalker.Tools
             XmlTextBox.Text = RelXml.GetXml(item);
 
         }
-
 
         private void NameComboBox_TextChanged(object sender, EventArgs e)
         {

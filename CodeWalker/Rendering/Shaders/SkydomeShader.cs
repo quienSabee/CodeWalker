@@ -51,7 +51,6 @@ namespace CodeWalker.Rendering
         public Vector4 Colour;
     }
 
-
     public struct SkydomeShaderSkySystemLocals
     {
         public Vector4 azimuthEastColor;           // Offset:    0 Size:    12 
@@ -95,7 +94,6 @@ namespace CodeWalker.Rendering
         public Vector4 noisePhase;                 // Offset:  464 Size:     8 [unused]
     }
 
-
     public class SkydomeShader : Shader, IDisposable
     {
         bool disposed = false;
@@ -116,7 +114,6 @@ namespace CodeWalker.Rendering
         GpuVarsBuffer<SkydomeShaderVSSunMoonVars> VSSunMoonVars;
         GpuVarsBuffer<SkydomeShaderPSSunMoonVars> PSSunMoonVars;
 
-
         SamplerState texsampler;
 
         InputLayout skylayout;
@@ -127,7 +124,6 @@ namespace CodeWalker.Rendering
         UnitQuad moonquad;
 
         public bool EnableHDR { get; set; }
-
 
         public SkydomeShader(Device device)
         {
@@ -176,8 +172,6 @@ namespace CodeWalker.Rendering
             });
 
         }
-
-
 
         public override void SetShader(DeviceContext context)
         {
@@ -320,8 +314,6 @@ namespace CodeWalker.Rendering
             context.PixelShader.Set(null);
         }
 
-
-
         public void RenderSun(DeviceContext context, Camera camera, Weather weather, ShaderGlobalLights lights)
         {
 
@@ -349,10 +341,8 @@ namespace CodeWalker.Rendering
             context.VertexShader.Set(moonvs);
             context.PixelShader.Set(moonps);
 
-
             Quaternion ori = Quaternion.Invert(Quaternion.LookAtRH(Vector3.Zero, lights.CurrentMoonDir, lights.MoonAxis));
             Matrix omat = ori.ToMatrix();
-
 
             VSSunMoonVars.Vars.ViewProj = Matrix.Transpose(camera.ViewProjMatrix);
             VSSunMoonVars.Vars.ViewInv = Matrix.Transpose(omat);// camera.ViewInvMatrix);
@@ -372,9 +362,6 @@ namespace CodeWalker.Rendering
             context.InputAssembler.InputLayout = moonlayout;
             moonquad.Draw(context);
         }
-
-
-
 
         public void Dispose()
         {

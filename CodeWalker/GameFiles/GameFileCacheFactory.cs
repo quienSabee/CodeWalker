@@ -1,6 +1,4 @@
 ﻿
-
-
 using CodeWalker.Properties;
 
 namespace CodeWalker.GameFiles

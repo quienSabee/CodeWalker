@@ -38,7 +38,6 @@ namespace CodeWalker.Rendering
 
         GpuVarsBuffer<DistantLightsShaderVSSceneVars> VSSceneVars;
 
-
         public DistantLightsShader(Device device)
         {
             byte[] vsbytes = File.ReadAllBytes("Shaders\\DistantLightsVS.cso");
@@ -53,7 +52,6 @@ namespace CodeWalker.Rendering
                 new InputElement("TEXCOORD", 0, Format.R32G32_Float, 16, 0),
             });
 
-
             texsampler = new SamplerState(device, new SamplerStateDescription()
             {
                 AddressU = TextureAddressMode.Clamp,
@@ -67,7 +65,6 @@ namespace CodeWalker.Rendering
                 MinimumLod = 0,
                 MipLodBias = 0,
             });
-
 
             quad = new UnitQuad(device);
 
@@ -111,7 +108,6 @@ namespace CodeWalker.Rendering
             context.PixelShader.SetSampler(0, null);
         }
 
-
         public void RenderBatch(DeviceContext context, RenderableDistantLODLights lights)
         {
             context.VertexShader.SetShaderResource(0, lights.InstanceBuffer.SRV);
@@ -120,7 +116,6 @@ namespace CodeWalker.Rendering
 
             quad.DrawInstanced(context, lights.InstanceCount);
         }
-
 
         public void Dispose()
         {

@@ -1,6 +1,5 @@
 #include "CablePS.hlsli"
 
-
 PS_OUTPUT main(VS_OUTPUT input)
 {
     float4 c = float4(0.2, 0.2, 0.2, 1);
@@ -54,8 +53,6 @@ PS_OUTPUT main(VS_OUTPUT input)
         if (RenderModeIndex == 2) c.rgb = float3(input.Texcoord1, 0);
         if (RenderModeIndex == 3) c.rgb = float3(input.Texcoord2, 0);
     }
-
-
 
     float3 spec = 0;
 

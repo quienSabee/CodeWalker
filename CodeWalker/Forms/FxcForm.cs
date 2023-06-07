@@ -27,22 +27,15 @@ namespace CodeWalker.Forms
         }
         public string FilePath { get; set; }
 
-
-
-
         public FxcForm()
         {
             InitializeComponent();
         }
 
-
-
-
         private void UpdateFormTitle()
         {
             Text = fileName + " - FXC Viewer - CodeWalker by dexyfex";
         }
-
 
         public void LoadFxc(FxcFile fxc)
         {
@@ -57,7 +50,6 @@ namespace CodeWalker.Forms
             UpdateFormTitle();
 
             DetailsPropertyGrid.SelectedObject = fxc;
-
 
             ShadersListView.Items.Clear();
             TechniquesListView.Items.Clear();
@@ -78,10 +70,8 @@ namespace CodeWalker.Forms
                 }
             }
 
-
             StatusLabel.Text = (fxc.Shaders?.Length??0).ToString() + " shaders, " + (fxc.Techniques?.Length??0).ToString() + " techniques";
         }
-
 
         private void LoadShader(FxcShader s)
         {
@@ -162,7 +152,6 @@ namespace CodeWalker.Forms
                 TechniqueTextBox.Text = sb.ToString();
             }
         }
-
 
         private void ShadersListView_SelectedIndexChanged(object sender, EventArgs e)
         {

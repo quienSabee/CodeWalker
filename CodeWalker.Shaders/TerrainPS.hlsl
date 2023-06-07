@@ -1,6 +1,5 @@
 #include "TerrainPS.hlsli"
 
-
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
     float4 vc0 = input.Colour0;
@@ -40,7 +39,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
         if (RenderSamplerCoord == 2) sc0 = tc1;
         else if (RenderSamplerCoord == 3) sc0 = tc2;
     }
-
 
     float4 c0 = (EnableTexture0 == 1) ? Colourmap0.Sample(TextureSS, sc0) : bc0;
     float4 c1 = (EnableTexture1 == 1) ? Colourmap1.Sample(TextureSS, sc1) : bc0;
@@ -82,7 +80,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
         nv = n1*(1 - vc1.g) + n2*vc1.g;
         break;
 
-
     case 653544224: //terrain_cb_w_4lyr_2tex_blend_pxm_spm  vt: PNCCTTTX //ch2_04_land06, rd_04_20..
     case 2486206885: //terrain_cb_w_4lyr_2tex_blend_pxm  vt: PNCCTTTX //cs2_06c_lkbed_05..
     case 1888432890: //terrain_cb_w_4lyr_2tex_pxm  vt: PNCCTTTX //ch1_04b_vineland01..
@@ -96,7 +93,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
         nv = n1*(1 - vc1.g) + n2*vc1.g;
         break;
 
-
     case 3051127652: //terrain_cb_w_4lyr  vt: PNCCTX //ss1_05_gr..
     case 646532852: //terrain_cb_w_4lyr_spec  vt: PNCCTX //hw1_07_grnd_c..
         //return float4(1, 1, 0, 1);
@@ -108,7 +104,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
         n2 = b3*(1 - vc1.b) + b4*vc1.b;
         nv = n1*(1 - vc1.g) + n2*vc1.g;
         break;
-
 
     case 2316006813: //terrain_cb_w_4lyr_2tex_blend  vt: PNCCTTX //ch2_04_land02b, vb_34_beachn_01..
     case 3112820305: //terrain_cb_w_4lyr_2tex  vt: PNCCTTX //ch1_05_land5..
@@ -124,7 +119,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
         n2 = b3*(1 - vc1.b) + b4*vc1.b;
         nv = n1*(1 - vc1.g) + n2*vc1.g;
         break;
-
 
     case 295525123: //terrain_cb_w_4lyr_cm  vt: PNCTTX //_prewtrproxy_2..
     case 417637541: //terrain_cb_w_4lyr_cm_tnt  vt: PNCTTX //_prewtrproxy_2..  //golf course..
@@ -160,7 +154,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
     {
         tv.rgb *= input.Tint.rgb;
     }
-
 
     if (RenderMode == 1) //normals
     {
@@ -206,7 +199,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
     ////float3 norm = normalize(nx*nv.x + ny*nv.y + nz*nv.z);
     float3 norm = nz;// normalize(input.Normal)
 
-
     if ((RenderMode == 0) && (EnableNormalMap == 1))
     {
         norm = NormalMap(nv.xy, bumpiness, input.Normal.xyz, input.Tangent.xyz, input.Bitangent.xyz);
@@ -215,7 +207,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
     float3 spec = 0;
 
     tv.rgb = FullLighting(tv.rgb, spec, norm, vc0, GlobalLights, EnableShadows, input.Shadows.x, input.LightShadow);
-
 
     return float4(tv.rgb, saturate(tv.a));
 }

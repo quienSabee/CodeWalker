@@ -10,16 +10,13 @@ namespace CodeWalker.GameFiles
     public class PsoBuilder
     {
 
-
         public PsoBuilderPointer RootPointer { get; set; }
 
         List<string> STRFStrings = new List<string>();
         List<string> STRSStrings = new List<string>();
 
-
         Dictionary<MetaName, PsoStructureInfo> StructureInfos = new Dictionary<MetaName, PsoStructureInfo>();
         Dictionary<MetaName, PsoEnumInfo> EnumInfos = new Dictionary<MetaName, PsoEnumInfo>();
-
 
         List<PsoBuilderBlock> Blocks = new List<PsoBuilderBlock>();
         int MaxBlockLength = 0x100000; //TODO: figure what this should be!
@@ -42,7 +39,6 @@ namespace CodeWalker.GameFiles
             Blocks.Add(b);
             return b;
         }
-
 
         public PsoBuilderPointer AddItem<T>(MetaName type, T item) where T : struct
         {
@@ -96,8 +92,6 @@ namespace CodeWalker.GameFiles
             return r;
         }
 
-
-
         public PsoPOINTER AddItemPtr<T>(MetaName type, T item) where T : struct //helper method for AddItem<T>
         {
             var ptr = AddItem(type, item);
@@ -142,8 +136,6 @@ namespace CodeWalker.GameFiles
             return new Array_Structure(ptr.Pointer, ptr.Length);
         }
 
-
-
         public Array_StructurePointer AddPointerArray(PsoPOINTER[] arr)
         {
             if ((arr == null) || (arr.Length == 0)) return new Array_StructurePointer();
@@ -154,8 +146,6 @@ namespace CodeWalker.GameFiles
             sp.Pointer = ptr.Pointer;
             return sp;
         }
-
-
 
         public PsoBuilderPointer AddString(string str)
         {
@@ -178,7 +168,6 @@ namespace CodeWalker.GameFiles
             r.Length = datalen; //actual length of string.
             return r;
         }
-
 
         public Array_Vector3 AddPaddedVector3ArrayPtr(Vector4[] items)
         {
@@ -229,9 +218,6 @@ namespace CodeWalker.GameFiles
             return new Array_float(ptr.Pointer, items.Length);
         }
 
-
-
-
         public void AddStringToSTRF(string str)
         {
             STRFStrings.Add(str);
@@ -240,9 +226,6 @@ namespace CodeWalker.GameFiles
         {
             STRSStrings.Add(str);
         }
-
-
-
 
         public void AddStructureInfo(MetaName name)
         {
@@ -266,7 +249,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
 
         public PsoStructureInfo AddMapNodeStructureInfo(MetaName valType)
         {
@@ -300,8 +282,6 @@ namespace CodeWalker.GameFiles
                 nameOk = !StructureInfos.ContainsKey(xName);
             }
 
-            
-
             inf = new PsoStructureInfo(xName, 0, 2, 8 + structInfo.StructureLength,
                 new PsoStructureEntryInfo(MetaName.Key, PsoDataType.String, 0, 7, 0),
                 new PsoStructureEntryInfo(MetaName.Item, PsoDataType.Structure, 8, 0, valType)
@@ -313,7 +293,6 @@ namespace CodeWalker.GameFiles
             }
 
             return inf;
-
 
             //switch (valType)
             //{
@@ -346,9 +325,6 @@ namespace CodeWalker.GameFiles
             //    );
         }
 
-
-
-
         public byte[] GetData()
         {
             int totlen = 16;
@@ -372,11 +348,6 @@ namespace CodeWalker.GameFiles
             { }
             return data;
         }
-
-
-
-
-
 
         public PsoFile GetPso()
         {
@@ -411,7 +382,6 @@ namespace CodeWalker.GameFiles
                 pso.STRSSection.Strings = STRSStrings.ToArray();
             }
 
-
             pso.DataSection = new PsoDataSection();
             pso.DataSection.Data = GetData();
 
@@ -430,14 +400,10 @@ namespace CodeWalker.GameFiles
                 pso.DataMapSection.Entries[i] = e;
             }
 
-
-
             return pso;
         }
 
     }
-
-
 
     public class PsoBuilderBlock
     {
@@ -462,7 +428,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         //public MetaDataBlock GetMetaDataBlock()
         //{
         //    if (TotalSize <= 0) return null;
@@ -481,7 +446,6 @@ namespace CodeWalker.GameFiles
         //    return db;
         //}
 
-
     }
 
     public struct PsoBuilderPointer
@@ -499,6 +463,5 @@ namespace CodeWalker.GameFiles
             }
         }
     }
-
 
 }

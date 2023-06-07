@@ -1,5 +1,4 @@
 
-
 cbuffer SceneVars : register(b0)
 {
     float4x4 ViewProj;

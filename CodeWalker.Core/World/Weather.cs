@@ -73,8 +73,6 @@ namespace CodeWalker.World
                 WeatherCycles.Add(weathercycle);
             }
 
-
-
             if (WeatherTypes.Count > 0)
             {
                 CurrentWeatherType = WeatherTypes.Values.First();
@@ -83,10 +81,8 @@ namespace CodeWalker.World
                 NextWeatherRegion = NextWeatherType.GetRegion(Region);
             }
 
-
             TimecycleMods = new TimecycleMods();
             TimecycleMods.Init(gameFileCache, updateStatus);
-
 
             Inited = true;
         }
@@ -324,7 +320,6 @@ namespace CodeWalker.World
             TimeCycleFilename = Xml.GetChildInnerText(node, "TimeCycleFilename");
             CloudSettingsName = Xml.GetChildInnerText(node, "CloudSettingsName");
 
-
             if (!string.IsNullOrEmpty(TimeCycleFilename))
             {
 
@@ -485,7 +480,6 @@ namespace CodeWalker.World
             return Name;
         }
     }
-
 
     public struct WeatherValues
     {

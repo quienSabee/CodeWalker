@@ -999,7 +999,6 @@ namespace ST.Library.UI.NodeEditor
         protected virtual void OnMove(EventArgs e) { /*this.SetOptionLocation();*/ }
         protected virtual void OnResize(EventArgs e) { /*this.SetOptionLocation();*/ }
 
-
         /// <summary>
         /// Occurs when the owner changes
         /// </summary>

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace CodeWalker.GameFiles
 {
 
-
     public static class StatsNames
     {
         public static Dictionary<uint, string> Index = new Dictionary<uint, string>();
@@ -78,7 +77,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
 }

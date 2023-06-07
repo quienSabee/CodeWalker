@@ -45,10 +45,8 @@ namespace CodeWalker.GameFiles
         public Color[] Colours { get; set; }//x342
         public uint ColourCount { get; set; }//342 (RiverCount + LakeCount + PoolCount)
 
-
         public short[] GridWatermapInds { get; set; } //expanded from CompWatermapInds.
         public WaterItemRef[][] GridWatermapRefs { get; set; } //expanded from CompWatermapHeaders. ends up max 7 items
-
 
         public WatermapFile() : base(null, GameFileType.Watermap)
         {
@@ -88,7 +86,6 @@ namespace CodeWalker.GameFiles
             return buf;
         }
 
-
         private void Read(DataReader r)
         {
             Magic = r.ReadUInt32();//'WMAP'
@@ -110,13 +107,11 @@ namespace CodeWalker.GameFiles
             ColoursOffset = r.ReadUInt16();//13316    
             Unks1 = r.ReadBytes(8);//2,2,16,48,16,48,32,0      flags..?
 
-
             var shortslen = (int)((WatermapIndsCount + WatermapRefsCount) * 2) + (Height * 4);//offset from here to Zeros1
             var padcount = (16 - (shortslen % 16)) % 16;//12 .. is this right? all are zeroes.
             var strucslen = ((RiverVecsCount + LakeVecsCount) * 16) + ((RiverCount + LakeCount) * 48) + (PoolCount * 32);
             var datalen = shortslen + padcount + strucslen; //DataLength calculation
             var extoffs = padcount + strucslen - 60 - 60;//ExtraFlagsOffset calculation
-
 
             CompHeaders = new CompHeader[Height];//249 - image height
             for (int i = 0; i < Height; i++) CompHeaders[i].Read(r);
@@ -148,7 +143,6 @@ namespace CodeWalker.GameFiles
             Colours = new Color[ColourCount]; //342
             for (int i = 0; i < 342; i++) Colours[i] = Color.FromAbgr(r.ReadUInt32());
 
-
             var flagoff = 0; //assign extra colours out of the main array
             for (int i = 0; i < Rivers.Length; i++)
             {
@@ -166,8 +160,6 @@ namespace CodeWalker.GameFiles
                 pool.Colour = Colours[flagoff++];
             }
 
-
-
             for (int i = 0; i < CompWatermapRefs.Length; i++) //assign items to CompWatermapRefs
             {
                 var ir = CompWatermapRefs[i];
@@ -178,8 +170,6 @@ namespace CodeWalker.GameFiles
                     case WaterItemType.Pool: CompWatermapRefs[i].Item = Pools[ir.ItemIndex]; break;
                 }
             }
-
-
 
             //decompress main data into grid form
             GridWatermapInds = new short[Width * Height];
@@ -216,24 +206,11 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
-
-
-
-
-
             //var pgm = GetPGM();
-
 
             var rem = r.Length - r.Position;//60788
             if (rem != 0)
             { }
-
-
-
-
-
-
 
             //var sb = new StringBuilder();
             //for (int y = Height - 1; y >= 0; y--)
@@ -248,18 +225,13 @@ namespace CodeWalker.GameFiles
             //}
             //var hstr = sb.ToString();
 
-
-
-
         }
         private void Write(DataWriter w)
         {
 
-
             w.Write(Magic);
 
         }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -280,8 +252,6 @@ namespace CodeWalker.GameFiles
             //MinHeights = InvertImage(Xml.GetChildRawByteArray(node, "MinHeights"), Width, Height);
         }
 
-
-
         public struct CompHeader
         {
             public byte Start { get; set; }
@@ -301,7 +271,6 @@ namespace CodeWalker.GameFiles
                     Start, Count, Offset);
             }
         }
-
 
         public struct WaterItemRef
         {
@@ -471,9 +440,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
-
         public string GetPGM()
         {
             if (GridWatermapInds == null) return string.Empty;
@@ -496,10 +462,7 @@ namespace CodeWalker.GameFiles
             return sb.ToString();
         }
 
-
-
     }
-
 
     public class WatermapXml : MetaXmlBase
     {
@@ -523,9 +486,7 @@ namespace CodeWalker.GameFiles
             return sb.ToString();
         }
 
-
     }
-
 
     public class XmlWatermap
     {
@@ -543,7 +504,6 @@ namespace CodeWalker.GameFiles
             wmf.ReadXml(doc.DocumentElement);
             return wmf;
         }
-
 
     }
 

@@ -5,10 +5,8 @@ struct VS_Output
     float2 Tex : TEXCOORD0;
 };
 
-
 Texture2D<float4> SceneColour : register(t0);
 SamplerState PointSampler : register(s0);
-
 
 cbuffer cbPS : register(b0)
 {

@@ -30,7 +30,6 @@ namespace CodeWalker.World
         public Vector3 Position { get; set; } = Vector3.Zero;
         public Quaternion Rotation { get; set; } = Quaternion.Identity;
 
-
         public void Init(string name, GameFileCache gfc, bool hidef = true)
         {
             Name = name;
@@ -85,18 +84,14 @@ namespace CodeWalker.World
                 ConvRoofClip = null;
             }
 
-
             UpdateEntity();
         }
-
-
 
         public void UpdateEntity()
         {
             RenderEntity.SetPosition(Position);
             RenderEntity.SetOrientation(Rotation);
         }
-
 
     }
 }

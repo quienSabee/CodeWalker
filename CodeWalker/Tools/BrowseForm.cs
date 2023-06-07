@@ -159,8 +159,6 @@ namespace CodeWalker.Tools
 
         }
 
-
-
         private void UpdateStatus(string text)
         {
             try
@@ -229,7 +227,6 @@ namespace CodeWalker.Tools
                 }
             }
 
-
             //make sure it's all in jenkindex...
             JenkIndex.Ensure(file.Name);
             foreach (RpfEntry entry in file.AllEntries)
@@ -246,9 +243,6 @@ namespace CodeWalker.Tools
             }
 
             return node;
-
-
-
 
             //TreeNode lastNode = null;
             //string subPathAgg;
@@ -284,7 +278,6 @@ namespace CodeWalker.Tools
             return cnode;
         }
 
-
         private void MainTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node == null) return;
@@ -309,7 +302,6 @@ namespace CodeWalker.Tools
         {
             SelectFile();
         }
-
 
         private void SelectFile()
         {
@@ -339,7 +331,6 @@ namespace CodeWalker.Tools
                 return;
             }
 
-
             Cursor = Cursors.WaitCursor;
 
             string typestr = "Resource";
@@ -353,7 +344,6 @@ namespace CodeWalker.Tools
             int datalen = (data != null) ? data.Length : 0;
             FileInfoLabel.Text = rfe.Path + " (" + typestr + " file)  -  " + TextUtil.GetBytesReadable(datalen);
 
-
             if (ShowLargeFileContentsCheckBox.Checked || (datalen < 524287)) //512K
             {
                 DisplayFileContentsText(rfe, data, length, offset);
@@ -363,10 +353,7 @@ namespace CodeWalker.Tools
                 DataTextBox.Text = "[Filesize >512KB. Select the Show large files option to view its contents]";
             }
 
-
-
             bool istexdict = false;
-
 
             if (rfe.NameLower.EndsWith(".ymap"))
             {
@@ -491,15 +478,12 @@ namespace CodeWalker.Tools
 
             }
 
-
             if (!istexdict)
             {
                 ShowTextures(null);
             }
 
-
             Cursor = Cursors.Default;
-
 
         }
 
@@ -571,7 +555,6 @@ namespace CodeWalker.Tools
 
                 string text = Encoding.UTF8.GetString(data);
 
-
                 DataTextBox.Text = text;
 
                 if (offset > 0)
@@ -610,7 +593,6 @@ namespace CodeWalker.Tools
                 SelectionTabControl.TabPages.Add(TexturesTabPage);
             }
 
-
             if ((td.Textures == null) || (td.Textures.data_items == null)) return;
             var texs = td.Textures.data_items;
 
@@ -644,7 +626,6 @@ namespace CodeWalker.Tools
                 return;
             }
 
-            
             if (mipchange)
             {
                 if (mip >= tex.Levels) mip = tex.Levels - 1;
@@ -685,13 +666,10 @@ namespace CodeWalker.Tools
 
         }
 
-
-
         private void AbortButton_Click(object sender, EventArgs e)
         {
             AbortOperation = true;
         }
-
 
         private void TestAllButton_Click(object sender, EventArgs e)
         {
@@ -743,7 +721,6 @@ namespace CodeWalker.Tools
                     curfile++;
                 }
 
-
                 UpdateStatus("Test complete. " + errcount.ToString() + " problems encountered, " + totbytes.ToString() + " total bytes extracted.");
                 InProgress = false;
             });
@@ -765,11 +742,6 @@ namespace CodeWalker.Tools
             catch { }
         }
 
-
-
-
-
-
         private void Find()
         {
             if (InProgress) return;
@@ -778,7 +750,6 @@ namespace CodeWalker.Tools
                 MessageBox.Show("Please scan the GTAV folder first.");
                 return;
             }
-
 
             string find = FindTextBox.Text.ToLowerInvariant();
             Cursor = Cursors.WaitCursor;
@@ -858,8 +829,6 @@ namespace CodeWalker.Tools
             Find();
         }
 
-
-
         private void ExportButton_Click(object sender, EventArgs e)
         {
             if (InProgress) return;
@@ -889,12 +858,10 @@ namespace CodeWalker.Tools
 
                 byte[] data = rfe.File.ExtractFile(rfe);
 
-
                 if (ExportCompressCheckBox.Checked)
                 {
                     data = ResourceBuilder.Compress(data);
                 }
-
 
                 RpfResourceFileEntry rrfe = rfe as RpfResourceFileEntry;
                 if (rrfe != null) //add resource header if this is a resource file.
@@ -921,12 +888,7 @@ namespace CodeWalker.Tools
 
             }
 
-
-
         }
-
-
-
 
         private class SearchResult
         {
@@ -1103,7 +1065,6 @@ namespace CodeWalker.Tools
 
                         byte[] filebytes = fentry.File.ExtractFile(fentry);
                         if (filebytes == null) continue;
-
 
                         int hitlen1 = 0;
                         int hitlen2 = 0;

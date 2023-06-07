@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 namespace CodeWalker
 {
 
-
-
     public static class QuaternionExtension
     {
         public static Vector3 Multiply(this Quaternion a, Vector3 b)
@@ -79,7 +77,5 @@ namespace CodeWalker
             return r;
         }
     }
-
-
 
 }

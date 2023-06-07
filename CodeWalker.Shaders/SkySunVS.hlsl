@@ -9,7 +9,6 @@ cbuffer VSSunVars : register(b0)
     float2 Offset;
 }
 
-
 struct VS_INPUT
 {
     float4 Position : POSITION;

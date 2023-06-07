@@ -10,7 +10,6 @@ struct VS_INPUT
     float2 Texcoord2 : TEXCOORD2;
 };
 
-
 VS_OUTPUT main(VS_INPUT input, uint iid : SV_InstanceID)
 {
     VS_OUTPUT output;

@@ -32,7 +32,6 @@ namespace CodeWalker.Forms
             }
         }
 
-
         private string fileName;
         public string FileName
         {
@@ -47,7 +46,6 @@ namespace CodeWalker.Forms
 
         private RelFile CurrentFile { get; set; }
 
-
         private bool modified = false;
         private bool LoadingXml = false;
         private bool DelayHighlight = false;
@@ -59,15 +57,12 @@ namespace CodeWalker.Forms
         private bool loadingSynth = false;
         private Dat10Synth currentSynth = null;
 
-
         public RelForm(ExploreForm owner)
         {
             exploreForm = owner;
 
             InitializeComponent();
         }
-
-
 
         private void UpdateFormTitle()
         {
@@ -103,10 +98,7 @@ namespace CodeWalker.Forms
             //    XmlTextBox.Language = Language.XML;
             //}
 
-
             Cursor = Cursors.WaitCursor;
-
-
 
             XmlTextBox.Text = xml;
             //XmlTextBox.IsChanged = false;
@@ -115,7 +107,6 @@ namespace CodeWalker.Forms
             Cursor = Cursors.Default;
             LoadingXml = false;
         }
-
 
         public void LoadRel(RelFile rel)
         {
@@ -180,7 +171,6 @@ namespace CodeWalker.Forms
             }
             MainTextBox.Text = sb.ToString();
 
-
             SynthsComboBox.Items.Clear();
             SynthTextBox.Language = Language.Custom;
             SynthTextBox.Text = "";
@@ -200,9 +190,6 @@ namespace CodeWalker.Forms
                 MainTabControl.TabPages.Remove(SynthsTabPage);
             }
         }
-
-
-
 
         private bool SaveRel(XmlDocument doc)
         {
@@ -298,9 +285,6 @@ namespace CodeWalker.Forms
 
             return false;
         }
-
-
-
 
         private bool CloseDocument()
         {
@@ -477,8 +461,6 @@ namespace CodeWalker.Forms
             return currentSynth;
         }
 
-
-
         Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
         Style RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         Style MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular);
@@ -502,14 +484,11 @@ namespace CodeWalker.Forms
             range.SetStyle(BlueStyle, @"\S+?=(?<range>'[^']*')|\S+=(?<range>""[^""]*"")|\S+=(?<range>\S+)");
         }
 
-
-
         private void Search()
         {
             SearchResultsGrid.SelectedObject = null;
 
             if (CurrentFile?.RelDatasSorted == null) return;
-
 
             bool textsearch = SearchTextRadio.Checked;
             var text = SearchTextBox.Text;
@@ -528,7 +507,6 @@ namespace CodeWalker.Forms
             {
                 hashl = hash;
             }
-
 
             var results = new List<RelData>();
 
@@ -560,8 +538,6 @@ namespace CodeWalker.Forms
             {
                 SearchResultsGrid.SelectedObject = null;
             }
-
-
 
         }
 

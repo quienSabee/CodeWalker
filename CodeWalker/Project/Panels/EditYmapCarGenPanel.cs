@@ -45,7 +45,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
         private void LoadCarGen()
         {
 

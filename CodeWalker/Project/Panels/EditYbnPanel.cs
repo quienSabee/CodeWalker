@@ -55,19 +55,16 @@ namespace CodeWalker.Project.Panels
             Text = fn + ((Ybn?.HasChanged??false) ? "*" : "");
         }
 
-
         public void UpdateUI()
         {
             if (Ybn?.Bounds == null)
             {
-
 
             }
             else
             {
                 var b = Ybn.Bounds;
                 //populatingui = true;
-
 
                 //populatingui = false;
             }

@@ -49,7 +49,6 @@ namespace CodeWalker.Rendering
             vbbinding = new VertexBufferBinding(VertexBuffer, 24, 0);
         }
 
-
         public void Draw(DeviceContext context)
         {
             context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
@@ -78,7 +77,6 @@ namespace CodeWalker.Rendering
                 IndexBuffer = null;
             }
         }
-
 
         public InputElement[] GetLayout()
         {

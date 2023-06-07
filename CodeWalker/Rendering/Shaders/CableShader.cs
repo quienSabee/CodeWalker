@@ -83,7 +83,6 @@ namespace CodeWalker.Rendering
         public ShaderParamNames RenderTextureSampler = ShaderParamNames.DiffuseSampler;
         public bool Deferred = false;
 
-
         private Dictionary<VertexType, InputLayout> layouts = new Dictionary<VertexType, InputLayout>();
 
         public CableShader(Device device)
@@ -96,7 +95,6 @@ namespace CodeWalker.Rendering
             ps = new PixelShader(device, psbytes);
             psdef = new PixelShader(device, psdefbytes);
 
-
             VSSceneVars = new GpuVarsBuffer<CableShaderVSSceneVars>(device);
             VSEntityVars = new GpuVarsBuffer<CableShaderVSEntityVars>(device);
             VSModelVars = new GpuVarsBuffer<CableShaderVSModelVars>(device);
@@ -104,11 +102,8 @@ namespace CodeWalker.Rendering
             PSSceneVars = new GpuVarsBuffer<CableShaderPSSceneVars>(device);
             PSGeomVars = new GpuVarsBuffer<CableShaderPSGeomVars>(device);
 
-
             //supported layout - requires Position, Normal, Colour, Texcoord
             layouts.Add(VertexType.Default, new InputLayout(device, vsbytes, VertexTypeGTAV.GetLayout(VertexType.Default)));
-
-
 
             texsampler = new SamplerState(device, new SamplerStateDescription()
             {
@@ -125,7 +120,6 @@ namespace CodeWalker.Rendering
             });
         }
 
-
         private void SetVertexShader(DeviceContext context, VertexType type)
         {
             switch (type)
@@ -137,7 +131,6 @@ namespace CodeWalker.Rendering
             }
             context.VertexShader.Set(vs);
         }
-
 
         public override void SetShader(DeviceContext context)
         {
@@ -181,7 +174,6 @@ namespace CodeWalker.Rendering
                     rendermode = 8;//direct mode
                     break;
             }
-
 
             VSSceneVars.Vars.ViewProj = Matrix.Transpose(camera.ViewProjMatrix);
             VSSceneVars.Update(context);
@@ -243,7 +235,6 @@ namespace CodeWalker.Rendering
                         }
                     }
 
-
                     ////fallback try get first texture... eventaully remove this! (helps with water for now)
                     //int index = 0;
                     //while (((texture == null) || (texture.Texture2D == null)) && (index < geom.Textures.Length))
@@ -269,7 +260,6 @@ namespace CodeWalker.Rendering
 
             }
 
-
             bool usediff = ((texture != null) && (texture.Texture2D != null) && (texture.ShaderResourceView != null));
 
             PSGeomVars.Vars.EnableTexture = usediff ? 1u : 0u;
@@ -287,7 +277,6 @@ namespace CodeWalker.Rendering
             VSGeomVars.Update(context);
             VSGeomVars.SetVSCBuffer(context, 4);
 
-
             //context.VertexShader.SetSampler(0, texsampler);
             context.PixelShader.SetSampler(0, texsampler);
             //context.PixelShader.SetSampler(1, texsamplerc);
@@ -297,8 +286,6 @@ namespace CodeWalker.Rendering
                 //context.PixelShader.SetShaderResource(0, difftex.ShaderResourceView);
             }
         }
-
-
 
         public override void UnbindResources(DeviceContext context)
         {
@@ -321,11 +308,9 @@ namespace CodeWalker.Rendering
             context.PixelShader.Set(null);
         }
 
-
         public void Dispose()
         {
             if (disposed) return;
-
 
             if (texsampler != null)
             {
@@ -345,7 +330,6 @@ namespace CodeWalker.Rendering
             VSGeomVars.Dispose();
             PSSceneVars.Dispose();
             PSGeomVars.Dispose();
-
 
             ps.Dispose();
             psdef.Dispose();

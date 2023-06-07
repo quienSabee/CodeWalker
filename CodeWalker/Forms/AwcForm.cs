@@ -73,10 +73,7 @@ namespace CodeWalker.Forms
             //    XmlTextBox.Language = Language.XML;
             //}
 
-
             Cursor = Cursors.WaitCursor;
-
-
 
             XmlTextBox.Text = xml;
             //XmlTextBox.IsChanged = false;
@@ -156,7 +153,6 @@ namespace CodeWalker.Forms
             catch
             { }
         }
-
 
         private void Stop()
         {
@@ -291,7 +287,6 @@ namespace CodeWalker.Forms
                     break;
             }
         }
-
 
         private void PlayButton_Click(object sender, EventArgs e)
         {

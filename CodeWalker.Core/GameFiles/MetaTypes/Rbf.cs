@@ -22,7 +22,6 @@
 
 //shamelessly stolen and mangled
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +33,6 @@ using System.Threading.Tasks;
 namespace CodeWalker.GameFiles
 {
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class RbfFile
     {
         private const int RBF_IDENT = 0x30464252;
@@ -43,7 +41,6 @@ namespace CodeWalker.GameFiles
         public Stack<RbfStructure> stack { get; set; }
         public List<RbfEntryDescription> descriptors { get; set; }
         public Dictionary<string, int> outDescriptors { get; private set; } = new Dictionary<string, int>();
-
 
         public void Load(byte[] data)
         {
@@ -226,7 +223,6 @@ namespace CodeWalker.GameFiles
             return isrbf;
         }
 
-
         public byte GetDescriptorIndex(IRbfType t, out bool isNew)
         {
             var key = t.Name;// $"{t.Name}_{t.DataType}";
@@ -242,7 +238,6 @@ namespace CodeWalker.GameFiles
 
             return (byte)idx;
         }
-
 
         public byte[] Save()
         {
@@ -273,7 +268,6 @@ namespace CodeWalker.GameFiles
 
             current.Save(this, writer);
         }
-
 
         public void WriteRecordId(IRbfType type, DataWriter writer)
         {
@@ -438,6 +432,5 @@ namespace CodeWalker.GameFiles
             }
         }
     }
-
 
 }

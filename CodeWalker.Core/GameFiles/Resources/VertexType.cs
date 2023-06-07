@@ -191,5 +191,4 @@ namespace CodeWalker.GameFiles
         public uint Colour;
     }
 
-
 }

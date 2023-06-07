@@ -40,7 +40,6 @@ namespace CodeWalker
 
         Entity camEntity = new Entity();
 
-
         bool MouseLButtonDown = false;
         bool MouseRButtonDown = false;
         int MouseX;
@@ -48,16 +47,11 @@ namespace CodeWalker
         System.Drawing.Point MouseDownPoint;
         System.Drawing.Point MouseLastPoint;
 
-
         public GameFileCache GameFileCache { get; } = GameFileCacheFactory.Create();
-
 
         InputManager Input = new InputManager();
 
-
         bool initedOk = false;
-
-
 
         bool toolsPanelResizing = false;
         int toolsPanelResizeStartX = 0;
@@ -72,15 +66,9 @@ namespace CodeWalker
         List<VertexTypePC> gridVerts = new List<VertexTypePC>();
         object gridSyncRoot = new object();
 
-
-
-
         Vehicle SelectedVehicle = new Vehicle();
 
         bool PlayConvRoofAnim = false;
-
-
-
 
         public VehicleForm()
         {
@@ -106,7 +94,6 @@ namespace CodeWalker
 
         }
 
-
         public void InitScene(Device device)
         {
             int width = ClientSize.Width;
@@ -122,7 +109,6 @@ namespace CodeWalker
                 return;
             }
 
-
             camera.FollowEntity = camEntity;
             camera.FollowEntity.Position = Vector3.Zero;// prevworldpos;
             camera.FollowEntity.Orientation = Quaternion.LookAtLH(Vector3.Zero, Vector3.Up, Vector3.ForwardLH);
@@ -135,9 +121,7 @@ namespace CodeWalker
 
             Renderer.shaders.deferred = false; //no point using this here yet
 
-
             LoadSettings();
-
 
             formopen = true;
             new Thread(new ThreadStart(ContentThread)).Start();
@@ -175,13 +159,8 @@ namespace CodeWalker
 
             Renderer.Update(elapsed, MouseLastPoint.X, MouseLastPoint.Y);
 
-
-
             //UpdateWidgets();
             //BeginMouseHitTest();
-
-
-
 
             Renderer.BeginRender(context);
 
@@ -189,15 +168,12 @@ namespace CodeWalker
 
             Renderer.SelectedDrawable = null;// SelectedItem.Drawable;
 
-
             RenderVehicle();
 
             //UpdateMouseHitsFromRenderer();
             //RenderSelection();
 
-
             RenderGrid(context);
-
 
             Renderer.RenderQueued();
 
@@ -227,9 +203,6 @@ namespace CodeWalker
             return true;
         }
 
-
-
-
         private void Init()
         {
             //called from VehicleForm_Load
@@ -240,7 +213,6 @@ namespace CodeWalker
                 return;
             }
 
-
             MouseWheel += VehicleForm_MouseWheel;
 
             if (!GTAFolder.UpdateGTAFolder(true))
@@ -249,8 +221,6 @@ namespace CodeWalker
                 return;
             }
 
-
-
             ShaderParamNames[] texsamplers = RenderableGeometry.GetTextureSamplerList();
             foreach (var texsampler in texsamplers)
             {
@@ -258,19 +228,14 @@ namespace CodeWalker
             }
             //TextureSamplerComboBox.SelectedIndex = 0;//LoadSettings will do this..
 
-
             UpdateGridVerts();
             GridSizeComboBox.SelectedIndex = 1;
             GridCountComboBox.SelectedIndex = 1;
 
-
-
             Input.Init();
-
 
             Renderer.Start();
         }
-
 
         private void ContentThread()
         {
@@ -305,17 +270,13 @@ namespace CodeWalker
 
             UpdateGlobalVehiclesUI();
 
-
             LoadWorld();
-
-
 
             //initialised = true;
 
             //EnableDLCModsUI();
 
             //UpdateStatus("Ready");
-
 
             Task.Run(() => {
                 while (formopen && !IsDisposed) //renderer content loop
@@ -344,9 +305,6 @@ namespace CodeWalker
             running = false;
         }
 
-
-
-
         private void LoadSettings()
         {
             var s = Settings.Default;
@@ -363,8 +321,6 @@ namespace CodeWalker
             //ErrorConsoleCheckBox.Checked = s.ShowErrorConsole;
             //StatusBarCheckBox.Checked = s.ShowStatusBar;
         }
-
-
 
         private void LoadWorld()
         {
@@ -384,11 +340,6 @@ namespace CodeWalker
             //UpdateCloudTypesComboBox(clouds);
 
         }
-
-
-
-
-
 
         private void UpdateStatus(string text)
         {
@@ -424,9 +375,6 @@ namespace CodeWalker
             catch { }
         }
 
-
-
-
         private void UpdateMousePosition(MouseEventArgs e)
         {
             MouseX = e.X;
@@ -452,7 +400,6 @@ namespace CodeWalker
             camera.UpdateProj = true;
 
         }
-
 
         private void AddDrawableTreeNode(DrawableBase drawable, uint hash, bool check)
         {
@@ -589,7 +536,6 @@ namespace CodeWalker
             }
         }
 
-
         private void UpdateGlobalVehiclesUI()
         {
             if (InvokeRequired)
@@ -616,10 +562,6 @@ namespace CodeWalker
 
         }
 
-
-
-
-
         private void UpdateModelsUI(DrawableBase drawable)
         {
             DetailsPropertyGrid.SelectedObject = drawable;
@@ -637,7 +579,6 @@ namespace CodeWalker
                 AddDrawableModelsTreeNodes(drawable.DrawableModels?.Low, "Low Detail", false);
                 AddDrawableModelsTreeNodes(drawable.DrawableModels?.VLow, "Very Low Detail", false);
                 //AddDrawableModelsTreeNodes(drawable.DrawableModels?.Extra, "X Detail", false);
-
 
                 var fdrawable = drawable as FragDrawable;
                 if (fdrawable != null)
@@ -685,8 +626,6 @@ namespace CodeWalker
             }
         }
 
-
-
         public void LoadVehicle()
         {
             var name = VehicleModelComboBox.Text;
@@ -723,8 +662,6 @@ namespace CodeWalker
             UpdateModelsUI(yft.Fragment.Drawable);
         }
 
-
-
         private void UpdateTimeOfDayLabel()
         {
             int v = TimeOfDayTrackBar.Value;
@@ -735,7 +672,6 @@ namespace CodeWalker
             TimeOfDayLabel.Text = string.Format("{0:00}:{1:00}", ih, im);
         }
 
-
         private void UpdateControlInputs(float elapsed)
         {
             if (elapsed > 0.1f) elapsed = 0.1f;
@@ -743,7 +679,6 @@ namespace CodeWalker
             var s = Settings.Default;
 
             float moveSpeed = 2.0f;
-
 
             Input.Update();
 
@@ -754,8 +689,6 @@ namespace CodeWalker
                 //    SetControlMode(ControlMode == WorldControlMode.Free ? WorldControlMode.Ped : WorldControlMode.Free);
                 //}
             }
-
-
 
             if (Input.ShiftPressed)
             {
@@ -779,7 +712,6 @@ namespace CodeWalker
                 }
             }
 
-
             //if (MapViewEnabled == true)
             //{
             //    movevec *= elapsed * 100.0f * Math.Min(camera.OrthographicTargetSize * 0.01f, 30.0f);
@@ -795,15 +727,11 @@ namespace CodeWalker
                 movevec *= elapsed * moveSpeed * Math.Min(camera.TargetDistance, 50.0f);
             }
 
-
             Vector3 movewvec = camera.ViewInvQuaternion.Multiply(movevec);
             camEntity.Position += movewvec;
 
             //MapViewDragX = 0;
             //MapViewDragY = 0;
-
-
-
 
             if (Input.xbenable)
             {
@@ -819,11 +747,7 @@ namespace CodeWalker
 
             }
 
-
-
         }
-
-
 
         private void UpdateGridVerts()
         {
@@ -879,12 +803,6 @@ namespace CodeWalker
             }
         }
 
-
-
-
-
-
-
         private void RenderVehicle()
         {
             ClipMapEntry clip = null;
@@ -896,13 +814,6 @@ namespace CodeWalker
             Renderer.RenderVehicle(SelectedVehicle, clip);
 
         }
-
-
-
-
-
-
-
 
         private void VehicleForm_Load(object sender, EventArgs e)
         {
@@ -945,8 +856,6 @@ namespace CodeWalker
                 case MouseButtons.Left: MouseLButtonDown = false; break;
                 case MouseButtons.Right: MouseRButtonDown = false; break;
             }
-
-
 
             if (e.Button == MouseButtons.Left)
             {
@@ -995,8 +904,6 @@ namespace CodeWalker
 
             }
 
-
-
         }
 
         private void VehicleForm_MouseWheel(object sender, MouseEventArgs e)
@@ -1029,7 +936,6 @@ namespace CodeWalker
             bool ctrl = Input.CtrlPressed;
             bool shift = Input.ShiftPressed;
 
-
             if (!ctrl)
             {
                 if (k == kb.MoveSlowerZoomIn)
@@ -1041,7 +947,6 @@ namespace CodeWalker
                     camera.MouseZoom(-1);
                 }
             }
-
 
             if (!Input.kbmoving) //don't trigger further actions if moving.
             {
@@ -1392,8 +1297,6 @@ namespace CodeWalker
             //    MessageBox.Show("Couldn't find embedded texture dict.");
             //}
         }
-
-
 
         private void VehicleModelComboBox_TextChanged(object sender, EventArgs e)
         {

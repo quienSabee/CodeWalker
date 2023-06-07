@@ -14,7 +14,6 @@ namespace CodeWalker
     {
         public bool InvertTexcoordV { get; set; } = true;
 
-
         public YdrFile ConvertToYdr(string name, byte[] fbxdata)
         {
             var fdoc = FbxIO.Read(fbxdata);
@@ -23,15 +22,12 @@ namespace CodeWalker
 
             var dwbl = TryConvertDrawable(fdoc, name);
 
-
             YdrFile ydr = new YdrFile();
             ydr.Drawable = dwbl;
             ydr.Name = name;
 
             return ydr;
         }
-
-
 
         private Drawable TryConvertDrawable(FbxDocument fdoc, string name)
         {
@@ -93,8 +89,6 @@ namespace CodeWalker
             mlAll.AddRange(mlLow);
             mlAll.AddRange(mlVlow);
 
-
-
             var allVerts = new List<Vector3>();
             var bbMin = new Vector3(float.MaxValue);
             var bbMax = new Vector3(float.MinValue);
@@ -128,8 +122,6 @@ namespace CodeWalker
                 }
             }
 
-
-
             var sgrp = new ShaderGroup();
             var slist = new List<ShaderFX>();
             var smapp = new List<ushort>();
@@ -151,7 +143,6 @@ namespace CodeWalker
             sgrp.VFT = 1080113376;//is this needed?
             sgrp.Unknown_4h = 1;
             sgrp.Unknown_30h = (uint)(8 + slist.Count*3);//WTF is this?
-
 
             var d = new Drawable();
             d.Name = name + ".#dr";
@@ -197,11 +188,8 @@ namespace CodeWalker
             d.LightAttributes = new ResourceSimpleList64<LightAttributes>();
             //todo: light attributes?
 
-
             return d;
         }
-
-
 
         private List<FbxModel> TryConvertModels(FbxNode mnode)
         {
@@ -457,9 +445,6 @@ namespace CodeWalker
                 }
             }
 
-
-
-
             var dModel = new DrawableModel();
             
             var dGeoms = new List<DrawableGeometry>();
@@ -490,7 +475,6 @@ namespace CodeWalker
                 dGeomAABBs = dGeomAABBs2;
             }
 
-
             dModel.VFT = 1080101496;//is this needed?
             dModel.Unknown_4h = 1;
             dModel.RenderMaskFlags = 0x00FF; //GIMS "Mask"
@@ -500,8 +484,6 @@ namespace CodeWalker
             dModel.GeometriesCount3 = (ushort)dGeoms.Count;
             dModel.BoundsData = dGeomAABBs.ToArray();
             //shader mappings array will be added when adding models to drawable.
-
-
 
             var fModel = new FbxModel();
             fModel.Name = (mnode.Properties.Count > 1) ? (mnode.Properties[1] as string)?.Replace("Model::", "") : null;
@@ -518,7 +500,6 @@ namespace CodeWalker
             if (matNode == null) return null;
             if (fPolys == null) return null;
             if (fPolys.Count == 0) return null;
-
 
             var dShader = TryConvertMaterial(matNode);
             var dVertDecl = GetVertexDeclaration(dShader);
@@ -564,7 +545,6 @@ namespace CodeWalker
                 }
             }
 
-
             var vStride = dVertDecl.Stride;
             var vBytes = new byte[vList.Count * vStride];
             for (int i = 0; i < vList.Count; i++)
@@ -589,7 +569,6 @@ namespace CodeWalker
                 }
             }
 
-
             var vData = new VertexData();
             vData.Info = dVertDecl;
             vData.VertexType = (VertexType)dVertDecl.Flags;
@@ -612,7 +591,6 @@ namespace CodeWalker
             iBuff.VFT = 1080111576;//is this needed?
             iBuff.Unknown_4h = 1;
 
-
             var dGeom = new DrawableGeometry();
             dGeom.Shader = dShader;
             dGeom.VertexData = vData;
@@ -626,7 +604,6 @@ namespace CodeWalker
             dGeom.Unknown_62h = 3; //indices per triangle..?
             dGeom.VertexStride = vStride;
             dGeom.BoneIdsCount = 0;//todo: bones
-
 
             return dGeom;
         }
@@ -695,7 +672,6 @@ namespace CodeWalker
             var pNames = new List<ShaderParamNames>();
             var pVals = new List<ShaderParameter>();
 
-
             shader.Unknown_Ch = 0;
             shader.RenderBucket = 0;
             shader.Unknown_12h = 32768;//shrugs
@@ -703,7 +679,6 @@ namespace CodeWalker
             shader.Unknown_24h = 0;
             shader.Unknown_26h = 0;
             shader.Unknown_28h = 0;
-
 
             switch (spsName)
             {
@@ -762,7 +737,6 @@ namespace CodeWalker
             shader.ParameterCount = (byte)pVals.Count;
             shader.TextureParametersCount = paramsBlock.TextureParamsCount;
             shader.RenderBucketMask = (1u << shader.RenderBucket) | 0xFF00;
-
 
             return shader;
         }
@@ -829,7 +803,6 @@ namespace CodeWalker
 
             return d;
         }
-
 
         private bool IsByPolygonVertexMapType(FbxNode node)
         {
@@ -906,7 +879,6 @@ namespace CodeWalker
 
     }
 
-
     public class FbxModel
     {
         public string Name { get; set; }
@@ -958,7 +930,6 @@ namespace CodeWalker
                     break;
             }
 
-
         }
         private void WriteBytes<T>(T val, int offset) where T : struct
         {
@@ -973,7 +944,6 @@ namespace CodeWalker
             Color v = new Color(c);
             return v.ToRgba();
         }
-
 
         public override bool Equals(object obj)
         {

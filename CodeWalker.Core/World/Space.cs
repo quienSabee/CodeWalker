@@ -360,7 +360,6 @@ namespace CodeWalker.World
 
                         AllYnds[fnhash] = cell.Ynd;
 
-
                         #region node flags test
 
                         //if (cell.Ynd == null) continue;
@@ -483,7 +482,6 @@ namespace CodeWalker.World
 
             int nodecount = ynodes.Length;
 
-
             //build the links arrays.
             if(tlinks==null) tlinks = new List<YndLink>();
             if(nlinks==null) nlinks = new List<YndLink>();
@@ -544,7 +542,6 @@ namespace CodeWalker.World
                 nvert.Position = node.Position;
                 nvert.Colour = (uint)node.Colour.ToRgba();
 
-
                 for (int l = 0; l < node.Links.Length; l++)
                 {
                     YndLink yl = node.Links[l];
@@ -559,7 +556,6 @@ namespace CodeWalker.World
                 }
             }
             ynd.LinkedVerts = tverts.ToArray();
-
 
             ynd.UpdateTriangleVertices();
         }
@@ -870,7 +866,6 @@ namespace CodeWalker.World
 
             return r;
         }
-
 
         public void AddTemporaryEntity(Entity e)
         {
@@ -2011,7 +2006,6 @@ namespace CodeWalker.World
             }
             return null;
         }
-
 
         public Vector3 GetCellRel(Vector3 p)//float value in cell coords
         {

@@ -55,7 +55,6 @@ namespace CodeWalker.Project.Panels
             Text = fn + (Track.HasChanged ? "*" : "");
         }
 
-
         public void UpdateTrainTrackUI()
         {
             if (Track == null)

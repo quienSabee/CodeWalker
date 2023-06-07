@@ -45,11 +45,9 @@ namespace CodeWalker.Forms
         private bool LoadingXml = false;
         private bool DelayHighlight = false;
 
-
         private ExploreForm exploreForm = null;
         public RpfFileEntry rpfFileEntry { get; private set; } = null;
         private MetaFormat metaFormat = MetaFormat.XML;
-
 
         public MetaForm(ExploreForm owner)
         {
@@ -57,7 +55,6 @@ namespace CodeWalker.Forms
 
             InitializeComponent();
         }
-
 
         private void UpdateFormTitle()
         {
@@ -94,10 +91,7 @@ namespace CodeWalker.Forms
             //    XmlTextBox.Language = Language.XML;
             //}
 
-
             Cursor = Cursors.WaitCursor;
-
-
 
             XmlTextBox.Text = xml;
             //XmlTextBox.IsChanged = false;
@@ -106,7 +100,6 @@ namespace CodeWalker.Forms
             Cursor = Cursors.Default;
             LoadingXml = false;
         }
-
 
         private bool CloseDocument()
         {
@@ -209,8 +202,6 @@ namespace CodeWalker.Forms
             FileName = new FileInfo(fn).Name;
             metaFormat = MetaFormat.XML;
         }
-
-
 
         public void LoadMeta(YmtFile ymt)
         {
@@ -403,8 +394,6 @@ namespace CodeWalker.Forms
             }
         }
 
-
-
         public bool SaveMeta(XmlDocument doc)
         {
             //if explorer is in edit mode, and the current RpfFileEntry is valid, convert XML to the 
@@ -495,9 +484,6 @@ namespace CodeWalker.Forms
             return false;
         }
 
-
-
-
         Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
         Style RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         Style MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular);
@@ -517,7 +503,6 @@ namespace CodeWalker.Forms
             //attribute values
             range.SetStyle(BlueStyle, @"\S+?=(?<range>'[^']*')|\S+=(?<range>""[^""]*"")|\S+=(?<range>\S+)");
         }
-
 
         private void XmlTextBox_VisibleRangeChangedDelayed(object sender, EventArgs e)
         {

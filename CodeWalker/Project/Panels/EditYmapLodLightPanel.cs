@@ -42,7 +42,6 @@ namespace CodeWalker.Project.Panels
             Text = "LodLight: " + (CurrentLodLight?.Index.ToString() ?? "(none)");
         }
 
-
         private void LoadLodLight()
         {
 

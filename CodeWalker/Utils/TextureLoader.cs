@@ -70,8 +70,6 @@ namespace CodeWalker.Utils
             }
         }
 
-
-
         //create a bitmap from a texture2D. DOES NOT WORK
         public static System.Drawing.Bitmap GetTextureBitmap(Device device, Texture2D tex, int mipSlice)
         {
@@ -97,7 +95,6 @@ namespace CodeWalker.Utils
 
             //context.CopyResource(tex, textureCopy);
             context.CopySubresourceRegion(tex, mipSlice, null, textureCopy, 0);
-            
 
             var dataBox = context.MapSubresource(
                 textureCopy,
@@ -117,12 +114,10 @@ namespace CodeWalker.Utils
                 DataPointer = dataStream.DataPointer,
                 Pitch = dataBox.RowPitch
             };
-            
 
             ImagingFactory wicf = new ImagingFactory();
 
             var b = new SharpDX.WIC.Bitmap(wicf, w, h, SharpDX.WIC.PixelFormat.Format32bppBGRA, dataRectangle);
-
 
             var s = new MemoryStream();
             using (var bitmapEncoder = new PngBitmapEncoder(wicf, s))
@@ -143,12 +138,8 @@ namespace CodeWalker.Utils
             textureCopy.Dispose();
             b.Dispose();
 
-
-
             s.Position = 0;
             var bmp = new System.Drawing.Bitmap(s);
-
-
 
             //Palette pal = new Palette(wf);
             //b.CopyPalette(pal);
@@ -171,16 +162,12 @@ namespace CodeWalker.Utils
             //b.CopyPixels(data.Stride, data.Scan0, data.Height * data.Stride);
             //bmp.UnlockBits(data);
 
-
             var c1 = bmp.GetPixel(10, 2);
-
 
             //dataStream.Dispose();
 
-
             return bmp;
         }
-
 
     }
 }

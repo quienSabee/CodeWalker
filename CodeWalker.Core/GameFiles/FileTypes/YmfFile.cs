@@ -63,20 +63,11 @@ namespace CodeWalker.GameFiles
             else
             { }//doesn't get here
 
-
-
-
-
             ResourceDataReader rd = new ResourceDataReader(resentry, data);
 
             Meta = rd.ReadBlock<Meta>();
 
-
-
-
-
         }
-
 
         private void ProcessPSO()
         {
@@ -84,7 +75,6 @@ namespace CodeWalker.GameFiles
             //See x64m.rpf\levels\gta5\_cityw\venice_01\venice_metadata.rpf\_manifest.ymf
             //for TIMED YMAP stuff!!!!
             //check CMapDataGroup.HoursOnOff
-
 
             var d = PsoTypes.GetRootItem<CPackFileMetaData>(Pso);
 
@@ -100,9 +90,7 @@ namespace CodeWalker.GameFiles
 
             Interiors = PsoTypes.GetObjectArray<YmfInterior, CInteriorBoundsFiles>(Pso, d.Interiors);
 
-
         }
-
 
         public override string ToString()
         {

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using TC = System.ComponentModel.TypeConverterAttribute;
 using EXP = System.ComponentModel.ExpandableObjectConverter;
 
-
 namespace CodeWalker.GameFiles
 {
     public static class PsoTypes
@@ -19,8 +18,6 @@ namespace CodeWalker.GameFiles
 
         public static Dictionary<MetaName, PsoEnumInfo> EnumDict = new Dictionary<MetaName, PsoEnumInfo>();
         public static Dictionary<MetaName, PsoStructureInfo> StructDict = new Dictionary<MetaName, PsoStructureInfo>();
-
-
 
         public static void Clear()
         {
@@ -35,7 +32,6 @@ namespace CodeWalker.GameFiles
             {
                 return;
             }
-
 
             for (int i = 0; i < pso.SchemaSection.Entries.Length; i++)
             {
@@ -126,7 +122,6 @@ namespace CodeWalker.GameFiles
             return true;
         }
 
-
         public static string GetTypesString()
         {
             StringBuilder sbe = new StringBuilder();
@@ -134,7 +129,6 @@ namespace CodeWalker.GameFiles
 
             sbe.AppendLine("//Enum infos");
             sbs.AppendLine("//Struct infos");
-
 
             foreach (var kvp in EnumDict)
             {
@@ -203,7 +197,6 @@ namespace CodeWalker.GameFiles
                 sbs.AppendLine();
             }
 
-
             sbe.AppendLine();
             sbe.AppendLine();
             sbe.AppendLine();
@@ -215,7 +208,6 @@ namespace CodeWalker.GameFiles
 
             return result;
         }
-
 
         public static string GetTypesInitString()
         {
@@ -286,8 +278,6 @@ namespace CodeWalker.GameFiles
                 return "(MetaName)" + n.ToString();
             }
         }
-
-
 
         public static PsoStructureInfo GetStructureInfo(MetaName name)
         {
@@ -15798,9 +15788,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
-
         private static string GetSafeName(MetaName namehash, uint key)
         {
             string name = namehash.ToString();
@@ -15814,8 +15801,6 @@ namespace CodeWalker.GameFiles
             }
             return name;
         }
-
-
 
         public static T ConvertDataRaw<T>(byte[] data) where T : struct
         {
@@ -15859,7 +15844,6 @@ namespace CodeWalker.GameFiles
 
             return items;
         }
-
 
         public static T GetItem<T>(PsoFile pso, int offset) where T : struct, IPsoSwapEnd
         {
@@ -15905,7 +15889,6 @@ namespace CodeWalker.GameFiles
             return null;
         }
 
-
         public static uint[] GetUintArrayRaw(PsoFile pso, Array_uint arr)
         {
             byte[] data = pso.DataSection.Data;
@@ -15943,9 +15926,6 @@ namespace CodeWalker.GameFiles
             return hashes;
         }
 
-
-
-
         public static float[] GetFloatArrayRaw(PsoFile pso, Array_float arr)
         {
             byte[] data = pso.DataSection.Data;
@@ -15970,10 +15950,6 @@ namespace CodeWalker.GameFiles
             }
             return floats;
         }
-
-
-
-
 
         public static ushort[] GetUShortArrayRaw(PsoFile pso, Array_Structure arr)
         {
@@ -16000,11 +15976,6 @@ namespace CodeWalker.GameFiles
             return ushorts;
         }
 
-
-
-
-
-
         public static T[] GetObjectArray<T, U>(PsoFile pso, Array_Structure arr) where U : struct, IPsoSwapEnd where T : PsoClass<U>, new()
         {
             U[] items = GetItemArray<U>(pso, arr);
@@ -16020,7 +15991,6 @@ namespace CodeWalker.GameFiles
             return result;
         }
 
-
         public static byte[] GetByteArray(PsoFile pso, PsoStructureEntryInfo entry, int offset)
         {
             var aCount = (entry.ReferenceKey >> 16) & 0x0000FFFF;
@@ -16032,11 +16002,6 @@ namespace CodeWalker.GameFiles
 
             return null;
         }
-
-
-
-
-
 
         public static PsoPOINTER[] GetPointerArray(PsoFile pso, Array_StructurePointer array)
         {
@@ -16065,7 +16030,6 @@ namespace CodeWalker.GameFiles
 
             return ptrs;
         }
-
 
         public static T[] ConvertDataArray<T>(PsoFile pso, Array_StructurePointer array) where T : struct, IPsoSwapEnd
         {
@@ -16098,8 +16062,6 @@ namespace CodeWalker.GameFiles
 
             return items;
         }
-
-
 
         public static string GetString(PsoFile pso, CharPointer ptr)
         {
@@ -16174,9 +16136,7 @@ namespace CodeWalker.GameFiles
             return s;
         }
 
-
     }
-
 
     public interface IPsoSwapEnd
     {
@@ -16187,7 +16147,6 @@ namespace CodeWalker.GameFiles
     {
         public abstract void Init(PsoFile pso, ref T v);
     }
-
 
     public struct PsoChar64
     {
@@ -16270,9 +16229,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
     [TC(typeof(EXP))] public struct PsoPOINTER : IPsoSwapEnd //8 bytes - pointer to data item
     {
         public ulong Pointer { get; set; }
@@ -16281,12 +16237,10 @@ namespace CodeWalker.GameFiles
         public uint ItemOffset { get { return (uint)((Pointer>>12) & 0xFFFFF); } } //byte offset
         public uint Unk0 { get { return (uint)((Pointer>>32) & 0xFFFFFFFF); } }
 
-
         public PsoPOINTER(int blockID, int itemOffset)
         {
             Pointer = (((uint)itemOffset << 12) & 0xFFFFF000) + ((uint)blockID & 0xFFF);
         }
-
 
         public override string ToString()
         {
@@ -16298,14 +16252,6 @@ namespace CodeWalker.GameFiles
             Pointer = MetaTypes.SwapBytes(Pointer);
         }
     }
-
-
-
-
-
-
-
-
 
     //Struct infos
     [TC(typeof(EXP))] public struct CPackFileMetaData : IPsoSwapEnd //96 bytes, Type:0
@@ -16399,7 +16345,6 @@ namespace CodeWalker.GameFiles
         public ushort Unused0 { get; set; } //6
         public Array_uint itypDepArray { get; set; } //8   itypDepArray//2410949350: Array: 8: 3  {256: INT_0Bh: 0} //children...
 
-
         public override string ToString()
         {
             return imapName.ToString() + ": " + manifestFlags.ToString() + ": " + itypDepArray.ToString();
@@ -16447,11 +16392,6 @@ namespace CodeWalker.GameFiles
             var b = Bounds; b.SwapEnd(); Bounds = b;
         }
     }
-
-
-
-
-
 
     [TC(typeof(EXP))] public struct CScenarioPointManifest : IPsoSwapEnd //56 bytes, Type:0
     {
@@ -16513,8 +16453,5 @@ namespace CodeWalker.GameFiles
             Name = new MetaHash(MetaTypes.SwapBytes(Name.Hash));
         }
     }
-
-
-
 
 }

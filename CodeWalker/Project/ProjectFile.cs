@@ -46,8 +46,6 @@ namespace CodeWalker.Project
         public List<YftFile> YftFiles { get; set; } = new List<YftFile>();
         public List<YtdFile> YtdFiles { get; set; } = new List<YtdFile>();
 
-
-
         public void Save()
         {
             XmlDocument doc = new XmlDocument();
@@ -161,7 +159,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             YtypFilenames.Clear();
             YtypFiles.Clear();
             var ytypselem = Xml.GetChild(projelem, "YtypFilenames");
@@ -176,7 +173,6 @@ namespace CodeWalker.Project
                     }
                 }
             }
-
 
             YbnFilenames.Clear();
             YbnFiles.Clear();
@@ -193,7 +189,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             YndFilenames.Clear();
             YndFiles.Clear();
             var yndselem = Xml.GetChild(projelem, "YndFilenames");
@@ -208,8 +203,6 @@ namespace CodeWalker.Project
                     }
                 }
             }
-
-
 
             YnvFilenames.Clear();
             YnvFiles.Clear();
@@ -226,7 +219,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             TrainsFilenames.Clear();
             TrainsFiles.Clear();
             var trainsselem = Xml.GetChild(projelem, "TrainsFilenames");
@@ -241,8 +233,6 @@ namespace CodeWalker.Project
                     }
                 }
             }
-
-
 
             ScenarioFilenames.Clear();
             ScenarioFiles.Clear();
@@ -259,8 +249,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
-
             AudioRelFilenames.Clear();
             AudioRelFiles.Clear();
             var audiorelselem = Xml.GetChild(projelem, "AudioRelFilenames");
@@ -275,7 +263,6 @@ namespace CodeWalker.Project
                     }
                 }
             }
-
 
             YdrFilenames.Clear();
             YdrFiles.Clear();
@@ -292,7 +279,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             YddFilenames.Clear();
             YddFiles.Clear();
             var yddselem = Xml.GetChild(projelem, "YddFilenames");
@@ -308,7 +294,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             YftFilenames.Clear();
             YftFiles.Clear();
             var yftselem = Xml.GetChild(projelem, "YftFilenames");
@@ -323,7 +308,6 @@ namespace CodeWalker.Project
                     }
                 }
             }
-
 
             YtdFilenames.Clear();
             YtdFiles.Clear();
@@ -341,7 +325,6 @@ namespace CodeWalker.Project
             }
 
         }
-
 
         public void UpdateFilenames(string oldprojpath)
         {
@@ -453,8 +436,6 @@ namespace CodeWalker.Project
             return apath;
         }
 
-
-
         public YmapFile AddYmapFile(string filename)
         {
             YmapFile ymap = new YmapFile();
@@ -523,7 +504,6 @@ namespace CodeWalker.Project
             }
             return false;
         }
-
 
         public YtypFile AddYtypFile(string filename)
         {
@@ -594,7 +574,6 @@ namespace CodeWalker.Project
             return false;
         }
 
-
         public YbnFile AddYbnFile(string filename)
         {
             YbnFile ybn = new YbnFile();
@@ -660,7 +639,6 @@ namespace CodeWalker.Project
             }
             return false;
         }
-
 
         public YndFile AddYndFile(string filename)
         {
@@ -728,7 +706,6 @@ namespace CodeWalker.Project
             return false;
         }
 
-
         public YnvFile AddYnvFile(string filename)
         {
             YnvFile ynv = new YnvFile();
@@ -795,7 +772,6 @@ namespace CodeWalker.Project
             return false;
         }
 
-
         public TrainTrack AddTrainsFile(string filename)
         {
             TrainTrack track = new TrainTrack();
@@ -861,7 +837,6 @@ namespace CodeWalker.Project
             }
             return false;
         }
-
 
         public YmtFile AddScenarioFile(string filename)
         {
@@ -931,7 +906,6 @@ namespace CodeWalker.Project
             return false;
         }
 
-
         public RelFile AddAudioRelFile(string filename)
         {
             RelFile relfile = new RelFile();
@@ -999,7 +973,6 @@ namespace CodeWalker.Project
             return false;
         }
 
-
         public YdrFile AddYdrFile(string filename)
         {
             YdrFile ydr = new YdrFile();
@@ -1065,7 +1038,6 @@ namespace CodeWalker.Project
             }
             return false;
         }
-
 
         public YddFile AddYddFile(string filename)
         {
@@ -1133,7 +1105,6 @@ namespace CodeWalker.Project
             return false;
         }
 
-
         public YftFile AddYftFile(string filename)
         {
             YftFile yft = new YftFile();
@@ -1199,7 +1170,6 @@ namespace CodeWalker.Project
             }
             return false;
         }
-
 
         public YtdFile AddYtdFile(string filename)
         {

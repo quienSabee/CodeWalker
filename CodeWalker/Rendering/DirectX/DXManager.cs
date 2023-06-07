@@ -171,7 +171,6 @@ namespace CodeWalker.Rendering
             if (depthview != null) depthview.Dispose();
             if (depthbuffer != null) depthbuffer.Dispose();
 
-
             backbuffer = Texture2D.FromSwapChain<Texture2D>(swapchain, 0);
             targetview = new RenderTargetView(device, backbuffer);
 

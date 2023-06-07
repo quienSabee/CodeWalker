@@ -19,7 +19,6 @@ namespace CodeWalker.Rendering
 
         Form Form { get; }
 
-
         void InitScene(Device device);
         void CleanupScene();
         void RenderScene(DeviceContext context);

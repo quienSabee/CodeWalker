@@ -10,7 +10,6 @@ namespace CodeWalker.GameFiles
     public class XmlMeta
     {
 
-
         public static byte[] GetData(XmlDocument doc, MetaFormat mformat, string fpathin)
         {
             switch (mformat)
@@ -203,7 +202,6 @@ namespace CodeWalker.GameFiles
             return mrf.Save();
         }
 
-
         public static string GetXMLFormatName(MetaFormat mformat)
         {
             switch (mformat)
@@ -336,8 +334,6 @@ namespace CodeWalker.GameFiles
             return mformat;
         }
 
-
-
         public static Meta GetMeta(XmlDocument doc)
         {
             MetaBuilder mb = new MetaBuilder();
@@ -444,7 +440,6 @@ namespace CodeWalker.GameFiles
                                 break;
                             }
 
-
                         case MetaStructureEntryDataType.CharPointer:
                             {
                                 if (!string.IsNullOrEmpty(cnode.InnerText))
@@ -499,7 +494,6 @@ namespace CodeWalker.GameFiles
 
                                 break;
                             }
-
 
                         case MetaStructureEntryDataType.Float_XYZW:
                             {
@@ -995,7 +989,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             return mb.AddPaddedVector3ArrayPtr(items.ToArray());
         }
 
@@ -1095,7 +1088,6 @@ namespace CodeWalker.GameFiles
                 return 0;
             }
 
-
             bool isFlags = (dataType == MetaStructureEntryDataType.IntFlags1) ||
                            (dataType == MetaStructureEntryDataType.IntFlags2);// ||
                            //(dataType == MetaStructureEntryDataType.ShortFlags);
@@ -1142,8 +1134,6 @@ namespace CodeWalker.GameFiles
 
             return 0;
         }
-
-
 
         public static T[] ReadItemArray<T>(XmlNode node, string name) where T : IMetaXmlItem, new()
         {
@@ -1193,7 +1183,6 @@ namespace CodeWalker.GameFiles
             }
             return null;
         }
-
 
         public static MetaHash[] ReadHashItemArray(XmlNode node, string name)
         {

@@ -26,14 +26,12 @@ namespace CodeWalker.Forms
         private ExploreForm ExploreForm = null;
         private ModelForm ModelForm = null;
 
-
         public YtdForm(ExploreForm exploreForm = null, ModelForm modelForm = null)
         {
             ExploreForm = exploreForm;
             ModelForm = modelForm;
             InitializeComponent();
         }
-
 
         public void LoadYtd(YtdFile ytd)
         {
@@ -65,7 +63,6 @@ namespace CodeWalker.Forms
                 return;
             }
 
-
             if ((TexDict.Textures == null) || (TexDict.Textures.data_items == null)) return;
             var texs = TexDict.Textures.data_items;
             List<Texture> texlist = new List<Texture>(texs);
@@ -85,7 +82,6 @@ namespace CodeWalker.Forms
             }
             UpdateStatus(GetTexCountStr());
 
-
             UpdateFormTitle();
             UpdateSaveYTDAs();
         }
@@ -96,7 +92,6 @@ namespace CodeWalker.Forms
             if (texs == null) return "";
             return texs.Length.ToString() + " texture" + ((texs.Length != 1) ? "s" : "");
         }
-
 
         private void SelectTexture(Texture tex)
         {
@@ -135,7 +130,6 @@ namespace CodeWalker.Forms
             RemoveTextureButton.Enabled = true;
             ReplaceTextureButton.Enabled = true;
 
-
             if (mipchange)
             {
                 if (mip >= tex.Levels) mip = tex.Levels - 1;
@@ -147,7 +141,6 @@ namespace CodeWalker.Forms
 
             SelTextureNameTextBox.Text = tex.Name;
             DetailsPropertyGrid.SelectedObject = tex;
-
 
             try
             {
@@ -191,7 +184,6 @@ namespace CodeWalker.Forms
 
             UpdateZoom();
         }
-
 
         private void AddTexture()
         {
@@ -309,7 +301,6 @@ namespace CodeWalker.Forms
             UpdateModelFormTextures();
         }
 
-
         private Texture OpenDDSFile()
         {
             if (OpenDDSFileDialog.ShowDialog() != DialogResult.OK) return null;
@@ -334,7 +325,6 @@ namespace CodeWalker.Forms
 
             return null;
         }
-
 
         private void UpdateModelFormTextures()
         {
@@ -381,8 +371,6 @@ namespace CodeWalker.Forms
             }
 
         }
-
-
 
         private void UpdateSaveYTDAs()
         {
@@ -432,8 +420,6 @@ namespace CodeWalker.Forms
                 ToolbarSaveTextureAsMenu.Enabled = true;
             }
         }
-
-
 
         private void SaveYTD(bool saveas = false)
         {
@@ -537,8 +523,6 @@ namespace CodeWalker.Forms
                 File.WriteAllBytes(fpath, dds);
             }
         }
-
-
 
         private void TexturesListView_SelectedIndexChanged(object sender, EventArgs e)
         {

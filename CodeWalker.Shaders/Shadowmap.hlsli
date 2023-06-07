@@ -28,17 +28,12 @@ cbuffer ShadowmapVars : register(b1)
     float ShadowMaxDistance; //2000 or so
 };
 
-
-
 float ShadowmapSceneDepth(float3 camRelPos, out float4 lspos)
 {
     float4 scenePos = float4(camRelPos + CamScenePos.xyz, 1.0);
     lspos = mul(scenePos, LightView);
     return mul(scenePos, CamSceneView).z;
 }
-
-
-
 
 //--------------------------------------------------------------------------------------
 // Use PCF to sample the depth map and return a percent lit value.
@@ -78,7 +73,6 @@ void ShadowmapCalculatePCFPercentLit(in float4 vShadowTexCoord,
     fPercentLit /= (float)fBlurRowSize;
 }
 
-
 //--------------------------------------------------------------------------------------
 // Calculate amount to blend between two cascades and the band where blending will occure.
 //--------------------------------------------------------------------------------------
@@ -115,7 +109,6 @@ void ShadowComputeCoordinatesTransform(in int iCascadeIndex, inout float4 vShado
     vShadowTexCoord.x += (CascadeCountInv*(float)iCascadeIndex);// (m_fShadowPartitionSize * (float)iCascadeIndex);
 } 
 
-
 float ShadowAmount(float4 shadowcoord, float shadowdepth)//, inout float4 colour)
 {
 
@@ -126,7 +119,6 @@ float ShadowAmount(float4 shadowcoord, float shadowdepth)//, inout float4 colour
 
     float fPercentLit = 0.0f;
     float fPercentLit_blend = 0.0f;
-
 
     float fUpTextDepthWeight = 0;
     float fRightTextDepthWeight = 0;
@@ -178,7 +170,6 @@ float ShadowAmount(float4 shadowcoord, float shadowdepth)//, inout float4 colour
     {
         ShadowComputeCoordinatesTransform(iCurrentCascadeIndex, vShadowMapTextureCoord);    
 
-
         vVisualizeCascadeColor = vCascadeColorsMultiplier[iCurrentCascadeIndex];
         //colour = vVisualizeCascadeColor;
 
@@ -190,7 +181,6 @@ float ShadowAmount(float4 shadowcoord, float shadowdepth)//, inout float4 colour
         float fCurrentPixelsBlendBandLocation = 1.0f;
 
         ShadowmapCalculateBlendAmountForMap(vShadowMapTextureCoord, fCurrentPixelsBlendBandLocation, fBlendBetweenCascadesAmount);
-
 
         ShadowmapCalculatePCFPercentLit(vShadowMapTextureCoord, fRightTextDepthWeight, fUpTextDepthWeight, fBlurRowSize, (float)iCurrentCascadeIndex, fPercentLit);
 
@@ -221,9 +211,6 @@ float ShadowAmount(float4 shadowcoord, float shadowdepth)//, inout float4 colour
 
     }
 }
-
-
-
 
 float3 FullLighting(float3 diff, float3 spec, float3 norm, float4 vc0, uniform ShaderGlobalLightParams globalLights, uint enableShadows, float shadowdepth, float4 shadowcoord)
 {

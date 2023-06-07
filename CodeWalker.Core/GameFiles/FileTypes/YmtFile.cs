@@ -19,16 +19,12 @@ namespace CodeWalker.GameFiles
         public YmtFileFormat FileFormat { get; set; } = YmtFileFormat.Unknown;
         public YmtFileContentType ContentType { get; set; } = YmtFileContentType.None;
 
-
         public Dictionary<string,string> CMapParentTxds { get; set; }
 
         public YmtScenarioPointManifest CScenarioPointManifest { get; set; }
 
         public MCScenarioPointRegion CScenarioPointRegion { get; set; }
         public ScenarioRegion ScenarioRegion { get; set; }
-
-
-
 
         //fields used by the editor:
         public bool HasChanged { get; set; } = false;
@@ -40,8 +36,6 @@ namespace CodeWalker.GameFiles
         public YmtFile(RpfFileEntry entry) : base(entry, GameFileType.Ymt)
         {
         }
-
-
 
         public void Load(byte[] data)
         {
@@ -57,7 +51,6 @@ namespace CodeWalker.GameFiles
             RpfFileEntry = entry;
             Name = entry.Name;
             FilePath = Name;
-
 
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry != null)
@@ -79,7 +72,6 @@ namespace CodeWalker.GameFiles
                 return;
             }
 
-
             MemoryStream ms = new MemoryStream(data);
 
             if (RbfFile.IsRBF(ms))
@@ -91,8 +83,6 @@ namespace CodeWalker.GameFiles
                 {
                     LoadMapParentTxds(rbfstruct);
                 }
-
-
 
                 Loaded = true;
                 return;
@@ -113,7 +103,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
 
-
                 Loaded = true;
                 return;
             }
@@ -122,11 +111,7 @@ namespace CodeWalker.GameFiles
 
             }
 
-
-
-
         }
-
 
         private void LoadMapParentTxds(RbfStructure rbfstruct)
         {
@@ -213,7 +198,6 @@ namespace CodeWalker.GameFiles
             CScenarioPointRegion.Ymt = this;
             CScenarioPointRegion.Load(meta, cdata);
 
-
             ScenarioRegion = new ScenarioRegion();
             ScenarioRegion.Load(this);
 
@@ -221,9 +205,6 @@ namespace CodeWalker.GameFiles
             //if (!string.IsNullOrEmpty(stypes))
             //{ }
         }
-
-
-
 
         public byte[] Save()
         {
@@ -237,7 +218,6 @@ namespace CodeWalker.GameFiles
 
             return null;
         }
-
 
         private byte[] SaveMapParentTxds()
         {
@@ -258,30 +238,17 @@ namespace CodeWalker.GameFiles
             return null;
         }
 
-
-
-
-
-
-
-
         private void LogSaveWarning(string w)
         {
             if (SaveWarnings == null) SaveWarnings = new List<string>();
             SaveWarnings.Add(w);
         }
 
-
-
-
-
-
         public override string ToString()
         {
             return RpfFileEntry.ToString();
         }
     }
-
 
     public enum YmtFileFormat
     {
@@ -298,8 +265,6 @@ namespace CodeWalker.GameFiles
         ScenarioPointRegion = 3,
     }
 
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class YmtScenarioPointManifest
     {
         public CScenarioPointManifest _Data;
@@ -308,7 +273,6 @@ namespace CodeWalker.GameFiles
         public CScenarioPointRegionDef[] RegionDefs { get; set; }
         public CScenarioPointGroup[] Groups { get; set; }
         public MetaHash[] InteriorNames { get; set; }
-
 
         public void Load(PsoFile pso)
         {
@@ -319,6 +283,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
 }

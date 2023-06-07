@@ -76,7 +76,6 @@ namespace CodeWalker.Project.Panels
             Text = fn + ((CollisionPoly?.Owner?.HasChanged ?? false) ? "*" : "");
         }
 
-
         public void UpdateUI()
         {
             if (CollisionPoly == null)
@@ -223,7 +222,6 @@ namespace CodeWalker.Project.Panels
             return r;
         }
 
-
         private void UpdatePolyMaterial(BoundMaterial_s mat)
         {
             if (CollisionPoly == null) return;
@@ -245,8 +243,6 @@ namespace CodeWalker.Project.Panels
                 ProjectForm.WorldForm.UpdateCollisionBoundsGraphics(CollisionPoly.Owner);
             }
         }
-
-
 
         private void TriVertex1TextBox_TextChanged(object sender, EventArgs e)
         {

@@ -15,13 +15,11 @@ struct PathShaderVertex
 
 StructuredBuffer<PathShaderVertex> Vertices : register(t0);
 
-
 struct VS_OUTPUT
 {
 	float4 Position  : SV_POSITION;
 	float4 Colour    : COLOR0;
 };
-
 
 VS_OUTPUT main(uint id : SV_VertexID)
 {

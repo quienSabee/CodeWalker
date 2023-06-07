@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace CodeWalker.GameFiles
 {
 
-
     //shader parameter names used in drawables.
     //these were all extracted from MetaNames enum because their casing did not match the actual hash!
     //these should probably really only be used for display purposes.
@@ -1432,7 +1431,5 @@ namespace CodeWalker.GameFiles
         zShift = 2743864906,
         zShiftScale = 273550094,
     }
-
-
 
 }

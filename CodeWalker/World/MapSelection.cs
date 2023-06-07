@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 namespace CodeWalker
 {
 
-
-
     public enum MapSelectionMode
     {
         None = 0,
@@ -39,8 +37,6 @@ namespace CodeWalker
         CalmingQuad = 20,
         WaveQuad = 21,
     }
-
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct MapSelection
@@ -89,7 +85,6 @@ namespace CodeWalker
         public Vector3 CamRel { get; set; }
         public float HitDist { get; set; }
 
-
         public bool HasValue
         {
             get
@@ -128,7 +123,6 @@ namespace CodeWalker
         {
             get { return (HitDist != float.MaxValue); }
         }
-
 
         public bool CheckForChanges(MapSelection mhit)
         {
@@ -189,7 +183,6 @@ namespace CodeWalker
                 || (Audio != null)
                 || (MloRoomDef != null);
         }
-
 
         public void Clear()
         {
@@ -349,7 +342,6 @@ namespace CodeWalker
             }
             return name;
         }
-
 
         public bool CanMarkUndo()
         {
@@ -943,7 +935,6 @@ namespace CodeWalker
             }
         }
 
-
         public void SetMultipleSelectionItems(MapSelection[] items)
         {
             if ((items != null) && (items.Length == 0)) items = null;
@@ -980,7 +971,6 @@ namespace CodeWalker
             }
             MultipleSelectionCenter = center;
         }
-
 
         public void SetPosition(Vector3 newpos, bool editPivot)
         {
@@ -1281,8 +1271,6 @@ namespace CodeWalker
             }
         }
 
-
-
         public void UpdateCollisionFromRayHit(ref SpaceRayIntersectResult hit, Camera camera)
         {
             var position = hit.HitEntity?.Position ?? Vector3.Zero;
@@ -1311,9 +1299,6 @@ namespace CodeWalker
                 CollisionVertex = null;
             }
         }
-
-
-
 
         public void UpdateGraphics(WorldForm wf)
         {
@@ -1467,7 +1452,6 @@ namespace CodeWalker
                 }
             }
         }
-
 
         public object GetProjectObject()
         {
@@ -1624,14 +1608,10 @@ namespace CodeWalker
             return ms;
         }
 
-
-
         public override string ToString()
         {
             return GetFullNameString("[Empty]");
         }
     }
-
-
 
 }

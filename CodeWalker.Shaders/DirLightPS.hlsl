@@ -1,6 +1,5 @@
 #include "LightPS.hlsli"
 
-
 Texture2D DepthTex : register(t0);
 Texture2D DiffuseTex : register(t2);
 Texture2D NormalTex : register(t3);

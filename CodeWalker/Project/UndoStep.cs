@@ -20,7 +20,6 @@ namespace CodeWalker.Project
 
     }
 
-
     public abstract class MultiItemUndoStep : UndoStep
     {
         protected MapSelection Selection;
@@ -163,8 +162,6 @@ namespace CodeWalker.Project
         }
     }
 
-
-
     public class EntityPositionUndoStep : UndoStep
     {
         public YmapEntityDef Entity { get; set; }
@@ -214,7 +211,6 @@ namespace CodeWalker.Project
             EndRotation = ent?.WidgetOrientation ?? Quaternion.Identity;
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
             Entity?.SetOrientationFromWidget(q);
@@ -222,7 +218,6 @@ namespace CodeWalker.Project
             if (Entity != sel.EntityDef) wf.SelectObject(Entity);
             wf.SetWidgetRotation(q);
         }
-
 
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
@@ -252,7 +247,6 @@ namespace CodeWalker.Project
             EndScale = ent?.Scale ?? Vector3.One;
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Vector3 s)
         {
             Entity?.SetScale(s);
@@ -260,7 +254,6 @@ namespace CodeWalker.Project
             if (Entity != sel.EntityDef) wf.SelectObject(Entity);
             wf.SetWidgetScale(s);
         }
-
 
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
@@ -277,8 +270,6 @@ namespace CodeWalker.Project
             return (Entity?._CEntityDef.archetypeName.ToString() ?? "") + ": Scale";
         }
     }
-
-
 
     public class EntityPivotPositionUndoStep : UndoStep
     {
@@ -329,7 +320,6 @@ namespace CodeWalker.Project
             EndRotation = ent?.WidgetOrientation ?? Quaternion.Identity;
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
             Entity?.SetPivotOrientationFromWidget(q);
@@ -337,7 +327,6 @@ namespace CodeWalker.Project
             if (Entity != sel.EntityDef) wf.SelectObject(Entity);
             wf.SetWidgetRotation(q);
         }
-
 
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
@@ -354,8 +343,6 @@ namespace CodeWalker.Project
             return (Entity?._CEntityDef.archetypeName.ToString() ?? "") + ": Pivot Rotation";
         }
     }
-
-
 
     public class CarGenPositionUndoStep : UndoStep
     {
@@ -406,7 +393,6 @@ namespace CodeWalker.Project
             EndRotation = cargen?.Orientation ?? Quaternion.Identity;
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
             CarGen?.SetOrientation(q);
@@ -451,7 +437,6 @@ namespace CodeWalker.Project
             wf.SetWidgetScale(s);
         }
 
-
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
             Update(wf, ref sel, StartScale);
@@ -467,8 +452,6 @@ namespace CodeWalker.Project
             return "CarGen " + (CarGen?._CCarGen.carModel.ToString() ?? "") + ": Scale";
         }
     }
-
-
 
     public abstract class LodLightUndoStep : UndoStep
     {
@@ -531,7 +514,6 @@ namespace CodeWalker.Project
             EndRotation = lodlight?.Orientation ?? Quaternion.Identity;
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
             LodLight?.SetOrientation(q);
@@ -579,7 +561,6 @@ namespace CodeWalker.Project
             UpdateGraphics(wf);
         }
 
-
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
             Update(wf, ref sel, StartScale);
@@ -595,7 +576,6 @@ namespace CodeWalker.Project
             return "LodLight " + (LodLight?.Index.ToString() ?? "") + ": Scale";
         }
     }
-
 
     public abstract class BoxOccluderUndoStep : UndoStep
     {
@@ -658,7 +638,6 @@ namespace CodeWalker.Project
             EndRotation = box?.Orientation ?? Quaternion.Identity;
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
             BoxOccluder.Orientation = q;
@@ -706,7 +685,6 @@ namespace CodeWalker.Project
             UpdateGraphics(wf);
         }
 
-
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
             Update(wf, ref sel, StartScale);
@@ -722,7 +700,6 @@ namespace CodeWalker.Project
             return "BoxOccluder " + (BoxOccluder?.Index.ToString() ?? "") + ": Scale";
         }
     }
-
 
     public abstract class OccludeModelTriUndoStep : UndoStep
     {
@@ -785,7 +762,6 @@ namespace CodeWalker.Project
             EndRotation = tri?.Orientation ?? Quaternion.Identity;
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
             OccludeModelTri.Orientation = q;
@@ -833,7 +809,6 @@ namespace CodeWalker.Project
             UpdateGraphics(wf);
         }
 
-
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
             Update(wf, ref sel, StartScale);
@@ -849,8 +824,6 @@ namespace CodeWalker.Project
             return "OccludeModel Triangle " + (OccludeModelTri?.Index.ToString() ?? "") + ": Scale";
         }
     }
-
-
 
     public class CollisionPositionUndoStep : UndoStep
     {
@@ -882,7 +855,6 @@ namespace CodeWalker.Project
                     Bounds.Position = p;
                 }
             }
-
 
             if (Bounds != sel.CollisionBounds) wf.SelectObject(Bounds);
             wf.SetWidgetPosition(p);
@@ -933,7 +905,6 @@ namespace CodeWalker.Project
 
             UpdateGraphics(wf);
         }
-
 
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
@@ -1267,8 +1238,6 @@ namespace CodeWalker.Project
         }
     }
 
-
-
     public class PathNodePositionUndoStep : UndoStep
     {
         public YndNode PathNode { get; set; }
@@ -1301,7 +1270,6 @@ namespace CodeWalker.Project
             }
             wf.SetWidgetPosition(p);
 
-
             UpdateGraphics(wf);
         }
 
@@ -1313,7 +1281,6 @@ namespace CodeWalker.Project
                 wf.UpdatePathNodeGraphics(PathNode, false);
             }
         }
-
 
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
@@ -1330,8 +1297,6 @@ namespace CodeWalker.Project
             return "PathNode " + (PathNode?._RawData.ToString() ?? "") + ": Position";
         }
     }
-
-
 
     public class NavPointPositionUndoStep : UndoStep
     {
@@ -1358,7 +1323,6 @@ namespace CodeWalker.Project
             }
             wf.SetWidgetPosition(p);
 
-
             UpdateGraphics(wf);
         }
 
@@ -1370,7 +1334,6 @@ namespace CodeWalker.Project
                 wf.UpdateNavYnvGraphics(Point.Ynv, false);
             }
         }
-
 
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
@@ -1401,7 +1364,6 @@ namespace CodeWalker.Project
 
             //UpdateGraphics(wf);
         }
-
 
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
@@ -1464,7 +1426,6 @@ namespace CodeWalker.Project
             }
             wf.SetWidgetPosition(p);
 
-
             UpdateGraphics(wf);
         }
 
@@ -1476,7 +1437,6 @@ namespace CodeWalker.Project
                 wf.UpdateNavYnvGraphics(Portal.Ynv, false);
             }
         }
-
 
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
@@ -1507,7 +1467,6 @@ namespace CodeWalker.Project
 
             //UpdateGraphics(wf);
         }
-
 
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
@@ -1545,8 +1504,6 @@ namespace CodeWalker.Project
         }
     }
 
-
-
     public class TrainTrackNodePositionUndoStep : UndoStep
     {
         public TrainTrackNode Node { get; set; }
@@ -1572,7 +1529,6 @@ namespace CodeWalker.Project
             }
             wf.SetWidgetPosition(p);
 
-
             UpdateGraphics(wf);
         }
 
@@ -1584,7 +1540,6 @@ namespace CodeWalker.Project
                 wf.UpdateTrainTrackNodeGraphics(Node, false);
             }
         }
-
 
         public override void Undo(WorldForm wf, ref MapSelection sel)
         {
@@ -1601,8 +1556,6 @@ namespace CodeWalker.Project
             return "TrainTrackNode " + (Node?.ToString() ?? "") + ": Position";
         }
     }
-
-
 
     public class ScenarioNodePositionUndoStep : UndoStep
     {
@@ -1668,7 +1621,6 @@ namespace CodeWalker.Project
             //UpdateGraphics(wf);
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
             ScenarioNode?.SetOrientation(q);
@@ -1704,8 +1656,6 @@ namespace CodeWalker.Project
             return ScenarioNode.ToString() + ": Rotation";
         }
     }
-
-
 
     public class AudioPositionUndoStep : UndoStep
     {
@@ -1756,7 +1706,6 @@ namespace CodeWalker.Project
             EndRotation = audio?.Orientation ?? Quaternion.Identity;
         }
 
-
         private void Update(WorldForm wf, ref MapSelection sel, Quaternion q)
         {
             Audio?.SetOrientation(q);
@@ -1780,6 +1729,5 @@ namespace CodeWalker.Project
             return "Audio " + (Audio?.GetNameString() ?? "") + ": Rotation";
         }
     }
-
 
 }

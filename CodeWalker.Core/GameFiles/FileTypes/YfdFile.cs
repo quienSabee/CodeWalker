@@ -14,7 +14,6 @@ namespace CodeWalker.GameFiles
 
         public string LoadException { get; set; }
 
-
         public YfdFile() : base(null, GameFileType.Yfd)
         {
         }
@@ -27,7 +26,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             RpfFileEntry = entry;
             //Hash = entry.ShortNameHash;
-
 
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)

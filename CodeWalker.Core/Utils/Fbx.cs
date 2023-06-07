@@ -16,7 +16,6 @@ using System.Text.RegularExpressions;
  "An FBX library for .NET"
 */
 
-
 namespace CodeWalker
 {
 
@@ -49,7 +48,6 @@ namespace CodeWalker
                 }
             }
         }
-
 
         /// <summary>
         /// Reads a binary FBX file
@@ -115,9 +113,6 @@ namespace CodeWalker
             }
         }
     }
-
-
-
 
     /// <summary>
     /// Reads FBX nodes from a text stream
@@ -805,7 +800,6 @@ namespace CodeWalker
         }
     }
 
-
     /// <summary>
     /// Base class for binary stream wrappers
     /// </summary>
@@ -858,15 +852,12 @@ namespace CodeWalker
             return true;
         }
 
-
         public static bool IsBinary(Stream stream)
         {
             var isb = ReadHeader(stream);
             stream.Position = 0;
             return isb;
         }
-
-
 
         /// <summary>
         /// Writes the FBX header string
@@ -1518,8 +1509,6 @@ namespace CodeWalker
         }
     }
 
-
-
     /// <summary>
     /// A top-level FBX node
     /// </summary>
@@ -1534,7 +1523,6 @@ namespace CodeWalker
         /// Most FBX importers can cope with any version.
         /// </remarks>
         public FbxVersion Version { get; set; } = FbxVersion.v7_4;
-
 
         /// <summary>
         /// Creates connections between objects and returns the root nodes.
@@ -1773,8 +1761,6 @@ namespace CodeWalker
         v7_4 = 7400,
     }
 
-
-
     /// <summary>
     /// Indicates when a reader should throw errors
     /// </summary>
@@ -1795,7 +1781,6 @@ namespace CodeWalker
         /// </summary>
         Strict = 2,
     }
-
 
     /// <summary>
     /// A wrapper for DeflateStream that calculates the Adler32 checksum of the payload

@@ -18,7 +18,6 @@ namespace CodeWalker.Project.Panels
 
         private bool populatingui = false;
 
-
         public EditAudioFilePanel(ProjectForm owner)
         {
             ProjectForm = owner;

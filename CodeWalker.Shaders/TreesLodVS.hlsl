@@ -1,7 +1,6 @@
 #include "Common.hlsli"
 #include "Quaternion.hlsli"
 
-
 cbuffer VSSceneVars : register(b0)
 {
     float4x4 ViewProj;
@@ -30,7 +29,6 @@ cbuffer TreesLodShaderVSGeometryVars : register(b3)
     float4 treeLod2Params;
 }
 
-
 struct VS_INPUT
 {
     float4 Position : POSITION;
@@ -51,8 +49,6 @@ struct VS_OUTPUT
     float4 Colour   : COLOR0;
 };
 
-
-
 VS_OUTPUT main(VS_INPUT input)
 {
     VS_OUTPUT output;
@@ -69,8 +65,6 @@ VS_OUTPUT main(VS_INPUT input)
     float2 bbvpos = treeLod2Params.xy*(0.5 - input.Texcoord0)*input.Texcoord2;
     opos += bbside*bbvpos.x;
     opos += treeLod2Normal.xyz*bbvpos.y;
-
-
 
     //float3 ipos = input.Position.xyz + float3(treeLod2Params.xy*(input.Texcoord0-0.5)*input.Texcoord2,0);
     //float3 tpos = (HasTransforms == 1) ? mul(float4(ipos, 1), Transform).xyz : ipos;

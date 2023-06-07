@@ -12,7 +12,6 @@ struct VS_INPUT
     float4 Tangent : TANGENT;
 };
 
-
 VS_OUTPUT main(VS_INPUT input, uint iid : SV_InstanceID)
 {
     VS_OUTPUT output;
@@ -43,5 +42,4 @@ VS_OUTPUT main(VS_INPUT input, uint iid : SV_InstanceID)
     output.Bitangent = float4(cross(otang, onorm) * input.Tangent.w, 0);
     return output;
 }
-
 

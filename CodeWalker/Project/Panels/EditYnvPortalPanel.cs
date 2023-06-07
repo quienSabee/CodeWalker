@@ -38,7 +38,6 @@ namespace CodeWalker.Project.Panels
             Text = "Nav Portal " + YnvPortal.Index.ToString();
         }
 
-
         public void UpdateYnvPortalUI()
         {
             if (YnvPortal == null)

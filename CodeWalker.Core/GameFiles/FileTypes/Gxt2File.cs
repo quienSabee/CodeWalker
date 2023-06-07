@@ -17,7 +17,6 @@ namespace CodeWalker.GameFiles
         public Gxt2Entry[] TextEntries { get; set; }
         //public Dictionary<uint, string> Dict { get; set; }
 
-
         public void Load(byte[] data, RpfFileEntry entry)
         {
             Name = entry?.Name ?? "";
@@ -103,7 +102,6 @@ namespace CodeWalker.GameFiles
             return data;
         }
 
-
         public string ToText()
         {
             StringBuilder sb = new StringBuilder();
@@ -149,7 +147,6 @@ namespace CodeWalker.GameFiles
     
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class Gxt2Entry
     {
         public uint Hash { get; set; }
@@ -161,13 +158,6 @@ namespace CodeWalker.GameFiles
             return Convert.ToString(Hash, 16).ToUpper().PadLeft(8, '0') + ": " + Text;
         }
     }
-
-
-
-
-
-
-
 
     public static class GlobalText
     {
@@ -254,7 +244,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
 }

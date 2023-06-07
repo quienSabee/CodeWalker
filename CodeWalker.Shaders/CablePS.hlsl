@@ -1,6 +1,5 @@
 #include "CablePS.hlsli"
 
-
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
     float4 c = float4(0.2, 0.2, 0.2, 1);
@@ -54,8 +53,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
         if (RenderModeIndex == 2) c.rgb = float3(input.Texcoord1, 0);
         if (RenderModeIndex == 3) c.rgb = float3(input.Texcoord2, 0);
     }
-
-
 
     c.rgb = FullLighting(c.rgb, 0, norm, input.Colour0, GlobalLights, EnableShadows, input.Shadows.x, input.LightShadow);
 

@@ -22,8 +22,6 @@ namespace CodeWalker.WinForms
             base.OnPaint(pe);
         }
 
-
-
         private bool _readOnly = true;
         public bool ReadOnly
         {

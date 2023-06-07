@@ -30,8 +30,6 @@ namespace CodeWalker.World
 
         public EditorVertex[] TriangleVerts;
 
-
-
         public void Init(GameFileCache gameFileCache, Action<string> updateStatus)
         {
             Inited = false;
@@ -85,20 +83,16 @@ namespace CodeWalker.World
                 }
             }
 
-
             foreach (var group in Groups.Values)
             {
                 var hash = JenkHash.GenHash(group.NameLabel.ToLowerInvariant());
                 group.Name = GlobalText.TryGetString(hash);
             }
 
-
             BuildVertices();
 
             Inited = true;
         }
-
-
 
         public void BuildVertices()
         {
@@ -154,9 +148,6 @@ namespace CodeWalker.World
 
     }
 
-
-
-
     public class PopZone
     {
         public string NameLabel { get; set; }
@@ -169,14 +160,12 @@ namespace CodeWalker.World
         }
     }
 
-
     public class PopZoneBox
     {
         public string ID { get; set; }
         public BoundingBox Box { get; set; }
         public string NameLabel { get; set; }
         public float UnkVal { get; set; }
-
 
         public void Init(string iplline)
         {

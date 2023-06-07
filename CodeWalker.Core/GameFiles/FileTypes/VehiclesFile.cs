@@ -11,13 +11,9 @@ namespace CodeWalker.GameFiles
     public class VehiclesFile : GameFile, PackedFile
     {
 
-
         public string ResidentTxd { get; set; }
         public List<VehicleInitData> InitDatas { get; set; }
         public Dictionary<string, string> TxdRelationships { get; set; }
-
-
-
 
         public VehiclesFile() : base(null, GameFileType.Vehicles)
         {
@@ -26,14 +22,11 @@ namespace CodeWalker.GameFiles
         {
         }
 
-
-
         public void Load(byte[] data, RpfFileEntry entry)
         {
             RpfFileEntry = entry;
             Name = entry.Name;
             FilePath = Name;
-
 
             if (entry.NameLower.EndsWith(".meta"))
             {
@@ -41,7 +34,6 @@ namespace CodeWalker.GameFiles
 
                 XmlDocument xmldoc = new XmlDocument();
                 xmldoc.LoadXml(xml);
-
 
                 ResidentTxd = Xml.GetChildInnerText(xmldoc.SelectSingleNode("CVehicleModelInfo__InitDataList"), "residentTxd");
 
@@ -52,7 +44,6 @@ namespace CodeWalker.GameFiles
                 Loaded = true;
             }
         }
-
 
         private void LoadInitDatas(XmlDocument xmldoc)
         {
@@ -90,9 +81,7 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
     }
-
 
     public class VehicleInitData
     {
@@ -184,7 +173,6 @@ namespace CodeWalker.GameFiles
         public float buoyancySphereSizeScale { get; set; }              //<buoyancySphereSizeScale value="1.000000" />
         public VehicleOverrideRagdollThreshold pOverrideRagdollThreshold { get; set; }  //<pOverrideRagdollThreshold type="NULL" />
         public string[] firstPersonDrivebyData { get; set; }            //<firstPersonDrivebyData>//  <Item>STD_IMPALER2_FRONT_LEFT</Item>//  <Item>STD_IMPALER2_FRONT_RIGHT</Item>//</firstPersonDrivebyData>
-
 
         public void Load(XmlNode node)
         {
@@ -368,7 +356,6 @@ namespace CodeWalker.GameFiles
 
         private static List<string> getStringArrayList = new List<string>(); //kinda hacky..
         private static List<float> getFloatArrayList = new List<float>(); //kinda hacky..
-
 
         public override string ToString()
         {

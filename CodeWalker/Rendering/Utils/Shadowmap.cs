@@ -48,7 +48,6 @@ namespace CodeWalker.Rendering
         float[] fCascadeIntervals = { 7.0f, 20.0f, 65.0f, 160.0f, 600.0f, 3000.0f, 5000.0f, 10000.0f };
         public float maxShadowDistance = 3000.0f;
 
-
         long graphicsMemoryUsage = 0;
         public long VramUsage
         {
@@ -67,7 +66,6 @@ namespace CodeWalker.Rendering
             BlurBetweenCascades = 0.05f;
 
             ShadowVars = new GpuVarsBuffer<ShadowmapVars>(device);
-
 
             DepthTexture = DXUtility.CreateTexture2D(device, TextureSize* CascadeCount, TextureSize, 1, 1, Format.R32_Typeless, 1, 0, ResourceUsage.Default, BindFlags.DepthStencil | BindFlags.ShaderResource, 0, 0);
             DepthTextureSS = DXUtility.CreateSamplerState(device, TextureAddressMode.Border, new Color4(0.0f), Comparison.Less, Filter.ComparisonMinMagLinearMipPoint, 0, 0.0f, 0.0f, 0.0f);
@@ -154,7 +152,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
         public void BeginUpdate(DeviceContext context, Camera cam, Vector3 lightDir, List<RenderableGeometryInst> items)
         {
             //items should be potential shadow casters.
@@ -166,7 +163,6 @@ namespace CodeWalker.Rendering
             var proj = cam.ProjMatrix;
             var viewproj = cam.ViewProjMatrix;
 
-
             //need to compute a local scene space for the shadows. use a snapped version of the camera coords...
             Vector3 pp = ppos;
             float snapsize = 20.0f; //20m snap... //ideally should snap to texel size
@@ -174,7 +170,6 @@ namespace CodeWalker.Rendering
             SceneOrigin.Y = pp.Y - (pp.Y % snapsize);
             SceneOrigin.Z = pp.Z - (pp.Z % snapsize);
             SceneCamPos = (pp - SceneOrigin);
-
 
             //the items passed in here are visible items. need to compute the scene bounds from these.
             Vector4 vFLTMAX = new Vector4(float.MaxValue);
@@ -215,7 +210,6 @@ namespace CodeWalker.Rendering
                 vSceneAABBPointsLightSpace[index] = LightView.Multiply(vSceneAABBPointsLightSpace[index]);
             }
 
-
             float fFrustumIntervalBegin, fFrustumIntervalEnd;
             Vector4 vLightCameraOrthographicMin;  // light space frustrum aabb 
             Vector4 vLightCameraOrthographicMax;
@@ -236,7 +230,6 @@ namespace CodeWalker.Rendering
                 //fFrustumIntervalBegin = fFrustumIntervalBegin * fCameraNearFarRange;
                 //fFrustumIntervalEnd = fFrustumIntervalEnd * fCameraNearFarRange;
                 Vector4[] vFrustumPoints = new Vector4[8];
-
 
                 // This function takes the began and end intervals along with the projection matrix and returns the 8
                 // points that repreresent the cascade Interval
@@ -298,16 +291,13 @@ namespace CodeWalker.Rendering
                 vLightCameraOrthographicMax = vLightCameraOrthographicMax.Floor();
                 vLightCameraOrthographicMax = vLightCameraOrthographicMax * vWorldUnitsPerTexel;
 
-
                 //These are the unconfigured near and far plane values.  They are purposly awful to show 
                 // how important calculating accurate near and far planes is.
                 float fNearPlane;
                 float fFarPlane;
 
-
                 // By intersecting the light frustum with the scene AABB we can get a tighter bound on the near and far plane.
                 ComputeNearAndFar(out fNearPlane, out fFarPlane, vLightCameraOrthographicMin, vLightCameraOrthographicMax, vSceneAABBPointsLightSpace);
-
 
                 // Create the orthographic projection for this cascade.
                 cascade.Ortho = Matrix.OrthoOffCenterLH(vLightCameraOrthographicMin.X, vLightCameraOrthographicMax.X, vLightCameraOrthographicMin.Y, vLightCameraOrthographicMax.Y, fNearPlane, fFarPlane);
@@ -322,7 +312,6 @@ namespace CodeWalker.Rendering
                 cascade.WorldUnitsPerTexel = fWorldUnitsPerTexel;
                 cascade.WorldUnitsToCascadeUnits = 2.0f / fCascadeBound;
             }
-
 
             context.ClearDepthStencilView(DepthTextureDSV, DepthStencilClearFlags.Depth, 1.0f, 0);
             // Set a null render target so as not to render color.
@@ -373,7 +362,6 @@ namespace CodeWalker.Rendering
             ShadowVars.Vars.PCFLoopStart = (PCFSize) / -2;
             ShadowVars.Vars.PCFLoopEnd = (PCFSize) / 2 + 1;
 
-
             // The border padding values keep the pixel shader from reading the borders during PCF filtering.
             float txs = (float)TextureSize;
             ShadowVars.Vars.BorderPaddingMax = (txs - 1.0f) / txs;
@@ -388,7 +376,6 @@ namespace CodeWalker.Rendering
 
             ShadowVars.Update(context);
 
-
             SetBuffers(context);
 
         }
@@ -400,9 +387,6 @@ namespace CodeWalker.Rendering
             context.PixelShader.SetShaderResource(1, DepthTextureSRV);
             context.PixelShader.SetSampler(1, DepthTextureSS);
         }
-
-
-
 
         static readonly Vector3[] vExtentsMap =
         {
@@ -445,7 +429,6 @@ namespace CodeWalker.Rendering
             // constructed frustum to be incorrect.
             //-----------------------------------------------------------------------------
 
-
             Matrix matInverse;
 
             Matrix.Invert(ref pProjection, out matInverse);
@@ -482,7 +465,6 @@ namespace CodeWalker.Rendering
             sf.Near = Points[4].Z;
             sf.Far = Points[5].Z;
         }
-
 
         void CreateFrustumPointsFromCascadeInterval(float fCascadeIntervalBegin, float fCascadeIntervalEnd, Matrix vProjection, ref Vector4[] pvCornerPointsWorld)
         {
@@ -561,7 +543,6 @@ namespace CodeWalker.Rendering
             triangleList[0].pt1 = pvPointsInCameraView[1];
             triangleList[0].pt2 = pvPointsInCameraView[2];
             triangleList[0].culled = false;
-
 
             int[] iPointPassesCollision = new int[3];
 
@@ -742,7 +723,6 @@ namespace CodeWalker.Rendering
                             else if (iInsideVertCount == 2)
                             { // 2 in  // tesselate into 2 triangles
 
-
                                 // Copy the triangle\(if it exists) after the current triangle out of
                                 // the way so we can override it with the new triangle we're inserting.
                                 triangleList[iTriangleCnt] = triangleList[triIter + 1];
@@ -778,7 +758,6 @@ namespace CodeWalker.Rendering
                                 ++iTriangleCnt;
                                 ++triIter;
 
-
                             }
                             else
                             { // all in
@@ -811,10 +790,7 @@ namespace CodeWalker.Rendering
 
         }
 
-
     }
-
-
 
     public struct ShadowmapVars
     {
@@ -964,6 +940,5 @@ namespace CodeWalker.Rendering
             }
         }
     }
-
 
 }

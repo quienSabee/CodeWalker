@@ -63,7 +63,6 @@ namespace CodeWalker.Tools
             }
         }
 
-
         private void UpdateExtractStatus(string text)
         {
             try
@@ -123,11 +122,8 @@ namespace CodeWalker.Tools
 
                 UpdateExtractStatus("Keys loaded.");
 
-
-
                 RpfManager rpfman = new RpfManager();
                 rpfman.Init(searchpath, UpdateExtractStatus, UpdateExtractStatus);
-
 
                 UpdateExtractStatus("Beginning texture extraction...");
                 StringBuilder errsb = new StringBuilder();
@@ -256,7 +252,6 @@ namespace CodeWalker.Tools
             File.WriteAllBytes(fpath, dds);
 
         }
-
 
         private void AbortButton_Click(object sender, EventArgs e)
         {

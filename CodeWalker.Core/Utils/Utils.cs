@@ -13,7 +13,6 @@ using Color = SharpDX.Color;
 namespace CodeWalker
 {
 
-
     public static class TextUtil
     {
 
@@ -83,8 +82,6 @@ namespace CodeWalker
             return readable.ToString(fmt) + suffix;
         }
 
-
-
         public static string GetUTF8Text(byte[] bytes)
         {
             if (bytes == null)
@@ -102,8 +99,6 @@ namespace CodeWalker
         }
 
     }
-
-
 
     public static class FloatUtil
     {
@@ -128,7 +123,6 @@ namespace CodeWalker
             if (t == f) return s;
             return f.ToString("G9", c);
         }
-
 
         public static string GetVector2String(Vector2 v, string d = ", ")
         {
@@ -178,7 +172,6 @@ namespace CodeWalker
             var c = CultureInfo.InvariantCulture;
             return v.R.ToString(c) + d + v.G.ToString(c) + d + v.B.ToString(c) + d + v.A.ToString(c);
         }
-
 
         public static Vector2 ParseVector2String(string s)
         {
@@ -235,12 +228,7 @@ namespace CodeWalker
             return p;
         }
 
-
     }
-
-
-
-
 
     public static class BitUtil
     {
@@ -270,6 +258,5 @@ namespace CodeWalker
             return (value >> count) | (value << (32 - count));
         }
     }
-
 
 }

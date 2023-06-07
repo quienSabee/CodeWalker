@@ -35,7 +35,6 @@ namespace CodeWalker
     ////    //}
     ////}
 
-
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class ListViewExtensions
     {
@@ -130,16 +129,6 @@ namespace CodeWalker
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         //private const int LVM_FIRST = 0x1000;
         private const int LVM_SETITEMSTATE = LVM_FIRST + 43;
 
@@ -198,9 +187,7 @@ namespace CodeWalker
             SendMessageLVItem(list.Handle, LVM_SETITEMSTATE, itemIndex, ref lvItem);
         }
 
-
     }
-
 
     public static class TextBoxExtension
     {
@@ -227,7 +214,6 @@ namespace CodeWalker
             SendMessage(textbox.Handle, EM_SETTABSTOPS, 1, new int[] { width * 4 });
         }
     }
-
 
     public static class FolderBrowserExtension
     {
@@ -275,7 +261,6 @@ namespace CodeWalker
             }
         }
 
-
         private static Type GetType(Assembly asmb, string ns, string name)
         {
             Type type = null;
@@ -315,7 +300,6 @@ namespace CodeWalker
         }
     }
 
-
     public static class Prompt
     {
         //handy utility to get a string from the user...
@@ -346,9 +330,6 @@ namespace CodeWalker
             return prompt.ShowDialog(owner) == DialogResult.OK ? textBox.Text : "";
         }
     }
-
-
-
 
     public static class FormTheme
     {
@@ -424,8 +405,6 @@ namespace CodeWalker
         }
 
     }
-
-
 
     //unused
     //public class AccurateTimer

@@ -26,7 +26,6 @@ namespace CodeWalker.Utils
             }
         }
 
-
         public KeyBindForm()
         {
             InitializeComponent();

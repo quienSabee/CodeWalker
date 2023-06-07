@@ -12,7 +12,6 @@ namespace CodeWalker.GameFiles
         public RpfFileEntry FileEntry { get; set; }
         public PsoFile Pso { get; set; }
 
-
         public void Load(byte[] data, RpfFileEntry entry)
         {
             //MemoryStream ms = new MemoryStream(data);
@@ -38,9 +37,6 @@ namespace CodeWalker.GameFiles
             {
 
             }
-
-
-
 
         }
 

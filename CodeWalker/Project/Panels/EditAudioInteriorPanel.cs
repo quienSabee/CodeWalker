@@ -19,13 +19,11 @@ namespace CodeWalker.Project.Panels
 
         private bool populatingui = false;
 
-
         public EditAudioInteriorPanel(ProjectForm owner)
         {
             ProjectForm = owner;
             InitializeComponent();
         }
-
 
         public void SetInterior(Dat151Interior interior)
         {
@@ -79,9 +77,7 @@ namespace CodeWalker.Project.Panels
                 }
                 HashesTextBox.Text = sb.ToString();
 
-
                 populatingui = false;
-
 
             }
 
@@ -94,7 +90,6 @@ namespace CodeWalker.Project.Panels
                 ProjectForm.SetAudioFileHasChanged(true);
             }
         }
-
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {

@@ -107,11 +107,8 @@ namespace CodeWalker.Tools
 
                 UpdateExtractStatus("Keys loaded.");
 
-
-
                 RpfManager rpfman = new RpfManager();
                 rpfman.Init(searchpath, UpdateExtractStatus, UpdateExtractStatus);
-
 
                 UpdateExtractStatus("Beginning shader extraction...");
                 StringBuilder errsb = new StringBuilder();
@@ -134,7 +131,6 @@ namespace CodeWalker.Tools
                                 if (fxc == null) throw new Exception("Couldn't load file.");
 
                                 string basepath = outputpath + "\\" + rpf.Name.Replace(".rpf", "");
-
 
                                 if (!Directory.Exists(basepath))
                                 {

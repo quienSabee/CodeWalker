@@ -55,7 +55,6 @@ namespace CodeWalker.Project.Panels
             Text = fn + (Ynd.HasChanged ? "*" : "");
         }
 
-
         public void UpdateYndUI()
         {
             if (Ynd == null)

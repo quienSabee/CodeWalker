@@ -13,8 +13,6 @@ using EXP = System.ComponentModel.ExpandableObjectConverter;
 namespace CodeWalker.GameFiles
 {
 
-
-
     [TC(typeof(EXP))] public class Meta : ResourceFileBase
     {
         public override long BlockLength
@@ -57,11 +55,9 @@ namespace CodeWalker.GameFiles
 
         private string_r NameBlock = null;
 
-
 #if DEBUG
         public ResourceAnalyzer Analyzer { get; set; }
 #endif
-
 
         /// <summary>
         /// Reads the data-block from a stream.
@@ -188,9 +184,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
-
-
         public MetaDataBlock FindBlock(MetaName name)
         {
             if (DataBlocks == null) return null;
@@ -203,7 +196,6 @@ namespace CodeWalker.GameFiles
             }
             return null;
         }
-
 
         public MetaDataBlock GetRootBlock()
         {
@@ -250,7 +242,6 @@ namespace CodeWalker.GameFiles
 
         private ResourceSystemStructBlock<MetaStructureEntryInfo_s> EntriesBlock = null;
 
-
         public MetaStructureInfo()
         { }
         public MetaStructureInfo(MetaName nameHash, uint key, uint unknown, int length, params MetaStructureEntryInfo_s[] entries)
@@ -261,8 +252,6 @@ namespace CodeWalker.GameFiles
             StructureSize = length;
             Entries = entries;
         }
-
-
 
         /// <summary>
         /// Reads the data-block from a stream.
@@ -437,7 +426,6 @@ namespace CodeWalker.GameFiles
 
         private ResourceSystemStructBlock<MetaEnumEntryInfo_s> EntriesBlock = null;
 
-
         public MetaEnumInfo()
         { }
         public MetaEnumInfo(MetaName nameHash, uint key, params MetaEnumEntryInfo_s[] entries)
@@ -446,7 +434,6 @@ namespace CodeWalker.GameFiles
             EnumKey = key;
             Entries = entries;
         }
-
 
         /// <summary>
         /// Reads the data-block from a stream.
@@ -554,7 +541,6 @@ namespace CodeWalker.GameFiles
             this.DataLength = reader.ReadInt32();
             this.DataPointer = reader.ReadInt64();
 
-
             this.Data = reader.ReadBytesAt((ulong)this.DataPointer, (uint)DataLength);
 
         }
@@ -596,7 +582,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public class MetaEncryptedStringsBlock : ResourceSystemBlock
     {
         public override long BlockLength
@@ -613,14 +598,12 @@ namespace CodeWalker.GameFiles
         //public byte[] PadData { get; set; }
         //public string[] TestStrings { get; set; }
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             Count = MetaTypes.SwapBytes(reader.ReadUInt32()); //okay. so this is big endian
             EncryptedData = reader.ReadBytes((int)Count);
             //PadCount = (uint)((8 - (reader.Position % 8)) % 8);//maybe next block just needs to be aligned instead?
             //PadData = reader.ReadBytes((int)PadCount);
-
 
             ////none of these work :(
             //var strs = new List<string>();
@@ -631,7 +614,6 @@ namespace CodeWalker.GameFiles
             //}
             //TestStrings = strs.ToArray();
 
-
         }
 
         public override void Write(ResourceDataWriter writer, params object[] parameters)
@@ -639,16 +621,6 @@ namespace CodeWalker.GameFiles
             throw new NotImplementedException();
         }
     }
-
-
-
-
-
-
-
-
-
-
 
     //derived types - manually created (array & pointer structs)
 
@@ -687,8 +659,6 @@ namespace CodeWalker.GameFiles
         public uint PointerDataId { get { return (uint)(Pointer & 0xFFF); } set { Pointer = (Pointer & 0xFFFFFFFFFFFFF000) + (value & 0xFFF); } }
         public uint PointerDataIndex { get { return (uint)(Pointer & 0xFFF) - 1; } set { PointerDataId = value + 1; } }
         public uint PointerDataOffset { get { return (uint)((Pointer >> 12) & 0xFFFFF); } set { Pointer = (Pointer & 0xFFFFFFFF00000FFF) + ((value << 12) & 0xFFFFF000); } }
-
-
 
         public Array_Structure(ulong ptr, int cnt)
         {
@@ -730,7 +700,6 @@ namespace CodeWalker.GameFiles
         public uint PointerDataIndex { get { return (uint)(Pointer & 0xFFF) - 1; } }
         public uint PointerDataOffset { get { return (uint)((Pointer >> 12) & 0xFFFFF); } }
 
-
         public Array_uint(ulong ptr, int cnt)
         {
             Pointer = ptr;
@@ -769,7 +738,6 @@ namespace CodeWalker.GameFiles
         public uint PointerDataId { get { return (uint)(Pointer & 0xFFF); } }
         public uint PointerDataIndex { get { return (uint)(Pointer & 0xFFF) - 1; } }
         public uint PointerDataOffset { get { return (uint)((Pointer >> 12) & 0xFFFFF); } }
-
 
         public Array_ushort(ulong ptr, int cnt)
         {
@@ -963,7 +931,6 @@ namespace CodeWalker.GameFiles
         public uint PointerDataIndex { get { return (uint)(Pointer & 0xFFF) - 1; } }
         public uint PointerDataOffset { get { return (uint)((Pointer >> 12) & 0xFFFFF); } }
 
-
         public DataBlockPointer(int blockId, int offset)
         {
             Pointer = ((uint)blockId & 0xFFF) | (((uint)offset & 0xFFFFF) << 12);
@@ -1109,15 +1076,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
-
-
-
-
-
-
     [TC(typeof(EXP))] public struct MetaHash
     {
         public uint Hash { get; set; }
@@ -1153,7 +1111,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public MetaHash(uint h) { Hash = h; }
 
         public override string ToString()
@@ -1181,7 +1138,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-    
     [TC(typeof(EXP))] public struct TextHash
     {
         public uint Hash { get; set; }
@@ -1201,7 +1157,6 @@ namespace CodeWalker.GameFiles
             return GlobalText.GetString(Hash);
         }
 
-
         public static implicit operator uint(TextHash h)
         {
             return h.Hash;  //implicit conversion
@@ -1212,12 +1167,5 @@ namespace CodeWalker.GameFiles
             return new TextHash(v);
         }
     }
-
-
-
-
-
-
-
 
 }

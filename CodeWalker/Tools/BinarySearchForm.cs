@@ -21,7 +21,6 @@ namespace CodeWalker.Tools
         private GameFileCache FileCache = null;
         private RpfManager RpfMan = null;
 
-
         public BinarySearchForm(GameFileCache cache = null)
         {
             FileCache = cache;
@@ -35,7 +34,6 @@ namespace CodeWalker.Tools
 
             DataHexLineCombo.Text = "16";
             DataTextBox.SetTabStopWidth(3);
-
 
             if (RpfMan == null)
             {
@@ -52,10 +50,6 @@ namespace CodeWalker.Tools
                 RPFScanComplete();
             }
         }
-
-
-
-
 
         private void UpdateStatus(string text)
         {
@@ -88,12 +82,6 @@ namespace CodeWalker.Tools
             }
             catch { }
         }
-
-
-
-
-
-
 
         private void FileSearchFolderBrowseButton_Click(object sender, EventArgs e)
         {
@@ -175,7 +163,6 @@ namespace CodeWalker.Tools
 
                 foreach (string filename in filenames)
                 {
-
 
                     FileInfo finf = new FileInfo(filename);
                     byte[] filebytes = File.ReadAllBytes(filename);
@@ -259,17 +246,6 @@ namespace CodeWalker.Tools
         {
             AbortOperation = true;
         }
-
-
-
-
-
-
-
-
-
-
-
 
         private List<RpfSearchResult> RpfSearchResults = new List<RpfSearchResult>();
         private RpfEntry RpfSelectedEntry = null;
@@ -423,7 +399,6 @@ namespace CodeWalker.Tools
                     totfiles += rpffile.TotalFileCount;
                 }
 
-
                 for (int f = 0; f < scannedFiles.Count; f++)
                 {
                     var rpffile = scannedFiles[f];
@@ -481,7 +456,6 @@ namespace CodeWalker.Tools
 
                         byte[] filebytes = fentry.File.ExtractFile(fentry);
                         if (filebytes == null) continue;
-
 
                         int hitlen1 = 0;
                         int hitlen2 = 0;
@@ -633,10 +607,6 @@ namespace CodeWalker.Tools
             e.Item = item;
         }
 
-
-
-
-
         private void SelectFile()
         {
             SelectFile(RpfSelectedEntry, RpfSelectedOffset, RpfSelectedLength);
@@ -664,7 +634,6 @@ namespace CodeWalker.Tools
                 return;
             }
 
-
             Cursor = Cursors.WaitCursor;
 
             string typestr = "Resource";
@@ -678,7 +647,6 @@ namespace CodeWalker.Tools
             int datalen = (data != null) ? data.Length : 0;
             FileInfoLabel.Text = rfe.Path + " (" + typestr + " file)  -  " + TextUtil.GetBytesReadable(datalen);
 
-
             if (ShowLargeFileContentsCheckBox.Checked || (datalen < 524287)) //512K
             {
                 DisplayFileContentsText(rfe, data, length, offset);
@@ -687,8 +655,6 @@ namespace CodeWalker.Tools
             {
                 DataTextBox.Text = "[Filesize >512KB. Select the Show large files option to view its contents]";
             }
-
-
 
             //bool istexdict = false;
             //if (rfe.NameLower.EndsWith(".ymap"))
@@ -811,15 +777,12 @@ namespace CodeWalker.Tools
             //    DetailsPropertyGrid.SelectedObject = null;
             //}
 
-
             //if (!istexdict)
             //{
             //    ShowTextures(null);
             //}
 
-
             Cursor = Cursors.Default;
-
 
         }
 
@@ -891,7 +854,6 @@ namespace CodeWalker.Tools
 
                 string text = Encoding.UTF8.GetString(data);
 
-
                 DataTextBox.Text = text;
 
                 if (offset > 0)
@@ -933,12 +895,10 @@ namespace CodeWalker.Tools
 
                 byte[] data = rfe.File.ExtractFile(rfe);
 
-
                 if (ExportCompressCheckBox.Checked)
                 {
                     data = ResourceBuilder.Compress(data);
                 }
-
 
                 RpfResourceFileEntry rrfe = rfe as RpfResourceFileEntry;
                 if (rrfe != null) //add resource header if this is a resource file.

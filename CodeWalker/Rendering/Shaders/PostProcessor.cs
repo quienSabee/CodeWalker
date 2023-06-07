@@ -111,7 +111,6 @@ namespace CodeWalker.Rendering
         public Vector4 invPixelCount;
     }
 
-
     public class PostProcessor
     {
         ComputeShader ReduceTo1DCS;
@@ -181,7 +180,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
         public PostProcessor(DXManager dxman)
         {
             var device = dxman.device;
@@ -209,7 +207,6 @@ namespace CodeWalker.Rendering
                 new InputElement("POSITION", 0, Format.R32G32B32A32_Float, 0, 0),
                 new InputElement("TEXCOORD", 0, Format.R32G32_Float, 16, 0),
             });
-
 
             ReduceCSVars = new GpuVarsBuffer<PostProcessorReduceCSVars>(device);
             LumBlendCSVars = new GpuVarsBuffer<PostProcessorLumBlendCSVars>(device);
@@ -330,7 +327,6 @@ namespace CodeWalker.Rendering
 
             var device = dxman.device;
 
-
             int sc = dxman.multisamplecount;
             int sq = dxman.multisamplequality;
             Multisampled = (sc > 1);
@@ -345,14 +341,11 @@ namespace CodeWalker.Rendering
             Viewport.X = 0.0f;
             Viewport.Y = 0.0f;
 
-
             Format f = Format.R32G32B32A32_Float;
             Format df = Format.D32_Float;
 
-
             Primary = new GpuTexture(device, uw, uh, f, sc, sq, true, df);
             WindowSizeVramUsage += Primary.VramUsage;
-
 
             int rc = (int)(Math.Ceiling(uw / 8.0f) * Math.Ceiling(uh / 8.0f));
 
@@ -374,7 +367,6 @@ namespace CodeWalker.Rendering
 
             Bloom = new GpuTexture(device, tw, th, f, 1, 0, false, df);
             WindowSizeVramUsage += Bloom.VramUsage;
-
 
         }
         public void DisposeBuffers()
@@ -458,7 +450,6 @@ namespace CodeWalker.Rendering
             FinalPass(context);
         }
 
-
         private void ProcessLuminance(DeviceContext context)
         {
             var srv = SceneColourSRV;
@@ -482,7 +473,6 @@ namespace CodeWalker.Rendering
             ReduceCSVars.Vars.Width = (uint)Width;
             ReduceCSVars.Vars.Height = (uint)Height;
             ReduceCSVars.Update(context);
-
 
             Compute(context, ReduceTo1DCS, ReduceCSVars.Buffer, Reduction0.UAV, (int)dimx, (int)dimy, 1, srv);
 
@@ -522,8 +512,8 @@ namespace CodeWalker.Rendering
             LumBlendCSVars.Update(context);
 
             Compute(context, LumBlendCS, LumBlendCSVars.Buffer, LumBlendResult.UAV, 1, 1, 1, Reduction1.SRV);
-
         }
+
         private void ProcessBloom(DeviceContext context)
         {
             if (EnableBloom)
@@ -597,15 +587,13 @@ namespace CodeWalker.Rendering
             context.PixelShader.SetSamplers(0, null, null);
         }
 
-
-
-
         private float GaussianDistribution(float x, float y, float rho)
         {
             float g = 1.0f / (float)Math.Sqrt(2.0f * 3.14159265f * rho * rho);
             g *= (float)Math.Exp(-(x * x + y * y) / (2 * rho * rho));
             return g;
         }
+
         private void GetSampleWeights(ref PostProcessorFilterSampleWeights w, float fDeviation, float fMultiplier)
         {
             // Fill the center texel
@@ -629,7 +617,6 @@ namespace CodeWalker.Rendering
             /*ZeroMemory( avColorWeight, sizeof(D3DXVECTOR4)*15 );
             w.Set(7, new Vector4( 1, 1, 1, 1 ));*/
         }
-
 
         private void Compute(DeviceContext context, ComputeShader cs, Buffer constantBuffer, UnorderedAccessView unorderedAccessView, int X, int Y, int Z, params ShaderResourceView[] resourceViews)
         {
@@ -698,10 +685,7 @@ namespace CodeWalker.Rendering
             context.InputAssembler.InputLayout = FinalPassLayout;
             FinalPassQuad.Draw(context);
 
-
             context.Rasterizer.SetViewports(vpOld); //reverting viewports maybe not necessary...
         }
-
-
     }
 }

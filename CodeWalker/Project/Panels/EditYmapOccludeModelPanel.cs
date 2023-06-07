@@ -19,13 +19,11 @@ namespace CodeWalker.Project.Panels
 
         private bool populatingui = false;
 
-
         public EditYmapOccludeModelPanel(ProjectForm owner)
         {
             ProjectForm = owner;
             InitializeComponent();
         }
-
 
         public void SetOccludeModel(YmapOccludeModel model)
         {
@@ -61,7 +59,6 @@ namespace CodeWalker.Project.Panels
         {
             Text = "OccludeModel: " + (CurrentOccludeModel?.Index.ToString() ?? "(none)");
         }
-
 
         private void LoadOccludeModel()
         {

@@ -22,9 +22,6 @@ namespace CodeWalker.WinForms
             base.OnPaint(pe);
         }
 
-
-
-
         const uint WM_LBUTTONDOWN = 0x201;
         const uint WM_LBUTTONUP = 0x202;
 

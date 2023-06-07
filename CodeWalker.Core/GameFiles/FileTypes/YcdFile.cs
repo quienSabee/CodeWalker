@@ -30,13 +30,11 @@ namespace CodeWalker.GameFiles
         {
         }
 
-
         public void Load(byte[] data, RpfFileEntry entry)
         {
             Name = entry.Name;
             RpfFileEntry = entry;
             //Hash = entry.ShortNameHash;
-
 
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
@@ -102,9 +100,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
-
         public byte[] Save()
         {
             //if (BuildStructsOnSave)
@@ -116,8 +111,6 @@ namespace CodeWalker.GameFiles
 
             return data;
         }
-
-
 
         public void SaveOpenFormatsAnimation(Animation crAnim, Stream outStream)
         {
@@ -261,7 +254,6 @@ namespace CodeWalker.GameFiles
                         var chanType = ChannelType(channels[0]);
                         var chanData = ChannelData(channels[0]);
 
-
                         sb.Append($@"			FramesData SingleChannel{chanType}
 			{{
 {chanData}            }}
@@ -296,15 +288,6 @@ namespace CodeWalker.GameFiles
             writer.Flush();
         }
     }
-
-
-
-
-
-
-
-
-
 
     public class YcdXml : MetaXmlBase
     {
@@ -351,6 +334,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
 }

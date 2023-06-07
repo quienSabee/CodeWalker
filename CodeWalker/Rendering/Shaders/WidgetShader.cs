@@ -27,7 +27,6 @@ namespace CodeWalker.Rendering
         public float WidgetPad3;
     }
 
-
     public class WidgetShader : Shader
     {
         VertexShader vs;
@@ -35,7 +34,6 @@ namespace CodeWalker.Rendering
 
         GpuVarsBuffer<WidgetShaderSceneVars> SceneVars;
         GpuCBuffer<WidgetShaderVertex> Vertices;
-        
 
         public WidgetShader(Device device)
         {
@@ -94,7 +92,6 @@ namespace CodeWalker.Rendering
             context.VertexShader.Set(null);
             context.PixelShader.Set(null);
         }
-
 
         public void DrawDefaultWidget(DeviceContext context, Camera cam, Vector3 camrel, Quaternion ori, float size)
         {
@@ -200,9 +197,6 @@ namespace CodeWalker.Rendering
                 new Vector2(-1, 0) * arrowrad
             };
 
-
-            
-
             //draw lines...
             Vertices.Clear();
 
@@ -233,8 +227,6 @@ namespace CodeWalker.Rendering
 
             context.InputAssembler.PrimitiveTopology = SharpDX.Direct3D.PrimitiveTopology.LineList;
             context.Draw(Vertices.CurrentCount, 0);
-
-
 
             //draw triangles...
             Vertices.Clear();
@@ -294,7 +286,6 @@ namespace CodeWalker.Rendering
             SetShader(context);
             SetInputLayout(context, VertexType.Default);
 
-
             SceneVars.Vars.Mode = 0; //vertices mode
             SceneVars.Vars.CamRel = camrel;
             SetSceneVars(context, cam, null, null);
@@ -338,8 +329,6 @@ namespace CodeWalker.Rendering
             context.InputAssembler.PrimitiveTopology = SharpDX.Direct3D.PrimitiveTopology.LineList;
             context.Draw(Vertices.CurrentCount, 0);
 
-
-
             //linestrip for arcs and circles
             context.InputAssembler.PrimitiveTopology = SharpDX.Direct3D.PrimitiveTopology.LineStrip;
 
@@ -378,7 +367,6 @@ namespace CodeWalker.Rendering
             SetSceneVars(context, cam, null, null);
             context.Draw(vertcount, 0);
 
-
             //drawing arcs - culling done in PS
             SceneVars.Vars.Size = icircsize; //world units
             SceneVars.Vars.CullBack = 1; //culls pixels behind 0,0,0
@@ -412,9 +400,6 @@ namespace CodeWalker.Rendering
                 SetSceneVars(context, cam, null, null);
                 context.Draw(vertcount, 0);
             }
-
-
-
 
             UnbindResources(context);
         }
@@ -494,13 +479,8 @@ namespace CodeWalker.Rendering
             Vertices.Update(context);
             Vertices.SetVSResource(context, 0);
 
-
             context.InputAssembler.PrimitiveTopology = SharpDX.Direct3D.PrimitiveTopology.LineList;
             context.Draw(Vertices.CurrentCount, 0);
-
-
-
-
 
             //draw triangles...
             Vertices.Clear();
@@ -559,7 +539,6 @@ namespace CodeWalker.Rendering
                 Vertices.Add(new WidgetShaderVertex(cv6, col));
                 Vertices.Add(new WidgetShaderVertex(cv8, col));
 
-
                 //selection triangles
                 if (selax == WidgetAxis.XYZ)
                 {
@@ -590,15 +569,10 @@ namespace CodeWalker.Rendering
             context.InputAssembler.PrimitiveTopology = SharpDX.Direct3D.PrimitiveTopology.TriangleList;
             context.Draw(Vertices.CurrentCount, 0);
 
-
-
-
-
             UnbindResources(context);
         }
 
     }
-
 
     public struct WidgetShaderVertex
     {
@@ -611,7 +585,5 @@ namespace CodeWalker.Rendering
             Colour = c;
         }
     }
-
-
 
 }

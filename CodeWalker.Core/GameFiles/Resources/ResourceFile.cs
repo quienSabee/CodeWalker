@@ -22,7 +22,6 @@
 
 //shamelessly stolen and mangled
 
-
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -91,7 +90,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ResourcePagesInfo : ResourceSystemBlock
     {
         public override long BlockLength
@@ -146,6 +144,5 @@ namespace CodeWalker.GameFiles
             return SystemPagesCount.ToString() + ", " + GraphicsPagesCount.ToString();
         }
     }
-
 
 }

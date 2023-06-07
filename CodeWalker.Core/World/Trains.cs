@@ -16,7 +16,6 @@ namespace CodeWalker.World
 
         public List<TrainTrack> TrainTracks { get; set; } = new List<TrainTrack>();
 
-
         public void Init(GameFileCache gameFileCache, Action<string> updateStatus)
         {
             GameFileCache = gameFileCache;
@@ -27,7 +26,6 @@ namespace CodeWalker.World
             XmlDocument trainsxml = rpfman.GetFileXml(trainsfilename);
             XmlElement trainsdata = trainsxml.DocumentElement;
             //TODO: parse train_configs
-
 
             string tracksfilename = "common.rpf\\data\\levels\\gta5\\traintracks.xml";
             XmlDocument tracksxml = rpfman.GetFileXml(tracksfilename);
@@ -42,7 +40,6 @@ namespace CodeWalker.World
                 tt.Load(gameFileCache, trackxml);
                 TrainTracks.Add(tt);
             }
-
 
             Inited = true;
         }
@@ -59,10 +56,8 @@ namespace CodeWalker.World
         public float speed { get; set; }
         public float brakingDist { get; set; }
 
-
         public List<TrainTrackNode> Nodes { get; set; }
         public int NodeCount { get; set; }
-
 
         public int StationCount
         {
@@ -82,7 +77,6 @@ namespace CodeWalker.World
                 return sc;
             }
         }
-
 
         public EditorVertex[] LinkedVerts { get; set; }
         public Vector4[] NodePositions { get; set; }
@@ -108,9 +102,6 @@ namespace CodeWalker.World
         public string FilePath { get; set; }
         public bool HasChanged { get; set; }
         public bool Loaded { get; set; }
-
-
-
 
         public void Load(GameFileCache gameFileCache, XmlNode node)
         {
@@ -143,7 +134,6 @@ namespace CodeWalker.World
             filename = string.Empty;
             trainConfigName = string.Empty;
             RpfFileEntry = new RpfBinaryFileEntry();
-            
 
             string str = Encoding.UTF8.GetString(data);
             Load(str);
@@ -169,7 +159,6 @@ namespace CodeWalker.World
             return Encoding.UTF8.GetBytes(str);
         }
 
-
         public void SetNameFromFilename()
         {
             string[] fparts = filename.Replace('\\', '/').Split('/');
@@ -182,7 +171,6 @@ namespace CodeWalker.World
                 Name = fparts[fparts.Length - 1];
             }
         }
-
 
         public void Load(string trackstr)
         {
@@ -239,7 +227,6 @@ namespace CodeWalker.World
 
         }
 
-
         public void BuildVertices()
         {
             if ((Nodes != null) && (Nodes.Count > 0))
@@ -268,10 +255,6 @@ namespace CodeWalker.World
             }
 
         }
-
-
-
-
 
         public void UpdateBvhForNode(TrainTrackNode node)
         {
@@ -302,11 +285,6 @@ namespace CodeWalker.World
         {
             BVH = new PathBVH(Nodes, 10, 10);
         }
-
-
-
-
-
 
         public TrainTrackNode AddNode(TrainTrackNode afternode = null)
         {
@@ -349,7 +327,6 @@ namespace CodeWalker.World
                 Nodes.Add(tn);
             }
 
-
             NodeCount = Nodes.Count;
 
             return tn;
@@ -388,10 +365,6 @@ namespace CodeWalker.World
             return r;
         }
 
-
-
-
-
         public override string ToString()
         {
             return Name + ": " + filename + " (" + NodeCount.ToString() + " nodes)";
@@ -420,7 +393,6 @@ namespace CodeWalker.World
                 default: return new Color4(1.0f, 1.0f, 1.0f, 1.0f).ToRgba();
             }
         }
-
 
         public void SetPosition(Vector3 pos)
         {

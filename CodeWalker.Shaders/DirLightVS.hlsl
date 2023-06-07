@@ -1,6 +1,5 @@
 #include "Common.hlsli"
 
-
 struct VS_Output
 {
     float4 Pos : SV_POSITION;
@@ -16,7 +15,6 @@ cbuffer VSLightVars : register(b0)
     uint Pad0;
     uint Pad1;
 }
-
 
 VS_Output main(float4 ipos : POSITION)
 {

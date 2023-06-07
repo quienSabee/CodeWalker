@@ -57,7 +57,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public static void ComputePitch(Format fmt, int width, int height, out int rowPitch, out int slicePitch, uint flags)
         {
             int nbw, nbh;

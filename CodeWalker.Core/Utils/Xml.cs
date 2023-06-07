@@ -111,7 +111,6 @@ namespace CodeWalker
             return enumval;
         }
 
-
         public static bool GetChildBoolAttribute(XmlNode node, string name, string attribute = "value")
         {
             if (node == null) return false;
@@ -219,9 +218,6 @@ namespace CodeWalker
             child.SetAttribute(attributeName, attributeValue);
             return child;
         }
-
-
-
 
         public static byte[] GetRawByteArray(XmlNode node, int fromBase = 16)
         {

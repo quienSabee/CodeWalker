@@ -42,8 +42,6 @@ namespace CodeWalker.Rendering
                 new InputElement("NORMAL", 0, Format.R32G32B32A32_Float, 16, 0),
             });
 
-
-
             List<Vector4> verts = new List<Vector4>();
             Dictionary<Vector4, int> vdict = new Dictionary<Vector4, int>();
             List<Tri> curtris = new List<Tri>();
@@ -86,8 +84,6 @@ namespace CodeWalker.Rendering
                 curtris.Add(new Tri(1, i1+1, i0+1)); //bottom cap triangles
             }
 
-
-
             List<uint> idata = new List<uint>();
             foreach (var tri in curtris)
             {
@@ -96,7 +92,6 @@ namespace CodeWalker.Rendering
                 idata.Add((uint)(invert ? tri.v3 : tri.v2));
             }
 
-
             VertexBuffer = Buffer.Create(device, BindFlags.VertexBuffer, verts.ToArray());
             vbbinding = new VertexBufferBinding(VertexBuffer, 32, 0);
 
@@ -104,7 +99,6 @@ namespace CodeWalker.Rendering
             indexcount = idata.Count;
 
         }
-
 
         public void Draw(DeviceContext context)
         {
@@ -126,7 +120,6 @@ namespace CodeWalker.Rendering
             context.DrawIndexedInstanced(indexcount, count, 0, 0, 0);
         }
 
-
         public void Dispose()
         {
             if (VertexBuffer != null)
@@ -147,8 +140,6 @@ namespace CodeWalker.Rendering
         }
 
     }
-
-
 
     public class LightCone
     {
@@ -178,7 +169,6 @@ namespace CodeWalker.Rendering
             {
                 new InputElement("POSITION", 0, Format.R32G32B32A32_Float, 0, 0),
             });
-
 
             var tris = new List<Tri>();
             var newtris = new List<Tri>();
@@ -230,9 +220,6 @@ namespace CodeWalker.Rendering
             }
             tris.AddRange(curtris);
 
-
-
-
             var verts = new List<Vector4>();
             var vdict = new Dictionary<Vector4, int>();
             var idata = new List<uint>();
@@ -251,8 +238,6 @@ namespace CodeWalker.Rendering
                 idata.Add(addVert(tri.v3));
             }
 
-
-
             VertexBuffer = Buffer.Create(device, BindFlags.VertexBuffer, verts.ToArray());
             vbbinding = new VertexBufferBinding(VertexBuffer, 16, 0);
 
@@ -260,7 +245,6 @@ namespace CodeWalker.Rendering
             indexcount = idata.Count;
 
         }
-
 
         public void Draw(DeviceContext context)
         {
@@ -282,7 +266,6 @@ namespace CodeWalker.Rendering
             context.DrawIndexedInstanced(indexcount, count, 0, 0, 0);
         }
 
-
         public void Dispose()
         {
             if (VertexBuffer != null)
@@ -303,6 +286,5 @@ namespace CodeWalker.Rendering
         }
 
     }
-
 
 }

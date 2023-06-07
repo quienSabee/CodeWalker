@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-
 namespace CodeWalker.World
 {
     public class Clouds
@@ -21,7 +20,6 @@ namespace CodeWalker.World
 
         public CloudHatManager HatManager;
         public CloudSettingsMap SettingsMap;
-
 
         public Clouds()
         {
@@ -98,15 +96,12 @@ namespace CodeWalker.World
             Inited = true;
         }
 
-
         public void Update(float elapsed)
         {
             UpdateAnimOverrides();
         }
 
-
     }
-
 
     public class CloudHatManager
     {
@@ -219,7 +214,6 @@ namespace CodeWalker.World
                 byte.TryParse(animmodes[i].Trim(), out AnimMode[i]);
             }
 
-
             //string showlayerstr = Xml.GetChildInnerText(xml, "mShowLayer").Trim();
             XmlNodeList showlayersxml = xml.SelectNodes("mShowLayer/Item");
             ShowLayer = new bool[showlayersxml.Count];
@@ -231,7 +225,6 @@ namespace CodeWalker.World
                     ShowLayer[i] = Xml.GetBoolAttribute(slnode, "value");
                 }
             }
-
 
             EnableAnimations = Xml.GetChildBoolAttribute(xml, "mEnableAnimations", "value");
 
@@ -276,7 +269,6 @@ namespace CodeWalker.World
         }
     }
 
-
     public class CloudSettingsMap
     {
         public float[] KeyframeTimes { get; set; }
@@ -292,7 +284,6 @@ namespace CodeWalker.World
             {
                 FloatUtil.TryParse(kftarr[i].Trim(), out KeyframeTimes[i]);
             }
-
 
             SettingsMap = new Dictionary<string, CloudSettingsMapItem>();
             XmlNodeList mapxml = xml.SelectNodes("SettingsMap/Item");
@@ -343,7 +334,6 @@ namespace CodeWalker.World
             CloudPiercingLightPower_Strength_NormalStrength_Thickness.Init(snode.SelectSingleNode("CloudPiercingLightPower_Strength_NormalStrength_Thickness"));
             CloudScaleDiffuseFillAmbient_WrapAmount.Init(snode.SelectSingleNode("CloudScaleDiffuseFillAmbient_WrapAmount"));
         }
-
 
         public override string ToString()
         {
@@ -416,7 +406,6 @@ namespace CodeWalker.World
 
     }
 
-
     public class CloudAnimSetting
     {
         public string Name { get; set; }
@@ -425,7 +414,6 @@ namespace CodeWalker.World
         public float MaxValue { get; set; }
         public float DefaultValue { get; set; }
         public float CurrentValue { get; set; }
-
 
         public CloudAnimSetting(string name, string displayname, float minval, float maxval, float defaultval)
         {

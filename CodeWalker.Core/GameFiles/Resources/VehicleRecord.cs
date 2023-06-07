@@ -87,8 +87,6 @@ namespace CodeWalker.GameFiles
             return l;
         }
 
-
-
         public override Tuple<long, IResourceBlock>[] GetParts()
         {
             return new Tuple<long, IResourceBlock>[] {
@@ -96,7 +94,6 @@ namespace CodeWalker.GameFiles
             };
         }
     }
-
 
     public class VehicleRecordEntry : ResourceSystemBlock
     {
@@ -270,6 +267,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
 }

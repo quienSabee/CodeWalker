@@ -21,7 +21,6 @@ struct VS_Output
     uint IID : SV_INSTANCEID;
 };
 
-
 cbuffer VSLightVars : register(b0)
 {
     float4x4 ViewProj;
@@ -33,7 +32,6 @@ cbuffer VSLightVars : register(b0)
 }
 
 StructuredBuffer<LODLight> LODLights : register(t0);
-
 
 VS_Output main(float4 ipos : POSITION, uint iid : SV_InstanceID)
 {

@@ -30,7 +30,6 @@ namespace CodeWalker.Project
         public GameFileCache GameFileCache { get; private set; }
         public RpfManager RpfMan { get; private set; }
 
-
         public bool IsProjectLoaded
         {
             get { return CurrentProjectFile != null; }
@@ -89,8 +88,6 @@ namespace CodeWalker.Project
         private YftFile CurrentYftFile;
         private YtdFile CurrentYtdFile;
 
-
-
         private bool renderitems = true;
         private bool hidegtavmap = false;
         private bool autoymapflags = true;
@@ -114,7 +111,6 @@ namespace CodeWalker.Project
 
         private bool ShowProjectItemInProcess = false;
 
-
         public ProjectForm(WorldForm worldForm = null)
         {
             WorldForm = worldForm;
@@ -123,7 +119,6 @@ namespace CodeWalker.Project
 
             SetTheme(Settings.Default.ProjectWindowTheme, false);
             ShowDefaultPanels();
-
 
             if ((WorldForm != null) && (WorldForm.GameFileCache != null))
             {
@@ -175,7 +170,6 @@ namespace CodeWalker.Project
             catch { }
         }
 
-
         private void SetTheme(string themestr, bool changing = true)
         {
             if (changing && (CurrentProjectFile != null))
@@ -186,7 +180,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             CloseProject();
 
             //string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.temp.config");
@@ -195,7 +188,6 @@ namespace CodeWalker.Project
 
             ProjectExplorer = null;
             PreviewPanel = null;
-
 
             foreach (ToolStripMenuItem menu in ViewThemeMenu.DropDownItems)
             {
@@ -227,7 +219,6 @@ namespace CodeWalker.Project
                 Settings.Default.Save();
             }
 
-
             Theme.Extender.FloatWindowFactory = new ProjectFloatWindowFactory();
 
             MainDockPanel.Theme = Theme;
@@ -237,15 +228,12 @@ namespace CodeWalker.Project
             VSExtender.SetStyle(MainToolbar, version, Theme);
             //VSExtender.SetStyle(MainStatusBar, version, theme);
 
-
             //if (File.Exists(configFile)) MainDockPanel.LoadFromXml(configFile, m_deserializeDockContent);
-
 
             if (changing)
             {
                 ShowDefaultPanels();
             }
-
 
         }
 
@@ -878,8 +866,6 @@ namespace CodeWalker.Project
             if (daz != null) CurrentAudioZone = new AudioPlacement(daz.Rel, daz);
             if (dae != null) CurrentAudioEmitter = new AudioPlacement(dae.Rel, dae);
 
-
-
             if (CurrentMloEntity != null)
             {
                 MloInstanceData instance = TryGetMloInstance(CurrentMloEntity.OwnerMlo);
@@ -1099,8 +1085,6 @@ namespace CodeWalker.Project
         {
             PromoteIfPreviewPanel(MainDockPanel.ActiveContent);
         }
-
-
 
         //######## Public methods
 
@@ -1355,7 +1339,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             LoadProjectUI();
         }
         public void CloseProject()
@@ -1466,7 +1449,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             if (CurrentProjectFile.HasChanged)
             {
                 //save the current project first?
@@ -1497,7 +1479,6 @@ namespace CodeWalker.Project
                 LoadProjectUI();
 
             }
-
 
             if (WorldForm != null)
             {
@@ -1664,7 +1645,6 @@ namespace CodeWalker.Project
             SetProjectHasChanged(true);
             LoadProjectTree();
 
-
             if (errorFiles.Count > 0)
             {
                 MessageBox.Show("Errors were encountered while loading file(s):\n" + String.Join("\n", errorFiles));
@@ -1810,13 +1790,9 @@ namespace CodeWalker.Project
                     //ShowEditAudioFilePanel(false);
                 }
 
-
                 SaveProject();
             }
         }
-
-
-
 
         public object NewObject(MapSelection sel, bool copyPosition = false, bool selectNew = true)
         {
@@ -1897,9 +1873,6 @@ namespace CodeWalker.Project
             else if (sel.Audio?.AudioEmitter != null) SetProjectItem(sel.Audio, false);
         }
 
-
-
-
         public void NewYmap()
         {
             if (CurrentProjectFile == null)
@@ -1965,7 +1938,6 @@ namespace CodeWalker.Project
 
                 data = CurrentYmapFile.Save();
             }
-
 
             if (data != null)
             {
@@ -2079,7 +2051,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             if (CurrentYmapFile == null) return null;
 
             float spawndist = 5.0f; //use archetype BSradius if starting with a copy...
@@ -2089,7 +2060,6 @@ namespace CodeWalker.Project
             }
             bool cp = copyPosition && (copy != null);
             Vector3 pos = cp ? copy.Position : GetSpawnPos(spawndist);
-
 
             CEntityDef cent = new CEntityDef();
 
@@ -2115,7 +2085,6 @@ namespace CodeWalker.Project
 
             cent.position = pos;
 
-
             YmapEntityDef ent = new YmapEntityDef(CurrentYmapFile, 0, ref cent);
 
             ent.SetArchetype(GameFileCache.GetArchetype(cent.archetypeName));
@@ -2131,8 +2100,6 @@ namespace CodeWalker.Project
             {
                 CurrentYmapFile.AddEntity(ent);
             }
-
-
 
             if (selectNew)
             {
@@ -2514,7 +2481,6 @@ namespace CodeWalker.Project
                 ccg.position = pos;
             }
 
-
             YmapCarGen cg = new YmapCarGen(CurrentYmapFile, ccg);
 
             if (WorldForm != null)
@@ -2528,7 +2494,6 @@ namespace CodeWalker.Project
             {
                 CurrentYmapFile.AddCarGen(cg);
             }
-
 
             if (selectNew)
             {
@@ -2633,8 +2598,6 @@ namespace CodeWalker.Project
                 yll.Position = pos;
             }
 
-
-
             if (WorldForm != null)
             {
                 lock (WorldForm.RenderSyncRoot) //don't try to do this while rendering...
@@ -2649,7 +2612,6 @@ namespace CodeWalker.Project
             {
                 CurrentYmapFile.AddLodLight(yll);
             }
-
 
             if (selectNew)
             {
@@ -2763,8 +2725,6 @@ namespace CodeWalker.Project
                 bo.Position = pos;
             }
 
-
-
             if (WorldForm != null)
             {
                 lock (WorldForm.RenderSyncRoot) //don't try to do this while rendering...
@@ -2779,7 +2739,6 @@ namespace CodeWalker.Project
             {
                 CurrentYmapFile.AddBoxOccluder(bo);
             }
-
 
             if (selectNew)
             {
@@ -2881,8 +2840,6 @@ namespace CodeWalker.Project
                 //om.Center = pos;
             }
 
-
-
             if (WorldForm != null)
             {
                 lock (WorldForm.RenderSyncRoot) //don't try to do this while rendering...
@@ -2897,7 +2854,6 @@ namespace CodeWalker.Project
             {
                 CurrentYmapFile.AddOccludeModel(om);
             }
-
 
             if (selectNew)
             {
@@ -2999,8 +2955,6 @@ namespace CodeWalker.Project
                 //om.Center = pos;
             }
 
-
-
             if (WorldForm != null)
             {
                 lock (WorldForm.RenderSyncRoot) //don't try to do this while rendering...
@@ -3015,7 +2969,6 @@ namespace CodeWalker.Project
             {
                 CurrentYmapFile.AddOccludeModelTriangle(ot);
             }
-
 
             if (selectNew)
             {
@@ -3109,7 +3062,6 @@ namespace CodeWalker.Project
 
             if (string.IsNullOrEmpty(xmlpath)) return;
 
-
             var xmlstr = string.Empty;
             try
             {
@@ -3130,8 +3082,6 @@ namespace CodeWalker.Project
             menyooXml.Name = Path.GetFileNameWithoutExtension(finf.Name);
             menyooXml.Init(xmlstr);
 
-
-
             string fname = menyooXml.Name + ".ymap";
             lock (ProjectSyncRoot)
             {
@@ -3146,7 +3096,6 @@ namespace CodeWalker.Project
             }
 
             CurrentProjectFile.HasChanged = true;
-
 
             int pedcount = 0;
             int carcount = 0;
@@ -3248,20 +3197,11 @@ namespace CodeWalker.Project
 
             LoadProjectTree();
 
-
             ShowProjectItem(CurrentYmapFile, false);
-
 
             MessageBox.Show(entcount.ToString() + " entities imported. \n" + carcount.ToString() + " car generators imported. \n" + pedcount.ToString() + " peds ignored. \n" + unkcount.ToString() + " others ignored.");
 
         }
-
-
-
-
-
-
-
 
         public void NewYtyp()
         {
@@ -3310,7 +3250,6 @@ namespace CodeWalker.Project
                 saveas = true;
             }
 
-
             byte[] data;
             lock (projectsyncroot) //need to sync writes to ytyp objects...
             {
@@ -3332,7 +3271,6 @@ namespace CodeWalker.Project
 
                 data = CurrentYtypFile.Save();
             }
-
 
             if (data != null)
             {
@@ -3503,7 +3441,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             int roomIndex = CurrentMloRoom?.Index ?? -1;
             if (roomIndex >= (mloArch.rooms?.Length ?? 0))
             {
@@ -3525,7 +3462,6 @@ namespace CodeWalker.Project
                 return null;
             }
 
-
             float spawndist = 5.0f; //use archetype BSradius if starting with a copy...
             if (copy != null)
             {
@@ -3535,7 +3471,6 @@ namespace CodeWalker.Project
             bool cp = copyTransform && (copy != null);
             Vector3 pos = cp ? copy.CEntityDef.position : GetSpawnPosRel(spawndist, mloInstance.Owner.Position, mloInstance.Owner.Orientation);
             Quaternion rot = cp ? copy.CEntityDef.rotation.ToQuaternion() : Quaternion.Identity;
-
 
             CEntityDef cent = new CEntityDef();
 
@@ -3787,7 +3722,6 @@ namespace CodeWalker.Project
             MloInstanceData mloInstance = CurrentEntity.MloParent.MloInstance;
             if (mloInstance == null) return false;
 
-
             var delent = CurrentEntity; //CurrentEntity could get changed when we remove the tree node..
             var delytyp = CurrentEntity.MloParent.Archetype.Ytyp;
             var mcEnt = mloInstance.TryGetArchetypeEntity(CurrentEntity);
@@ -3817,7 +3751,6 @@ namespace CodeWalker.Project
                 MessageBox.Show(this, "Cannot delete entity: " + Environment.NewLine + e.Message);
                 return false;
             }
-
 
             ClosePanel((EditYmapEntityPanel p) => { return p.Tag == delent; });
             CurrentEntity = null;
@@ -3950,12 +3883,6 @@ namespace CodeWalker.Project
             }
         }
 
-
-
-
-
-
-
         public void NewYbn()
         {
             if (CurrentProjectFile == null)
@@ -3993,7 +3920,6 @@ namespace CodeWalker.Project
             if ((CurrentYbnFile == null) && (CurrentCollisionBounds != null)) CurrentYbnFile = CurrentCollisionBounds.GetRootYbn();
             if (CurrentYbnFile == null) return;
 
-
             string ybnname = CurrentYbnFile.Name;
             string filepath = CurrentYbnFile.FilePath;
             if (string.IsNullOrEmpty(filepath))
@@ -4005,7 +3931,6 @@ namespace CodeWalker.Project
             {
                 saveas = true;
             }
-
 
             byte[] data;
             lock (projectsyncroot) //need to sync writes to ybn objects...
@@ -4024,10 +3949,8 @@ namespace CodeWalker.Project
                     CurrentYbnFile.Name = CurrentYbnFile.RpfFileEntry.Name;
                 }
 
-
                 data = CurrentYbnFile.Save();
             }
-
 
             if (data != null)
             {
@@ -4173,7 +4096,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
             var bcomp = (CurrentCollisionBounds as BoundComposite) ?? CurrentCollisionBounds?.Parent;
             if (bcomp != null)
             {
@@ -4183,7 +4105,6 @@ namespace CodeWalker.Project
             {
                 CurrentYbnFile.AddBounds(b);
             }
-
 
             if (selectNew)
             {
@@ -4201,7 +4122,6 @@ namespace CodeWalker.Project
                     WorldForm.UpdateCollisionBoundsGraphics(bcomp);
                 }
             }
-
 
             return b;
         }
@@ -4295,7 +4215,6 @@ namespace CodeWalker.Project
                 WorldForm.SelectItem(null);
             }
 
-
             return true;
         }
         public bool IsCurrentCollisionBounds(Bounds bounds)
@@ -4307,7 +4226,6 @@ namespace CodeWalker.Project
         {
             var bgeom = CurrentCollisionBounds as BoundGeometry;
             if (bgeom == null) return null;
-
 
             var poly = bgeom.AddPolygon(type);
             var ptri = poly as BoundPolygonTriangle;
@@ -4414,7 +4332,6 @@ namespace CodeWalker.Project
             {
                 WorldForm.UpdateCollisionBoundsGraphics(bgeom);
             }
-
 
             return poly;
         }
@@ -4578,10 +4495,6 @@ namespace CodeWalker.Project
             return vertex == CurrentCollisionVertex;
         }
 
-
-
-
-
         public void NewYnd()
         {
             if (CurrentProjectFile == null)
@@ -4644,7 +4557,6 @@ namespace CodeWalker.Project
                 saveas = true;
             }
 
-
             byte[] data;
             lock (projectsyncroot) //need to sync writes to ynd objects...
             {
@@ -4662,10 +4574,8 @@ namespace CodeWalker.Project
                     CurrentYndFile.Name = CurrentYndFile.RpfFileEntry.Name;
                 }
 
-
                 data = CurrentYndFile.Save();
             }
-
 
             if (data != null)
             {
@@ -4752,7 +4662,6 @@ namespace CodeWalker.Project
             Vector3 pos = cp ? copy.Position : GetSpawnPos(10.0f);
             n.SetPosition(pos);
 
-
             if (copy != null)
             {
                 var link1 = n.AddLink(copy);
@@ -4780,7 +4689,6 @@ namespace CodeWalker.Project
             CurrentYndFile.UpdateAllNodePositions(); //for the graphics...
             CurrentYndFile.BuildBVH();
 
-
             if (selectNew)
             {
                 LoadProjectTree();
@@ -4789,7 +4697,6 @@ namespace CodeWalker.Project
                 //ShowEditYndPanel(false);;
                 ShowEditYndNodePanel(false);
             }
-
 
             if (WorldForm != null)
             {
@@ -4851,13 +4758,6 @@ namespace CodeWalker.Project
             return CurrentPathNode == pathnode;
         }
 
-
-
-
-
-
-
-
         public void NewYnv()
         {
             if (CurrentProjectFile == null)
@@ -4909,7 +4809,6 @@ namespace CodeWalker.Project
                 saveas = true;
             }
 
-
             byte[] data;
             lock (projectsyncroot) //need to sync writes to ynv objects...
             {
@@ -4927,10 +4826,8 @@ namespace CodeWalker.Project
                     CurrentYnvFile.Name = CurrentYnvFile.RpfFileEntry.Name;
                 }
 
-
                 data = CurrentYnvFile.Save();
             }
-
 
             if (data != null)
             {
@@ -5032,13 +4929,6 @@ namespace CodeWalker.Project
             return portal == CurrentNavPortal;
         }
 
-
-
-
-
-
-
-
         public void NewTrainTrack()
         {
             if (CurrentProjectFile == null)
@@ -5090,7 +4980,6 @@ namespace CodeWalker.Project
                 saveas = true;
             }
 
-
             byte[] data;
             lock (projectsyncroot) //need to sync writes to objects...
             {
@@ -5108,10 +4997,8 @@ namespace CodeWalker.Project
                     CurrentTrainTrack.Name = CurrentTrainTrack.RpfFileEntry.Name;
                 }
 
-
                 data = CurrentTrainTrack.Save();
             }
-
 
             if (data != null)
             {
@@ -5195,10 +5082,8 @@ namespace CodeWalker.Project
             Vector3 pos = cp ? copy.Position : GetSpawnPos(10.0f);
             n.SetPosition(pos);
 
-
             //CurrentTrainTrack.BuildVertices(); //for the graphics...
             CurrentTrainTrack.BuildBVH();
-
 
             if (selectNew)
             {
@@ -5207,7 +5092,6 @@ namespace CodeWalker.Project
                 CurrentTrainNode = n;
                 ShowEditTrainNodePanel(false);
             }
-
 
             if (WorldForm != null)
             {
@@ -5268,13 +5152,6 @@ namespace CodeWalker.Project
         {
             return node == CurrentTrainNode;
         }
-
-
-
-
-
-
-
 
         public void NewScenario()
         {
@@ -5338,7 +5215,6 @@ namespace CodeWalker.Project
                 saveas = true;
             }
 
-
             byte[] data;
             lock (projectsyncroot) //need to sync writes to scenario...
             {
@@ -5356,12 +5232,10 @@ namespace CodeWalker.Project
                     CurrentScenario.Name = CurrentScenario.RpfFileEntry.Name;
                 }
 
-
                 CurrentScenario.ContentType = YmtFileContentType.ScenarioPointRegion;//just to be sure..
 
                 data = CurrentScenario.Save();
             }
-
 
             if (data != null)
             {
@@ -5442,7 +5316,6 @@ namespace CodeWalker.Project
             n.SetPosition(pos);
             n.SetOrientation(ori);
 
-
             if (selectNew)
             {
                 LoadProjectTree();
@@ -5451,7 +5324,6 @@ namespace CodeWalker.Project
                 //ShowEditScenarioPanel(false);
                 ShowEditScenarioNodePanel(false);
             }
-
 
             if (WorldForm != null)
             {
@@ -5470,7 +5342,6 @@ namespace CodeWalker.Project
             if (CurrentScenario == null) return false;
             if (CurrentScenario.ScenarioRegion == null) return false;
             if (CurrentScenarioNode == null) return false;
-
 
             //if (MessageBox.Show("Are you sure you want to delete this scenario node?\n" + CurrentScenarioNode.ToString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             //{
@@ -5516,7 +5387,6 @@ namespace CodeWalker.Project
             return node == CurrentScenarioNode;
         }
 
-
         public void SetScenarioChainEdge(MCScenarioChainingEdge e)
         {
             CurrentScenarioChainEdge = e;
@@ -5543,7 +5413,6 @@ namespace CodeWalker.Project
             }
 
             paths.AddChain(chain);
-
 
             //add 2 new nodes to the new chain.
             var pos1 = GetSpawnPos(10.0f);
@@ -5612,15 +5481,8 @@ namespace CodeWalker.Project
             paths.AddEdge(ed);
             chain.AddEdge(ed);
 
-
-
             n1.SetPosition(pos1);
             n2.SetPosition(pos2);
-
-
-
-
-
 
             ProjectExplorer?.LoadProjectTree(CurrentProjectFile);
 
@@ -5631,7 +5493,6 @@ namespace CodeWalker.Project
             //LoadScenarioChainTabPage();
             ////LoadScenarioTabPage();
             ////LoadScenarioNodeTabPages();
-
 
             if (WorldForm != null)
             {
@@ -5655,7 +5516,6 @@ namespace CodeWalker.Project
 
             var copy = CurrentScenarioNode?.Cluster;
 
-
             MCScenarioPointCluster cluster = new MCScenarioPointCluster(rgn, copy);
             List<MCScenarioPoint> clusterpoints = new List<MCScenarioPoint>();
 
@@ -5667,10 +5527,7 @@ namespace CodeWalker.Project
                 }
             }
 
-
-
             rgn.AddCluster(cluster); //add the base cluster to the region.
-
 
             var pos1 = GetSpawnPos(10.0f);
 
@@ -5689,20 +5546,12 @@ namespace CodeWalker.Project
                 }
             }
 
-
-
-
-
-
-
-
             ProjectExplorer?.LoadProjectTree(CurrentProjectFile);
 
             ProjectExplorer?.TrySelectScenarioNodeTreeNode(nc);
 
             CurrentScenarioNode = nc;
             //LoadScenarioClusterTabPage();
-
 
             if (WorldForm != null)
             {
@@ -5751,7 +5600,6 @@ namespace CodeWalker.Project
             n.SetPosition(pos1);
             n.SetOrientation(ori1);
 
-
             ProjectExplorer?.LoadProjectTree(CurrentProjectFile);
 
             ProjectExplorer?.TrySelectScenarioNodeTreeNode(n);
@@ -5761,7 +5609,6 @@ namespace CodeWalker.Project
             //LoadScenarioClusterPointTabPage();
             ////LoadScenarioTabPage();
             ////LoadScenarioNodeTabPages();
-
 
             if (WorldForm != null)
             {
@@ -5785,7 +5632,6 @@ namespace CodeWalker.Project
 
             var copy = CurrentScenarioNode?.Entity;
 
-
             MCScenarioEntityOverride entity = new MCScenarioEntityOverride(rgn, copy);
             List<MCExtensionDefSpawnPoint> entpoints = new List<MCExtensionDefSpawnPoint>();
 
@@ -5797,13 +5643,7 @@ namespace CodeWalker.Project
                 }
             }
 
-
-
-
-
-
             rgn.AddEntity(entity); //add the base entity to the region.
-
 
             var pos1 = GetSpawnPos(10.0f);
 
@@ -5822,20 +5662,12 @@ namespace CodeWalker.Project
                 }
             }
 
-
-
-
-
-
-
-
             ProjectExplorer?.LoadProjectTree(CurrentProjectFile);
 
             ProjectExplorer?.TrySelectScenarioNodeTreeNode(ne);
 
             CurrentScenarioNode = ne;
             //LoadScenarioEntityTabPage();
-
 
             if (WorldForm != null)
             {
@@ -5878,7 +5710,6 @@ namespace CodeWalker.Project
             n.SetPosition(pos1);
             n.SetOrientation(ori1);
 
-
             ProjectExplorer?.LoadProjectTree(CurrentProjectFile);
 
             ProjectExplorer?.TrySelectScenarioNodeTreeNode(n);
@@ -5888,7 +5719,6 @@ namespace CodeWalker.Project
             //LoadScenarioEntityPointTabPage();
             ////LoadScenarioTabPage();
             ////LoadScenarioNodeTabPages();
-
 
             if (WorldForm != null)
             {
@@ -5913,7 +5743,6 @@ namespace CodeWalker.Project
             var rgn = CurrentScenario.ScenarioRegion;
             if (rgn == null) return;
 
-
             if (MessageBox.Show("Are you sure you want to delete this scenario chain?\n" + chain.ToString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;
@@ -5925,11 +5754,7 @@ namespace CodeWalker.Project
                 delpoints = true;
             }
 
-
-
             rgn.RemoveChain(chain, delpoints);
-
-
 
             var cn = CurrentScenarioNode;
             var cs = CurrentScenario;
@@ -5972,7 +5797,6 @@ namespace CodeWalker.Project
             var rgn = CurrentScenario.ScenarioRegion;
             if (rgn == null) return;
 
-
             if (MessageBox.Show("Are you sure you want to delete this scenario cluster?\n" + cluster.ToString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;
@@ -5984,10 +5808,7 @@ namespace CodeWalker.Project
                 delpoints = true;
             }
 
-
             rgn.RemoveCluster(cluster, delpoints);
-
-
 
             var cn = CurrentScenarioNode;
             var cs = CurrentScenario;
@@ -6031,7 +5852,6 @@ namespace CodeWalker.Project
             var rgn = CurrentScenario.ScenarioRegion;
             if (rgn == null) return;
 
-
             if (MessageBox.Show("Are you sure you want to delete this scenario entity override, and all its override points?\n" + entity.ToString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;
@@ -6043,10 +5863,7 @@ namespace CodeWalker.Project
             //    delpoints = true;
             //}
 
-
             rgn.RemoveEntity(entity);
-
-
 
             var cn = CurrentScenarioNode;
             var cs = CurrentScenario;
@@ -6099,18 +5916,14 @@ namespace CodeWalker.Project
             var str = f.MainText;
             var lines = str.Split('\n');
 
-
             if (lines.Length < 2)
             {
                 return;//need at least 2 lines (1 point) to work with...
             }
 
-
-
             MCScenarioChain chain = new MCScenarioChain();
 
             paths.AddChain(chain);
-
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -6175,8 +5988,6 @@ namespace CodeWalker.Project
 
                 if (!ok) continue;
 
-
-
                 thisnode = rgn.AddNode();
 
                 thisnode.MyPoint.Direction = dir;
@@ -6197,7 +6008,6 @@ namespace CodeWalker.Project
 
                 paths.AddNode(thisnode.ChainingNode);
 
-
                 if (lastnode != null)
                 {
                     var edge = new MCScenarioChainingEdge();
@@ -6217,14 +6027,8 @@ namespace CodeWalker.Project
                     lastedge = edge;
                 }
 
-
                 lastnode = thisnode;
             }
-
-
-
-
-
 
             LoadProjectTree();
 
@@ -6239,7 +6043,6 @@ namespace CodeWalker.Project
             //LoadScenarioTabPage();
             //LoadScenarioNodeTabPages();
 
-
             if (WorldForm != null)
             {
                 WorldForm.UpdateScenarioGraphics(CurrentScenario, false);
@@ -6250,16 +6053,7 @@ namespace CodeWalker.Project
                 CurrentScenario.ScenarioRegion.BuildVertices(); //for the graphics...
             }
 
-
         }
-
-
-
-
-
-
-
-
 
         public void NewAudioFile()
         {
@@ -6307,7 +6101,6 @@ namespace CodeWalker.Project
             {
                 saveas = true;
             }
-
 
             byte[] data;
             lock (projectsyncroot) //need to sync writes to scenario...
@@ -6449,7 +6242,6 @@ namespace CodeWalker.Project
             ap.SetPosition(pos);
             ap.SetOrientation(ori);
 
-
             CurrentAudioFile.AddRelData(zone);
 
             if (selectNew)
@@ -6475,7 +6267,6 @@ namespace CodeWalker.Project
             if (CurrentAudioFile?.RelDatas == null) return false; //nothing to delete..
             if (CurrentAudioFile?.RelDatasSorted == null) return false; //nothing to delete..
             if (CurrentAudioZone?.AudioZone == null) return false;
-
 
             //if (MessageBox.Show("Are you sure you want to delete this audio zone?\n" + CurrentAudioZone.GetNameString() + "\n" + CurrentAudioZone.Position.ToString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             //{
@@ -6552,7 +6343,6 @@ namespace CodeWalker.Project
             emitter.Unk12 = cp ? copy.AudioEmitter.Unk12.Value : (byte)100;
             emitter.Unk13 = cp ? copy.AudioEmitter.Unk13.Value : (byte)3;
 
-
             emitter.Name = "emitter1";
             emitter.NameHash = JenkHash.GenHash(emitter.Name);
 
@@ -6564,7 +6354,6 @@ namespace CodeWalker.Project
             Quaternion ori = cp ? copy.Orientation : Quaternion.Identity;
             ap.SetPosition(pos);
             ap.SetOrientation(ori);
-
 
             CurrentAudioFile.AddRelData(emitter);
 
@@ -6591,7 +6380,6 @@ namespace CodeWalker.Project
             if (CurrentAudioFile?.RelDatas == null) return false; //nothing to delete..
             if (CurrentAudioFile?.RelDatasSorted == null) return false; //nothing to delete..
             if (CurrentAudioEmitter?.AudioEmitter == null) return false;
-
 
             //if (MessageBox.Show("Are you sure you want to delete this audio emitter?\n" + CurrentAudioEmitter.GetNameString() + "\n" + CurrentAudioEmitter.Position.ToString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             //{
@@ -6627,7 +6415,6 @@ namespace CodeWalker.Project
 
             ClosePanel((EditAudioEmitterPanel p) => { return p.CurrentEmitter.AudioEmitter == delem.AudioEmitter; });
 
-
             if (WorldForm != null)
             {
                 WorldForm.SelectItem(null);
@@ -6643,7 +6430,6 @@ namespace CodeWalker.Project
         public void NewAudioZoneList()
         {
             if (CurrentAudioFile == null) return;
-
 
             var zonelist = new Dat151AmbientZoneList(CurrentAudioFile);
 
@@ -6664,7 +6450,6 @@ namespace CodeWalker.Project
             if (CurrentAudioZoneList?.Rel != CurrentAudioFile) return false;
             if (CurrentAudioFile?.RelDatas == null) return false; //nothing to delete..
             if (CurrentAudioFile?.RelDatasSorted == null) return false; //nothing to delete..
-
 
             //if (MessageBox.Show("Are you sure you want to delete this audio zone list?\n" + CurrentAudioZoneList.GetNameString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             //{
@@ -6710,12 +6495,10 @@ namespace CodeWalker.Project
         {
             if (CurrentAudioFile == null) return;
 
-
             var emlist = new Dat151StaticEmitterList(CurrentAudioFile);
 
             emlist.Name = "emitterlist1";
             emlist.NameHash = JenkHash.GenHash(emlist.Name);
-
 
             CurrentAudioFile.AddRelData(emlist);
 
@@ -6731,7 +6514,6 @@ namespace CodeWalker.Project
             if (CurrentAudioEmitterList?.Rel != CurrentAudioFile) return false;
             if (CurrentAudioFile?.RelDatas == null) return false; //nothing to delete..
             if (CurrentAudioFile?.RelDatasSorted == null) return false; //nothing to delete..
-
 
             //if (MessageBox.Show("Are you sure you want to delete this audio emitter list?\n" + CurrentAudioEmitterList.GetNameString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             //{
@@ -6777,7 +6559,6 @@ namespace CodeWalker.Project
         {
             if (CurrentAudioFile == null) return;
 
-
             var interior = new Dat151Interior(CurrentAudioFile);
 
             interior.Name = "interior1";
@@ -6799,7 +6580,6 @@ namespace CodeWalker.Project
             if (CurrentAudioInterior?.Rel != CurrentAudioFile) return false;
             if (CurrentAudioFile?.RelDatas == null) return false; //nothing to delete..
             if (CurrentAudioFile?.RelDatasSorted == null) return false; //nothing to delete..
-
 
             if (MessageBox.Show("Are you sure you want to delete this audio interior?\n" + CurrentAudioInterior.GetNameString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
@@ -6845,7 +6625,6 @@ namespace CodeWalker.Project
         {
             if (CurrentAudioFile == null) return;
 
-
             var room = new Dat151InteriorRoom(CurrentAudioFile);
 
             room.Name = "room1";
@@ -6854,7 +6633,6 @@ namespace CodeWalker.Project
             room.Flags0 = 0xAAAAAAAA;
             room.Sound = (uint)MetaName.null_sound;
             room.SoundSet = 3565506855;//?
-
 
             CurrentAudioFile.AddRelData(room);
 
@@ -6870,7 +6648,6 @@ namespace CodeWalker.Project
             if (CurrentAudioInteriorRoom?.Rel != CurrentAudioFile) return false;
             if (CurrentAudioFile?.RelDatas == null) return false; //nothing to delete..
             if (CurrentAudioFile?.RelDatasSorted == null) return false; //nothing to delete..
-
 
             if (MessageBox.Show("Are you sure you want to delete this audio interior room?\n" + CurrentAudioInteriorRoom.GetNameString() + "\n\nThis operation cannot be undone. Continue?", "Confirm delete", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
@@ -6912,12 +6689,6 @@ namespace CodeWalker.Project
             return room == CurrentAudioInteriorRoom;
         }
 
-
-
-
-
-
-
         public void AddYdrToProject(YdrFile ydr)
         {
             if (ydr == null) return;
@@ -6952,7 +6723,6 @@ namespace CodeWalker.Project
             if (CurrentProjectFile == null) return false;
             return CurrentProjectFile.ContainsYdr(ydr);
         }
-
 
         public void AddYddToProject(YddFile ydd)
         {
@@ -6989,7 +6759,6 @@ namespace CodeWalker.Project
             return CurrentProjectFile.ContainsYdd(ydd);
         }
 
-
         public void AddYftToProject(YftFile yft)
         {
             if (yft == null) return;
@@ -7024,7 +6793,6 @@ namespace CodeWalker.Project
             if (CurrentProjectFile == null) return false;
             return CurrentProjectFile.ContainsYft(yft);
         }
-
 
         public void AddYtdToProject(YtdFile ytd)
         {
@@ -7155,8 +6923,6 @@ namespace CodeWalker.Project
                     ybns.Add(ybn);
                 }
 
-
-
                 //messy way to gather the interior ybns!
                 projectybns.Clear();
                 for (int i = 0; i < CurrentProjectFile.YbnFiles.Count; i++)
@@ -7181,7 +6947,6 @@ namespace CodeWalker.Project
                         }
                     }
                 }
-
 
             }
 
@@ -7263,7 +7028,6 @@ namespace CodeWalker.Project
                 tracks.Clear();
             }
 
-
             lock (projectsyncroot)
             {
                 if (CurrentProjectFile == null) return;
@@ -7298,7 +7062,6 @@ namespace CodeWalker.Project
             {
                 ymts.Clear();
             }
-
 
             lock (projectsyncroot)
             {
@@ -7362,7 +7125,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
         }
         public void GetVisibleWaterQuads<T>(Camera camera, List<T> quads) where T : BaseWaterQuad
         {
@@ -7386,7 +7148,6 @@ namespace CodeWalker.Project
             {
                 curHit.Clear();
             }
-
 
             lock (projectsyncroot)
             {
@@ -7440,7 +7201,6 @@ namespace CodeWalker.Project
                 }
             }
 
-
         }
 
         public MloInstanceData TryGetMloInstance(MloArchetype arch)
@@ -7454,7 +7214,6 @@ namespace CodeWalker.Project
                 return visiblemloentities[name]?.MloInstance;
             }
         }
-
 
         public void OnWorldSelectionChanged(MapSelection sel)
         {
@@ -8361,13 +8120,6 @@ namespace CodeWalker.Project
             }
         }
 
-
-
-
-
-
-
-
         public void SetProjectHasChanged(bool changed)
         {
             if (CurrentProjectFile == null) return;
@@ -8498,12 +8250,6 @@ namespace CodeWalker.Project
             PromoteIfPreviewPanelActive();
         }
 
-
-
-
-
-
-
         public Vector3 GetSpawnPos(float dist)
         {
             Vector3 pos = Vector3.Zero;
@@ -8553,12 +8299,6 @@ namespace CodeWalker.Project
 
             return null;
         }
-
-
-
-
-
-
 
         //######## Private methods
 
@@ -8697,14 +8437,11 @@ namespace CodeWalker.Project
             }
         }
 
-
         private void AddFilenameToJenkIndex(string filename)
         {
             var n = Path.GetFileNameWithoutExtension(filename).ToLowerInvariant();
             JenkIndex.Ensure(n);
         }
-
-
 
         private void LoadProjectUI()
         {
@@ -8717,7 +8454,6 @@ namespace CodeWalker.Project
         {
             ProjectExplorer?.LoadProjectTree(CurrentProjectFile);
         }
-
 
         private void UpdateFormTitleText()
         {
@@ -9083,7 +8819,6 @@ namespace CodeWalker.Project
             YtdMenu.Visible = enable;
         }
 
-
         private void SetCurrentSaveItem()
         {
             string filename = null;
@@ -9150,13 +8885,6 @@ namespace CodeWalker.Project
             }
         }
 
-
-
-
-
-
-
-
         private string ShowSaveDialog(string filter, string filename)
         {
             SaveFileDialog.FileName = filename;
@@ -9189,12 +8917,6 @@ namespace CodeWalker.Project
             }
             return OpenFileDialog.FileNames;
         }
-
-
-
-
-
-
 
         //######## events
 

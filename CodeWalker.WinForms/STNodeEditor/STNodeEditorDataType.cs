@@ -161,7 +161,6 @@ namespace ST.Library.UI.NodeEditor
     public delegate void STNodeEditorEventHandler(object sender, STNodeEditorEventArgs e);
     public delegate void STNodeEditorOptionEventHandler(object sender, STNodeEditorOptionEventArgs e);
 
-
     public class STNodeEditorEventArgs : EventArgs
     {
         private STNode _Node;

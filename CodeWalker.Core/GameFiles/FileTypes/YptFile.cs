@@ -37,7 +37,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             RpfFileEntry = entry;
 
-
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
             {
@@ -59,7 +58,6 @@ namespace CodeWalker.GameFiles
                 ErrorMessage = ex.ToString();
             }
 
-
             BuildDrawableDict();
             BuildParticleDict();
 
@@ -71,16 +69,12 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public byte[] Save()
         {
             byte[] data = ResourceBuilder.Build(PtfxList, 68); //ypt is type/version 68...
 
             return data;
         }
-
-
-
 
         private void BuildDrawableDict()
         {
@@ -145,10 +139,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
-
     public class YptXml : MetaXmlBase
     {
 
@@ -195,8 +185,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
-
 
 }

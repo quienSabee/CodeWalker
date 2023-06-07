@@ -22,7 +22,6 @@
 
 //shamelessly stolen and mangled
 
-
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -40,7 +39,6 @@ using EXP = System.ComponentModel.ExpandableObjectConverter;
 
 namespace CodeWalker.GameFiles
 {
-
 
     [TC(typeof(EXP))] public class BoundsDictionary : ResourceFileBase
     {
@@ -223,7 +221,6 @@ namespace CodeWalker.GameFiles
         public BoundCompositeChildrenFlags CompositeFlags1 { get; set; }
         public BoundCompositeChildrenFlags CompositeFlags2 { get; set; }
 
-
         public virtual Vector3 Scale
         {
             get
@@ -305,7 +302,6 @@ namespace CodeWalker.GameFiles
             { }
             if (Unknown_5Eh != 0)
             { }
-
 
             switch (Unknown_3Ch)
             {
@@ -883,7 +879,6 @@ namespace CodeWalker.GameFiles
         //public uint Unknown_78h { get; set; }
         //public uint Unknown_7Ch { get; set; }
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             base.Read(reader, parameters);
@@ -893,7 +888,6 @@ namespace CodeWalker.GameFiles
             //this.Unknown_74h = reader.ReadUInt32();
             //this.Unknown_78h = reader.ReadUInt32();
             //this.Unknown_7Ch = reader.ReadUInt32();
-
 
             // found in eg:
             //dt1_16_build4_cloth11.yft
@@ -978,7 +972,6 @@ namespace CodeWalker.GameFiles
         public uint Unknown_128h { get; set; } // 0x00000000
         public uint Unknown_12Ch { get; set; } // 0x00000000
 
-
         public Vector3[] Vertices2 { get; set; }//found in some YFTs, same count as Vertices, and contents are similar
         public BoundPolygon[] Polygons { get; set; }
         public Vector3[] Vertices { get; set; }
@@ -997,7 +990,6 @@ namespace CodeWalker.GameFiles
         private ResourceSystemStructBlock<byte> PolygonMaterialIndicesBlock = null;
 
         private BoundVertex[] VertexObjects = null; //for use by the editor, created as needed by GetVertexObject()
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -1042,7 +1034,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_128h = reader.ReadUInt32();
             this.Unknown_12Ch = reader.ReadUInt32();
 
-
             var verts2 = reader.ReadStructsAt<BoundVertex_s>(this.Vertices2Pointer, this.Vertices2Count);
             if (verts2 != null) //seems to be in YFT's
             {
@@ -1077,8 +1068,6 @@ namespace CodeWalker.GameFiles
 
             this.PolygonMaterialIndices = reader.ReadBytesAt(this.PolygonMaterialIndicesPointer, (uint)PolygonsCount);
 
-
-
             if ((MaterialsPointer != 0) && (MaterialsCount < 4))
             {
                 //for (var i = MaterialsCount; i < 4; i++)
@@ -1087,7 +1076,6 @@ namespace CodeWalker.GameFiles
                 //    if ((m.Data1 != 0) || (m.Data2 != 0))
                 //    { }//no hit
                 //}
-
 
                 //the read array was padded, so remove the padding from this array. will re-add padding in BuildMaterials...
                 var mats = new BoundMaterial_s[MaterialsCount];
@@ -1098,7 +1086,6 @@ namespace CodeWalker.GameFiles
                 Materials = mats;
 
             }
-
 
             //if (Vertices2Count != VerticesCount)
             //{ }//no hit here
@@ -1142,7 +1129,6 @@ namespace CodeWalker.GameFiles
             this.PolygonMaterialIndicesPointer = (ulong)(this.PolygonMaterialIndicesBlock != null ? this.PolygonMaterialIndicesBlock.FilePosition : 0);
             //this.MaterialsCount = (byte)(this.MaterialsBlock != null ? this.MaterialsBlock.ItemCount : 0);//this is updated by BuildMaterials, and the array could include padding!
             this.MaterialColoursCount = (byte)(this.MaterialColoursBlock != null ? this.MaterialColoursBlock.ItemCount : 0);
-
 
             // write structure data
             writer.Write(this.Unknown_70h);
@@ -1358,8 +1344,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
-
         private void ReadPolygons(ResourceDataReader reader)
         {
             if(PolygonsCount==0)
@@ -1431,9 +1415,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
-
         public override SpaceSphereIntersectResult SphereIntersect(ref BoundingSphere sph)
         {
             var res = new SpaceSphereIntersectResult();
@@ -1473,7 +1454,6 @@ namespace CodeWalker.GameFiles
 
             return res;
         }
-
 
         protected void SphereIntersectPolygons(ref BoundingSphere sph, ref SpaceSphereIntersectResult res, int startIndex, int endIndex)
         {
@@ -1685,8 +1665,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
         public int GetMaterialIndex(int polyIndex)
         {
             var matind = 0;
@@ -1722,7 +1700,6 @@ namespace CodeWalker.GameFiles
                 Materials[matind] = mat;
             }
         }
-
 
         public void CalculateQuantum()
         {
@@ -1873,7 +1850,6 @@ namespace CodeWalker.GameFiles
                 if (edge.Triangle1 == null)
                 { continue; }
 
-
                 if (edge.Triangle2 == null)
                 {
                     edge.Triangle1.SetEdgeIndex(edge.EdgeID1, -1);
@@ -1884,7 +1860,6 @@ namespace CodeWalker.GameFiles
                     edge.Triangle2.SetEdgeIndex(edge.EdgeID2, (short)edge.Triangle1.Index);
                 }
             }
-
 
             foreach (var poly in Polygons)
             {
@@ -2052,7 +2027,6 @@ namespace CodeWalker.GameFiles
             }
             return false;
         }
-
 
         public int AddVertex()
         {
@@ -2226,9 +2200,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
-
-
         public void BuildBVH(bool updateParent = true)
         {
             if ((Polygons?.Length ?? 0) <= 0) //in some des_ drawables?
@@ -2310,8 +2281,6 @@ namespace CodeWalker.GameFiles
                 Parent.BuildBVH();
             }
         }
-
-
 
         public override SpaceSphereIntersectResult SphereIntersect(ref BoundingSphere sph)
         {
@@ -2475,13 +2444,11 @@ namespace CodeWalker.GameFiles
 
         public BVH BVH { get; set; }
 
-
         private ResourceSystemStructBlock<Matrix4F_s> ChildrenTransformation1Block = null;
         private ResourceSystemStructBlock<Matrix4F_s> ChildrenTransformation2Block = null;
         private ResourceSystemStructBlock<AABB_s> ChildrenBoundingBoxesBlock = null;
         private ResourceSystemStructBlock<BoundCompositeChildrenFlags> ChildrenFlags1Block = null;
         private ResourceSystemStructBlock<BoundCompositeChildrenFlags> ChildrenFlags2Block = null;
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -2594,7 +2561,6 @@ namespace CodeWalker.GameFiles
             //        }
             //    }
             //}
-
 
             //if ((ChildrenTransformation1 != null) && (ChildrenTransformation2 != null))
             //{
@@ -2734,9 +2700,6 @@ namespace CodeWalker.GameFiles
             if (BVH != null) list.Add(BVH);
             return list.ToArray();
         }
-
-
-
 
         public void BuildBVH()
         {
@@ -2906,7 +2869,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public override SpaceSphereIntersectResult SphereIntersect(ref BoundingSphere sph)
         {
             var res = new SpaceSphereIntersectResult();
@@ -2961,9 +2923,6 @@ namespace CodeWalker.GameFiles
 
             return res;
         }
-
-
-
 
         public bool DeleteChild(Bounds child)
         {
@@ -3029,9 +2988,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
-
 
     public enum BoundPolygonType : byte
     {
@@ -4007,7 +3963,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public struct BoundEdgeRef //convenience struct for updating edge indices
     {
         public int Vertex1 { get; set; }
@@ -4099,7 +4054,6 @@ namespace CodeWalker.GameFiles
     {
         public uint[] Counts { get; set; } = new uint[8];
         public uint[][] Items { get; private set; } = new uint[8][];
-
 
         public override long BlockLength
         {
@@ -4222,8 +4176,6 @@ namespace CodeWalker.GameFiles
             UpdateCounts();
         }
 
-
-
         public void UpdateCounts()
         {
             for (int i = 0; i < 8; i++)
@@ -4232,9 +4184,7 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
     }
-
 
     [Flags] public enum EBoundCompositeFlags : uint
     {
@@ -4281,8 +4231,6 @@ namespace CodeWalker.GameFiles
             return Flags1.ToString() + ", " + Flags2.ToString();
         }
     }
-
-
 
     [TC(typeof(EXP))] public class BVH : ResourceSystemBlock
     {
@@ -4417,12 +4365,10 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     public class BVHBuilder
     {
         public static int MaxNodeItemCount = 4; //item threshold: 1 for composites, 4 for geometries
         public static int MaxTreeNodeCount = 127; //max number of nodes found in any tree
-
 
         public static BVH Build(List<BVHBuilderItem> items, int itemThreshold)
         {
@@ -4453,7 +4399,6 @@ namespace CodeWalker.GameFiles
             root.Build(itemThreshold);
             root.GatherNodes(nodes);
             root.GatherTrees(trees);
-
 
             if (itemThreshold > 1) //need to reorder items, since they need to be grouped by node for the node's item index
             {
@@ -4500,7 +4445,6 @@ namespace CodeWalker.GameFiles
                 bt.NodeIndex2 = (short)(tree.Index + tree.TotalNodes);
                 bvhtrees.Add(bt);
             }
-
 
             var nodecount = bvhnodes.Count;
             if (itemThreshold <= 1) //for composites, capacity needs to be (numchildren*2)+1, with empty nodes filling up the space..
@@ -4780,8 +4724,6 @@ namespace CodeWalker.GameFiles
         public BoundPolygon Polygon;
     }
 
-
-
     [Flags] public enum EBoundMaterialFlags : ushort
     {
         NONE = 0,
@@ -4853,7 +4795,6 @@ namespace CodeWalker.GameFiles
             get => (ushort)((Data2 >> 16) & 0xFFFFu);
             set => Data2 = ((Data2 & 0x0000FFFFu) | ((value & 0xFFFFu) << 16));
         }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -5087,10 +5028,8 @@ namespace CodeWalker.GameFiles
                     d.Colour = new Color(0xFFCCCCCC);
                 }
 
-
                 list.Add(d);
             }
-
 
             //StringBuilder sb = new StringBuilder();
             //foreach (var d in list)
@@ -5100,7 +5039,6 @@ namespace CodeWalker.GameFiles
             //string names = sb.ToString();
 
         }
-
 
         public static BoundsMaterialData GetMaterial(BoundsMaterialType type)
         {
@@ -5130,6 +5068,5 @@ namespace CodeWalker.GameFiles
             return m.Colour;
         }
     }
-
 
 }

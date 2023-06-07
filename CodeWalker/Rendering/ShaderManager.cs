@@ -34,8 +34,6 @@ namespace CodeWalker.Rendering
         DepthStencilState dsDisableWrite;
         DepthStencilState dsDisableWriteRev;
 
-
-
         public DeferredScene DefScene { get; set; }
         public PostProcessor HDR { get; set; }
         public BasicShader Basic { get; set; }
@@ -67,7 +65,6 @@ namespace CodeWalker.Rendering
 
         private bool disposed = false;
 
-
         public List<ShaderRenderBucket> RenderBuckets = new List<ShaderRenderBucket>();
         public List<RenderableBoundGeometryInst> RenderBoundGeoms = new List<RenderableBoundGeometryInst>();
         public List<RenderableInstanceBatchInst> RenderInstBatches = new List<RenderableInstanceBatchInst>();
@@ -93,7 +90,6 @@ namespace CodeWalker.Rendering
         private GameFileCache GameFileCache;
         private RenderableCache RenderableCache;
 
-
         public long TotalGraphicsMemoryUse
         {
             get
@@ -115,7 +111,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
         public ShaderManager(Device device, DXManager dxman)
         {
             Device = device;
@@ -135,7 +130,6 @@ namespace CodeWalker.Rendering
             DistLights = new DistantLightsShader(device);
             Paths = new PathShader(device);
             Widgets = new WidgetShader(device);
-
 
             RasterizerStateDescription rsd = new RasterizerStateDescription()
             {
@@ -157,7 +151,6 @@ namespace CodeWalker.Rendering
             rsWireframeDblSided = new RasterizerState(device, rsd);
             rsd.FillMode = FillMode.Solid;
             rsSolidDblSided = new RasterizerState(device, rsd);
-
 
             BlendStateDescription bsd = new BlendStateDescription()
             {
@@ -218,8 +211,6 @@ namespace CodeWalker.Rendering
             dsDisableAll = new DepthStencilState(device, dsd);
         }
 
-
-
         public void Dispose()
         {
             if (disposed) return;
@@ -252,7 +243,6 @@ namespace CodeWalker.Rendering
             Cable.Dispose();
             Water.Dispose();
 
-
             if (DefScene != null)
             {
                 DefScene.Dispose();
@@ -271,7 +261,6 @@ namespace CodeWalker.Rendering
                 Shadowmap = null;
             }
         }
-
 
         public void SetGlobalLightParams(ShaderGlobalLights lights)
         {
@@ -323,7 +312,6 @@ namespace CodeWalker.Rendering
                 DefScene = null;
             }
 
-
             foreach (var bucket in RenderBuckets)
             {
                 bucket.Clear();
@@ -336,7 +324,6 @@ namespace CodeWalker.Rendering
             RenderDistLODLights.Clear();
             RenderPathBatches.Clear();
             RenderWaterQuads.Clear();
-
 
             if (DefScene != null)
             {
@@ -372,7 +359,6 @@ namespace CodeWalker.Rendering
             TreesLod.Deferred = deferred;
         }
 
-
         public void EnsureShaderTextures(GameFileCache gameFileCache, RenderableCache renderableCache)
         {
             if (!gameFileCache.IsInited) return;
@@ -387,9 +373,6 @@ namespace CodeWalker.Rendering
             Water.waterbump = EnsureTexture(graphics, waterbump);
             Water.waterbump2 = EnsureTexture(graphics, waterbump2);
             Water.waterfog = EnsureTexture(graphics, waterfog);
-
-
-
         }
 
         private RenderableTexture EnsureTexture(uint texDict, uint texName)
@@ -407,7 +390,6 @@ namespace CodeWalker.Rendering
         {
             GeometryCount = 0;
             Camera = camera;
-
 
             SetShaderRenderModeParams();
 
@@ -434,12 +416,10 @@ namespace CodeWalker.Rendering
                 }
             }
 
-
             if (shadows)
             {
                 RenderShadowmap(context);
             }
-
 
             if (DefScene != null)
             {
@@ -501,7 +481,6 @@ namespace CodeWalker.Rendering
                 }
             }
 
-
             if (RenderInstBatches.Count > 0) //grass pass
             {
                 context.Rasterizer.State = wireframe ? rsWireframeDblSided : rsSolidDblSided;
@@ -519,9 +498,6 @@ namespace CodeWalker.Rendering
                 Basic.DecalMode = false;
                 context.OutputMerger.BlendState = bsDefault;
             }
-
-
-
 
             context.OutputMerger.BlendState = bsDefault;
             context.Rasterizer.State = wireframe ? rsWireframeDblSided : rsSolidDblSided;
@@ -555,8 +531,6 @@ namespace CodeWalker.Rendering
                 }
             }
 
-
-
             //TODO: needs second gbuffer pass?
             Basic.DecalMode = true;
             for (int i = 0; i < RenderBuckets.Count; i++) //alphablended and glass pass
@@ -575,10 +549,6 @@ namespace CodeWalker.Rendering
             }
             Basic.DecalMode = false;
             context.OutputMerger.DepthStencilState = dsEnabled;
-
-
-
-
 
             if (DefScene != null)
             {
@@ -605,10 +575,6 @@ namespace CodeWalker.Rendering
 
             Basic.Deferred = false;
 
-
-
-
-
             if (RenderDistLODLights.Count > 0) //distant LOD lights pass
             {
                 context.Rasterizer.State = rsSolidDblSided;
@@ -624,8 +590,6 @@ namespace CodeWalker.Rendering
                 context.OutputMerger.BlendState = bsDefault;
                 context.OutputMerger.DepthStencilState = dsEnabled;
             }
-
-
 
             if (RenderBoundGeoms.Count > 0) //collision meshes pass
             {
@@ -645,7 +609,6 @@ namespace CodeWalker.Rendering
                 RenderBoundGeometryBatch(context, RenderBoundGeoms);
             }
 
-
             if (RenderPathBatches.Count > 0) //paths pass
             {
                 //ClearDepth(context); //draw over everything else
@@ -657,12 +620,8 @@ namespace CodeWalker.Rendering
                 Paths.RenderBatches(context, RenderPathBatches, camera, GlobalLights);
             }
 
-
             context.OutputMerger.BlendState = bsDefault;
-
-
             RenderedGeometries = GeometryCount;
-
         }
 
         public void RenderFinalPass(DeviceContext context)
@@ -754,7 +713,6 @@ namespace CodeWalker.Rendering
                 Shadow.SetShader(context);
                 Shadow.SetSceneVars(context, cascade.Matrix);
                 RenderGeometryBatch(context, shadowbatch, Shadow);
-
             }
             Shadowmap.EndUpdate(context);
             Shadow.UnbindResources(context);
@@ -763,7 +721,6 @@ namespace CodeWalker.Rendering
             context.OutputMerger.DepthStencilState = dsEnabled;
             context.Rasterizer.State = rsSolid;
         }
-
 
         private void RenderGeometryBatches(DeviceContext context, List<ShaderBatch> batches, Shader shader)
         {
@@ -775,6 +732,7 @@ namespace CodeWalker.Rendering
             }
             shader.UnbindResources(context);
         }
+
         private void RenderGeometryBatch(DeviceContext context, List<RenderableGeometryInst> batch, Shader shader)
         {
             GeometryCount += batch.Count;
@@ -809,13 +767,11 @@ namespace CodeWalker.Rendering
                 }
                 if (vtypok)
                 {
-
                     shader.SetGeomVars(context, geom.Geom);
                     geom.Geom.Render(context);
 
                 }
             }
-
         }
 
         private void RenderBoundGeometryBatch(DeviceContext context, List<RenderableBoundGeometryInst> batch)
@@ -859,8 +815,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
-
         public void Enqueue(ref RenderableGeometryInst geom)
         {
             var shader = geom.Geom.DrawableGeom.Shader;
@@ -882,35 +836,41 @@ namespace CodeWalker.Rendering
 
             batch.Geometries.Add(geom);
         }
+
         public void Enqueue(ref RenderableLightInst light)
         {
             RenderLights.Add(light);
         }
+
         public void Enqueue(ref RenderableBoundGeometryInst geom)
         {
             RenderBoundGeoms.Add(geom);
         }
+
         public void Enqueue(ref RenderableInstanceBatchInst batch)
         {
             RenderInstBatches.Add(batch);
         }
+
         public void Enqueue(RenderableLODLights lights)
         {
             RenderLODLights.Add(lights);
         }
+
         public void Enqueue(RenderableDistantLODLights lights)
         {
             RenderDistLODLights.Add(lights);
         }
+
         public void Enqueue(RenderablePathBatch paths)
         {
             RenderPathBatches.Add(paths);
         }
+
         public void Enqueue(RenderableWaterQuad waterquad)
         {
             RenderWaterQuads.Add(waterquad);
         }
-
 
         public ShaderRenderBucket EnsureRenderBucket(int index)
         {
@@ -925,7 +885,6 @@ namespace CodeWalker.Rendering
             }
             return bucket;
         }
-
 
         private void SetShaderRenderModeParams()
         {
@@ -950,8 +909,6 @@ namespace CodeWalker.Rendering
             Terrain.AnisotropicFilter = AnisotropicFiltering;
         }
 
-
-
         public void ClearDepth(DeviceContext context, bool firstpass = true)
         {
             if ((HDR != null) && firstpass)
@@ -963,6 +920,7 @@ namespace CodeWalker.Rendering
                 DXMan.ClearDepth(context);
             }
         }
+
         public void SetRasterizerMode(DeviceContext context, RasterizerMode mode)
         {
             switch (mode)
@@ -982,6 +940,7 @@ namespace CodeWalker.Rendering
                     break;
             }
         }
+
         public void SetDepthStencilMode(DeviceContext context, DepthStencilMode mode)
         {
             switch (mode)
@@ -1001,10 +960,12 @@ namespace CodeWalker.Rendering
                     break;
             }
         }
+
         public void SetDefaultBlendState(DeviceContext context)
         {
             context.OutputMerger.BlendState = bsDefault;
         }
+
         public void SetAlphaBlendState(DeviceContext context)
         {
             context.OutputMerger.BlendState = bsAlpha;
@@ -1032,6 +993,7 @@ namespace CodeWalker.Rendering
         SolidDblSided = 3,
         WireframeDblSided = 4,
     }
+
     public enum DepthStencilMode
     {
         Enabled = 1,
@@ -1039,7 +1001,6 @@ namespace CodeWalker.Rendering
         DisableComp = 3,
         DisableAll = 4,
     }
-
 
     public struct ShaderKey
     {
@@ -1051,6 +1012,7 @@ namespace CodeWalker.Rendering
             return ShaderFile.ToString() + ": " + ShaderName.ToString();
         }
     }
+
     public class ShaderRenderBucket
     {
         public int Index;
@@ -1069,11 +1031,11 @@ namespace CodeWalker.Rendering
         public List<ShaderBatch> ClothBatches = new List<ShaderBatch>();
         public List<ShaderBatch> VehicleBatches = new List<ShaderBatch>();
 
-
         public ShaderRenderBucket(int index)
         {
             Index = index;
         }
+
         public void Clear()
         {
             foreach (var batch in Batches.Values)
@@ -1405,6 +1367,7 @@ namespace CodeWalker.Rendering
             }
         }
     }
+
     public class ShaderBatch
     {
         public ShaderKey Key;
@@ -1422,7 +1385,6 @@ namespace CodeWalker.Rendering
 
     }
 
-
     public class ShaderGlobalLights
     {
         public Weather Weather;
@@ -1434,6 +1396,7 @@ namespace CodeWalker.Rendering
         public float HdrIntensity;
         public bool SpecularEnabled;
     }
+
     public struct ShaderGlobalLightParams
     {
         public Vector3 LightDir;
@@ -1445,6 +1408,4 @@ namespace CodeWalker.Rendering
         public Color4 LightArtificialAmbUp;
         public Color4 LightArtificialAmbDown;
     }
-
-
 }

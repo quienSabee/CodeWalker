@@ -43,14 +43,11 @@ namespace CodeWalker.GameFiles
 
         public PathBVH BVH { get; set; }
 
-
-
         //fields used by the editor:
         public bool HasChanged { get; set; } = false;
         public List<string> SaveWarnings = null;
 
         public bool BuildStructsOnSave { get; set; } = true;
-
 
         public YndFile() : base(null, GameFileType.Ynd)
         {
@@ -58,8 +55,6 @@ namespace CodeWalker.GameFiles
         public YndFile(RpfFileEntry entry) : base(entry, GameFileType.Ynd)
         {
         }
-
-
 
         public void Load(byte[] data)
         {
@@ -84,7 +79,6 @@ namespace CodeWalker.GameFiles
 
             ResourceDataReader rd = new ResourceDataReader(resentry, data);
 
-
             NodeDictionary = rd.ReadBlock<NodeDictionary>();
 
             InitNodesFromDictionary();
@@ -93,8 +87,6 @@ namespace CodeWalker.GameFiles
 
             //links will be populated by the space... maybe move that code here?
 
-
-
             string areaidstr = Name.ToLowerInvariant().Replace("nodes", "").Replace(".ynd", "");
             int areaid = 0;
             int.TryParse(areaidstr, out areaid);
@@ -102,14 +94,11 @@ namespace CodeWalker.GameFiles
 
             UpdateBoundingBox();
 
-
             BuildBVH();
-
 
             Loaded = true;
             LoadQueued = true;
         }
-
 
         public byte[] Save()
         {
@@ -119,7 +108,6 @@ namespace CodeWalker.GameFiles
             }
 
             byte[] data = ResourceBuilder.Build(NodeDictionary, 1); //ynd is version 1...
-
 
             return data;
 
@@ -212,9 +200,6 @@ namespace CodeWalker.GameFiles
                 NodeDictionary.JunctionHeightmapBytesCount = 0;
             }
         }
-
-
-
 
         public void InitNodesFromDictionary()
         {
@@ -310,7 +295,6 @@ namespace CodeWalker.GameFiles
                     {
                         n.NodeID = (ushort)i;
 
-
                         //update nodeid's in links...
                         for (int j = 0; j < Nodes.Length; j++)
                         {
@@ -356,10 +340,6 @@ namespace CodeWalker.GameFiles
             return r;
         }
 
-
-
-
-
         public void UpdateBoundingBox()
         {
             Vector3 corner = new Vector3(-8192, -8192, -2048);
@@ -398,7 +378,6 @@ namespace CodeWalker.GameFiles
         {
             //build triangles for the path links display
 
-
             int vc = 0;
             if (Links != null)
             {
@@ -421,7 +400,6 @@ namespace CodeWalker.GameFiles
                         var diff = p1 - p0;
                         var dir = Vector3.Normalize(diff);
                         var ax = Vector3.Cross(dir, Vector3.UnitZ);
-
 
                         float lanestot = link.LaneCountForward + link.LaneCountBackward;
                         //float backfrac = Math.Min(Math.Max(link.LaneCountBackward / lanestot, 0.1f), 0.9f);
@@ -446,7 +424,6 @@ namespace CodeWalker.GameFiles
                             outer += halfwidth;
                         }
 
-
                         v0.Position = p1 + ax * inner;
                         v1.Position = p0 + ax * inner;
                         v2.Position = p1 + ax * outer;
@@ -465,7 +442,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
 
             if (verts.Count > 0)
             {
@@ -550,7 +526,6 @@ namespace CodeWalker.GameFiles
                         }
                     }
 
-
                 }
             }
 
@@ -563,9 +538,7 @@ namespace CodeWalker.GameFiles
                 TriangleVerts = null;
             }
 
-
         }
-
 
         public void UpdateBvhForNode(YndNode node)
         {
@@ -597,9 +570,6 @@ namespace CodeWalker.GameFiles
             BVH = new PathBVH(Nodes, 10, 10);
         }
 
-
-
-
         public EditorVertex[] GetPathVertices()
         {
             return LinkedVerts;
@@ -613,14 +583,11 @@ namespace CodeWalker.GameFiles
             return NodePositions;
         }
 
-
-
         public override string ToString()
         {
             return RpfFileEntry?.ToString() ?? string.Empty;
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class YndNode : BasePathNode
     {
@@ -648,7 +615,6 @@ namespace CodeWalker.GameFiles
         public YndJunction Junction { get; set; }
         public bool HasJunction;
 
-
         public bool IsPedNode
         {
             get
@@ -656,9 +622,6 @@ namespace CodeWalker.GameFiles
                 return false;// ((Flags4.Value >> 4) & 7) == 7;
             }
         }
-
-
-
 
         public void Init(YndFile ynd, Node node)
         {
@@ -686,7 +649,6 @@ namespace CodeWalker.GameFiles
             //c.Red = (Flags3.Value >> 1) / 127.0f;
             //c.Red = ((Flags4.Value >> 1) & 7) / 7.0f; //density value?
             //c.Green = 1.0f - c.Red;
-
 
             //if ((Flags0.Value & 1) > 0) c.Red += 1.0f; //script activated? N Yankton only + small piece in self storage
             //if ((Flags0.Value & 2) > 0) c.Red += 1.0f; //car can use / gps?
@@ -740,11 +702,6 @@ namespace CodeWalker.GameFiles
             //if ((Flags4.Value & 64) > 0) c.Blue += 1.0f; //special/peds path?
             //if ((Flags4.Value & 128) > 0) c.Blue += 1.0f; //intersection entry left turn?
 
-
-
-
-
-
             ////regarding paths.xml:
             ////rubidium - Today at 8:37 AM
             //also, quick glimpse over the xml for attributes:
@@ -775,12 +732,8 @@ namespace CodeWalker.GameFiles
             //Water
             //Width
 
-
-
-
             return c;
         }
-
 
         public void SetPosition(Vector3 pos)
         {
@@ -796,7 +749,6 @@ namespace CodeWalker.GameFiles
 
             UpdateLinkLengths();
         }
-
 
         public void UpdateLinkLengths()
         {
@@ -819,7 +771,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
 
         public YndLink AddLink(YndNode tonode = null)
         {
@@ -879,7 +830,6 @@ namespace CodeWalker.GameFiles
             return r;
         }
 
-
         public override string ToString()
         {
             //return AreaID.ToString() + "." + NodeID.ToString();
@@ -906,7 +856,6 @@ namespace CodeWalker.GameFiles
         public bool NegativeOffset { get { return (Flags1.Value >> 7) > 0; } }
         public float LaneOffset { get { return (OffsetValue / 7.0f) * (NegativeOffset ? -0.5f : 0.5f); } }
 
-
         public void Init(YndFile ynd, YndNode node1, YndNode node2, NodeLink link)
         {
             Ynd = ynd;
@@ -914,7 +863,6 @@ namespace CodeWalker.GameFiles
             Node2 = node2;
             RawData = link;
         }
-
 
         public void UpdateLength()
         {
@@ -924,7 +872,6 @@ namespace CodeWalker.GameFiles
             LinkLength = (byte)Math.Min(255, (Node2.Position - Node1.Position).Length());
         }
 
-
         public void CopyFlags(YndLink link)
         {
             if (link == null) return;
@@ -933,11 +880,8 @@ namespace CodeWalker.GameFiles
             Flags2 = link.Flags2;
         }
 
-
-
         public Color4 GetColour()
         {
-
 
             //float f0 = Flags0.Value / 255.0f;
             //float f1 = Flags1.Value / 255.0f;
@@ -947,7 +891,6 @@ namespace CodeWalker.GameFiles
             var c = new Color4(0.0f, 0.0f, 0.0f, 0.5f);
             c.Green = LaneCountForward / 7.0f;
             c.Red = LaneCountBackward / 7.0f;
-
 
             //if ((Flags0.Value & 1) > 0) c.Red = 1.0f; //? some small pieces in city, roads at docks, and mall at beach
             //if ((Flags0.Value & 2) > 0) c.Red = 1.0f; //3x segments joining east canal paths to roads, also josh's driveway - scripted?
@@ -981,20 +924,14 @@ namespace CodeWalker.GameFiles
             //////if ((lanesfwd > 0) && (lanesbck > 0) && (lanesfwd != lanesbck))
             //////{ }
 
-
-
             //var t = (Flags1.Value >> 4)&1;
             //c.Red = t / 1.0f;
             //c.Green = 1.0f - c.Red;
             ////if (((Flags1.Value & 128) > 0))// && ((Flags1.Value & 64) == 0))
             ////{ c.Red += 1.0f; }
 
-
-
             return c;
         }
-
-
 
         public override string ToString()
         {
@@ -1025,7 +962,6 @@ namespace CodeWalker.GameFiles
             PositionY = junc.PositionY;
         }
 
-
         public void ResizeHeightmap()
         {
             Heightmap.Resize(_RawData.HeightmapDimX, _RawData.HeightmapDimY);
@@ -1036,12 +972,10 @@ namespace CodeWalker.GameFiles
             Heightmap.SetData(text);
         }
 
-
         public override string ToString()
         {
             return RefData.ToString();
         }
-
 
     }
 
@@ -1066,7 +1000,6 @@ namespace CodeWalker.GameFiles
 
             Rows = new YndJunctionHeightmapRow[CountY];
 
-
             for (int y = 0; y < CountY; y++)
             {
                 int o = s + y * CountX;
@@ -1075,7 +1008,6 @@ namespace CodeWalker.GameFiles
                 Rows[y] = new YndJunctionHeightmapRow(vals);
             }
         }
-
 
         public byte[] GetBytes()
         {
@@ -1089,7 +1021,6 @@ namespace CodeWalker.GameFiles
             }
             return bytes;
         }
-
 
         public void Resize(int cx, int cy)
         {
@@ -1174,9 +1105,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
     public class PathBVHNode
     {
         public int Depth;
@@ -1187,7 +1115,6 @@ namespace CodeWalker.GameFiles
         public BoundingSphere Sphere;
         public PathBVHNode Node1;
         public PathBVHNode Node2;
-
 
         public void CalcBounds()
         {
@@ -1203,7 +1130,6 @@ namespace CodeWalker.GameFiles
             Sphere.Center = (Box.Minimum + Box.Maximum) * 0.5f;
             Sphere.Radius = (Box.Maximum - Box.Minimum).Length() * 0.5f;
         }
-
 
         public void Build()
         {
@@ -1233,7 +1159,6 @@ namespace CodeWalker.GameFiles
             if ((dx <= dy) && (dx <= dz)) axis = 0; //x seems best
             else if (dy <= dz) axis = 1; //y seems best
             else axis = 2; //z seems best
-
 
             List<BasePathNode> l1 = new List<BasePathNode>();
             List<BasePathNode> l2 = new List<BasePathNode>();
@@ -1270,7 +1195,6 @@ namespace CodeWalker.GameFiles
             Node2.Build();
         }
 
-
         public void UpdateForNode(BasePathNode node)
         {
             if (!Nodes.Contains(node)) return;
@@ -1297,9 +1221,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
     public interface BasePathNode
     {
         Vector3 Position { get; set; }
@@ -1313,15 +1234,6 @@ namespace CodeWalker.GameFiles
         EditorVertex[] GetTriangleVertices();
         Vector4[] GetNodePositions();
     }
-
-
-
-
-
-
-
-
-
 
     public class YndXml : MetaXmlBase
     {
@@ -1347,7 +1259,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
     public class XmlYnd
     {
 
@@ -1367,10 +1278,6 @@ namespace CodeWalker.GameFiles
             ynd.BuildStructsOnSave = false; //structs don't need to be rebuilt here!
             return ynd;
         }
-
-
-
-
 
         public static TextHash GetTextHash(string str)
         {
@@ -1395,6 +1302,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
 }

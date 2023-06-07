@@ -20,11 +20,9 @@ namespace CodeWalker.GameFiles
         public List<YnvPortal> Portals { get; set; }
         public List<YnvPoint> Points { get; set; }
 
-
         public EditorVertex[] PathVertices { get; set; }
         public EditorVertex[] TriangleVerts { get; set; }
         public Vector4[] NodePositions { get; set; }
-
 
         //fields used by the editor:
         public bool HasChanged { get; set; } = false;
@@ -32,9 +30,7 @@ namespace CodeWalker.GameFiles
 
         public bool BuildStructsOnSave { get; set; } = true;
 
-
         public PathBVH BVH { get; set; }
-
 
         public int AreaID
         {
@@ -50,8 +46,6 @@ namespace CodeWalker.GameFiles
         public int CellX { get { return AreaID % 100; } set { AreaID = (CellY * 100) + value; } }
         public int CellY { get { return AreaID / 100; } set { AreaID = (value * 100) + CellX; } }
 
-
-
         //getters for property grids viewing of the lists
         public Vector3[] AllVertices { get { return Vertices?.ToArray(); } }
         public ushort[] AllIndices { get { return Indices?.ToArray(); } }
@@ -59,9 +53,6 @@ namespace CodeWalker.GameFiles
         public YnvPoly[] AllPolys { get { return Polys?.ToArray(); } }
         public YnvPortal[] AllPortals { get { return Portals?.ToArray(); } }
         public YnvPoint[] AllPoints { get { return Points?.ToArray(); } }
-
-
-
 
         public YnvFile() : base(null, GameFileType.Ynv)
         {
@@ -92,9 +83,7 @@ namespace CodeWalker.GameFiles
 
             ResourceDataReader rd = new ResourceDataReader(resentry, data);
 
-
             Nav = rd.ReadBlock<NavMesh>();
-
 
             InitFromNav();
 
@@ -103,7 +92,6 @@ namespace CodeWalker.GameFiles
             UpdateTriangleVertices();
 
             BuildBVH();
-
 
             Loaded = true;
             LoadQueued = true;
@@ -168,7 +156,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             ////### add points to the list and calculate positions...
             var treestack = new Stack<NavMeshSector>();
             var pointi = 0;
@@ -206,9 +193,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
-
-
         public byte[] Save()
         {
             if (BuildStructsOnSave)
@@ -220,7 +204,6 @@ namespace CodeWalker.GameFiles
 
             return data;
         }
-
 
         private void BuildStructs()
         {
@@ -245,8 +228,6 @@ namespace CodeWalker.GameFiles
             EnsureEdgeAreaID(areaid - 1, areadict, arealist);
             EnsureEdgeAreaID(areaid + 1, areadict, arealist);
             EnsureEdgeAreaID(areaid + 100, areadict, arealist);
-
-
 
             if (Polys != null) //rebuild vertices, indices, edges and polys lists from poly data.
             {
@@ -343,7 +324,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             if (Nav.Vertices == null)
             {
                 Nav.Vertices = new NavMeshList<NavMeshVertex>();
@@ -365,7 +345,6 @@ namespace CodeWalker.GameFiles
                 Nav.Polys.VFT = 1080158408;
             }
 
-
             Nav.Vertices.RebuildList(vertlist);
             Nav.VerticesCount = Nav.Vertices.ItemCount;
 
@@ -386,7 +365,6 @@ namespace CodeWalker.GameFiles
             adjAreaIds.Set(arealist.ToArray());
             Nav.AdjAreaIDs = adjAreaIds;
 
-
             for (int i = 0; i < Nav.Polys.ListParts.Count; i++) //reassign part id's on all the polys...
             {
                 var listpart = Nav.Polys.ListParts[i];
@@ -398,8 +376,6 @@ namespace CodeWalker.GameFiles
                     partitems[j].PartID = iu;
                 }
             }
-
-
 
             //Build Sector Tree
             int depth = 0;
@@ -431,13 +407,11 @@ namespace CodeWalker.GameFiles
             return ind;
         }
 
-
         private void BuildSectorTree(NavMeshSector node, int depth, ref uint pointindex, bool[] pointflags)
         {
             Vector3 min = node.AABBMin.XYZ();
             Vector3 max = node.AABBMax.XYZ();
             Vector3 cen = (min + max) * 0.5f;
-
 
             if (depth <= 0)
             {
@@ -446,7 +420,6 @@ namespace CodeWalker.GameFiles
                 node.Data = data;
 
                 data.PointsStartID = pointindex;
-
 
                 if (Polys != null)
                 {
@@ -506,11 +479,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
-
-
-
         public void WriteXml(StringBuilder sb, int indent)
         {
             YnvXml.StringTag(sb, indent, "ContentFlags", Nav.ContentFlags.ToString());
@@ -566,19 +534,12 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             bool vehicle = ((Nav.ContentFlags & NavMeshFlags.Vehicle) != 0);
             Nav.VersionUnk1 = 0x00010011;
             Nav.VersionUnk2 = vehicle ? 0 : 0x85CB3561;
             Nav.Transform = Matrix.Identity;
 
-
         }
-
-
-
-
-
 
         private bool IsInBox(Vector3 p, Vector3 min, Vector3 max, bool outer)
         {
@@ -603,7 +564,6 @@ namespace CodeWalker.GameFiles
                    (a.MaxY >= b.MinY) && (a.MinY <= b.MaxY);
         }
 
-
         public bool RemovePoly(YnvPoly poly)
         {
             return false;
@@ -617,13 +577,9 @@ namespace CodeWalker.GameFiles
             return false;
         }
 
-
-
-
         public void UpdateAllNodePositions()
         {
             if (Nav == null) return;
-
 
             Vector3 posoffset = Nav.SectorTree.AABBMin.XYZ();
             Vector3 aabbsize = Nav.AABBSize;
@@ -632,7 +588,6 @@ namespace CodeWalker.GameFiles
             v.Colour = 0xFF0000FF;
             var lv = new List<EditorVertex>();
             var nv = new List<Vector4>();
-
 
             ////### add portal positions to the node list, also add links to the link vertex array
             int cnt = Portals?.Count ?? 0;
@@ -647,7 +602,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             ////### add point positions to the node list
             cnt = Points?.Count ?? 0;
             if (cnt >= 0)
@@ -659,10 +613,8 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             NodePositions = (nv.Count > 0) ? nv.ToArray() : null;
             PathVertices = (lv.Count > 0) ? lv.ToArray() : null;
-
 
         }
 
@@ -674,7 +626,6 @@ namespace CodeWalker.GameFiles
             //go through the nav mesh polys and generate verts to render...
 
             if ((Polys == null) || (Polys.Count == 0)) return;
-
 
             int vc = Vertices.Count;
 
@@ -712,8 +663,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
-
         public void UpdateContentFlags(bool vehicle)
         {
             NavMeshFlags f = NavMeshFlags.None;
@@ -724,9 +673,6 @@ namespace CodeWalker.GameFiles
             Nav.ContentFlags = f;
         }
 
-
-
-
         public void BuildBVH()
         {
             var nodes = new List<BasePathNode>();
@@ -734,8 +680,6 @@ namespace CodeWalker.GameFiles
             if (Points != null) nodes.AddRange(Points);
             BVH = new PathBVH(nodes, 10, 10);
         }
-
-
 
         public EditorVertex[] GetPathVertices()
         {
@@ -750,8 +694,6 @@ namespace CodeWalker.GameFiles
             return NodePositions;
         }
     }
-
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class YnvPoly : IMetaXmlItem
     {
@@ -804,7 +746,6 @@ namespace CodeWalker.GameFiles
         public byte UnkX { get { return _RawData.UnkX; } set { _RawData.UnkX = value; } }
         public byte UnkY { get { return _RawData.UnkY; } set { _RawData.UnkY = value; } }
 
-
         public Vector3 Position { get; set; }
         public int Index { get; set; }
 
@@ -812,7 +753,6 @@ namespace CodeWalker.GameFiles
         public Vector3[] Vertices { get; set; }
         public YnvEdge[] Edges { get; set; }
         public ushort[] PortalLinks { get; set; }
-
 
         public void Init(YnvFile ynv, NavMeshPoly poly)
         {
@@ -823,7 +763,6 @@ namespace CodeWalker.GameFiles
             LoadPortalLinks();
             CalculatePosition(); //calc poly center for display purposes..
         }
-
 
         public void LoadIndices()
         {
@@ -884,7 +823,6 @@ namespace CodeWalker.GameFiles
             { }//debug
 
         }
-
 
         public void SetPosition(Vector3 pos)
         {
@@ -947,18 +885,14 @@ namespace CodeWalker.GameFiles
             //if ((u1 & 4) > 0) colour.Blue += 1.0f; //portal - fence interaction / go away from?
             //if ((u1 & 8) > 0) colour.Red += 1.0f;//something file-specific? portal index related?
 
-
             //colour.Red = (PortalID) / 65535.0f; //portal ID testing... portalID only valid when portalType > 0!
             //colour.Green = (PortalID%5)/4.0f;
             //colour.Blue = ((PortalID/5)%5)/4.0f;
-
 
             colour.Alpha = 0.75f;
 
             return colour;
         }
-
-
 
         public void CalculatePosition()
         {
@@ -993,7 +927,6 @@ namespace CodeWalker.GameFiles
 
             _RawData.CellAABB = new NavMeshAABB() { Min = min, Max = max };
         }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -1064,7 +997,6 @@ namespace CodeWalker.GameFiles
             PortalLinks = Xml.GetChildRawUshortArrayNullable(node, "Portals");
         }
 
-
         public override string ToString()
         {
             return AreaID.ToString() + ", " + Index.ToString();
@@ -1115,7 +1047,6 @@ namespace CodeWalker.GameFiles
         public ushort PolyIDTo2 { get { return _RawData.PolyIDTo2; } set { _RawData.PolyIDTo2 = value; } }
         public ushort Unk1 { get { return _RawData.FlagsUnk; } set { _RawData.FlagsUnk = value; } }//always 0
         public byte Unk2 { get { return _RawData.AreaUnk; } set { _RawData.AreaUnk = value; } }//always 0
-
 
         public void Init(YnvFile ynv, NavMeshPortal portal)
         {
@@ -1229,14 +1160,11 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class YnvEdge
     {
         public NavMeshEdge _RawData;
         public NavMeshEdge RawData { get { return _RawData; } set { _RawData = value; } }
         public YnvFile Ynv { get; set; }
-
 
         public uint AreaID1 { get; set; }
         public uint AreaID2 { get; set; }
@@ -1244,7 +1172,6 @@ namespace CodeWalker.GameFiles
         public uint PolyID2 { get { return _RawData._Poly2.PolyID; } set { _RawData._Poly2.PolyID = value; } }
         public YnvPoly Poly1 { get; set; }
         public YnvPoly Poly2 { get; set; }
-
 
         public YnvEdge() { }
         public YnvEdge(YnvEdge copy, YnvPoly poly)
@@ -1283,14 +1210,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
-
-
-
-
-
     public class YnvXml : MetaXmlBase
     {
 
@@ -1313,9 +1232,7 @@ namespace CodeWalker.GameFiles
             return sb.ToString();
         }
 
-
     }
-
 
     public class XmlYnv
     {
@@ -1333,10 +1250,6 @@ namespace CodeWalker.GameFiles
             ynv.ReadXml(doc.DocumentElement);
             return ynv;
         }
-
-
-
-
 
         public static List<T> ReadItemList<T>(XmlNode node, string name) where T : IMetaXmlItem, new()
         {

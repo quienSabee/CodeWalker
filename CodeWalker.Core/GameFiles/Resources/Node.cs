@@ -22,7 +22,6 @@
 
 //mangled to fit
 
-
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -68,14 +67,11 @@ namespace CodeWalker.GameFiles
         public byte[] JunctionHeightmapBytes { get; set; }
         public NodeJunctionRef[] JunctionRefs { get; set; }
 
-
         private ResourceSystemStructBlock<Node> NodesBlock = null;
         private ResourceSystemStructBlock<NodeLink> LinksBlock = null;
         private ResourceSystemStructBlock<NodeJunction> JunctionsBlock = null;
         private ResourceSystemStructBlock<byte> JunctionHeightmapBytesBlock = null;
         private ResourceSystemStructBlock<NodeJunctionRef> JunctionRefsBlock = null;
-
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -108,8 +104,6 @@ namespace CodeWalker.GameFiles
             this.JunctionHeightmapBytes = reader.ReadBytesAt(this.JunctionHeightmapBytesPtr, this.JunctionHeightmapBytesCount);
             this.JunctionRefs = reader.ReadStructsAt<NodeJunctionRef>(this.JunctionRefsPtr, this.JunctionRefsCount1);
 
-
-
         }
 
         public override void Write(ResourceDataWriter writer, params object[] parameters)
@@ -128,7 +122,6 @@ namespace CodeWalker.GameFiles
             JunctionRefsCount1 = JunctionRefsCount1;
             JunctionsCount = (uint)(Junctions?.Length ?? 0);
             JunctionHeightmapBytesCount = (uint)(JunctionHeightmapBytes?.Length ?? 0);
-
 
             // write structure data
             writer.Write(this.NodesPointer);
@@ -183,12 +176,8 @@ namespace CodeWalker.GameFiles
                 list.Add(NodesBlock);
             }
 
-
             return list.ToArray();
         }
-
-
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -206,7 +195,6 @@ namespace CodeWalker.GameFiles
                 }
             }
             YndXml.WriteItemArray(sb, nodes, indent, "Nodes");
-
 
             XmlJunctionWrapper[] juncs = null;
             int junccount = Junctions?.Length ?? 0;
@@ -283,7 +271,6 @@ namespace CodeWalker.GameFiles
             JunctionRefs = jreflist.ToArray();
 
         }
-
 
         class XmlNodeWrapper : IMetaXmlItem
         {
@@ -562,12 +549,5 @@ namespace CodeWalker.GameFiles
             Unk0 = (ushort)Xml.GetChildUIntAttribute(node, "Unk0", "value");
         }
     }
-
-
-
-
-
-
-
 
 }

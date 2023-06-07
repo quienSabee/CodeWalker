@@ -31,13 +31,10 @@ using System.Xml;
     THE SOFTWARE.
 */
 
-
 //ruthlessly stolen
-
 
 namespace CodeWalker.GameFiles
 {
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ClipDictionary : ResourceFileBase
     {
@@ -66,7 +63,6 @@ namespace CodeWalker.GameFiles
         //data used by CW for loading/saving
         public Dictionary<MetaHash, ClipMapEntry> ClipMap { get; set; }
         public Dictionary<MetaHash, AnimationMapEntry> AnimMap { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -107,7 +103,6 @@ namespace CodeWalker.GameFiles
             this.ClipsMapCapacity = (ushort)((Clips != null) ? Clips.Count : 0);
             this.ClipsMapEntries = (ushort)((ClipMap != null) ? ClipMap.Count : 0);
 
-
             // write structure data
             writer.Write(this.Unknown_10h);
             writer.Write(this.Unknown_14h);
@@ -133,8 +128,6 @@ namespace CodeWalker.GameFiles
             if (Clips != null) list.Add(Clips);
             return list.ToArray();
         }
-
-
 
         public void BuildMaps()
         {
@@ -246,9 +239,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
-
-
             foreach (var ame in AnimMap.Values)
             {
                 if (ame.Animation != null)
@@ -265,9 +255,7 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
         }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -357,14 +345,9 @@ namespace CodeWalker.GameFiles
             CreateAnimationsMap(animList.ToArray());
             CreateClipsMap(clipList.ToArray());
 
-
-
             BuildMaps();
             UpdateUsageCounts();
         }
-
-
-
 
         public void CreateClipsMap(ClipMapEntry[] clips)
         {
@@ -448,8 +431,6 @@ namespace CodeWalker.GameFiles
             Animations.Animations = new ResourcePointerArray64<AnimationMapEntry>();
             Animations.Animations.data_items = newAnims.ToArray();
 
-
-
         }
 
         public static uint GetNumHashBuckets(int nHashes)
@@ -475,7 +456,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class AnimationMap : ResourceSystemBlock
     {
@@ -688,8 +668,6 @@ namespace CodeWalker.GameFiles
 
             AssignSequenceBoneIds();
 
-
-
             //bool hasUVs = false;
             //if (BoneIds?.data_items != null)
             //{
@@ -725,7 +703,6 @@ namespace CodeWalker.GameFiles
             //{
             //}
 
-
             //switch (Unknown_10h)
             //{
             //    case 0:
@@ -746,20 +723,10 @@ namespace CodeWalker.GameFiles
             //    default: break;
             //}
 
-
-
-
-
-
-
             //if (Unknown_04h != 1)
             //{ }
             //if (Unknown_11h != 1)
             //{ }
-
-
-
-
 
         }
 
@@ -800,7 +767,6 @@ namespace CodeWalker.GameFiles
                 new Tuple<long, IResourceBlock>(0x50, BoneIds)
             };
         }
-
 
         public void AssignSequenceBoneIds()
         {
@@ -847,7 +813,6 @@ namespace CodeWalker.GameFiles
             CalculateMaxSeqBlockLength();
         }
 
-
         public void WriteXml(StringBuilder sb, int indent)
         {
             YcdXml.StringTag(sb, indent, "Hash", YcdXml.HashString(Hash));
@@ -876,8 +841,6 @@ namespace CodeWalker.GameFiles
 
             AssignSequenceBoneIds();
         }
-
-
 
         public struct FramePosition
         {
@@ -1021,7 +984,6 @@ namespace CodeWalker.GameFiles
             //Sequence = Xml.GetChildIntAttribute(node, "Sequence", "value");
             //Index = Xml.GetChildIntAttribute(node, "Index", "value");
         }
-
 
         public static AnimChannel ConstructChannel(AnimChannelType type)
         {
@@ -1167,7 +1129,6 @@ namespace CodeWalker.GameFiles
         public uint[] ValueList { get; set; }
         public uint[] Frames { get; set; }
 
-
         public AnimChannelIndirectQuantizeFloat()
         {
             Type = AnimChannelType.IndirectQuantizeFloat;
@@ -1196,7 +1157,6 @@ namespace CodeWalker.GameFiles
                 ValueList[i] = bits;
             }
             reader.Position += NumInts * 4;
-
 
             //var endBit = bit + (NumInts * 32);
             //var valueList = new List<float>();
@@ -1248,7 +1208,6 @@ namespace CodeWalker.GameFiles
 
             NumInts = writer.Bitstream.Count;
 
-
             writer.Write(FrameBits);
             writer.Write(ValueBits);
             writer.Write(NumInts);
@@ -1271,14 +1230,12 @@ namespace CodeWalker.GameFiles
             return FrameBits;
         }
 
-
         private uint GetQuanta(float v)
         {
             var q = (v - Offset) / Quantum;
             return (uint)(q + 0.5f);
             //return (uint)Math.Round(q, 0);//any better way?
         }
-
 
         public override float EvaluateFloat(int frame)
         {
@@ -1371,14 +1328,12 @@ namespace CodeWalker.GameFiles
             return ValueBits;
         }
 
-
         private uint GetQuanta(float v)
         {
             var q = (v - Offset) / Quantum;
             return (uint)(q + 0.5f);
             //return (uint)Math.Round(q, 0);//any better way?
         }
-
 
         public override float EvaluateFloat(int frame)
         {
@@ -1415,7 +1370,6 @@ namespace CodeWalker.GameFiles
 
         public float[] Values { get; set; }
         public int[] ValueList { get; set; }
-
 
         public AnimChannelLinearFloat()
         {
@@ -1504,7 +1458,6 @@ namespace CodeWalker.GameFiles
             //    { break; }//what's going on here? chunks not in order..? only seems to affect the final chunks?
             //}
 
-
             reader.Position -= 16;//TODO: fix this?
             reader.Position += NumInts * 4;
         }
@@ -1531,7 +1484,6 @@ namespace CodeWalker.GameFiles
                 //    { }
                 //}
             }
-
 
             var chunkOffsets = new uint[numChunks];
             var chunkValues = new uint[numChunks];
@@ -1574,8 +1526,6 @@ namespace CodeWalker.GameFiles
             Count1 = writer.BitCount(chunkOffsets); //number of offset bits for each chunk
             Count2 = writer.BitCount(chunkValues); //number of value bits for each chunk
 
-
-
             writer.ResetBitstream();
             if (Count1 > 0) ////write chunk delta offsets
             {
@@ -1607,7 +1557,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             Counts = Count1 & 0xFF;
             Counts += (Count2 & 0xFF) << 8;
             Counts += (Count3 & 0xFF) << 16;
@@ -1620,13 +1569,11 @@ namespace CodeWalker.GameFiles
             writer.WriteBitstream();
         }
 
-
         public override float EvaluateFloat(int frame)
         {
             if (Values?.Length > 0) return Values[frame % Values.Length];
             return Offset;
         }
-
 
         private int GetQuanta(float v)
         {
@@ -1634,7 +1581,6 @@ namespace CodeWalker.GameFiles
             return (int)(q + 0.5f);
             //return (uint)Math.Round(Math.Max(q, 0));//any better way?
         }
-
 
         public override void WriteXml(StringBuilder sb, int indent)
         {
@@ -1652,7 +1598,6 @@ namespace CodeWalker.GameFiles
             {
                 Offset = minVal;
             }
-
 
             YcdXml.ValueTag(sb, indent, "Quantum", FloatUtil.ToString(Quantum));
             YcdXml.ValueTag(sb, indent, "Offset", FloatUtil.ToString(Offset));
@@ -1874,8 +1819,6 @@ namespace CodeWalker.GameFiles
             }
             return result;
 
-
-
             ////original calcium version - has issues near the end of the data from trying to read too many bytes.//
             //var mask = MaskTable[length];
             //var lowByte = BitConverter.ToUInt32(Data, (startBit / 32) * 4);
@@ -1901,7 +1844,6 @@ namespace CodeWalker.GameFiles
             BitPosition += length;
             return bits;
         }
-
 
         public ushort ReadChannelCount()
         {
@@ -1932,7 +1874,6 @@ namespace CodeWalker.GameFiles
                 ChannelDataOffset += addamt;
             }
         }
-
 
         public void BeginFrame(int f)
         {
@@ -2013,7 +1954,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public void Write(int i)
         {
             MainWriter.Write(i);
@@ -2031,7 +1971,6 @@ namespace CodeWalker.GameFiles
             MainWriter.Write(v.Z);
             Position += 12;
         }
-
 
         public void BeginFrame(int f)
         {
@@ -2071,7 +2010,6 @@ namespace CodeWalker.GameFiles
             return BitCount(maxValue);
         }
 
-
         public void ResetBitstream()
         {
             Bitstream.Clear();
@@ -2090,7 +2028,6 @@ namespace CodeWalker.GameFiles
             }
             Position += (Bitstream.Count * 4);
         }
-
 
         private void WriteToBitstream(List<uint> stream, int offset, uint bits, int n)
         {
@@ -2120,7 +2057,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
 
         public byte[] GetStreamData(MemoryStream ms)
         {
@@ -2248,7 +2184,6 @@ namespace CodeWalker.GameFiles
             return v;
         }
 
-
         public void WriteXml(StringBuilder sb, int indent)
         {
             //YcdXml.ValueTag(sb, indent, "BoneId", BoneId.BoneId.ToString()); //just for convenience really.....
@@ -2310,7 +2245,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public SequenceRootChannelRef()
         {
             Bytes = new byte[6];
@@ -2365,8 +2299,6 @@ namespace CodeWalker.GameFiles
         public byte RootMotionRefCounts { get; set; } //0|17|20|21|49|52|53    0x11|0x14|0x15|0x31|0x34|0x35
         public byte[] Data { get; set; }
 
-
-
         // parsed data
         public AnimSequence[] Sequences { get; set; }
 
@@ -2391,7 +2323,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         class AnimChannelListItem
         {
             public int Sequence;
@@ -2404,7 +2335,6 @@ namespace CodeWalker.GameFiles
                 Channel = channel;
             }
         }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -2452,8 +2382,6 @@ namespace CodeWalker.GameFiles
         {
             return Unknown_00h.ToString() + ": " + DataLength.ToString();
         }
-
-
 
         public void ParseData()
         {
@@ -2530,8 +2458,6 @@ namespace CodeWalker.GameFiles
 
             reader.Sequences = Sequences;
 
-
-
             int numPosRefs = RootPositionRefCount;
             int numRotRefs = RootRotationRefCount;
             if (numPosRefs > 0)
@@ -2557,10 +2483,7 @@ namespace CodeWalker.GameFiles
                 var brem = Data.Length - reader.ChannelDataOffset;
             }
 
-
-
         }
-
 
         public void BuildData()
         {
@@ -2632,8 +2555,6 @@ namespace CodeWalker.GameFiles
                 writer.EndFrame();
             }
 
-
-
             var frameOffset = 0;
             for (int i = 0; i < channelLists.Length; i++)
             {
@@ -2647,8 +2568,6 @@ namespace CodeWalker.GameFiles
                     frameOffset += chan.GetFrameBits();
                 }
             }
-
-
 
             UpdateRootMotionRefs();
             if (RootPositionRefs != null)
@@ -2666,8 +2585,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
-
             var mainData = writer.GetMainDataBytes();
             var frameData = writer.GetFrameDataBytes();
             var channelListData = writer.GetChannelListDataBytes();
@@ -2680,8 +2597,6 @@ namespace CodeWalker.GameFiles
             Buffer.BlockCopy(frameData, 0, data, curpos, frameData.Length); curpos += frameData.Length;
             Buffer.BlockCopy(channelListData, 0, data, curpos, channelListData.Length); curpos += channelListData.Length;
             Buffer.BlockCopy(channelItemData, 0, data, curpos, channelItemData.Length);
-
-
 
             //if (FrameLength != writer.FrameLength)
             //{ }
@@ -2706,8 +2621,6 @@ namespace CodeWalker.GameFiles
             //    }
             //}
 
-
-
             Data = data;
             DataLength = (uint)data.Length;
             FrameOffset = (uint)mainData.Length;
@@ -2718,7 +2631,6 @@ namespace CodeWalker.GameFiles
             RootMotionRefCounts = (byte)((((uint)(RootPositionRefs?.Length??0))<<4) | ((uint)(RootRotationRefs?.Length ?? 0)));
             RootMotionRefsOffset = (uint)(BlockLength - ((RootPositionRefCount + RootRotationRefCount) * 6));
         }
-
 
         public void AssociateSequenceChannels()//assigns Sequence and Index to all channels
         {
@@ -2734,7 +2646,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
 
         public ushort GetQuantizeFloatValueBits()
         {
@@ -2804,7 +2715,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             int compare(SequenceRootChannelRef a, SequenceRootChannelRef b)
             {
                 var v1 = a.ChannelType.CompareTo(b.ChannelType);
@@ -2815,7 +2725,6 @@ namespace CodeWalker.GameFiles
             }
             newPosRefs.Sort((a, b) => { return compare(a, b); });
             newRotRefs.Sort((a, b) => { return compare(a, b); });
-
 
             //if (RootPositionRefs != null)
             //{
@@ -2854,15 +2763,10 @@ namespace CodeWalker.GameFiles
             //    }
             //}
 
-
             RootPositionRefs = (newPosRefs.Count > 0) ? newPosRefs.ToArray() : null;
             RootRotationRefs = (newRotRefs.Count > 0) ? newRotRefs.ToArray() : null;
 
-
         }
-
-
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -2880,7 +2784,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ClipMapEntry : ResourceSystemBlock
     {
@@ -2905,7 +2808,6 @@ namespace CodeWalker.GameFiles
         public bool OverridePlayTime { get; set; } = false; //used by CW to manually override the animation playback time
         public float PlayTime { get; set; } = 0.0f;
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             // read structure data
@@ -2923,7 +2825,6 @@ namespace CodeWalker.GameFiles
             this.Next = reader.ReadBlockAt<ClipMapEntry>(
                 this.NextPointer // offset
             );
-
 
             if (Clip != null)
             {
@@ -3023,7 +2924,6 @@ namespace CodeWalker.GameFiles
 
         public MetaHash Hash { get; set; } //used by CW when reading/writing
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             // read structure data
@@ -3044,7 +2944,6 @@ namespace CodeWalker.GameFiles
             this.PropertiesPointer = reader.ReadUInt64();
             this.Unknown_48h = reader.ReadUInt32();
             this.Unknown_4Ch = reader.ReadUInt32();
-
 
             this.Name = reader.ReadStringAt(this.NamePointer);
             this.Tags = reader.ReadBlockAt<ClipTagList>(
@@ -3088,7 +2987,6 @@ namespace CodeWalker.GameFiles
             this.TagsPointer = (ulong)(this.Tags != null ? this.Tags.FilePosition : 0);
             this.PropertiesPointer = (ulong)(this.Properties != null ? this.Properties.FilePosition : 0);
 
-
             // write structure data
             writer.Write(this.VFT);
             writer.Write(this.Unknown_04h);
@@ -3131,7 +3029,6 @@ namespace CodeWalker.GameFiles
             return ConstructClip((ClipType)type);
         }
 
-
         public static ClipBase ConstructClip(ClipType type)
         {
             switch (type)
@@ -3142,12 +3039,10 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public override string ToString()
         {
             return Name;
         }
-
 
         public virtual void WriteXml(StringBuilder sb, int indent)
         {
@@ -3288,7 +3183,6 @@ namespace CodeWalker.GameFiles
         // reference data
         public ResourceSimpleArray<ClipAnimationsEntry> Animations { get; set; }
 
-
         public ClipAnimationList()
         {
             Type = ClipType.AnimationList;
@@ -3338,7 +3232,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
         public float GetPlaybackTime(double currentTime)
         {
             double scaledTime = currentTime;// * Rate;
@@ -3346,8 +3239,6 @@ namespace CodeWalker.GameFiles
             double curpos = scaledTime % duration;
             return /*StartTime +*/ (float)curpos;
         }
-
-
 
         public override void WriteXml(StringBuilder sb, int indent)
         {
@@ -3419,7 +3310,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
         public float GetPlaybackTime(double currentTime)
         {
             double scaledTime = currentTime * Rate;
@@ -3427,7 +3317,6 @@ namespace CodeWalker.GameFiles
             double curpos = scaledTime % duration;
             return StartTime + (float)curpos;
         }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -3450,7 +3339,6 @@ namespace CodeWalker.GameFiles
         AnimationList = 2,
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ClipPropertyMap : ResourceSystemBlock
     {
         public override long BlockLength
@@ -3469,7 +3357,6 @@ namespace CodeWalker.GameFiles
 
         public ClipProperty[] AllProperties { get; set; }
         public Dictionary<MetaHash, ClipProperty> PropertyMap { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -3514,7 +3401,6 @@ namespace CodeWalker.GameFiles
             return "Count: " + (AllProperties?.Length ?? 0).ToString();
         }
 
-
         public void BuildPropertyMap()
         {
             if (Properties?.data_items != null)
@@ -3538,7 +3424,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
 
         public void CreatePropertyMap(ClipProperty[] properties)
         {
@@ -3763,7 +3648,6 @@ namespace CodeWalker.GameFiles
             return NameHash.ToString() + ": " + UnkHash.ToString() + ": " + sb.ToString();
         }
 
-
         public virtual void WriteXml(StringBuilder sb, int indent)
         {
             YcdXml.StringTag(sb, indent, "NameHash", YcdXml.HashString(NameHash));
@@ -3933,7 +3817,6 @@ namespace CodeWalker.GameFiles
             return "Float:" + FloatUtil.ToString(Value);
         }
 
-
         public override void WriteXml(StringBuilder sb, int indent)
         {
             base.WriteXml(sb, indent);
@@ -3984,7 +3867,6 @@ namespace CodeWalker.GameFiles
             return "Int:" + Value.ToString();
         }
 
-
         public override void WriteXml(StringBuilder sb, int indent)
         {
             base.WriteXml(sb, indent);
@@ -4034,7 +3916,6 @@ namespace CodeWalker.GameFiles
         {
             return "Uint:" + Value.ToString();
         }
-
 
         public override void WriteXml(StringBuilder sb, int indent)
         {
@@ -4108,7 +3989,6 @@ namespace CodeWalker.GameFiles
             return "String:" + Value;
         }
 
-
         public override void WriteXml(StringBuilder sb, int indent)
         {
             base.WriteXml(sb, indent);
@@ -4155,7 +4035,6 @@ namespace CodeWalker.GameFiles
             return "Vector3:" + FloatUtil.GetVector3String(Value);
         }
 
-
         public override void WriteXml(StringBuilder sb, int indent)
         {
             base.WriteXml(sb, indent);
@@ -4198,7 +4077,6 @@ namespace CodeWalker.GameFiles
         {
             return "Vector4:" + FloatUtil.GetVector4String(Value);
         }
-
 
         public override void WriteXml(StringBuilder sb, int indent)
         {
@@ -4247,7 +4125,6 @@ namespace CodeWalker.GameFiles
             return "Hash:" + Value.ToString();
         }
 
-
         public override void WriteXml(StringBuilder sb, int indent)
         {
             base.WriteXml(sb, indent);
@@ -4270,7 +4147,6 @@ namespace CodeWalker.GameFiles
         HashString = 12,
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ClipTagList : ResourceSystemBlock
     {
         public override long BlockLength
@@ -4292,7 +4168,6 @@ namespace CodeWalker.GameFiles
         public ResourcePointerArray64<ClipTag> Tags { get; set; }
 
         public ClipTag[] AllTags { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -4368,7 +4243,6 @@ namespace CodeWalker.GameFiles
                 AllTags = tl.ToArray();
             }
 
-
             uint hasBlock = 0;
             if (AllTags != null)
             {
@@ -4406,7 +4280,6 @@ namespace CodeWalker.GameFiles
 
         // reference data
         public ClipTagList Tags { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -4448,7 +4321,6 @@ namespace CodeWalker.GameFiles
             return base.ToString() + ": " + Unknown_40h.ToString() + ", " + Unknown_44h.ToString();
         }
 
-
         public override void WriteXml(StringBuilder sb, int indent)
         {
             base.WriteXml(sb, indent);
@@ -4462,6 +4334,5 @@ namespace CodeWalker.GameFiles
             Unknown_44h = Xml.GetChildFloatAttribute(node, "Unknown44", "value");
         }
     }
-
 
 }

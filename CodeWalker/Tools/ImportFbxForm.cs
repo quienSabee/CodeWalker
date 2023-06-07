@@ -23,7 +23,6 @@ namespace CodeWalker.Tools
             OutputTypeCombo.Text = "YDR";
         }
 
-
         public void SetInputFiles(Dictionary<string, byte[]> fdict)
         {
             InputFiles = fdict;
@@ -41,13 +40,11 @@ namespace CodeWalker.Tools
             return OutputFiles;
         }
 
-
         private void ConvertFiles()
         {
             if (InputFiles == null) return;
 
             Cursor = Cursors.WaitCursor;
-
 
             Task.Run(() =>
             {
@@ -64,7 +61,6 @@ namespace CodeWalker.Tools
                     FbxConverter fc = new FbxConverter();
 
                     var ydr = fc.ConvertToYdr(fname, idata);
-
 
                     if (ydr == null)
                     {
@@ -118,7 +114,6 @@ namespace CodeWalker.Tools
             }
             catch { }
         }
-
 
         private void CancelThisButton_Click(object sender, EventArgs e)
         {

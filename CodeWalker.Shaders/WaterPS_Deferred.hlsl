@@ -1,6 +1,5 @@
 #include "WaterPS.hlsli"
 
-
 PS_OUTPUT main(VS_OUTPUT input)
 {
     float4 c = float4(0.1, 0.18, 0.25, 0.8);
@@ -17,7 +16,6 @@ PS_OUTPUT main(VS_OUTPUT input)
         c = WaterFog.Sample(TextureSS, fogtc);
         c.a = 0.9;
     }
-
 
     float3 norm = EnableFoamMap ? normalize(input.Normal) : RippleNormal(input, worldpos); //  normalize(input.Normal);
 
@@ -46,14 +44,12 @@ PS_OUTPUT main(VS_OUTPUT input)
         c = Foammap.Sample(TextureSS, input.Texcoord0);
     }
 
-
     float3 spec = 0;
 
     if (RenderMode == 0)
     {
 
         float4 nv = Bumpmap.Sample(TextureSS, input.Texcoord0); //sample r1.xyzw, v2.xyxx, t3.xyzw, s3  (BumpSampler)
-
 
         float2 nmv = nv.xy;
         float4 r0 = 0, r1, r2, r3;
@@ -65,15 +61,11 @@ PS_OUTPUT main(VS_OUTPUT input)
             norm = NormalMap(nmv, bumpiness, input.Normal.xyz, input.Tangent.xyz, input.Bitangent.xyz);
         }
 
-
         float3 tc = c.rgb;
         c.rgb = tc; // *r0.z; //diffuse factors...
 
-        
         spec.xy = sqrt(10.0 * SpecularIntensity);
         spec.z = 1;//r0.z;
-
-        
 
         if (ShaderMode == 1) //river foam
         {
@@ -100,6 +92,4 @@ PS_OUTPUT main(VS_OUTPUT input)
     
     return output;
 }
-
-
 

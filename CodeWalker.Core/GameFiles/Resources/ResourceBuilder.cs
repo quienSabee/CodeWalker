@@ -89,7 +89,6 @@ namespace CodeWalker.GameFiles
             var graphicBlocks = new HashSet<IResourceBlock>();
             var processed = new HashSet<IResourceBlock>();
 
-
             void addBlock(IResourceBlock block)
             {
                 if (block is IResourceSystemBlock)
@@ -125,7 +124,6 @@ namespace CodeWalker.GameFiles
 
             addBlock(rootBlock);
             addChildren(rootBlock);
-
 
             sys = new List<IResourceBlock>();
             foreach (var s in systemBlocks)
@@ -172,7 +170,6 @@ namespace CodeWalker.GameFiles
             {
                 startPageSize *= 2;
             }
-
 
             pageFlags = new RpfResourcePageFlags();
             var pageSizeMult = 1;
@@ -253,7 +250,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
 
-
                 pageFlags = new RpfResourcePageFlags(pageCounts, baseShift);
 
                 if ((pageCount == pageFlags.Count) && (pageFlags.Size >= currentPosition)) //make sure page counts fit in the flags value
@@ -327,7 +323,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public static byte[] Build(ResourceFileBase fileBase, int version, bool compress = true)
         {
 
@@ -343,10 +338,8 @@ namespace CodeWalker.GameFiles
             RpfResourcePageFlags graphicsPageFlags;
             AssignPositions(graphicBlocks, 0x60000000, out graphicsPageFlags);
 
-
             fileBase.FilePagesInfo.SystemPagesCount = (byte)systemPageFlags.Count;
             fileBase.FilePagesInfo.GraphicsPagesCount = (byte)graphicsPageFlags.Count;
-
 
             var systemStream = new MemoryStream();
             var graphicsStream = new MemoryStream();
@@ -382,15 +375,11 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
-
-
             var sysDataSize = (int)systemPageFlags.Size;
             var sysData = new byte[sysDataSize];
             systemStream.Flush();
             systemStream.Position = 0;
             systemStream.Read(sysData, 0, (int)systemStream.Length);
-
 
             var gfxDataSize = (int)graphicsPageFlags.Size;
             var gfxData = new byte[gfxDataSize];
@@ -398,23 +387,18 @@ namespace CodeWalker.GameFiles
             graphicsStream.Position = 0;
             graphicsStream.Read(gfxData, 0, (int)graphicsStream.Length);
 
-
-
             uint uv = (uint)version;
             uint sv = (uv >> 4) & 0xF;
             uint gv = (uv >> 0) & 0xF;
             uint sf = systemPageFlags.Value + (sv << 28);
             uint gf = graphicsPageFlags.Value + (gv << 28);
 
-
             var tdatasize = sysDataSize + gfxDataSize;
             var tdata = new byte[tdatasize];
             Buffer.BlockCopy(sysData, 0, tdata, 0, sysDataSize);
             Buffer.BlockCopy(gfxData, 0, tdata, sysDataSize, gfxDataSize);
 
-
             var cdata = compress ? Compress(tdata) : tdata;
-
 
             var dataSize = 16 + cdata.Length;
             var data = new byte[dataSize];
@@ -432,11 +416,6 @@ namespace CodeWalker.GameFiles
             return data;
         }
 
-
-
-
-
-
         public static byte[] AddResourceHeader(RpfResourceFileEntry entry, byte[] data)
         {
             if (data == null) return null;
@@ -452,7 +431,6 @@ namespace CodeWalker.GameFiles
             Buffer.BlockCopy(data, 0, newdata, 16, data.Length);
             return newdata;
         }
-
 
         public static byte[] Compress(byte[] data)
         {

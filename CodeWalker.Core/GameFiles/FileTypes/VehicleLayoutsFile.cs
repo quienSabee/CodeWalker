@@ -24,12 +24,10 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             FilePath = Name;
 
-
             //always XML .meta
             Xml = TextUtil.GetUTF8Text(data);
 
             //TODO: parse CVehicleMetadataMgr XML
-
 
             Loaded = true;
         }

@@ -22,7 +22,6 @@
 
 //shamelessly stolen and mangled
 
-
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -34,8 +33,6 @@ using System.Threading.Tasks;
 
 namespace CodeWalker.GameFiles
 {
-
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class string_r : ResourceSystemBlock
     {
@@ -81,7 +78,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct Matrix3_s
     {
         public Vector4 Row1 { get; set; }
@@ -101,7 +97,6 @@ namespace CodeWalker.GameFiles
         //public float Unknown_22 { get; set; }
         //public float Unknown_23 { get; set; }
         //public float Unknown_24 { get; set; }
-
 
         public Matrix3_s(float[] a)
         {
@@ -211,15 +206,10 @@ namespace CodeWalker.GameFiles
             return new Matrix(Column1.X, Column1.Y, Column1.Z, 0, Column2.X, Column2.Y, Column2.Z, 0, Column3.X, Column3.Y, Column3.Z, 0, Column4.X, Column4.Y, Column4.Z, 1);
         }
 
-
         public static Matrix4F_s Identity { get { return new Matrix4F_s(true); } }
         public static Matrix4F_s Zero { get { return new Matrix4F_s(false); } }
 
-
-
     }
-
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct AABB_s
     {
@@ -227,10 +217,6 @@ namespace CodeWalker.GameFiles
         public Vector4 Max { get; set; }
     }
 
-
-    
-
-    
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct FlagsByte
     {
         public byte Value { get; set; }
@@ -250,7 +236,6 @@ namespace CodeWalker.GameFiles
                 return Convert.ToString(Value, 2).PadLeft(8, '0');
             }
         }
-
 
         public FlagsByte(byte v)
         {
@@ -370,18 +355,11 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public abstract class ListBase<T> : ResourceSystemBlock, ICustomTypeDescriptor, IList<T> where T : IResourceSystemBlock, new()
     {
 
         // this is the data...
         public List<T> Data { get; set; }
-
-
-
-
 
         public T this[int index]
         {
@@ -411,19 +389,10 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
-
-
-
         public ListBase()
         {
             //Data = new List<T>();
         }
-
-
-
-
 
         public void Add(T item)
         {
@@ -479,9 +448,6 @@ namespace CodeWalker.GameFiles
             return Data.GetEnumerator();
         }
 
-
-
-
         public String GetClassName()
         {
             return TypeDescriptor.GetClassName(this, true);
@@ -532,7 +498,6 @@ namespace CodeWalker.GameFiles
             return this;
         }
 
-
         public PropertyDescriptorCollection GetProperties()
         {
             var pds = new PropertyDescriptorCollection(null);
@@ -548,7 +513,6 @@ namespace CodeWalker.GameFiles
         {
             return GetProperties();
         }
-
 
         public class ListBasePropertyDescriptor : PropertyDescriptor
         {
@@ -633,9 +597,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ResourceSimpleArray<T> : ListBase<T>, IResourceNoCacheBlock where T : IResourceSystemBlock, new()
     {
         /// <summary>
@@ -655,17 +616,10 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public ResourceSimpleArray()
         {
             //Data = new List<T>();
         }
-
-
-
-
-
-
 
         /// <summary>
         /// Reads the data block.
@@ -691,9 +645,6 @@ namespace CodeWalker.GameFiles
                 f.Write(writer);
         }
 
-
-
-
         public override Tuple<long, IResourceBlock>[] GetParts()
         {
             var list = new List<Tuple<long, IResourceBlock>>();
@@ -708,13 +659,9 @@ namespace CodeWalker.GameFiles
                     length += x.BlockLength;
                 }
             }
-            
 
             return list.ToArray();
         }
-
-
-
 
         public override string ToString()
         {
@@ -739,7 +686,6 @@ namespace CodeWalker.GameFiles
         public T[] data_items { get; set; }
 
         private ResourceSimpleArray<T> data_block;//used for saving.
-
 
         /// <summary>
         /// Reads the data-block from a stream.
@@ -831,7 +777,6 @@ namespace CodeWalker.GameFiles
 
         private ResourceSystemStructBlock<T> data_block;//used for saving.
 
-
         /// <summary>
         /// Reads the data-block from a stream.
         /// </summary>
@@ -914,7 +859,6 @@ namespace CodeWalker.GameFiles
 
         private ResourceSystemStructBlock<T> data_block;//used for saving.
 
-
         /// <summary>
         /// Reads the data-block from a stream.
         /// </summary>
@@ -991,7 +935,6 @@ namespace CodeWalker.GameFiles
         public byte[] data_items { get; private set; }
 
         private ResourceSystemStructBlock<byte> data_block;//used for saving.
-
 
         /// <summary>
         /// Reads the data-block from a stream.
@@ -1070,7 +1013,6 @@ namespace CodeWalker.GameFiles
 
         private ResourceSystemStructBlock<ushort> data_block;//used for saving.
 
-
         /// <summary>
         /// Reads the data-block from a stream.
         /// </summary>
@@ -1147,7 +1089,6 @@ namespace CodeWalker.GameFiles
         public uint[] data_items { get; set; }
 
         private ResourceSystemStructBlock<uint> data_block;//used for saving.
-
 
         /// <summary>
         /// Reads the data-block from a stream.
@@ -1226,7 +1167,6 @@ namespace CodeWalker.GameFiles
 
         private ResourceSystemStructBlock<ulong> data_block;//used for saving.
 
-
         /// <summary>
         /// Reads the data-block from a stream.
         /// </summary>
@@ -1304,7 +1244,6 @@ namespace CodeWalker.GameFiles
 
         private ResourceSystemStructBlock<float> data_block;//used for saving.
 
-
         /// <summary>
         /// Reads the data-block from a stream.
         /// </summary>
@@ -1366,7 +1305,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ResourcePointerArray64<T> : ResourceSystemBlock, IList<T> where T : IResourceSystemBlock, new()
     {
 
@@ -1387,12 +1325,10 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public ulong[] data_pointers { get; set; }
         public T[] data_items { get; set; }
 
         public bool ManualReferenceOverride = false;//use this if the items are embedded in something else
-
 
         public ResourcePointerArray64()
         {
@@ -1402,16 +1338,13 @@ namespace CodeWalker.GameFiles
         {
             int numElements = Convert.ToInt32(parameters[0]);
 
-
             data_pointers = reader.ReadUlongsAt((ulong)reader.Position, (uint)numElements, false);
-
 
             data_items = new T[numElements];
             for (int i = 0; i < numElements; i++)
             {
                 data_items[i] = reader.ReadBlockAt<T>(data_pointers[i]);
             }
-
 
         }
 
@@ -1432,12 +1365,10 @@ namespace CodeWalker.GameFiles
             }
             data_pointers = list.ToArray();
 
-
             // write...
             foreach (var x in data_pointers)
                 writer.Write(x);
         }
-
 
         public override IResourceBlock[] GetReferences()
         {
@@ -1453,10 +1384,6 @@ namespace CodeWalker.GameFiles
 
             return list.ToArray();
         }
-
-
-
-
 
         public int IndexOf(T item)
         {
@@ -1535,9 +1462,6 @@ namespace CodeWalker.GameFiles
             throw new NotImplementedException();
         }
 
-
-
-
         public override string ToString()
         {
             return "(Count: " + ((data_items != null) ? data_items.Length : 0).ToString() + ")";
@@ -1568,7 +1492,6 @@ namespace CodeWalker.GameFiles
 
         private ResourcePointerArray64<T> data_block;//used for saving.
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             this.EntriesPointer = reader.ReadUInt64();
@@ -1588,7 +1511,6 @@ namespace CodeWalker.GameFiles
                 data_items[i] = reader.ReadBlockAt<T>(data_pointers[i]);
             }
 
-
         }
 
         public override void Write(ResourceDataWriter writer, params object[] parameters)
@@ -1600,7 +1522,6 @@ namespace CodeWalker.GameFiles
                 this.EntriesCapacity = (ushort)(this.data_block != null ? this.data_block.Count : 0);
                 this.EntriesCount = (ushort)(this.data_block != null ? this.data_block.Count : 0);
             }
-
 
             // write...
             writer.Write(EntriesPointer);
@@ -1627,9 +1548,6 @@ namespace CodeWalker.GameFiles
 
             return list.ToArray();
         }
-
-
-
 
         public int IndexOf(T item)
         {
@@ -1703,19 +1621,16 @@ namespace CodeWalker.GameFiles
             throw new NotImplementedException();
         }
 
-
         public IResourceBlock CheckForCast(ResourceDataReader reader, params object[] parameters)
         {
             throw new NotImplementedException();
         }
-
 
         public override string ToString()
         {
             return "(Count: " + EntriesCount.ToString() + ")";
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct ResourcePointerListHeader
     {
@@ -1724,15 +1639,6 @@ namespace CodeWalker.GameFiles
         public ushort Capacity { get; set; }
         public uint Unknown { get; set; }
     }
-
-
-
-
-
-
-
-
-
 
     public class ResourceSystemDataBlock : ResourceSystemBlock //used for writing resources.
     {
@@ -1747,13 +1653,11 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public ResourceSystemDataBlock(byte[] data)
         {
             Data = data;
             DataLength = (Data != null) ? Data.Length : 0;
         }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -1804,7 +1708,5 @@ namespace CodeWalker.GameFiles
             }
         }
     }
-
-
 
 }

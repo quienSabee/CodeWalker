@@ -45,7 +45,6 @@ namespace CodeWalker.Rendering
                 });
             }
 
-
             if (signed)
             {
                 if (normals)
@@ -167,7 +166,6 @@ namespace CodeWalker.Rendering
 
         }
 
-
         public void Draw(DeviceContext context)
         {
             context.InputAssembler.InputLayout = InputLayout;
@@ -203,7 +201,6 @@ namespace CodeWalker.Rendering
 
             context.DrawIndexedInstanced(indexcount, count, 0, 0, 0);
         }
-
 
         public void Dispose()
         {

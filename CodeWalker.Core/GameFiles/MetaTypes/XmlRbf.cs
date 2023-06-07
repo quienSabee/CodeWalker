@@ -117,7 +117,6 @@ namespace CodeWalker.GameFiles
             return null;
         }
 
-
         private static IRbfType CreateValueNode(string name, string val)
         {
             if (val == "True")
@@ -162,10 +161,6 @@ namespace CodeWalker.GameFiles
                 };
             }
         }
-
-
-
-
 
         private static byte[] GetByteArray(string text)
         {

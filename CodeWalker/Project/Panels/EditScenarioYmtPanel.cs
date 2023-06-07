@@ -56,7 +56,6 @@ namespace CodeWalker.Project.Panels
             Text = fn + (CurrentScenario.HasChanged ? "*" : "");
         }
 
-
         public void UpdateScenarioUI()
         {
             if (CurrentScenario == null)

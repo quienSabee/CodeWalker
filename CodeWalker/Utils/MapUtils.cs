@@ -10,7 +10,6 @@ using CodeWalker.Utils;
 namespace CodeWalker
 {
 
-
     public class MapIcon
     {
         public string Name { get; set; }
@@ -139,10 +138,7 @@ namespace CodeWalker
             return string.Format(CultureInfo.InvariantCulture, "{0}, {1}, {2}", WorldPos.X, WorldPos.Y, WorldPos.Z);
         }
 
-
     }
-
-
 
     public struct MapSphere
     {
@@ -158,7 +154,5 @@ namespace CodeWalker
         public Quaternion Orientation { get; set; }
         public Vector3 Scale { get; set; }
     }
-
-
 
 }

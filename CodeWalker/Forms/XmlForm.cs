@@ -48,15 +48,12 @@ namespace CodeWalker.Forms
         private ExploreForm exploreForm = null;
         public RpfFileEntry rpfFileEntry { get; private set; } = null;
 
-
         public XmlForm(ExploreForm owner)
         {
             exploreForm = owner;
 
             InitializeComponent();
         }
-
-
 
         public void LoadXml(string filename, string filepath, string xml, RpfFileEntry e)
         {
@@ -101,10 +98,7 @@ namespace CodeWalker.Forms
             //    XmlTextBox.Language = Language.XML;
             //}
 
-
             Cursor = Cursors.WaitCursor;
-
-
 
             XmlTextBox.Text = xml;
             //XmlTextBox.IsChanged = false;
@@ -113,8 +107,6 @@ namespace CodeWalker.Forms
             Cursor = Cursors.Default;
             LoadingXml = false;
         }
-
-
 
         private bool CloseDocument()
         {
@@ -208,10 +200,6 @@ namespace CodeWalker.Forms
             FileName = new FileInfo(fn).Name;
         }
 
-
-
-
-
         private bool SaveToRPF(string txt)
         {
 
@@ -261,11 +249,6 @@ namespace CodeWalker.Forms
             return false;
         }
 
-
-
-
-
-
         Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
         Style RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         Style MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular);
@@ -296,9 +279,6 @@ namespace CodeWalker.Forms
                 HTMLSyntaxHighlight(XmlTextBox.VisibleRange);
             }
         }
-
-
-
 
         private void XmlTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

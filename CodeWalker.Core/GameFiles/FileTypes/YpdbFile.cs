@@ -140,7 +140,6 @@ namespace CodeWalker.GameFiles
             w.Write(Signature);
         }
 
-
         public void WriteXml(StringBuilder sb, int indent)
         {
             //YpdbXml.ValueTag(sb, indent, "SerializerVersion", SerializerVersion.ToString());
@@ -360,10 +359,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
-
     public class YpdbXml : MetaXmlBase
     {
 
@@ -406,6 +401,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
 }

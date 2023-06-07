@@ -26,9 +26,7 @@ using System.Xml;
     THE SOFTWARE.
 */
 
-
 //ruthlessly stolen and brutally mangled
-
 
 namespace CodeWalker.GameFiles
 {
@@ -67,7 +65,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
 
             //if (Unknown_10h != 0)
             //{ }//no hit
@@ -153,7 +150,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ClothController : ResourceSystemBlock
     {
         // clothController
@@ -211,7 +207,6 @@ namespace CodeWalker.GameFiles
             this.VerletCloth2 = reader.ReadBlockAt<VerletCloth>(this.VerletCloth2Pointer);
             this.VerletCloth3 = reader.ReadBlockAt<VerletCloth>(this.VerletCloth3Pointer);
 
-
             //if (Unknown_4h != 1)
             //{ }//no hit
             //if (Unknown_8h != 0)
@@ -228,7 +223,6 @@ namespace CodeWalker.GameFiles
             //{ }//no hit
             //if (Unknown_7Ch != 0)
             //{ }//no hit
-
 
         }
         public override void Write(ResourceDataWriter writer, params object[] parameters)
@@ -343,7 +337,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ClothBridgeSimGfx : ResourceSystemBlock
     {
         // pgBase
@@ -415,7 +408,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_120h = reader.ReadUInt64();
             this.Unknown_128h = reader.ReadBlock<ResourceSimpleList64_uint>();
             this.Unknown_138h = reader.ReadUInt64();
-
 
             //if ((Unknown_20h?.data_items!=null)&&(Unknown_20h?.data_items?.Length != VertexCount))
             //{ }
@@ -621,7 +613,6 @@ namespace CodeWalker.GameFiles
             Unknown_128h.data_items = Xml.GetChildRawUintArrayNullable(node, "Unknown128");
         }
 
-
         public override Tuple<long, IResourceBlock>[] GetParts()
         {
             return new Tuple<long, IResourceBlock>[] {
@@ -641,7 +632,6 @@ namespace CodeWalker.GameFiles
             };
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class ClothInstanceTuning : ResourceSystemBlock
     {
@@ -792,7 +782,6 @@ namespace CodeWalker.GameFiles
             //        break;
             //}
 
-
         }
         public override void Write(ResourceDataWriter writer, params object[] parameters)
         {
@@ -840,7 +829,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class VerletCloth : ResourceSystemBlock
     {
@@ -1353,7 +1341,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class EnvClothVerletBehavior : ResourceSystemBlock
     {
         // datBase
@@ -1383,7 +1370,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_28h = reader.ReadUInt64();
             this.Unknown_30h = reader.ReadUInt64();
             this.Unknown_38h = reader.ReadUInt64();
-
 
             //if (Unknown_0h != 0)
             //{ }//no hit
@@ -1416,7 +1402,6 @@ namespace CodeWalker.GameFiles
             writer.Write(this.Unknown_38h);
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class EnvironmentCloth : ResourceSystemBlock
     {
@@ -1624,7 +1609,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class CharacterCloth : ResourceSystemBlock
     {
         // pgBase
@@ -1656,7 +1640,6 @@ namespace CodeWalker.GameFiles
         public Bounds Bound { get; set; }
 
         public MetaHash NameHash { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -1708,7 +1691,6 @@ namespace CodeWalker.GameFiles
             //{ }//no hit
             //if (Unknown_C8h != 0)
             //{ }//no hit
-
 
         }
         public override void Write(ResourceDataWriter writer, params object[] parameters)
@@ -1804,7 +1786,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class CharacterClothController : ClothController
     {
         // characterClothController
@@ -1839,8 +1820,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_D8h = reader.ReadUInt32();
             this.Unknown_DCh = reader.ReadSingle();
             this.BoneIds = reader.ReadBlock<ResourceSimpleList64_uint>();
-
-
 
             //if (Unknown_B0h?.data_items?.Length != BoneIds?.data_items?.Length)
             //{ }//no hit
@@ -1922,7 +1901,6 @@ namespace CodeWalker.GameFiles
             BoneWeightsInds.data_items = XmlMeta.ReadItemArray<CharClothBoneWeightsInds>(node, "BoneWeightsIndices");
         }
 
-
         public override Tuple<long, IResourceBlock>[] GetParts()
         {
             return new Tuple<long, IResourceBlock>[] {
@@ -1934,7 +1912,6 @@ namespace CodeWalker.GameFiles
             };
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class MorphController : ResourceSystemBlock
     {
@@ -2059,7 +2036,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct CharClothBoneWeightsInds : IMetaXmlItem
     {
         public Vector4 Weights { get; set; }
@@ -2067,7 +2043,6 @@ namespace CodeWalker.GameFiles
         public uint Index1 { get; set; }
         public uint Index2 { get; set; }
         public uint Index3 { get; set; }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -2092,7 +2067,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct Unknown_C_004 : IMetaXmlItem
     {
         public ushort Unknown_0h { get; set; }
@@ -2100,7 +2074,6 @@ namespace CodeWalker.GameFiles
         public float Unknown_4h { get; set; }
         public float Unknown_8h { get; set; }
         public float Unknown_Ch { get; set; }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -2124,7 +2097,6 @@ namespace CodeWalker.GameFiles
             return Unknown_0h.ToString() + ", " + Unknown_2h.ToString() + ", " + Unknown_4h.ToString() + ", " + Unknown_8h.ToString() + ", " + Unknown_Ch.ToString();
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class Unknown_C_006 : ResourceSystemBlock
     {
@@ -2434,7 +2406,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class Unknown_C_007 : ResourceSystemBlock
     {
         public override long BlockLength
@@ -2464,26 +2435,11 @@ namespace CodeWalker.GameFiles
             writer.Write(this.Unknown_8h);
         }
 
-
         public override string ToString()
         {
             return Unknown_0h.ToString() + ", " + Unknown_8h.ToString();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public class ClothInstance
     {
@@ -2496,7 +2452,6 @@ namespace CodeWalker.GameFiles
         public Vector4[] Vertices { get; set; }
 
         public Skeleton Skeleton { get; set; }
-
 
         double CurrentTime = 0.0;
 
@@ -2525,7 +2480,6 @@ namespace CodeWalker.GameFiles
             t.M44 = 1.0f;
             Transform = t;
 
-
             var boneIds = cc.BoneIds?.data_items;
             if ((boneIds != null) && (Skeleton != null))
             {
@@ -2538,8 +2492,6 @@ namespace CodeWalker.GameFiles
                     Bones[i] = bone;
                 }
             }
-
-
 
         }
         public void Init(EnvironmentCloth c, Skeleton s)
@@ -2560,11 +2512,7 @@ namespace CodeWalker.GameFiles
 
             }
 
-
         }
-
-
-
 
         public void Update(double t)
         {
@@ -2609,7 +2557,6 @@ namespace CodeWalker.GameFiles
             var unk3 = bsg?.Unknown_E0h?.data_items;//mapping? connections?
             var unk4 = bsg?.Unknown_128h?.data_items;//(boneids+1?) zeroes? has numverts capacity?
 
-
             for (int v = 0; v < Vertices.Length; v++)
             {
                 //transform the vertices using the bone weights/indices. this should provide positions for anchored verts
@@ -2631,13 +2578,8 @@ namespace CodeWalker.GameFiles
                 Vertices[v] = new Vector4(nv, 0);
             }
 
-
         }
 
     }
-
-
-
-
 
 }

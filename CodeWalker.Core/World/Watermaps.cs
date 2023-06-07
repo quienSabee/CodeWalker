@@ -13,7 +13,6 @@ namespace CodeWalker.World
 
         public List<WatermapFile> WatermapFiles = new List<WatermapFile>();
 
-
         public Vector4[] GetNodePositions()
         {
             return NodePositions;
@@ -30,20 +29,15 @@ namespace CodeWalker.World
         public Vector4[] NodePositions;
         public EditorVertex[] TriangleVerts;
 
-
         public void Init(GameFileCache gameFileCache, Action<string> updateStatus)
         {
             Inited = false;
 
             GameFileCache = gameFileCache;
 
-
             WatermapFiles.Clear();
 
-
             LoadWatermap("common.rpf\\data\\levels\\gta5\\waterheight.dat");
-
-
 
             BuildVertices();
 
@@ -55,8 +49,6 @@ namespace CodeWalker.World
             var wmf = GameFileCache.RpfMan.GetFile<WatermapFile>(filename);
             WatermapFiles.Add(wmf);
         }
-
-
 
         public void BuildVertices()
         {
@@ -95,7 +87,6 @@ namespace CodeWalker.World
             var v4 = new EditorVertex();
 
             uint cblu = (uint)new Color(0, 0, 128, 60).ToRgba();
-
 
             float getHeight(int o)
             {
@@ -164,7 +155,6 @@ namespace CodeWalker.World
             //        nl.Add(new Vector4(min + step * new Vector3(x, y, getHeight(o)), 10));
             //    }
             //}
-
 
             void addQuad(Quad q)
             {
@@ -274,10 +264,7 @@ namespace CodeWalker.World
                 }
             }
 
-
         }
-
-
 
         struct Quad
         {

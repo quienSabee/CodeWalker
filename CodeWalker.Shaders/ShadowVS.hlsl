@@ -1,7 +1,6 @@
 #include "Common.hlsli"
 #include "Quaternion.hlsli"
 
-
 cbuffer VSSceneVars : register(b0)
 {
     float4x4 ViewProj;
@@ -50,7 +49,6 @@ struct VS_OUTPUT
 
 //Texture2D<float4> TintPalette : register(t0);
 //SamplerState TextureSS : register(s0);
-
 
 VS_OUTPUT main(VS_INPUT input)
 {

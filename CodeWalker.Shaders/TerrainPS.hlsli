@@ -13,7 +13,6 @@ Texture2D<float4> Normalmap3 : register(t10);
 Texture2D<float4> Normalmap4 : register(t11);
 SamplerState TextureSS : register(s0);
 
-
 cbuffer PSSceneVars : register(b0)
 {
     ShaderGlobalLightParams GlobalLights;
@@ -37,7 +36,6 @@ cbuffer PSEntityVars : register(b2)
     float bumpiness;
     uint Pad102;
 }
-
 
 struct VS_OUTPUT
 {
@@ -63,5 +61,4 @@ struct PS_OUTPUT
     float4 Specular : SV_Target2;
     float4 Irradiance : SV_Target3;
 };
-
 

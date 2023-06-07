@@ -62,7 +62,6 @@ namespace CodeWalker.Tools
             }
         }
 
-
         private void UpdateStatus(string text)
         {
             try
@@ -90,7 +89,6 @@ namespace CodeWalker.Tools
                 }
             }
 
-
             InProgress = true;
             AbortOperation = false;
 
@@ -111,10 +109,8 @@ namespace CodeWalker.Tools
 
                     UpdateStatus(string.Format("Scanning {0} for keys...", dmpfi.Name));
 
-
                     byte[] exedat = File.ReadAllBytes(exepath);
                     GTA5Keys.GenerateV2(exedat, UpdateStatus);
-
 
                     UpdateStatus("Saving found keys...");
 

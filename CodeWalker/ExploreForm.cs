@@ -52,7 +52,6 @@ namespace CodeWalker
 
         public ThemeBase Theme { get; private set; }
 
-
         public ExploreForm()
         {
             InitializeComponent();
@@ -110,7 +109,6 @@ namespace CodeWalker
                 Settings.Default.Save();
             }
 
-
             //Theme.Extender.FloatWindowFactory = new ExplorerFloatWindowFactory();
             //MainDockPanel.Theme = Theme;
 
@@ -124,7 +122,6 @@ namespace CodeWalker
 
                 MainSplitContainer.BackColor = Theme.ColorPalette.MainWindowActive.Background;
             }
-
 
             //if (File.Exists(configFile)) MainDockPanel.LoadFromXml(configFile, m_deserializeDockContent);
         }
@@ -181,7 +178,6 @@ namespace CodeWalker
                 Close();
                 return;
             }
-
 
             Task.Run(() =>
             {
@@ -366,8 +362,6 @@ namespace CodeWalker
             }
         }
 
-        
-
         public void UpdateStatus(string text)
         {
             try
@@ -398,7 +392,6 @@ namespace CodeWalker
             }
             catch { }
         }
-
 
         public void Navigate(MainTreeFolder f)
         {
@@ -624,8 +617,6 @@ namespace CodeWalker
             }
             UpdateStatus(str);
 
-
-
             EditViewMenu.Enabled = canview;
             EditViewHexMenu.Enabled = isfile;
 
@@ -673,8 +664,6 @@ namespace CodeWalker
             return null;
         }
 
-
-
         private void RefreshMainTreeView()
         {
             Ready = false;
@@ -691,7 +680,6 @@ namespace CodeWalker
             RootFolder = root;
 
             RefreshMainTreeViewRoot(root);
-
 
             var remFolders = new List<MainTreeFolder>();
 
@@ -713,7 +701,6 @@ namespace CodeWalker
             {
                 ExtraRootFolders.Remove(remFolder);
             }
-
 
             Ready = true;
 
@@ -807,7 +794,6 @@ namespace CodeWalker
                     }
                 }
             }
-
 
             AddMainTreeViewRoot(f);
 
@@ -992,7 +978,6 @@ namespace CodeWalker
                     {
                         Navigate(RootFolder);
                     }
-
 
                     if (!FirstRefreshed && Settings.Default.RPFExplorerStartInEditMode)
                     {
@@ -1233,7 +1218,6 @@ namespace CodeWalker
             }
         }
 
-
         public void Search(string text)
         {
             if (!Ready) return;
@@ -1299,7 +1283,6 @@ namespace CodeWalker
             MessageBox.Show("Filter TODO!");
         }
 
-
         public void AddSearchResult(MainListItem item)
         {
             if (SearchResults == null) return;
@@ -1328,9 +1311,6 @@ namespace CodeWalker
             //}
             //catch { }
         }
-
-
-
 
         private byte[] GetFileData(MainListItem file)
         {
@@ -1375,7 +1355,6 @@ namespace CodeWalker
             }
             return data;
         }
-
 
         private bool CanViewFile(MainListItem item)
         {
@@ -1422,7 +1401,6 @@ namespace CodeWalker
             if (item.FileType == null) return false;
             return item.FileType.XmlConvertible;
         }
-
 
         private void View(MainListItem item)
         {
@@ -1843,7 +1821,6 @@ namespace CodeWalker
             return e;
         }
 
-
         private Form FindExistingForm(RpfFileEntry e)
         {
             if (e == null) return null;
@@ -1859,7 +1836,6 @@ namespace CodeWalker
             }
             return null;
         }
-
 
         private void ShowTreeContextMenu(TreeNode n, Point p)
         {
@@ -1880,7 +1856,6 @@ namespace CodeWalker
             TreeContextCollapseMenu.Enabled = expanded;
             TreeContextCloseFolderSeparator.Visible = extrafldr;
             TreeContextCloseFolderMenu.Visible = extrafldr;
-
 
             TreeContextMenu.Show(MainTreeView, p);
 
@@ -1920,7 +1895,6 @@ namespace CodeWalker
                 candefrag = isarchive && canedit;
             }
 
-
             ListContextViewMenu.Enabled = canview;
             ListContextViewHexMenu.Enabled = isfile;
 
@@ -1952,9 +1926,6 @@ namespace CodeWalker
             ListContextMenu.Show(Cursor.Position);
 
         }
-
-
-
 
         private void EnableEditMode(bool enable, bool warn = true)
         {
@@ -1997,9 +1968,6 @@ namespace CodeWalker
             MainListView.Height = bot - MainListView.Top;
         }
 
-
-
-
         private bool IsFilenameOk(string name)
         {
             foreach (var ic in Path.GetInvalidFileNameChars())
@@ -2011,10 +1979,6 @@ namespace CodeWalker
             }
             return true;
         }
-
-
-
-
 
         public bool EnsureRpfValidEncryption(RpfFile file = null)
         {
@@ -2033,7 +1997,6 @@ namespace CodeWalker
             return RpfFile.EnsureValidEncryption(rpf, confirm);
         }
 
-
         public bool EnsureCurrentFolderEditable()
         {
             if (!EditMode) return false;
@@ -2048,7 +2011,6 @@ namespace CodeWalker
 
             return true;
         }
-
 
         public string SelectFolder()
         {
@@ -2066,9 +2028,6 @@ namespace CodeWalker
 
             return folderpath;
         }
-
-
-
 
         private void ViewSelected()
         {
@@ -2480,7 +2439,6 @@ namespace CodeWalker
                 csubpath += "\\";
             }
 
-
             if (node != null)
             {
                 AddNewFolderTreeNode(node);
@@ -2506,7 +2464,6 @@ namespace CodeWalker
             string cpath = (string.IsNullOrEmpty(CurrentFolder.Path) ? "" : CurrentFolder.Path + "\\");
             string relpath = cpath + fname.ToLowerInvariant();
 
-
             RpfEncryption encryption = RpfEncryption.OPEN;//TODO: select encryption mode
 
             RpfFile newrpf = null;
@@ -2531,7 +2488,6 @@ namespace CodeWalker
                 MessageBox.Show("Error creating archive: " + ex.Message, "Unable to create new archive");
                 return;
             }
-
 
             if (newrpf != null)
             {
@@ -2586,7 +2542,6 @@ namespace CodeWalker
 
             if (!EnsureRpfValidEncryption() && (CurrentFolder.RpfFolder != null)) return;
 
-
             OpenFileDialog.Filter = "FBX Files|*.fbx";
             if (OpenFileDialog.ShowDialog(this) != DialogResult.OK)
             {
@@ -2633,7 +2588,6 @@ namespace CodeWalker
 
             }
 
-
             var fbxForm = new ImportFbxForm();
             fbxForm.SetInputFiles(fdict);
             fbxForm.ShowDialog();
@@ -2668,7 +2622,6 @@ namespace CodeWalker
 
                 }
             }
-
 
             RefreshMainListView();
 
@@ -2849,7 +2802,6 @@ namespace CodeWalker
                 }
             }
 
-
             foreach (var fpath in filelist)
             {
                 try
@@ -2993,7 +2945,6 @@ namespace CodeWalker
             if (CurrentFolder?.IsSearchResults ?? false) return;
             if (!IsFilenameOk(newname)) return; //new name contains invalid char(s). don't do anything
 
-
             RpfFile file = item.Folder?.RpfFile;
             RpfEntry entry = item.GetRpfEntry();
 
@@ -3124,7 +3075,6 @@ namespace CodeWalker
                         item.Parent?.RemoveFile(item.FullPath);
                     }
                 }
-
 
                 if (item.Folder != null)
                 {
@@ -3331,12 +3281,9 @@ namespace CodeWalker
                 }
             }
 
-
             RefreshMainListView();
 
-
         }
-
 
         private void SetView(View v)
         {
@@ -3370,10 +3317,6 @@ namespace CodeWalker
 
         }
 
-
-
-
-
         private string GetDropFolder()
         {
             return Path.Combine(Path.GetTempPath(), "CodeWalkerDrop");
@@ -3405,8 +3348,6 @@ namespace CodeWalker
             }
         }
 
-
-
         protected override void WndProc(ref Message m)
         {
             //handle back/forward buttons globally for all the form
@@ -3418,7 +3359,6 @@ namespace CodeWalker
             }
             base.WndProc(ref m);
         }
-
 
         private void ExploreForm_Load(object sender, EventArgs e)
         {
@@ -4179,8 +4119,6 @@ namespace CodeWalker
         }
     }
 
-
-
     public class MainTreeFolder
     {
         public string Name { get; set; }
@@ -4392,7 +4330,6 @@ namespace CodeWalker
         public string Attributes { get; set; }
         public int ImageIndex { get; set; }
 
-
         public MainListItem(MainTreeFolder f)
         {
             Parent = f?.Parent;
@@ -4539,7 +4476,6 @@ namespace CodeWalker
 
     }
 
-
     public class FileTypeInfo
     {
         public string Name { get; set; }
@@ -4596,13 +4532,5 @@ namespace CodeWalker
         ViewDistantLights = 26,
         ViewYpdb = 27,
     }
-
-
-
-
-
-
-
-
 
 }

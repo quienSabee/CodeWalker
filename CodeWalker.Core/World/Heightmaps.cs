@@ -13,7 +13,6 @@ namespace CodeWalker.World
 
         public List<HeightmapFile> HeightmapFiles = new List<HeightmapFile>();
 
-
         public Vector4[] GetNodePositions()
         {
             return NodePositions;
@@ -30,16 +29,13 @@ namespace CodeWalker.World
         public Vector4[] NodePositions;
         public EditorVertex[] TriangleVerts;
 
-
         public void Init(GameFileCache gameFileCache, Action<string> updateStatus)
         {
             Inited = false;
 
             GameFileCache = gameFileCache;
 
-
             HeightmapFiles.Clear();
-
 
             if (gameFileCache.EnableDlc)
             {
@@ -51,7 +47,6 @@ namespace CodeWalker.World
                 LoadHeightmap("common.rpf\\data\\levels\\gta5\\heightmap.dat");
             }
 
-
             BuildVertices();
 
             Inited = true;
@@ -62,8 +57,6 @@ namespace CodeWalker.World
             var hmf = GameFileCache.RpfMan.GetFile<HeightmapFile>(filename);
             HeightmapFiles.Add(hmf);
         }
-
-
 
         public void BuildVertices()
         {
@@ -162,9 +155,7 @@ namespace CodeWalker.World
                 }
             }
 
-
         }
-
 
     }
 }

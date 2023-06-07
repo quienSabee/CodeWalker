@@ -127,7 +127,6 @@ namespace CodeWalker.GameFiles
             IsInited = true;
         }
 
-
         private void AddRpfFile(RpfFile file, bool isdlc, bool ismod)
         {
             isdlc = isdlc || (file.NameLower == "update.rpf") || (file.NameLower.StartsWith("dlc") && file.NameLower.EndsWith(".rpf"));
@@ -214,9 +213,7 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public RpfFile FindRpfFile(string path) => FindRpfFile(path, false);
-
 
         public RpfFile FindRpfFile(string path, bool exactPathOnly)
         {
@@ -247,7 +244,6 @@ namespace CodeWalker.GameFiles
 
             return file;
         }
-
 
         public RpfEntry GetEntry(string path)
         {
@@ -343,8 +339,6 @@ namespace CodeWalker.GameFiles
             }
             return false;
         }
-
-
 
         public void BuildBaseJenkIndex()
         {

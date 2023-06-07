@@ -36,14 +36,12 @@ namespace CodeWalker.Forms
         }
         public string FilePath { get; set; }
 
-
         public HexForm()
         {
             InitializeComponent();
 
             LineSizeDropDown.Text = "16";
         }
-
 
         public void LoadData(string filename, string filepath, byte[] data)
         {
@@ -70,7 +68,6 @@ namespace CodeWalker.Forms
                 return;
             }
 
-
             Cursor = Cursors.WaitCursor;
 
             //int selline = -1;
@@ -78,7 +75,6 @@ namespace CodeWalker.Forms
             //int selendc = -1;
 
             bool ishex = (LineSizeDropDown.Text != "Text");
-
 
             if (ishex)
             {
@@ -133,7 +129,6 @@ namespace CodeWalker.Forms
             {
 
                 string text = Encoding.UTF8.GetString(data);
-
 
                 HexTextBox.Text = text;
 

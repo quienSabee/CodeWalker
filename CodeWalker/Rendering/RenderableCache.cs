@@ -93,7 +93,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
         private RenderableCacheLookup<DrawableBase, Renderable> renderables = new RenderableCacheLookup<DrawableBase, Renderable>(Settings.Default.GPUGeometryCacheSize, Settings.Default.GPUCacheTime);
         private RenderableCacheLookup<Texture, RenderableTexture> textures = new RenderableCacheLookup<Texture, RenderableTexture>(Settings.Default.GPUTextureCacheSize, Settings.Default.GPUCacheTime);
         private RenderableCacheLookup<Bounds, RenderableBoundComposite> boundcomps = new RenderableCacheLookup<Bounds, RenderableBoundComposite>(Settings.Default.GPUBoundCompCacheSize, Settings.Default.GPUCacheTime);
@@ -103,11 +102,9 @@ namespace CodeWalker.Rendering
         private RenderableCacheLookup<BasePathData, RenderablePathBatch> pathbatches = new RenderableCacheLookup<BasePathData, RenderablePathBatch>(536870912 /*33554432*/, Settings.Default.GPUCacheTime); // 512MB /*32MB*/ - todo: make this a setting
         private RenderableCacheLookup<WaterQuad, RenderableWaterQuad> waterquads = new RenderableCacheLookup<WaterQuad, RenderableWaterQuad>(4194304, Settings.Default.GPUCacheTime); //4MB - todo: make this a setting
 
-
         private object updateSyncRoot = new object();
 
         private Device currentDevice;
-
 
         public void OnDeviceCreated(Device device)
         {

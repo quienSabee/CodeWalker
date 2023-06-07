@@ -74,7 +74,6 @@ namespace CodeWalker.Rendering
         public float GeoPad3;
     }
 
-
     public class WaterShader : Shader
     {
         bool disposed = false;
@@ -98,7 +97,6 @@ namespace CodeWalker.Rendering
 
         private Dictionary<VertexType, InputLayout> layouts = new Dictionary<VertexType, InputLayout>();
 
-
         public bool AnisotropicFilter = false;
         public WorldRenderMode RenderMode = WorldRenderMode.Default;
         public int RenderVertexColourIndex = 1;
@@ -110,14 +108,11 @@ namespace CodeWalker.Rendering
         public bool SpecularEnable = true;
         public bool Deferred = false;
 
-
         public RenderableTexture waterbump { get; set; }
         public RenderableTexture waterbump2 { get; set; }
         public RenderableTexture waterfog { get; set; }
 
-
         //check dt1_21_reflproxy and dt1_05_reflproxy
-
 
         public WaterShader(Device device)
         {
@@ -127,7 +122,6 @@ namespace CodeWalker.Rendering
             byte[] vspnctxbytes = File.ReadAllBytes("Shaders\\WaterVS_PNCTX.cso");
             byte[] psbytes = File.ReadAllBytes("Shaders\\WaterPS.cso");
             byte[] psdefbytes = File.ReadAllBytes("Shaders\\WaterPS_Deferred.cso");
-
 
             vspt = new VertexShader(device, vsptbytes);
             vspct = new VertexShader(device, vspctbytes);
@@ -188,7 +182,6 @@ namespace CodeWalker.Rendering
             });
 
         }
-
 
         private void SetVertexShader(DeviceContext context, VertexType type)
         {
@@ -260,7 +253,6 @@ namespace CodeWalker.Rendering
                     break;
             }
 
-
             float phspd = 4.0f;
             float phspdi = 1.0f / phspd;
             float phspdh = phspd * 0.5f;
@@ -279,11 +271,9 @@ namespace CodeWalker.Rendering
             float gFlowZ = s1;
             float gFlowW = s2;
 
-
             Vector2 fogtexMin = new Vector2(-4000.0f, -4000.0f); //aka water quads min/max
             Vector2 fogtexMax = new Vector2(4500.0f, 8000.0f);
             Vector2 fogtexInv = 1.0f / (fogtexMax - fogtexMin);
-
 
             bool usewaterbumps = (waterbump != null) && (waterbump.ShaderResourceView != null) && (waterbump2 != null) && (waterbump2.ShaderResourceView != null);
             bool usefogtex = (waterfog != null) && (waterfog.ShaderResourceView != null);
@@ -391,7 +381,6 @@ namespace CodeWalker.Rendering
                 }
             }
 
-
             bool usediff = ((texture != null) && (texture.ShaderResourceView != null));
             bool usebump = ((bumptex != null) && (bumptex.ShaderResourceView != null));
             bool useflow = ((flowtex != null) && (flowtex.ShaderResourceView != null));
@@ -420,7 +409,6 @@ namespace CodeWalker.Rendering
                 default:
                     break;
             }
-
 
             PSGeomVars.Vars.EnableTexture = usediff ? 1u : 0u;
             PSGeomVars.Vars.EnableBumpMap = usebump ? 1u : 0u;
@@ -465,7 +453,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
         public void RenderWaterQuad(DeviceContext context, RenderableWaterQuad quad)
         {
             SetInputLayout(context, VertexType.PCT);
@@ -475,7 +462,6 @@ namespace CodeWalker.Rendering
             VSEntityVars.Vars.Scale = Vector3.One;
             VSEntityVars.Update(context);
             VSEntityVars.SetVSCBuffer(context, 2);
-
 
             PSGeomVars.Vars.EnableTexture = 0;
             PSGeomVars.Vars.EnableBumpMap = 0;
@@ -505,7 +491,6 @@ namespace CodeWalker.Rendering
 
             quad.Render(context);
         }
-
 
         public override void UnbindResources(DeviceContext context)
         {

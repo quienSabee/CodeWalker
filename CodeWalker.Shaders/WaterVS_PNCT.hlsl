@@ -8,7 +8,6 @@ struct VS_INPUT
     float4 Colour0   : COLOR0;
 };
 
-
 VS_OUTPUT main(VS_INPUT input)
 {
     VS_OUTPUT output;

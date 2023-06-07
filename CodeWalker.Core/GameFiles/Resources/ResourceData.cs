@@ -22,7 +22,6 @@
 
 //shamelessly stolen and mangled
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -116,8 +115,6 @@ namespace CodeWalker.GameFiles
             Position = 0x50000000;
         }
 
-
-
         /// <summary>
         /// Reads data from the underlying stream. This is the only method that directly accesses
         /// the data in the underlying stream.
@@ -191,7 +188,6 @@ namespace CodeWalker.GameFiles
 
             var result = new T();
 
-
             // replace with correct type...
             if (result is IResourceXXSystemBlock)
             {
@@ -245,7 +241,6 @@ namespace CodeWalker.GameFiles
             }
             return items;
         }
-
 
         public byte[] ReadBytesAt(ulong position, uint count, bool cache = true)
         {
@@ -384,7 +379,6 @@ namespace CodeWalker.GameFiles
             Marshal.Copy(data, 0, h, (int)length);
             handle.Free();
 
-
             if (cache) arrayPool[(long)position] = result;
 
             return result;
@@ -408,7 +402,6 @@ namespace CodeWalker.GameFiles
             var h = handle.AddrOfPinnedObject();
             Marshal.Copy(data, 0, h, (int)length);
             handle.Free();
-
 
             return result;
         }
@@ -448,8 +441,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
     /// <summary>
     /// Represents a resource data writer.
@@ -553,9 +544,6 @@ namespace CodeWalker.GameFiles
             value.Write(this);
         }
 
-
-
-
         public void WriteStruct<T>(T val) where T : struct
         {
             int size = Marshal.SizeOf(typeof(T));
@@ -574,8 +562,6 @@ namespace CodeWalker.GameFiles
                 WriteStruct(v);
             }
         }
-
-
 
         /// <summary>
         /// Write enough bytes to the stream to get to the specified alignment.
@@ -596,12 +582,7 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
     }
-
-
-
-
 
     /// <summary>
     /// Represents a data block in a resource file.
@@ -656,14 +637,11 @@ namespace CodeWalker.GameFiles
     public interface IResourceGraphicsBlock : IResourceBlock
     { }
 
-
     /// <summary>
     /// Represents a data block that won't get cached while loading.
     /// </summary>
     public interface IResourceNoCacheBlock : IResourceBlock
     { }
-
-
 
     /// <summary>
     /// Represents a data block of the system segement in a resource file.
@@ -763,12 +741,6 @@ namespace CodeWalker.GameFiles
         /// </summary>
         public abstract void Write(ResourceDataWriter writer, params object[] parameters);
     }
-
-
-
-
-
-
 
     //public interface ResourceDataStruct
     //{

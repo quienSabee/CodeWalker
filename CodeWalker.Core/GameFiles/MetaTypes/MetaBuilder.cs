@@ -14,7 +14,6 @@ namespace CodeWalker.GameFiles
 
         int MaxBlockLength = 0x4000; //TODO: figure what this should be!
 
-
         public MetaBuilderBlock EnsureBlock(MetaName type)
         {
             foreach (var block in Blocks)
@@ -201,7 +200,6 @@ namespace CodeWalker.GameFiles
             return ptr;
         }
 
-
         public Array_StructurePointer AddPointerArray(MetaPOINTER[] arr)
         {
             if ((arr == null) || (arr.Length == 0)) return new Array_StructurePointer();
@@ -241,11 +239,9 @@ namespace CodeWalker.GameFiles
             //return sp;
         }
 
-
         public Array_StructurePointer AddWrapperArrayPtr(MetaWrapper[] items)
         {
             if ((items == null) || (items.Length == 0)) return new Array_StructurePointer();
-
 
             MetaPOINTER[] ptrs = new MetaPOINTER[items.Length];
             for (int i = 0; i < items.Length; i++)
@@ -292,7 +288,6 @@ namespace CodeWalker.GameFiles
             return sa;
         }
 
-
         public byte[] GetData()
         {
             int totlen = 0;
@@ -316,8 +311,6 @@ namespace CodeWalker.GameFiles
             { }
             return data;
         }
-
-
 
         Dictionary<MetaName, MetaStructureInfo> StructureInfos = new Dictionary<MetaName, MetaStructureInfo>();
         Dictionary<MetaName, MetaEnumInfo> EnumInfos = new Dictionary<MetaName, MetaEnumInfo>();
@@ -344,9 +337,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
-
-
 
         public Meta GetMeta(string metaName = "")
         {
@@ -400,9 +390,7 @@ namespace CodeWalker.GameFiles
             return m;
         }
 
-
     }
-
 
     public class MetaBuilderBlock
     {
@@ -427,7 +415,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public MetaDataBlock GetMetaDataBlock()
         {
             if (TotalSize <= 0) return null;
@@ -449,7 +436,6 @@ namespace CodeWalker.GameFiles
             return db;
         }
 
-
     }
 
     public struct MetaBuilderPointer
@@ -467,6 +453,5 @@ namespace CodeWalker.GameFiles
             }
         }
     }
-
 
 }

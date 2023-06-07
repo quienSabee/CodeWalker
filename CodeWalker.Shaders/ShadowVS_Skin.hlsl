@@ -1,7 +1,6 @@
 #include "Common.hlsli"
 #include "Quaternion.hlsli"
 
-
 cbuffer VSSceneVars : register(b0)
 {
     float4x4 ViewProj;
@@ -61,8 +60,6 @@ struct VS_OUTPUT
 //Texture2D<float4> TintPalette : register(t0);
 //SamplerState TextureSS : register(s0);
 
-
-
 void BoneTransform(float4 weights, float4 indices, float3 ipos, out float3 opos)
 {
     uint4 binds = (uint4) (indices * 255.001953);
@@ -93,10 +90,6 @@ void BoneTransform(float4 weights, float4 indices, float3 ipos, out float3 opos)
         opos = float3(dot(m[0], p), dot(m[1], p), dot(m[2], p));
     }
 }
-
-
-
-
 
 VS_OUTPUT main(VS_INPUT input)
 {

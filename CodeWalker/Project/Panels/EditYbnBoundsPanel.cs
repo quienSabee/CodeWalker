@@ -69,7 +69,6 @@ namespace CodeWalker.Project.Panels
             Text = fn + ((CollisionBounds?.HasChanged??false) ? "*" : "");
         }
 
-
         public void UpdateUI()
         {
             var b = CollisionBounds;
@@ -192,8 +191,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
-
         private void SetCheckedListBoxValues(CheckedListBox clb, uint flags)
         {
             for (int i = 0; i < clb.Items.Count; i++)
@@ -222,8 +219,6 @@ namespace CodeWalker.Project.Panels
             }
             return r;
         }
-
-
 
         private void BBMinTextBox_TextChanged(object sender, EventArgs e)
         {

@@ -43,7 +43,6 @@ namespace CodeWalker.World
 
         public YmapEntityDef RenderEntity = new YmapEntityDef(); //placeholder entity object for rendering
 
-
         public void Init(string name, GameFileCache gfc)
         {
             var hash = JenkHash.GenHash(name.ToLowerInvariant());
@@ -70,7 +69,6 @@ namespace CodeWalker.World
                 Textures[i] = null;
                 Expressions[i] = null;
             }
-
 
             CPedModelInfo__InitData initdata = null;
             if (!gfc.PedsInitDict.TryGetValue(pedhash, out initdata)) return;
@@ -114,8 +112,6 @@ namespace CodeWalker.World
                 }
             }
 
-
-
             while ((Ydd != null) && (!Ydd.Loaded))
             {
                 Thread.Sleep(1);//kinda hacky
@@ -142,7 +138,6 @@ namespace CodeWalker.World
                 Yft = gfc.GetYft(pedhash);
             }
 
-
             Skeleton = Yft?.Fragment?.Drawable?.Skeleton?.Clone();
 
             MetaHash cliphash = JenkHash.GenHash("idle");
@@ -155,13 +150,8 @@ namespace CodeWalker.World
             Yed?.ExprMap?.TryGetValue(exprhash, out expr);
             Expression = expr;
 
-
             UpdateEntity();
         }
-
-
-
-
 
         public void SetComponentDrawable(int index, string name, string tex, GameFileCache gfc)
         {
@@ -257,7 +247,6 @@ namespace CodeWalker.World
                 Yed.ExprMap.TryGetValue(namehash, out e);
             }
 
-
             if (d != null) Drawables[index] = d.ShallowCopy() as Drawable;
             if (t != null) Textures[index] = t;
             if (c != null) Clothes[index] = c;
@@ -292,9 +281,6 @@ namespace CodeWalker.World
                 SetComponentDrawable(i, 0, 0, 0, gfc);
             }
         }
-
-
-
 
         public void UpdateEntity()
         {

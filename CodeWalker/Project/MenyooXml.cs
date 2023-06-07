@@ -14,11 +14,7 @@ namespace CodeWalker.Project
         public string FileName { get; set; }
         public string FilePath { get; set; }
 
-
-
-
         public List<MenyooXmlPlacement> Placements { get; set; } = new List<MenyooXmlPlacement>();
-
 
         public void Init(string xmlstr)
         {
@@ -27,12 +23,9 @@ namespace CodeWalker.Project
 
             XmlElement root = doc.DocumentElement;
 
-
             //see:
             //https://github.com/sollaholla/me2ymap/blob/master/YMapExporter/SpoonerPlacements.cs
             //https://github.com/Guad/MapEditor/blob/master/MenyooCompatibility.cs
-
-
 
             //example:
             //<Note />
@@ -52,12 +45,6 @@ namespace CodeWalker.Project
             //	<Z>100.05556</Z>
             //</ReferenceCoords>
 
-
-
-
-
-
-
             var placements = root.SelectNodes("Placement");
 
             foreach (XmlNode node in placements)
@@ -70,13 +57,7 @@ namespace CodeWalker.Project
 
         }
 
-
-
-
     }
-
-
-
 
     public class MenyooXmlPlacement
     {
@@ -115,8 +96,6 @@ namespace CodeWalker.Project
                 return Quaternion.RotationYawPitchRoll(pry.Z, pry.Y, pry.X).ToVector4();
             }
         }
-
-
 
         public void Init(XmlNode node)
         {
@@ -189,8 +168,6 @@ namespace CodeWalker.Project
             Attachment_isAttached = Xml.GetChildBoolAttribute(node, "Attachment", "isAttached");
         }
 
-
-
         public override string ToString()
         {
             return Type.ToString() + ": " + HashName + ": " + Position.ToString();
@@ -207,6 +184,5 @@ namespace CodeWalker.Project
             return Name + ": " + Value;
         }
     }
-
 
 }

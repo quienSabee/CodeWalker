@@ -22,11 +22,6 @@
 
 //shamelessly stolen and mangled
 
-
-
-
-
-
 /*
 
 Regarding saving PSO files:
@@ -51,7 +46,6 @@ uint32_t joaat_checksum(const void* memory, const size_t length)
     return hash;
 }
 
-
 [before doing checksum for file:]
       v12->Checksum = 0;
       v12->FileSize = 0;
@@ -59,12 +53,6 @@ uint32_t joaat_checksum(const void* memory, const size_t length)
       v12->Size = 0x14000000;
       v22 = v12;
       LOBYTE(v12->Platform) = platformChar[0];
-
-
-
-
-
-
 
 Brick - Today
 This is a table i made a while ago for the pso types btw
@@ -104,13 +92,7 @@ This is a table i made a while ago for the pso types btw
 | 32    | Simple | 8    | 8     | u64        |
 | 33    | Simple | 8    | 8     | f64        |
 
-
-
  */
-
-
-
-
 
 using System;
 using System.Collections.Generic;
@@ -122,7 +104,6 @@ using System.Threading.Tasks;
 
 namespace CodeWalker.GameFiles
 {
-
 
     public enum PsoSection : uint
     {
@@ -193,7 +174,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class PsoFile
     {
         public PsoDataSection DataSection { get; set; }
@@ -204,7 +184,6 @@ namespace CodeWalker.GameFiles
         public PsoPSIGSection PSIGSection { get; set; }
         public PsoSTRESection STRESection { get; set; }
         public PsoCHKSSection CHKSSection { get; set; }
-
 
         public void Load(byte[] data)
         {
@@ -275,7 +254,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public byte[] Save()
         {
             var ms = new MemoryStream();
@@ -307,10 +285,6 @@ namespace CodeWalker.GameFiles
             if (CHKSSection != null) CHKSSection.Write(writer);
         }
 
-
-
-
-
         public PsoDataMappingEntry GetBlock(int id)
         {
             if (DataMapSection == null) return null;
@@ -324,10 +298,6 @@ namespace CodeWalker.GameFiles
             }
             return block;
         }
-
-
-
-
 
         public static bool IsPSO(Stream stream)
         {
@@ -349,7 +319,6 @@ namespace CodeWalker.GameFiles
             return ((identInt & 0xFFFFFF00) == 0x52424600);
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class PsoDataSection
     {
@@ -381,7 +350,6 @@ namespace CodeWalker.GameFiles
             return Ident.ToString() + ": " + Length.ToString();
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class PsoDataMapSection
     {
@@ -469,7 +437,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class PsoSchemaSection
     {
         public int Ident { get; private set; } = 0x50534348;
@@ -530,15 +497,10 @@ namespace CodeWalker.GameFiles
                 Entries[i].Write(entriesWriter);
             }
 
-
-
             var indexStream = new MemoryStream();
             var indexWriter = new DataWriter(indexStream, Endianess.BigEndian);
             foreach (var entry in EntriesIdx)
                 entry.Write(indexWriter);
-
-
-
 
             writer.Write(Ident);
             writer.Write((int)(12 + entriesStream.Length + indexStream.Length));
@@ -555,7 +517,6 @@ namespace CodeWalker.GameFiles
             entriesStream.Position = 0;
             entriesStream.Read(buf2, 0, buf2.Length);
             writer.Write(buf2);
-
 
         }
 
@@ -605,7 +566,6 @@ namespace CodeWalker.GameFiles
         public int StructureLength { get; set; }
         public uint Unk_Ch { get; set; } = 0x00000000;
         public PsoStructureEntryInfo[] Entries { get; set; }
-
 
         public PsoStructureInfo()
         { }
@@ -695,7 +655,6 @@ namespace CodeWalker.GameFiles
         public ushort DataOffset { get; set; }
         public uint ReferenceKey { get; set; } // when array -> entry index with type
 
-
         public PsoStructureEntryInfo()
         { }
         public PsoStructureEntryInfo(MetaName nameHash, PsoDataType type, ushort offset, byte unk, MetaName refKey)
@@ -740,7 +699,6 @@ namespace CodeWalker.GameFiles
         public byte Type { get; private set; } = 1;
         public int EntriesCount { get; private set; }
         public PsoEnumEntryInfo[] Entries { get; set; }
-
 
         public PsoEnumInfo()
         { }
@@ -812,8 +770,6 @@ namespace CodeWalker.GameFiles
             return null;
         }
 
-
-
         public override string ToString()
         {
             return IndexInfo.ToString() + " - " + Type.ToString() + ": " + EntriesCount.ToString();
@@ -824,7 +780,6 @@ namespace CodeWalker.GameFiles
     {
         public MetaName EntryNameHash { get; set; }
         public int EntryKey { get; set; }
-
 
         public PsoEnumEntryInfo()
         { }
@@ -851,7 +806,6 @@ namespace CodeWalker.GameFiles
             return EntryNameHash.ToString() + ": " + EntryKey.ToString();
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class PsoSTRFSection
     {
@@ -911,7 +865,6 @@ namespace CodeWalker.GameFiles
         public int Ident { get; private set; } = 0x53545253;
         public int Length { get; set; }
         public string[] Strings { get; set; }
-
 
         public void Read(DataReader reader)
         {
@@ -1081,7 +1034,5 @@ namespace CodeWalker.GameFiles
             return Ident.ToString() + ": " + Length.ToString();
         }
     }
-
-
 
 }

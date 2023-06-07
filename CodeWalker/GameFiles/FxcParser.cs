@@ -18,7 +18,6 @@ namespace CodeWalker.GameFiles
 
                 ShaderProfile = ByteCodeObj.GetVersion();
 
-
                 switch (ShaderProfile.Version)
                 {
                     case ShaderVersion.VertexShader:

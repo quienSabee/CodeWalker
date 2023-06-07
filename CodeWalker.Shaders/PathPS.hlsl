@@ -5,12 +5,10 @@ struct VS_OUTPUT
     float4 Colour    : COLOR0;
 };
 
-
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
     float4 c = input.Colour;
 
 	return float4(c.rgb, saturate(c.a));
 }
-
 

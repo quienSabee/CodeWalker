@@ -76,7 +76,6 @@ namespace CodeWalker.Rendering
         Matrix3_s[] defaultBoneMatrices;
         bool defaultBoneMatricesBound = false;
 
-
         private Dictionary<VertexType, InputLayout> layouts = new Dictionary<VertexType, InputLayout>();
 
         public ShadowShader(Device device)
@@ -89,14 +88,12 @@ namespace CodeWalker.Rendering
             shadowvs_skin = new VertexShader(device, vssbytes);
             shadowps = new PixelShader(device, psbytes);
 
-
             VSSceneVars = new GpuVarsBuffer<ShadowShaderVSSceneVars>(device);
             VSEntityVars = new GpuVarsBuffer<ShadowShaderVSEntityVars>(device);
             VSModelVars = new GpuVarsBuffer<ShadowShaderVSModelVars>(device);
             GeomVars = new GpuVarsBuffer<ShadowShaderGeomVars>(device);
             BoneMatrices = new GpuABuffer<Matrix3_s>(device, 255);
             ClothVertices = new GpuABuffer<Vector4>(device, 254);
-
 
             //supported layouts - requires Position, Normal, Colour, Texcoord
             layouts.Add(VertexType.Default, new InputLayout(device, vsbytes, VertexTypeGTAV.GetLayout(VertexType.Default)));
@@ -131,8 +128,6 @@ namespace CodeWalker.Rendering
             //PBBCCT todo
             //PBBNC todo
 
-
-
             texsampler = new SamplerState(device, new SamplerStateDescription()
             {
                 AddressU = TextureAddressMode.Wrap,
@@ -160,8 +155,6 @@ namespace CodeWalker.Rendering
                 MipLodBias = 0,
             });
 
-
-
             defaultBoneMatrices = new Matrix3_s[255];
             for (int i = 0; i < 255; i++)
             {
@@ -171,8 +164,6 @@ namespace CodeWalker.Rendering
             }
 
         }
-
-
 
         public override void SetShader(DeviceContext context)
         {
@@ -202,7 +193,6 @@ namespace CodeWalker.Rendering
                 }
 
                 context.VertexShader.Set(vs);
-
 
                 context.InputAssembler.InputLayout = l;
                 return true;
@@ -312,7 +302,6 @@ namespace CodeWalker.Rendering
                     index++;
                 }
 
-
                 //if ((geom.PaletteTexture >= 0) && (geom.PaletteTexture < geom.Textures.Length))
                 //{
                 //    tintpal = geom.Textures[geom.PaletteTexture];
@@ -324,9 +313,7 @@ namespace CodeWalker.Rendering
                 //}
             }
 
-
             bool usediff = ((texture != null) && (texture.ShaderResourceView != null));
-
 
             uint windflag = 0;
             uint tintflag = 0;
@@ -349,9 +336,6 @@ namespace CodeWalker.Rendering
                     break;
             }
 
-
-
-
             GeomVars.Vars.EnableTexture = usediff ? 1u : 0u;
             GeomVars.Vars.EnableTint = tintflag;// usetint ? 1u : 0u;
             GeomVars.Vars.IsDecal = 0u;// DecalMode ? 1u : 0u;
@@ -368,7 +352,6 @@ namespace CodeWalker.Rendering
             {
                 texture.SetPSResource(context, 0);
             }
-
 
             if (geom.BoneTransforms != null)
             {
@@ -390,7 +373,6 @@ namespace CodeWalker.Rendering
             ClothVertices.SetVSCBuffer(context, 8);
         }
 
-
         public override void UnbindResources(DeviceContext context)
         {
             context.VertexShader.SetConstantBuffer(0, null);
@@ -404,7 +386,6 @@ namespace CodeWalker.Rendering
             context.VertexShader.Set(null);
             context.PixelShader.Set(null);
         }
-
 
         public void Dispose()
         {
@@ -433,7 +414,6 @@ namespace CodeWalker.Rendering
             GeomVars.Dispose();
             BoneMatrices.Dispose();
             ClothVertices.Dispose();
-
 
             shadowps.Dispose();
             shadowvs.Dispose();

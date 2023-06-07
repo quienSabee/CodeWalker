@@ -18,7 +18,6 @@ namespace CodeWalker.Project.Panels
         public ProjectForm ProjectForm { get; set; }
         public ProjectFile CurrentProjectFile { get; set; }
 
-
         public GenerateLODLightsPanel(ProjectForm projectForm)
         {
             ProjectForm = projectForm;
@@ -31,7 +30,6 @@ namespace CodeWalker.Project.Panels
                 UpdateStatus("Unable to generate - World View not available!");
             }
         }
-
 
         public void SetProject(ProjectFile project)
         {
@@ -55,7 +53,6 @@ namespace CodeWalker.Project.Panels
             catch { }
         }
 
-
         private void UpdateStatus(string text)
         {
             try
@@ -72,8 +69,6 @@ namespace CodeWalker.Project.Panels
             catch { }
         }
 
-
-
         private void GenerateButton_Click(object sender, EventArgs e)
         {
             //var space = ProjectForm?.WorldForm?.Space;
@@ -84,7 +79,6 @@ namespace CodeWalker.Project.Panels
             var path = ProjectForm.CurrentProjectFile.GetFullFilePath("lodlights") + "\\";
 
             GenerateButton.Enabled = false;
-
 
             List<YmapFile> projectYmaps = ProjectForm.CurrentProjectFile.YmapFiles;
 
@@ -132,13 +126,11 @@ namespace CodeWalker.Project.Panels
                                     uint c = (i << 24) + (r << 16) + (g << 8) + b;
                                     uint h = elight.Hash;
 
-
                                     //any other way to know if it's a streetlight?
                                     //var name = ent.Archetype.Name;
                                     var flags = la.Flags;
                                     bool isStreetLight = (((flags >> 10) & 1u) == 1);// (name != null) && (name.Contains("street") || name.Contains("traffic"));
                                     isStreetLight = false; //TODO: fix this!
-
 
                                     //@Calcium:
                                     //1 = point
@@ -154,7 +146,6 @@ namespace CodeWalker.Project.Panels
                                     {
                                         outer = (byte)Math.Max(Math.Max(la.Extent.X, la.Extent.Y), la.Extent.Z);
                                     }
-
 
                                     var light = new Light();
                                     light.position = new MetaVECTOR3(elight.Position);
@@ -176,14 +167,11 @@ namespace CodeWalker.Project.Panels
                     }
                 }
 
-
                 if (lights.Count == 0)
                 {
                     MessageBox.Show("No lights found in project!");
                     return;
                 }
-
-
 
                 //final lights should be sorted by isStreetLight (1 first!) and then hash
                 lights.Sort((a, b) => 
@@ -191,8 +179,6 @@ namespace CodeWalker.Project.Panels
                     if (a.isStreetLight != b.isStreetLight) return b.isStreetLight.CompareTo(a.isStreetLight);
                     return a.hash.CompareTo(b.hash);
                 });
-
-
 
                 var position = new List<MetaVECTOR3>();
                 var colour = new List<uint>();
@@ -219,8 +205,6 @@ namespace CodeWalker.Project.Panels
                     coronaIntensity.Add(light.coronaIntensity);
                     if (light.isStreetLight) numStreetLights++;
                 }
-
-
 
                 UpdateStatus("Creating new ymap files...");
 
@@ -257,7 +241,6 @@ namespace CodeWalker.Project.Panels
                 distymap.CalcFlags();
                 distymap.CalcExtents();
 
-
                 var lodname = pname + "_lodlights";
                 var distname = pname + "_distantlights";
                 lodymap.Name = lodname;
@@ -289,7 +272,6 @@ namespace CodeWalker.Project.Panels
 
             });
         }
-
 
         public class Light
         {

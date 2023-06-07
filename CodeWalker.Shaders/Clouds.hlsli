@@ -1,5 +1,4 @@
 
-
 cbuffer clouds_locals : register(b0)
 {
     float3 gSkyColor;                  // Offset:    0 Size:    12 [unused]

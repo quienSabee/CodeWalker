@@ -694,7 +694,6 @@ namespace CodeWalker.Rendering
                 }
             }
 
-
             bool usediff = ((texture != null) && (texture.ShaderResourceView != null));
             bool usediff2 = ((texture2 != null) && (texture2.ShaderResourceView != null));
             bool usebump = ((bumptex != null) && (bumptex.ShaderResourceView != null));
@@ -825,7 +824,6 @@ namespace CodeWalker.Rendering
                 tintpal.SetPSResource(context, 6);
             }
 
-
             if (geom.BoneTransforms != null)
             {
                 SetBoneMatrices(context, geom.BoneTransforms);
@@ -845,7 +843,6 @@ namespace CodeWalker.Rendering
             ClothVertices.Update(context, vertices);
             ClothVertices.SetVSCBuffer(context, 8);
         }
-
 
         public void SetInstanceVars(DeviceContext context, RenderableInstanceBatch batch)
         {
@@ -886,7 +883,6 @@ namespace CodeWalker.Rendering
 
             context.VertexShader.SetShaderResource(2, batch.GrassInstanceBuffer.SRV);
         }
-
 
         public void RenderBoundGeom(DeviceContext context, RenderableBoundGeometryInst inst)
         {

@@ -14,14 +14,12 @@ namespace CodeWalker.GameFiles
     {
         public Bounds Bounds { get; set; }
 
-
         //used by the editor:
         public bool HasChanged { get; set; } = false;
 
 #if DEBUG
         public ResourceAnalyzer Analyzer { get; set; }
 #endif
-
 
         public YbnFile() : base(null, GameFileType.Ybn)
         {
@@ -44,7 +42,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             RpfFileEntry = entry;
 
-
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
             {
@@ -52,7 +49,6 @@ namespace CodeWalker.GameFiles
             }
 
             ResourceDataReader rd = new ResourceDataReader(resentry, data);
-
 
             Bounds = rd.ReadBlock<Bounds>();
 
@@ -72,9 +68,6 @@ namespace CodeWalker.GameFiles
 
             return data;
         }
-
-
-
 
         public bool RemoveBounds(Bounds b)
         {
@@ -97,9 +90,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
     public class YbnXml : MetaXmlBase
     {
 
@@ -120,7 +110,6 @@ namespace CodeWalker.GameFiles
 
             return sb.ToString();
         }
-
 
         public static string FormatBoundMaterialColour(BoundMaterialColour c) //for use with WriteItemArray
         {
@@ -152,8 +141,6 @@ namespace CodeWalker.GameFiles
 
             return r;
         }
-
-
 
         public static BoundMaterialColour[] GetRawBoundMaterialColourArray(XmlNode node)
         {
@@ -202,9 +189,6 @@ namespace CodeWalker.GameFiles
             return GetRawBoundMaterialColourArray(cnode);
         }
 
-
     }
-
-
 
 }

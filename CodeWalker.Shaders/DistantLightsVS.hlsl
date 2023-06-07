@@ -1,6 +1,5 @@
 #include "Common.hlsli"
 
-
 struct VS_INPUT
 {
     float4 Position : POSITION;
@@ -27,7 +26,6 @@ cbuffer VSSceneVars : register(b0)
     float3 CamPos;
     float Pad0;
 };
-
 
 VS_OUTPUT main(VS_INPUT input, uint iid : SV_InstanceID)
 {

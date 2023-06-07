@@ -20,7 +20,6 @@ namespace CodeWalker.Project.Panels
 
         private bool populatingui = false;
 
-
         public EditAudioEmitterPanel(ProjectForm owner)
         {
             ProjectForm = owner;
@@ -39,7 +38,6 @@ namespace CodeWalker.Project.Panels
         {
             Text = CurrentEmitter?.NameHash.ToString() ?? "";
         }
-
 
         private void UpdateUI()
         {
@@ -140,7 +138,6 @@ namespace CodeWalker.Project.Panels
                 ProjectForm.SetAudioFileHasChanged(true);
             }
         }
-
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {

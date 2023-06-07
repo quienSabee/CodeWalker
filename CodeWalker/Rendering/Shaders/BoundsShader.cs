@@ -48,7 +48,6 @@ namespace CodeWalker.Rendering
         public Vector4 Colour;
     }
 
-
     public class BoundsShader : Shader, IDisposable
     {
         bool disposed = false;
@@ -86,7 +85,6 @@ namespace CodeWalker.Rendering
 
             cube = new UnitCube(device, boxvsbytes, false, true, false);
         }
-
 
         public void SetMode(BoundsShaderMode m)
         {
@@ -192,7 +190,6 @@ namespace CodeWalker.Rendering
             context.PixelShader.Set(null);
         }
 
-
         public void DrawSphere(DeviceContext context)
         {
             context.InputAssembler.InputLayout = null;
@@ -205,7 +202,6 @@ namespace CodeWalker.Rendering
         {
             cube.Draw(context);
         }
-
 
         public void Dispose()
         {

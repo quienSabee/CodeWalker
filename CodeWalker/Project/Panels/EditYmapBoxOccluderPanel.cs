@@ -19,13 +19,11 @@ namespace CodeWalker.Project.Panels
 
         private bool populatingui = false;
 
-
         public EditYmapBoxOccluderPanel(ProjectForm owner)
         {
             ProjectForm = owner;
             InitializeComponent();
         }
-
 
         public void SetBoxOccluder(YmapBoxOccluder box)
         {
@@ -39,7 +37,6 @@ namespace CodeWalker.Project.Panels
         {
             Text = "BoxOccluder: " + (CurrentBoxOccluder?.Index.ToString() ?? "(none)");
         }
-
 
         private void LoadBoxOccluder()
         {

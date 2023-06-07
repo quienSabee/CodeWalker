@@ -11,14 +11,10 @@ using SharpDX;
 using System.Xml;
 using System.Text.RegularExpressions;
 
-
-
-
 /*
 
 Parts of this are adapted from CamxxCore's RageAudioTool, although it's been completely reworked for CW.
 -dexyfex
-
 
 https://github.com/CamxxCore/RageAudioTool
 
@@ -45,8 +41,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-
-
 
 namespace CodeWalker.GameFiles
 {
@@ -91,11 +85,9 @@ namespace CodeWalker.GameFiles
 
         public bool IsAudioConfig { get; set; }
 
-
         //fields used by the editor:
         public bool HasChanged { get; set; } = false;
         public List<string> SaveWarnings = null;
-
 
         public RelFile() : base(null, GameFileType.Rel)
         {
@@ -194,7 +186,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             HashTableCount = br.ReadUInt32();
             if (HashTableCount != 0)
             {
@@ -238,20 +229,15 @@ namespace CodeWalker.GameFiles
             br.Dispose();
             ms.Dispose();
 
-
             ParseDataBlock();
 
             //BuildHashMaps();
 
-
             Loaded = true;
         }
 
-
         private void ParseDataBlock()
         {
-
-
 
             MemoryStream ms = new MemoryStream(DataBlock);
             BinaryReader br = new BinaryReader(ms);
@@ -293,7 +279,6 @@ namespace CodeWalker.GameFiles
             //}
             #endregion
 
-
             List<RelData> reldatas = new List<RelData>();
             if (IndexHashes != null)
             {
@@ -314,12 +299,8 @@ namespace CodeWalker.GameFiles
             reldatas.Sort((d1, d2) => d1.DataOffset.CompareTo(d2.DataOffset));
             RelDatasSorted = reldatas.ToArray();
 
-
             br.Dispose();
             ms.Dispose();
-
-
-
 
             RelDataDict.Clear();
             foreach (var reldata in RelDatas)
@@ -371,7 +352,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
 
             if ((RelType == RelDatFileType.Dat4) && (!IsAudioConfig))
             {
@@ -425,14 +405,9 @@ namespace CodeWalker.GameFiles
                     { }//shouldn't happen!
                 }
 
-
             }
 
-
         }
-
-
-
 
         private RelData ReadRelData(BinaryReader br, RelIndexHash h)
         {
@@ -447,14 +422,12 @@ namespace CodeWalker.GameFiles
             br.BaseStream.Position = offset;
             byte[] data = br.ReadBytes((int)length);
 
-
             RelData d = new RelData(this); //use this base object to construct the derived one...
             d.Name = name;
             d.NameHash = hash;
             d.DataOffset = offset;
             d.DataLength = length;
             d.Data = data;
-
 
             using (BinaryReader dbr = new BinaryReader(new MemoryStream(data)))
             {
@@ -485,8 +458,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
-
 
         private RelData ReadData4(RelData d, BinaryReader br)
         {
@@ -750,7 +721,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public RelData CreateRelData(RelDatFileType relType, int dataType)
         {
             RelData d = null;
@@ -1000,17 +970,10 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
         private void BuildNameTable()
         {
             //TODO!
             //need to do this before building the data block since nametable offsets are in there!
-
-
-
-
-
 
             if (NameTable != null)
             {
@@ -1032,20 +995,16 @@ namespace CodeWalker.GameFiles
                 NameTableLength = 4;
             }
 
-
         }
         private void BuildDataBlock()
         {
             if (RelDatas == null) return;
             if (RelDatasSorted == null) return;
 
-
-
             MemoryStream ms = new MemoryStream();
             BinaryWriter bw = new BinaryWriter(ms);
 
             bw.Write(DataUnkVal);
-
 
             RelData lastrd = null;//debug
 
@@ -1112,7 +1071,6 @@ namespace CodeWalker.GameFiles
                         break;
                 }
 
-
                 var pos = ms.Position;
                 if ((ms.Position != rd.DataOffset) && (rd.DataOffset != 0))
                 { }
@@ -1141,8 +1099,6 @@ namespace CodeWalker.GameFiles
         {
             if (RelDatas == null) return;
             if (RelDatasSorted == null) return;
-
-
 
             //for the correct index ordering, needs to be in order of hashes, but with bits rotated right by 8 (why!?)
             var sorted = RelDatasSorted.ToList();
@@ -1173,7 +1129,6 @@ namespace CodeWalker.GameFiles
                     break;
             }
             RelDatas = sorted.ToArray();
-
 
             if (IsAudioConfig)
             {
@@ -1307,8 +1262,6 @@ namespace CodeWalker.GameFiles
             PackTableCount = (uint)(PackTableOffsets?.Length ?? 0);
         }
 
-
-
         private void BuildHashMaps()
         {
             //for discovering "HashTable" offsets
@@ -1327,7 +1280,6 @@ namespace CodeWalker.GameFiles
 
             if (relType != RelDatFileType.Dat4)
             { return; }
-
 
             if (HashTableOffsets != null)
             {
@@ -1401,7 +1353,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
         }
         public struct HashesMapKey
         {
@@ -1463,9 +1414,6 @@ namespace CodeWalker.GameFiles
             { }
         }
 
-
-
-
         public byte[] Save()
         {
             
@@ -1475,16 +1423,12 @@ namespace CodeWalker.GameFiles
             BuildHashTable();
             BuildPackTable();
 
-
             if (DataBlock == null) return null;
-
-
 
             //write the file data.
 
             MemoryStream ms = new MemoryStream();
             BinaryWriter bw = new BinaryWriter(ms);
-
 
             bw.Write((uint)RelType);
             bw.Write(DataLength);
@@ -1560,19 +1504,12 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             var buf = new byte[ms.Length];
             ms.Position = 0;
             ms.Read(buf, 0, buf.Length);
             return buf;
 
         }
-
-
-
-
-
-
 
         public void AddRelData(RelData d)
         {
@@ -1626,8 +1563,6 @@ namespace CodeWalker.GameFiles
             return false;
         }
 
-
-
         public override string ToString()
         {
             return Name;
@@ -1646,7 +1581,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public struct RelIndexString
     {
         public string Name { get; set; }
@@ -1658,7 +1592,6 @@ namespace CodeWalker.GameFiles
             return Name + ", " + Offset.ToString() + ", " + Length.ToString();
         }
     }
-
 
     [TC(typeof(EXP))] public class RelData
     {
@@ -1726,7 +1659,6 @@ namespace CodeWalker.GameFiles
             return null;
         }
 
-
         public virtual void Write(BinaryWriter bw)
         {
             bw.Write(Data); //fallback for default byte array data writing...
@@ -1749,7 +1681,6 @@ namespace CodeWalker.GameFiles
                 DataLength = (uint)Data.Length;
             }
         }
-
 
         public string GetNameString()
         {
@@ -1774,12 +1705,7 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
     #region dat54
-
-
 
     [TC(typeof(EXP))] public class RelSoundHeader
     {
@@ -1819,7 +1745,6 @@ namespace CodeWalker.GameFiles
         public ushort Unk26 { get; set; } //0x4A-0x4C
 
         public uint HeaderLength { get; set; } = 0;
-
 
         public RelSoundHeader(XmlNode node)
         {
@@ -2035,7 +1960,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public uint CalcHeaderLength()
         {
             uint length = 4;
@@ -2171,7 +2095,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public void ReadHeaderXml(XmlNode node)
         {
             var hnode = node.SelectSingleNode("Header");
@@ -2220,8 +2143,6 @@ namespace CodeWalker.GameFiles
             return null;
         }
     }
-
-
 
     public enum Dat54SoundType : byte
     {
@@ -4989,14 +4910,9 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     #endregion
 
-
-
-
     #region dat151
-
 
     public enum Dat151RelType : byte //not sure how correct these are?
     {
@@ -5133,13 +5049,11 @@ namespace CodeWalker.GameFiles
             NameTableOffset = ((br.ReadUInt32() >> 8) & 0xFFFFFF);
         }
 
-
         public void WriteTypeAndOffset(BinaryWriter bw)
         {
             var val = ((NameTableOffset & 0xFFFFFF) << 8) + TypeID;
             bw.Write(val);
         }
-
 
         public override string ToString()
         {
@@ -5208,7 +5122,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     public enum Dat151ZoneShape : uint
     {
         Box = 0,
@@ -5238,7 +5151,6 @@ namespace CodeWalker.GameFiles
             long bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             if (bytesleft != 0)
             { } //no hits here
-
 
         }
         public override void Write(BinaryWriter bw)
@@ -5332,8 +5244,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
         public Dat151AmbientZone(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.AmbientZone;
@@ -5386,11 +5296,9 @@ namespace CodeWalker.GameFiles
             if (ExtParamsCount != 0)
             { }
 
-
             #region testing
 
             var data = this.Data;
-
 
             long bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             if (bytesleft != 0)
@@ -5403,10 +5311,8 @@ namespace CodeWalker.GameFiles
                 //}
             }
 
-
             //RecVec(Pos01);//debug coords output
             //RecVec(Pos06);
-
 
             if (Unused01 != 0)
             { }//no hit
@@ -5656,7 +5562,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public Dat151AmbientRule(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.AmbientRule;
@@ -5708,7 +5613,6 @@ namespace CodeWalker.GameFiles
                     //}
                 }
             }
-
 
             #region testing
 
@@ -5893,8 +5797,6 @@ namespace CodeWalker.GameFiles
                     break;
             }
 
-
-
             //if ((Position.X != 0) || (Position.Y != 0) || (Position.Z != 0))
             //{
             //    FoundCoords.Add(FloatUtil.GetVector3String(Position) + ", " + GetNameString());
@@ -5903,7 +5805,6 @@ namespace CodeWalker.GameFiles
             long bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             if (bytesleft != 0)
             { }
-
 
             #endregion
 
@@ -6586,7 +6487,6 @@ namespace CodeWalker.GameFiles
         public uint TracksCount { get; set; }
         public Dat151HashPair[] Tracks { get; set; }
 
-
         public Dat151RadioTrack(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.RadioTrack;
@@ -6621,8 +6521,6 @@ namespace CodeWalker.GameFiles
             }
             this.Tracks = items;
 
-
-
             if (Unk04 != 0)
             { }
             if (Unk05 != 0)
@@ -6643,7 +6541,6 @@ namespace CodeWalker.GameFiles
             { }
             if (Unk13 != 0)
             { }
-
 
             var bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             if (bytesleft != 0)
@@ -6931,7 +6828,6 @@ namespace CodeWalker.GameFiles
         public int Unk9 { get; set; }
         public uint TracksCount { get; set; }
         public Dat151StartTrackActionItem[] Tracks { get; set; }
-
 
         public Dat151StartTrackAction(RelFile rel) : base(rel)
         {
@@ -7810,7 +7706,6 @@ namespace CodeWalker.GameFiles
         public uint AudioTracks2Count { get; set; }
         public MetaHash[] AudioTracks2 { get; set; }//more mod objects
 
-
         public Dat151Mod(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.Mod;
@@ -7854,7 +7749,6 @@ namespace CodeWalker.GameFiles
                 default:
                     break;
             }
-
 
             if (AudioTracks1Count == 0)
             {
@@ -7907,7 +7801,6 @@ namespace CodeWalker.GameFiles
             bw.Write(AudioTracks1Count);
             bw.Write(Unk16);
             bw.Write(Unk17);
-
 
             if (AudioTracks1Count == 0)
             {
@@ -9886,7 +9779,6 @@ namespace CodeWalker.GameFiles
         public int PointsCount { get; set; }
         public Vector2[] Points { get; set; }
 
-
         public Dat151ShoreLinePool(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.ShoreLinePool;
@@ -10517,8 +10409,6 @@ namespace CodeWalker.GameFiles
             Unk56 = br.ReadInt32();
             Unk57 = br.ReadInt32();
 
-
-
             switch (this.Flags)
             {
                 case 0xAAAAA905:
@@ -10622,7 +10512,6 @@ namespace CodeWalker.GameFiles
             { }
             if (Unk51 != 0)
             { }
-
 
         }
         public override void Write(BinaryWriter bw)
@@ -10976,8 +10865,6 @@ namespace CodeWalker.GameFiles
             Unk61 = br.ReadSingle();
             Unk62 = br.ReadInt32();
 
-
-
             var bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             switch (bytesleft) //any other way to tell..?
             {
@@ -11014,8 +10901,6 @@ namespace CodeWalker.GameFiles
             }
             if (bytesleft != 0)
             { }
-
-
 
             if (Unk15 != 0)
             { }
@@ -11457,7 +11342,6 @@ namespace CodeWalker.GameFiles
             AirIntakeUpgraded = br.ReadUInt32();
             ExhaustPopsUpgraded = br.ReadUInt32();
 
-
             if (Unk46 != 0)
             { }
             if (Unk47 != 0)
@@ -11842,7 +11726,6 @@ namespace CodeWalker.GameFiles
         public int Unk67 { get; set; }
 
         public int Version { get; set; }
-
 
         public Dat151Weapon(RelFile rel) : base(rel)
         {
@@ -12376,8 +12259,6 @@ namespace CodeWalker.GameFiles
         public Dat151PedVoiceGroupItem[] UnkItems { get; set; }
         public byte Unk07 { get; set; } //item count4? (=0)
 
-
-
         public Dat151PedVoiceGroup(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.PedVoiceGroup;
@@ -12417,8 +12298,6 @@ namespace CodeWalker.GameFiles
             //{
             //    Items4[i] = new UnkStruct(br);
             //}
-
-
 
             var bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             if (bytesleft != 0)
@@ -12663,7 +12542,6 @@ namespace CodeWalker.GameFiles
         public float Unk61 { get; set; }
         public MetaHash Unk62 { get; set; }
         public MetaHash Unk63 { get; set; }
-
 
         public Dat151Boat(RelFile rel) : base(rel)
         {
@@ -13316,7 +13194,6 @@ namespace CodeWalker.GameFiles
                 Unk96 = br.ReadUInt32();
             }
 
-
             bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             if (bytesleft != 0)
             { }
@@ -13640,7 +13517,6 @@ namespace CodeWalker.GameFiles
 
             }
 
-
         }
         public override MetaHash[] GetSynthHashes()
         {
@@ -13760,7 +13636,6 @@ namespace CodeWalker.GameFiles
 
         public int Version { get; set; }
 
-
         public Dat151Helicopter(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.Helicopter;
@@ -13858,7 +13733,6 @@ namespace CodeWalker.GameFiles
             PlayerSwitch = br.ReadUInt32();
             Unk88 = br.ReadUInt32();
 
-
             if (Unk52 != 0)
             { }
             if (Unk53 != 0)
@@ -13867,7 +13741,6 @@ namespace CodeWalker.GameFiles
             { }
             if (Unk55 != 0)
             { }
-
 
             Version = 0;
 
@@ -14347,7 +14220,6 @@ namespace CodeWalker.GameFiles
         public MetaHash Unk37 { get; set; }//constant_one
         public MetaHash Collision { get; set; }
 
-
         public Dat151Train(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.Train;
@@ -14734,7 +14606,6 @@ namespace CodeWalker.GameFiles
         public MetaHash Unk06 { get; set; } //0
         public int Unk07 { get; set; } //0xFFFFFFFF
 
-
         public Dat151SpeechParams(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.SpeechParams;
@@ -14761,7 +14632,6 @@ namespace CodeWalker.GameFiles
             { }
             if (Unk07 != -1)
             { }
-
 
             var bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             if (bytesleft != 0)
@@ -14939,7 +14809,6 @@ namespace CodeWalker.GameFiles
         public int ItemCount { get; set; }
         public Dat151HashFloat[] Items { get; set; }//SpeechChoice, probability?
 
-
         public Dat151SpeechContext(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.SpeechContext;
@@ -15058,7 +14927,6 @@ namespace CodeWalker.GameFiles
         public byte Unk16 { get; set; }//only when Unk11>2
         public byte Unk17 { get; set; }//only when Unk11>2
 
-
         public Dat151SpeechChoice(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.SpeechChoice;
@@ -15089,7 +14957,6 @@ namespace CodeWalker.GameFiles
                 Unk17 = br.ReadByte();
             }
 
-
             if (Unk05 > 3)
             { }
             if (Unk06 != 0)
@@ -15102,7 +14969,6 @@ namespace CodeWalker.GameFiles
             { }
             if (Unk11 > 3)
             { }
-
 
             var bytesleft = br.BaseStream.Length - br.BaseStream.Position;
             if (bytesleft != 0)
@@ -15364,7 +15230,6 @@ namespace CodeWalker.GameFiles
         public MetaHash Unk19 { get; set; }
         public MetaHash Unk20 { get; set; }
 
-
         public Dat151Shoe(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.Shoe;
@@ -15551,7 +15416,6 @@ namespace CodeWalker.GameFiles
         public int ItemCount { get; set; }
         public Dat151Unk22Item[] Items { get; set; }
 
-
         public Dat151Unk22(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.Unk22;
@@ -15630,7 +15494,6 @@ namespace CodeWalker.GameFiles
         public MetaHash Unk07 { get; set; }
         public MetaHash Unk08 { get; set; }//0
         public float Unk09 { get; set; }
-
 
         public Dat151Skis(RelFile rel) : base(rel)
         {
@@ -19348,7 +19211,6 @@ namespace CodeWalker.GameFiles
         public int Unk57 { get; set; }
         public int Unk58 { get; set; }
 
-
         public Dat151AircraftWarningSettings(RelFile rel) : base(rel)
         {
             Type = Dat151RelType.AircraftWarningSettings;
@@ -20489,7 +20351,6 @@ namespace CodeWalker.GameFiles
             if (bytesleft != 0)
             { } //no hits here
 
-
         }
         public override void Write(BinaryWriter bw)
         {
@@ -20521,16 +20382,9 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
     #endregion
 
-
-
-
     #region dat4 (config)
-
 
     public enum Dat4ConfigType : byte
     {
@@ -20990,7 +20844,6 @@ namespace CodeWalker.GameFiles
         int UnkVecCount3 { get; set; }
         Vector4[] UnkVecs3 { get; set; }
 
-
         public class UnkItem : IMetaXmlItem
         {
             public float UnkFloat { get; set; }
@@ -21022,7 +20875,6 @@ namespace CodeWalker.GameFiles
                 return FloatUtil.ToString(UnkFloat) + ", " + UnkInt.ToString();
             }
         }
-
 
         public Dat4ConfigUnkER(RelFile rel) : base(rel)
         {
@@ -21206,7 +21058,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     //[TC(typeof(EXP))] public class Dat4ConfigBlankTemplateItem : Dat4ConfigData
     //{
     //    public Dat4ConfigBlankTemplateItem(RelFile rel) : base(rel)
@@ -21234,14 +21085,8 @@ namespace CodeWalker.GameFiles
     //    }
     //}
 
-
-
-
     #endregion
-    
-    
-    
-    
+
     #region dat4 (speech)
 
     public enum Dat4SpeechType : byte
@@ -21259,13 +21104,11 @@ namespace CodeWalker.GameFiles
         public MetaHash ContainerHash { get; set; }
         public MetaHash Hash { get; set; }
 
-
         public Dat4SpeechData(RelFile rel) : base(rel)
         { }
         public Dat4SpeechData(RelData d, BinaryReader br) : base(d)
         {
             br.BaseStream.Position = 0; //1 byte was read already (TypeID)
-
 
             if ((TypeID == 4) && (br.BaseStream.Length == 8))
             {
@@ -21360,14 +21203,9 @@ namespace CodeWalker.GameFiles
 
     }
 
-
     #endregion
 
-
-
-
     #region dat10
-
 
     public enum Dat10RelType : byte
     {
@@ -21668,7 +21506,6 @@ namespace CodeWalker.GameFiles
             }
             OutputsIndices = outputs.ToArray();
 
-
             var extraConstants = Xml.GetChildRawFloatArray(node, "ExtraConstants");
             foreach (var extraConstant in extraConstants)
             {
@@ -21683,7 +21520,6 @@ namespace CodeWalker.GameFiles
             RuntimeCost = Xml.GetChildIntAttribute(node, "RuntimeCost", "value");
 
         }
-
 
         public void TestDisassembly()
         {
@@ -21767,7 +21603,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
 
         public class DisassembleResult
         {
@@ -23250,14 +23085,9 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     #endregion
 
-
-
-
     #region dat15
-
 
     public enum Dat15RelType : byte
     {
@@ -24002,15 +23832,9 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     #endregion
 
-
-
-
     #region dat16
-
 
     public enum Dat16RelType : byte
     {
@@ -24731,14 +24555,9 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     #endregion
 
-
-
-
     #region dat22
-
 
     public enum Dat22RelType : byte
     {
@@ -24930,20 +24749,7 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     #endregion
-
-
-
-
-
-
-
-
-
-
-
-
 
     public class RelXml : MetaXmlBase
     {
@@ -25216,13 +25022,11 @@ namespace CodeWalker.GameFiles
                         }
                     }
 
-
                     RelData rd = rel.CreateRelData(reltype, typeid);
                     rd.Name = Xml.GetChildInnerText(item, "Name");
                     rd.NameHash = XmlRel.GetHash(rd.Name);
                     rd.ReadXml(item);
                     itemslist.Add(rd);
-
 
                     var dat151data = rd as Dat151RelData;
                     if (dat151data != null)
@@ -25265,10 +25069,8 @@ namespace CodeWalker.GameFiles
                 rel.RelDatasSorted = itemslist.ToArray();
             }
 
-
             return rel;
         }
-
 
         public static MetaHash GetHash(string str)
         {
@@ -25286,8 +25088,6 @@ namespace CodeWalker.GameFiles
                 return JenkHash.GenHash(str);
             }
         }
-
-
 
         public static T[] ReadItemArray<T>(XmlNode node, string name) where T : IMetaXmlItem, new()
         {
@@ -25328,7 +25128,5 @@ namespace CodeWalker.GameFiles
             return null;
         }
     }
-
-
 
 }

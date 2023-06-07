@@ -38,7 +38,6 @@ namespace CodeWalker.Project.Panels
             Text = (Items?.Length ?? 0).ToString() + " item" + ((Items?.Length == 1) ? "" : "s");
         }
 
-
         private void LoadItems()
         {
             MultiItem = new MapSelection();
@@ -56,7 +55,6 @@ namespace CodeWalker.Project.Panels
             {
                 populatingui = true;
 
-
                 PositionTextBox.Text = FloatUtil.GetVector3String(MultiItem.MultipleSelectionCenter);
                 RotationQuatBox.Value = MultiItem.MultipleSelectionRotation;
                 ScaleTextBox.Text = FloatUtil.GetVector3String(MultiItem.MultipleSelectionScale);
@@ -68,9 +66,7 @@ namespace CodeWalker.Project.Panels
 
                 populatingui = false;
 
-
             }
-
 
         }
 

@@ -22,7 +22,6 @@
 
 //shamelessly stolen and mangled
 
-
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -35,8 +34,6 @@ using System.Xml;
 
 namespace CodeWalker.GameFiles
 {
-
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class FragType : ResourceFileBase
     {
@@ -100,7 +97,6 @@ namespace CodeWalker.GameFiles
         public FragPhysicsLODGroup PhysicsLODGroup { get; set; }
         public FragDrawable DrawableCloth { get; set; }
         public FragVehicleGlassWindows VehicleGlassWindows { get; set; }
-
 
         private string_r NameBlock = null; //only used for saving
 
@@ -195,7 +191,6 @@ namespace CodeWalker.GameFiles
             { }
             if (VehicleGlassWindows != null)
             { }
-
 
             AssignChildrenShaders();
             AssignGlassWindowsGroups();
@@ -559,8 +554,6 @@ namespace CodeWalker.GameFiles
             return f;
         }
 
-
-
         public void AssignChildrenShaders()
         {
             if (PhysicsLODGroup == null) return;
@@ -617,8 +610,6 @@ namespace CodeWalker.GameFiles
             assign(PhysicsLODGroup.PhysicsLOD2);
             assign(PhysicsLODGroup.PhysicsLOD3);
 
-
-
             if (DrawableArray?.data_items != null)
             {
                 foreach (var arrd in DrawableArray.data_items)
@@ -626,7 +617,6 @@ namespace CodeWalker.GameFiles
                     assigndr(arrd, null, 0);
                 }
             }
-
 
         }
 
@@ -715,7 +705,6 @@ namespace CodeWalker.GameFiles
             //}
 
         }
-
 
         public override IResourceBlock[] GetReferences()
         {
@@ -828,8 +817,6 @@ namespace CodeWalker.GameFiles
             //    { }//no hit
             //}
 
-
-
             if (FragMatricesInds != null)
             { }
             if (FragMatrices != null)
@@ -937,7 +924,6 @@ namespace CodeWalker.GameFiles
                 }
                 YftXml.CloseTag(sb, indent, "Matrices");
             }
-
 
             var skel = Skeleton;
             var bnds = Bound;
@@ -1343,7 +1329,6 @@ namespace CodeWalker.GameFiles
                 UnkUint4 = reader.ReadUInt32();//0
                 UnkUint5 = reader.ReadUInt32();//0
 
-
                 if (ItemDataByteLength != 0)//sometimes this is 0 and UnkUshort3>0, which is weird
                 {
                     ShatterMapRowOffsets = reader.ReadStructs<ushort>(ItemDataCount);//byte offsets for following array
@@ -1358,7 +1343,6 @@ namespace CodeWalker.GameFiles
                 }
                 else
                 { }
-
 
                 //switch (UnkUshort1)
                 //{
@@ -1616,7 +1600,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             public void Read(ResourceDataReader reader)
             {
                 Start1 = reader.ReadByte();
@@ -1664,7 +1647,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
 
-
             }
             public void WriteXml(StringBuilder sb, int indent)
             {
@@ -1696,7 +1678,6 @@ namespace CodeWalker.GameFiles
                     End2 = 0;
                 }
             }
-
 
             public void WriteLine(StringBuilder sb, int width)
             {
@@ -1817,7 +1798,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         // structure data
         public uint Unknown_0h { get; set; } = 0x56475748; // "VGWH"   ...vehicle glass window H..?
         public ushort Unknown_4h { get; set; } = 112;// = length of item headers
@@ -1826,7 +1806,6 @@ namespace CodeWalker.GameFiles
         public WindowOffset[] WindowOffsets { get; set; }
         public uint UnkUint0 { get; set; } = 0;
         public Window[] Windows { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -1937,8 +1916,6 @@ namespace CodeWalker.GameFiles
 
             BuildOffsets();
         }
-
-
 
         public void BuildOffsets()
         {
@@ -2171,13 +2148,11 @@ namespace CodeWalker.GameFiles
         public byte[] UnknownData1 { get; set; }
         public byte[] UnknownData2 { get; set; }
 
-
         private ResourceSystemStructBlock<float> ChildrenUnkFloatsBlock = null; //used only for saving
         private ResourceSystemStructBlock<Vector4> ChildrenInertiaTensorsBlock = null;
         private ResourceSystemStructBlock<Vector4> ChildrenUnkVecsBlock = null;
         private ResourceSystemStructBlock<byte> UnknownData1Block = null;
         private ResourceSystemStructBlock<byte> UnknownData2Block = null;
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -2246,8 +2221,6 @@ namespace CodeWalker.GameFiles
             this.UnknownData1 = reader.ReadBytesAt(this.UnknownData1Pointer, this.UnknownData1Count);
             this.UnknownData2 = reader.ReadBytesAt(this.UnknownData2Pointer, this.UnknownData2Count);
 
-
-
             if ((Children != null) && (Children.data_items != null))
             {
                 for (int i = 0; i < Children.data_items.Length; i++)
@@ -2268,7 +2241,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
 
             if ((Groups?.data_items != null) && (GroupNames?.data_items != null) && (Groups.data_items.Length == GroupNames.data_items.Length))
             {
@@ -2298,7 +2270,6 @@ namespace CodeWalker.GameFiles
             //    if ((bcmp.ChildrenFlags1 != null) || (bcmp.ChildrenFlags2 != null))
             //    { }//no hit
             //}
-
 
             //if ((Unknown_3Ch != 0x7f800001) && (Unknown_3Ch != 0x7fc00001))
             //{ }//no hit
@@ -2386,7 +2357,6 @@ namespace CodeWalker.GameFiles
             this.GroupsCount = (byte)(this.Groups != null ? this.Groups.Count : 0);
             this.ChildrenCount = (byte)(this.Children != null ? this.Children.Count : 0);
             this.ChildrenCount2 = this.ChildrenCount;
-
 
             // write structure data
             writer.Write(this.VFT);
@@ -2597,7 +2567,6 @@ namespace CodeWalker.GameFiles
             BuildGroupsData();
         }
 
-
         public void BuildChildrenData()
         {
             if (Children?.data_items == null) return;
@@ -2633,13 +2602,11 @@ namespace CodeWalker.GameFiles
                         rootgrps++;
                     }
 
-
                     ////just testing
                     //var childGroupIndex = grp.ChildGroupIndex;
                     //var childGroupCount = grp.ChildGroupCount;
                     //var childIndex = grp.ChildIndex;
                     //var childCount = grp.ChildCount;
-
 
                     grp.ChildGroupIndex = 255;
                     grp.ChildGroupCount = 0;
@@ -2705,7 +2672,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
 
         public override IResourceBlock[] GetReferences()
         {
@@ -2779,7 +2745,6 @@ namespace CodeWalker.GameFiles
 
         private ResourceSystemStructBlock<Vector4> UnknownVectorsBlock = null;//only used for saving
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             // read structure data
@@ -2801,7 +2766,6 @@ namespace CodeWalker.GameFiles
             // read reference data
             this.Joints = reader.ReadBlockAt<ResourcePointerArray64<FragPhysJointType>>(this.JointsPointer, this.JointsCount);
             this.UnknownVectors = reader.ReadStructsAt<Vector4>(this.UnknownVectorsPointer, this.UnknownVectorsCount);
-
 
             ////testing!!
             //if (Unknown_04h != 1)
@@ -3359,11 +3323,9 @@ namespace CodeWalker.GameFiles
         public string Name { get; set; }
         public Bounds Bound { get; set; }
 
-
         private string_r NameBlock = null;//used only when saving
 
         public FragPhysicsLOD Owner { get; set; } //required for correct bounds BVH generation
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -3637,7 +3599,6 @@ namespace CodeWalker.GameFiles
         public FragDrawable Drawable2 { get; set; }
         public FragPhysEvtSet EvtSet { get; set; }
 
-
         public float UnkFloatFromParent { get; set; }//is this mass..?
         public Vector4 UnkVecFromParent { get; set; }
         public Vector4 InertiaTensorFromParent { get; set; }//is this really an inertia tensor?
@@ -3700,7 +3661,6 @@ namespace CodeWalker.GameFiles
             {
                 this.Drawable2.OwnerFragmentPhys = this;
             }
-
 
             //if (Unknown_04h != 1)
             //{ }//no hit
@@ -3866,7 +3826,6 @@ namespace CodeWalker.GameFiles
             if (EvtSet != null) list.Add(EvtSet);
             return list.ToArray();
         }
-
 
         public override string ToString()
         {
@@ -4044,7 +4003,6 @@ namespace CodeWalker.GameFiles
             //{ }//no hit
             //if (Unknown_ACh != 0)
             //{ }//no hit
-
 
             //if ((UnkFloat10 != 0.0f) && (UnkFloat10 != -1.0f) && (UnkFloat10 != 100.0f))
             //{ }//hit
@@ -4231,17 +4189,13 @@ namespace CodeWalker.GameFiles
             get { return (data_items?.Length ?? 0) * 8 + 8; }
         }
 
-
         public ulong[] data_pointers { get; set; }
         public FragPhysNameStruct_s[] data_items { get; set; }
 
         public uint UnkVFT { get; set; } = 1095046985;
         public uint UnkUint1 { get; set; } = 1;
 
-
         public FragPhysTypeGroup[] Groups;//for writing purposes
-
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -4295,15 +4249,12 @@ namespace CodeWalker.GameFiles
         public override void Write(ResourceDataWriter writer, params object[] parameters)
         {
 
-
             var gnplist = new List<ulong>();
             foreach (var grp in Groups)
             {
                 gnplist.Add((ulong)grp.FilePosition + 128);//manually write group names pointers as offsets to the groups
             }
             data_pointers = gnplist.ToArray();
-
-
 
             foreach (var x in data_pointers)
             {
@@ -4314,9 +4265,6 @@ namespace CodeWalker.GameFiles
             writer.Write(UnkUint1);
 
         }
-
-
-
 
         public override string ToString()
         {
@@ -4338,7 +4286,6 @@ namespace CodeWalker.GameFiles
         public uint Unknown_1Ch { get; set; }
         public uint Unknown_20h { get; set; }
         public uint Unknown_24h { get; set; }
-
 
         public FragPhysNameStruct_s(string s)
         {
@@ -4373,7 +4320,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     public class UintStringBuilder
     {
         public StringBuilder sb = new StringBuilder();
@@ -4391,6 +4337,5 @@ namespace CodeWalker.GameFiles
             return sb.ToString().Replace("\0", "");
         }
     }
-
 
 }

@@ -1,6 +1,4 @@
 
-
-
 struct ShaderGlobalLightParams
 {
     float3 LightDir;
@@ -13,10 +11,6 @@ struct ShaderGlobalLightParams
     float4 LightArtificialAmbDown;
 };
 
-
-
-
-
 //for unpacking colours etc
 uint4 Unpack4x8(uint v)
 {
@@ -28,8 +22,6 @@ float4 Unpack4x8UNF(uint v)
     return u*0.0039215686274509803921568627451f;// u * 1/255
 }
 
-
-
 float DepthFunc(float2 zw)
 {
     return zw.x;
@@ -39,13 +31,8 @@ float DepthFunc(float2 zw)
 	////(for this to work, also need to change GpuBuffers.Clear,.ClearDepth and ShaderManager DepthComparison,RenderFinalPass)
 	//return max(0.001 / zw.x, 0);
 
-
-
-
     //return zw.x * (0.1 + 0.00001*(abs(zw.y)));
     //return zw.x * (0.1 + 0.00001*((zw.y)));
-
-
 
     //const float far = 1000.0; //outerra version - needs logz written to frag depth in PS...
     //const float C = 0.01; //~10m linearization
@@ -57,11 +44,6 @@ float DepthFunc(float2 zw)
     //return (2*logz - 1)*zw.y;
 
 }
-
-
-
-
-
 
 float3 GeomWindMotion(float3 ipos, float3 vc0, float4 windvec, float4 overrideparams)
 {
@@ -96,9 +78,6 @@ float3 GeomWindMotion(float3 ipos, float3 vc0, float4 windvec, float4 overridepa
     //return ipos;
 }
 
-
-
-
 float3 NormalMap(float2 nmv, float bumpinezz, float3 norm, float3 tang, float3 bita)
 {
     //r1 = nmv; //sample r1.xyzw, v2.xyxx, t2.xyzw, s2  (BumpSampler)
@@ -117,9 +96,6 @@ float3 NormalMap(float2 nmv, float bumpinezz, float3 norm, float3 tang, float3 b
     ////mad o1.xyz, t3.xyzx, l(0.500000, 0.500000, 0.500000, 0.000000), l(0.500000, 0.500000, 0.500000, 0.000000)
     //return t3;
 }
-
-
-
 
 float3 BasicLighting(float4 lightcolour, float4 ambcolour, float pclit)
 {
@@ -146,32 +122,4 @@ float3 GlobalLighting(float3 diff, float3 norm, float4 vc0, float lf, uniform Sh
     c += AmbientLight(fc, norm.z, globalLights.LightArtificialAmbUp, globalLights.LightArtificialAmbDown, artificialDiffuseFactor);
     return c;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

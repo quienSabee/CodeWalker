@@ -71,8 +71,6 @@ namespace CodeWalker.Project.Panels
                 }
                 else TabControl.TabPages.Remove(MloArchetypeTabPage);
 
-
-
                 if (CurrentArchetype is TimeArchetype TimeArchetype)
                 {
                     if (!TabControl.TabPages.Contains(TimeArchetypeTabPage))

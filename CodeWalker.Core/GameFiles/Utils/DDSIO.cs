@@ -22,9 +22,6 @@
 
 //DDSIO: stolen and translated
 
-
-
-
 // #region License
 // /*
 // Microsoft Public License (Ms-PL)
@@ -67,8 +64,6 @@
 
 //DecompressDXT: ripped from MonoGame - todo: reinterpret to remove stupid license
 
-
-
 //additional dds importing code modified from: https://gist.github.com/spazzarama/2710d020d1d615cde20c607711655167
 // DDSTextureLoader Ported to C# by Justin Stenning, March 2017
 //--------------------------------------------------------------------------------------
@@ -91,10 +86,6 @@
 // http://go.microsoft.com/fwlink/?LinkId=248929
 //--------------------------------------------------------------------------------------
 
-
-
-
-
 using CodeWalker.GameFiles;
 using System;
 using System.Collections.Generic;
@@ -109,7 +100,6 @@ namespace CodeWalker.Utils
     public static class DDSIO
     {
 
-
         public static byte[] GetPixels(Texture texture, int mip)
         {
             //dexyfex version
@@ -120,7 +110,6 @@ namespace CodeWalker.Utils
 
             if (meta.dimension != TEX_DIMENSION.TEX_DIMENSION_TEXTURE2D)
                 throw new Exception("Can only GetPixels from Texture2D.");
-
 
             var i0 = images[Math.Min(Math.Max(mip, 0), images.Length - 1)];
 
@@ -201,11 +190,8 @@ namespace CodeWalker.Utils
                 }
             }
 
-
             return px;
         }
-
-
 
         public static byte[] GetDDSFile(Texture texture)
         {
@@ -213,9 +199,6 @@ namespace CodeWalker.Utils
             ImageStruct img = GetImageStruct(texture, format);
             Image[] images = GetMipmapImages(img, format);
             TexMetadata meta = GetImageMetadata(img, format);
-
-
-
 
             MemoryStream ms = new MemoryStream();
             BinaryWriter bw = new BinaryWriter(ms);
@@ -349,14 +332,12 @@ namespace CodeWalker.Utils
                     throw new Exception("Unsupported texture dimension");
             }
 
-
             byte[] buff = ms.GetBuffer();
             byte[] outbuf = new byte[ms.Length]; //need to copy to the right size buffer for File.WriteAllBytes().
             Array.Copy(buff, outbuf, outbuf.Length);
 
             return outbuf;
         }
-
 
         public static Texture GetTexture(byte[] ddsfile)
         {
@@ -469,9 +450,6 @@ namespace CodeWalker.Utils
             return tex;
         }
 
-
-
-
         private static TextureFormat GetTextureFormat(DXGI_FORMAT f)
         {
             var format = (TextureFormat)0;
@@ -566,7 +544,6 @@ namespace CodeWalker.Utils
             meta.dimension = TEX_DIMENSION.TEX_DIMENSION_TEXTURE2D;
             return meta;
         }
-
 
         public struct TexMetadata
         {
@@ -906,8 +883,6 @@ namespace CodeWalker.Utils
                 }
             }
 
-
-
             public static bool IsValid(DXGI_FORMAT fmt)
             {
                 return (((int)fmt) >= 1 && ((int)fmt) <= 190);
@@ -926,7 +901,6 @@ namespace CodeWalker.Utils
                         return false;
                 }
             }
-
 
             public static int BitsPerPixel(DXGI_FORMAT fmt)
             {
@@ -1084,8 +1058,6 @@ namespace CodeWalker.Utils
                 }
             }
 
-
-
             public static int ComputeScanlines(DXGI_FORMAT fmt, int height)
             {
                 switch (fmt)
@@ -1144,10 +1116,6 @@ namespace CodeWalker.Utils
                 }
             }
 
-
-
-
-
             public static uint DDS_HEADER_FLAGS_TEXTURE = 0x00001007; // DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT 
             public static uint DDS_HEADER_FLAGS_MIPMAP = 0x00020000;  // DDSD_MIPMAPCOUNT
             public static uint DDS_HEADER_FLAGS_VOLUME = 0x00800000;  // DDSD_DEPTH
@@ -1177,8 +1145,6 @@ namespace CodeWalker.Utils
             public static uint DDS_FLAGS_VOLUME = 0x00200000; // DDSCAPS2_VOLUME
 
             public static uint DDS_MAGIC = 0x20534444; // "DDS "
-
-
 
             //-------------------------------------------------------------------------------------
             // Encodes DDS file header (magic value, header, optional DX10 extended header)
@@ -1427,7 +1393,6 @@ namespace CodeWalker.Utils
                     //memcpy_s(&header.ddspf, sizeof(header.ddspf), &ddpf, sizeof(ddpf) );
                 }
 
-
                 //magic write
                 bw.Write(DDS_MAGIC);
 
@@ -1459,7 +1424,6 @@ namespace CodeWalker.Utils
                 bw.Write(header.dwCaps4);
                 bw.Write(header.dwReserved2);
 
-
                 if (ddpf.dwSize == 0)
                 {
                     //write ext
@@ -1472,7 +1436,6 @@ namespace CodeWalker.Utils
 
                 return true; //S_OK
             }
-
 
             public static bool _ReadDDSHeader(BinaryReader br, out DDS_HEADER header, out DDS_HEADER_DXT10 header10, out bool useheader10)
             {
@@ -1510,8 +1473,6 @@ namespace CodeWalker.Utils
                 header.dwCaps4 = br.ReadUInt32();
                 header.dwReserved2 = br.ReadUInt32();
 
-
-
                 if(((DDS_PIXELFORMAT.DDS_FOURCC & header.ddspf.dwFlags) > 0) && 
                     (DDS_PIXELFORMAT.MAKEFOURCC('D', 'X', '1', '0') == header.ddspf.dwFourCC))
                 {
@@ -1533,10 +1494,8 @@ namespace CodeWalker.Utils
                     throw new Exception("Invalid DDS header size");
                 }
 
-
                 return true;
             }
-
 
         }
 
@@ -1552,7 +1511,6 @@ namespace CodeWalker.Utils
             CP_FLAGS_16BPP = 0x20000,  // Override with a legacy 16 bits-per-pixel format size
             CP_FLAGS_8BPP = 0x40000,  // Override with a legacy 8 bits-per-pixel format size
         }
-
 
         public class ImageStruct
         {
@@ -1578,7 +1536,6 @@ namespace CodeWalker.Utils
                 DXTex.ComputePitch((DXGI_FORMAT)Format, Width, Height, out rowPitch, out slicePitch, 0);
                 return slicePitch;
             }
-
 
         }
 
@@ -1702,7 +1659,6 @@ namespace CodeWalker.Utils
             DXGI_FORMAT_B4G4R4A4_UNORM = 115,
             DXGI_FORMAT_FORCE_UINT = 0xffffffff,
 
-
             XBOX_DXGI_FORMAT_R10G10B10_7E3_A2_FLOAT = 116,
             XBOX_DXGI_FORMAT_R10G10B10_6E4_A2_FLOAT = 117,
             XBOX_DXGI_FORMAT_D16_UNORM_S8_UINT = 118,
@@ -1715,7 +1671,6 @@ namespace CodeWalker.Utils
 
             XBOX_DXGI_FORMAT_R10G10B10_SNORM_A2_UNORM = 189,
             XBOX_DXGI_FORMAT_R4G4_UNORM = 190,
-
 
         }
 
@@ -1740,7 +1695,6 @@ namespace CodeWalker.Utils
             TEX_ALPHA_MODE_OPAQUE = 3,
             TEX_ALPHA_MODE_CUSTOM = 4,
         }
-
 
         public struct DDS_HEADER
         {
@@ -1803,7 +1757,6 @@ namespace CodeWalker.Utils
                 dwABitMask = amask;
             }
 
-
             public static uint MAKEFOURCC(char ch0, char ch1, char ch2, char ch3)
             {
                 return
@@ -1817,7 +1770,6 @@ namespace CodeWalker.Utils
             public static uint DDS_LUMINANCEA = 0x00020001;  // DDPF_LUMINANCE | DDPF_ALPHAPIXELS
             public static uint DDS_ALPHA = 0x00000002; // DDPF_ALPHA
             public static uint DDS_PAL8 = 0x00000020;  // DDPF_PALETTEINDEXED8
-
 
             public static DDS_PIXELFORMAT DDSPF_DXT1 = new DDS_PIXELFORMAT(32, DDS_FOURCC, MAKEFOURCC('D','X','T','1'), 0, 0, 0, 0, 0 );
             public static DDS_PIXELFORMAT DDSPF_DXT2 = new DDS_PIXELFORMAT(32, DDS_FOURCC, MAKEFOURCC('D', 'X', 'T', '2'), 0, 0, 0, 0, 0);
@@ -1849,10 +1801,6 @@ namespace CodeWalker.Utils
 
             // This indicates the DDS_HEADER_DXT10 extension is present (the format is in dxgiFormat)
             public static DDS_PIXELFORMAT DDSPF_DX10 = new DDS_PIXELFORMAT(32, DDS_FOURCC, MAKEFOURCC('D','X','1','0'), 0, 0, 0, 0, 0);
-
-
-
-
 
             private bool ISBITMASK(uint r, uint g, uint b, uint a)
             {
@@ -2064,7 +2012,6 @@ namespace CodeWalker.Utils
                 return DXGI_FORMAT.DXGI_FORMAT_UNKNOWN;
             }
 
-
         };
 
         public enum DDS_FLAGS : uint
@@ -2095,26 +2042,6 @@ namespace CodeWalker.Utils
             DDS_FLAGS_FORCE_DX10_EXT_MISC2 = 0x20000,
             // DDS_FLAGS_FORCE_DX10_EXT including miscFlags2 information (result may not be compatible with D3DX10 or D3DX11)
         };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         internal static byte[] DecompressDxt1(byte[] imageData, int width, int height)
         {
@@ -2229,7 +2156,6 @@ namespace CodeWalker.Utils
                 }
             }
         }
-
 
         internal static byte[] DecompressDxt3(byte[] imageData, int width, int height)
         {
@@ -2379,7 +2305,6 @@ namespace CodeWalker.Utils
             }
         }
 
-
         internal static byte[] DecompressDxt5(byte[] imageData, int width, int height)
         {
             using (MemoryStream imageStream = new MemoryStream(imageData))
@@ -2524,9 +2449,6 @@ namespace CodeWalker.Utils
             a = (byte)((color & 1) * 255);
         }
 
-
-
-
         //these ones added by dexy - based on DecompressDxt
 
         internal static byte[] DecompressBC4(byte[] imageData, int width, int height)
@@ -2614,7 +2536,6 @@ namespace CodeWalker.Utils
             }
         }
 
-
         internal static byte[] DecompressBC5(byte[] imageData, int width, int height)
         {
             using (MemoryStream imageStream = new MemoryStream(imageData))
@@ -2695,7 +2616,6 @@ namespace CodeWalker.Utils
                         r = (byte)(((6 - rIndex) * r0 + (rIndex - 1) * r1) / 5);
                     }
 
-
                     byte g = 255;
                     uint gIndex = (uint)((gMask >> 3 * (4 * blockY + blockX)) & 0x07);
                     if (gIndex == 0)
@@ -2723,7 +2643,6 @@ namespace CodeWalker.Utils
                         r = (byte)(((6 - gIndex) * r0 + (gIndex - 1) * r1) / 5);
                     }
 
-
                     int px = (x << 2) + blockX;
                     int py = (y << 2) + blockY;
                     if ((px < width) && (py < height))
@@ -2737,8 +2656,6 @@ namespace CodeWalker.Utils
                 }
             }
         }
-
-
 
         private static byte[] ConvertA8ToRGBA8(byte[] imgdata, int w, int h)
         {

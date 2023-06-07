@@ -1,6 +1,5 @@
 #include "LightPS.hlsli"
 
-
 Texture2D DepthTex : register(t0);
 Texture2D DiffuseTex : register(t2);
 Texture2D NormalTex : register(t3);
@@ -12,7 +11,6 @@ struct VS_Output
     float4 Pos : SV_POSITION;
     float4 Screen : TEXCOORD0;
 };
-
 
 float4 main(VS_Output input) : SV_TARGET
 {

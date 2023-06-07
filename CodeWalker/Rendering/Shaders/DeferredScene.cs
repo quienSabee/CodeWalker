@@ -66,10 +66,8 @@ namespace CodeWalker.Rendering
         public float TexelSizeY;
     }
 
-
     public class DeferredScene
     {
-
         public GpuMultiTexture GBuffers; // diffuse, normals, specular, irradiance
         public GpuTexture SceneColour; //final scene colour buffer
 
@@ -96,23 +94,16 @@ namespace CodeWalker.Rendering
         UnitQuad LightQuad;
         InputLayout LightQuadLayout;
 
-
         GpuVarsBuffer<DeferredLightVSVars> LightVSVars;
         GpuVarsBuffer<DeferredLightPSVars> LightPSVars;
         GpuVarsBuffer<DeferredLightInstVars> LightInstVars;
-
-
 
         VertexShader FinalVS;
         PixelShader SSAAPS;
         GpuVarsBuffer<DeferredSSAAPSVars> SSAAPSVars;
         public int SSAASampleCount = 1;
 
-
         public int MSAASampleCount = 4;
-
-
-
 
         public long VramUsage
         {
@@ -121,9 +112,7 @@ namespace CodeWalker.Rendering
                 return WindowSizeVramUsage;
             }
         }
-
-
-
+        
         public DeferredScene(DXManager dxman)
         {
             var device = dxman.device;
@@ -159,7 +148,6 @@ namespace CodeWalker.Rendering
                 MSAASampleCount = 1; //can't do MSAA without at least 10.1 support
             }
 
-
             LightCone = new LightCone(device, bLodLightVS, 2);
             LightSphere = new UnitSphere(device, bLodLightVS, 3, true);
             LightCapsule = new UnitCapsule(device, bLodLightVS, 4, false);
@@ -173,7 +161,6 @@ namespace CodeWalker.Rendering
             LightVSVars = new GpuVarsBuffer<DeferredLightVSVars>(device);
             LightPSVars = new GpuVarsBuffer<DeferredLightPSVars>(device);
             LightInstVars = new GpuVarsBuffer<DeferredLightInstVars>(device);
-
 
             FinalVS = new VertexShader(device, bFinalVS);
             SSAAPS = new PixelShader(device, bSSAAPS);
@@ -189,6 +176,7 @@ namespace CodeWalker.Rendering
             BlendState = DXUtility.CreateBlendState(device, false, BlendOperation.Add, BlendOption.One, BlendOption.Zero, BlendOperation.Add, BlendOption.One, BlendOption.Zero, ColorWriteMaskFlags.All);
 
         }
+
         public void Dispose()
         {
             DisposeBuffers();
@@ -316,8 +304,6 @@ namespace CodeWalker.Rendering
 
             var device = dxman.device;
 
-
-
             int uw = Width = dxman.backbuffer.Description.Width * SSAASampleCount;
             int uh = Height = dxman.backbuffer.Description.Height * SSAASampleCount;
             Viewport = new ViewportF();
@@ -328,13 +314,13 @@ namespace CodeWalker.Rendering
             Viewport.X = 0.0f;
             Viewport.Y = 0.0f;
 
-
             GBuffers = new GpuMultiTexture(device, uw, uh, 4, Format.R8G8B8A8_UNorm, true, Format.D32_Float, MSAASampleCount);
             WindowSizeVramUsage += GBuffers.VramUsage;
 
             SceneColour = new GpuTexture(device, uw, uh, Format.R32G32B32A32_Float, 1, 0, true, Format.D32_Float);
             WindowSizeVramUsage += SceneColour.VramUsage;
         }
+
         public void DisposeBuffers()
         {
             if (GBuffers != null)
@@ -373,7 +359,6 @@ namespace CodeWalker.Rendering
 
         public void RenderLights(DeviceContext context, Camera camera, Shadowmap globalShadows, ShaderGlobalLights globalLights)
         {
-
             //first full-screen directional light pass, for sun/moon
             //discard pixels where scene depth is 0, since nothing was rendered there
             //blend mode: overwrite
@@ -417,7 +402,6 @@ namespace CodeWalker.Rendering
             context.InputAssembler.InputLayout = LightQuadLayout;
             LightQuad.Draw(context);
 
-
             context.VertexShader.Set(null);
             context.PixelShader.Set(null);
             context.PixelShader.SetShaderResources(0, null, null, null, null, null, null);
@@ -454,7 +438,6 @@ namespace CodeWalker.Rendering
 
             context.PixelShader.SetShaderResources(0, GBuffers.DepthSRV);
             context.PixelShader.SetShaderResources(2, GBuffers.SRVs);
-
 
             foreach (var rll in lodlights)
             {
@@ -495,8 +478,7 @@ namespace CodeWalker.Rendering
                     LightCapsule.DrawInstanced(context, rll.CapsBuffer.StructCount);
                 }
             }
-
-
+            
             context.VertexShader.Set(null);
             context.VertexShader.SetShaderResources(0, null, null, null);
             context.PixelShader.Set(null);
@@ -508,7 +490,6 @@ namespace CodeWalker.Rendering
         {
             //instanced rendering of all other lights, using appropriate shapes
             //blend mode: additive
-
 
             var ps = (MSAASampleCount > 1) ? LightMSPS : LightPS;
 
@@ -539,7 +520,6 @@ namespace CodeWalker.Rendering
 
             context.PixelShader.SetShaderResources(0, GBuffers.DepthSRV);
             context.PixelShader.SetShaderResources(2, GBuffers.SRVs);
-
 
             for (int i = 0; i < lights.Count; i++)
             {
@@ -591,9 +571,7 @@ namespace CodeWalker.Rendering
                     default:
                         break;
                 }
-
             }
-
 
             context.VertexShader.Set(null);
             context.VertexShader.SetShaderResources(0, null, null, null);
@@ -601,7 +579,6 @@ namespace CodeWalker.Rendering
             context.PixelShader.SetShaderResources(0, null, null, null, null, null, null, null);
             context.PixelShader.SetSamplers(0, null, null);
         }
-
 
         public void SSAAPass(DeviceContext context)
         {
@@ -629,7 +606,5 @@ namespace CodeWalker.Rendering
             context.PixelShader.SetSamplers(0, null, null);
 
         }
-
-
     }
 }

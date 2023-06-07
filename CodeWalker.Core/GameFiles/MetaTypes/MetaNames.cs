@@ -23,10 +23,8 @@ namespace CodeWalker.GameFiles
         }
     }
 
-    
     public class MetaNamesUtil
     {
-
 
         public static string GetNameEnumCode()
         {
@@ -46,10 +44,6 @@ namespace CodeWalker.GameFiles
         public static string ShaderParamNames = @"";//[redundant list removed]
 
     }
-
-
-
-
 
     public enum MetaName : uint
     {
@@ -1819,42 +1813,7 @@ namespace CodeWalker.GameFiles
         ZONEBIND_FILE = 3024721823,
         zRotation = 1366235387,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //Shader params - casing issues now fixed here - see ShaderParamNames enum for cased versions!
-
 
         _dimensionlod2 = 2213330743,
         _fakedgrassnormal = 3847734030,
@@ -3303,19 +3262,6 @@ namespace CodeWalker.GameFiles
         zshift = 2743864906,
         zshiftscale = 273550094,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         CCompositeEntityType = 1185771007,
         scaleXY = 2627937847,
         scaleZ = 284916802,
@@ -3340,10 +3286,6 @@ namespace CodeWalker.GameFiles
         itypName = 2890158180,
         packFileName = 4216494073,
         itypDepArray = 2410949350,
-
-
-
-
 
         //dexyfex manual guessing
         CScenarioPointRegion = 1492970064,
@@ -3405,8 +3347,6 @@ namespace CodeWalker.GameFiles
         CVfxRegionInfoMgr = 3596444566,
         CVfxRegionInfo = 286275649,
         vfxRegionInfos = 4124078855,
-
-
 
         CWanted__Tunables__WantedLevel = 4209402831,
         AFF_AVERAGE = 2722191879,
@@ -3477,9 +3417,6 @@ namespace CodeWalker.GameFiles
         run = 285848937, //used in game.dat151.rel
         cop_dispatch_interaction_settings = 778268174, //used in game.dat151.rel
 
-
-
-
         FloatXYZ = 3805007828,
 
         aPropMetaData = 3902803273,
@@ -3548,18 +3485,9 @@ namespace CodeWalker.GameFiles
 
         @null = 987444055, // how best to handle this? C# doesn't like it
 
-
         exportcamera = 962998194, //cutscene related stuff
 
         loop = 1281572103, //found in AWCs GranularLoop
-
-
-
-
-
-
-
-
 
         //ped ymt's hashes from Siprus
         numAvailProps = 2598445407,
@@ -3719,8 +3647,6 @@ namespace CodeWalker.GameFiles
         LIGHTSHAFT_DENSITYTYPE_LINEAR_GRADIENT = 2088805984,
         LIGHTSHAFT_DENSITYTYPE_SOFT = 2399586564,
 
-
-
         ////various entries from Siprus - thanks!
         // eVfxGroup
         VFXGROUP_TARMAC_BRITTLE = 349722727,
@@ -3872,7 +3798,6 @@ namespace CodeWalker.GameFiles
         weather_wind = 3506430202,
         weather_wind_foliage = 480273725,
 
-
         // particles ShaderVars names from Siprus
         diffusetex2 = 234123336,
         softnesscurve = 415919122,
@@ -3890,7 +3815,6 @@ namespace CodeWalker.GameFiles
         extralightmult = 3338535754,
         camerashrink = 2170767496,
 
-
         //AWC markers names from Siprus
         tank_jump = 322089989,
         tank_weapon_main_cannon_hit = 2054994489,
@@ -3906,13 +3830,6 @@ namespace CodeWalker.GameFiles
         g_s = 349722558,//is this right?
         m_p = 2304294116,//is this right?
 
-
-
-
-
-
-
-
         //GranularSound dat54.rel FileName hashes from NotGigo
         engine_accel = 3748922026,
         exhaust_accel = 598446449,
@@ -3920,17 +3837,6 @@ namespace CodeWalker.GameFiles
         exhaust_decel = 780159042,
         engine_idle = 1025030561,
         exhaust_idle = 396221610,
-
-
-
-
-
-
-
-
-
-
-
 
         //from dav90's PSO_RBF_XMLExport_V5.7
         AutoJunctionAdjustments = 1352439928,
@@ -3950,9 +3856,6 @@ namespace CodeWalker.GameFiles
         flee_right = 1266046331,
         flee_forward = 1547194093,
         flee_back = 1622623046,
-
-
-
 
         //dav90 suggestions
         AccelGrid = 3053155275,
@@ -4091,9 +3994,6 @@ namespace CodeWalker.GameFiles
         CVehicleModPearlescentColors = 1380492417,
         baseCols = 2645876692,
         specCols = 666439252,
-
-
-
 
         ACTION_TABLE_BRANCHES = 873568416,
         ACTION_TABLE_DAMAGES = 595808921,
@@ -9080,25 +8980,7 @@ namespace CodeWalker.GameFiles
         yawKi = 1366920760,
         yawKp = 922081581,
 
-
         Velocity2 = 2944635386,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //from rubidium / dav90 PSO XML / zonebind
         mpName = 2031203854,
@@ -9110,8 +8992,6 @@ namespace CodeWalker.GameFiles
         pedDirtMin = 1861946207,
         pedDirtMax = 3150688023,
 
-
-
         //dilapidated list - from dav90 hash collider
         ActivateVehicleSiren = 3401359988,
         AerialVehiclePoint = 1653545417,
@@ -9119,14 +8999,6 @@ namespace CodeWalker.GameFiles
         AggressiveVehicleDriving = 2626064871,
         UseSearchlight = 1524211135,
         IgnoreWeatherRestrictions = 176469077,
-
-
-
-
-
-
-
-
 
         //from 0x1F9F1 - from companion app - thanks!!
         AbsoluteIntensityEnabled = 2168731396,
@@ -9286,17 +9158,6 @@ namespace CodeWalker.GameFiles
         VFXGROUP_WOOD_DUSTY = 1551687812,
         VFXGROUP_WOOD_SPLINTER = 4047674909,
 
-
-
-
-
-
-
-
-
-
-
-
         //from junctions.xml -dexy
         CJunctionTemplateArray = 313816480,
         CJunctionTemplate = 2985578477,
@@ -9328,7 +9189,6 @@ namespace CodeWalker.GameFiles
         iPosX = 681100199,
         iPosY = 1574841905,
         iPosZ = 176392061,
-
 
         //from openIV
         dependencies = 1013942340,
@@ -9440,7 +9300,6 @@ namespace CodeWalker.GameFiles
         PRI_OPTIONAL_MEDIUM = 515598709,
         PRI_OPTIONAL_LOW = 329627604,
 
-
         ASSET_TYPE_UNINITIALIZED = 189734893,
         ASSET_TYPE_FRAGMENT = 571047911,
         ASSET_TYPE_DRAWABLE = 130075505,
@@ -9452,8 +9311,6 @@ namespace CodeWalker.GameFiles
         cTitle = 834048882,
         cFilename = 3760135447,
         cBugstarName = 3970741067,
-
-
 
         //openIV carcols.ymt
         VehiclePlates = 593302648,
@@ -9547,8 +9404,6 @@ namespace CodeWalker.GameFiles
         vehiclelight_misc_squarelight = 1293462541,
         vehiclelight_car_antique = 708414868,
         vehiclelight_sirenlight = 3203227048,
-
-
 
         //entity sets names
         gunclubwallhooks = 222589842,
@@ -10863,15 +10718,6 @@ namespace CodeWalker.GameFiles
         grass_long = 4160773303,
         grass_short = 1200682253,
 
-
-
-
-
-
-
-
-
-
         //vfxvehicleinfo CVfxVehicleInfo keys
         vfxvehicleinfo_bulldozer = 12300880,
         vfxvehicleinfo_car_deluxo = 193226246,
@@ -11062,20 +10908,8 @@ namespace CodeWalker.GameFiles
         water_splash_veh_trail = 2953510466,
         water_splash_veh_wade = 3800884192,
 
-
-
-
-
-
         //Carl Johnson: I discovered  in zonebind
         specialZoneAttribute = 218662697,
-
-
-
-
-
-
-
 
         // Siprus and Carl Johnson
         ABON_YEA = 3148884390,
@@ -19732,14 +19566,6 @@ namespace CodeWalker.GameFiles
         woodland_mist_ground = 1024959356,
         woodland_pollen_drop = 2445487209,
 
-
-
-
-
-
-
-
-
         //MRF related hashes from Disquse
         statemachine = 429383484,
         success = 975994832,
@@ -19824,6 +19650,5 @@ namespace CodeWalker.GameFiles
         bonemask_armonly_l = 1739926164,
         bonemask_armonly_r = 3772128476,
     }
-
 
 }

@@ -85,10 +85,6 @@ struct VS_OUTPUT
 Texture2D<float4> TintPalette : register(t0);
 SamplerState TextureSS : register(s0);
 
-
-
-
-
 struct rage__fwGrassInstanceListDef__InstanceData //16 bytes, Key:2740378365 rage__fwGrassInstanceListDef__InstanceData//3985044770
 {
     uint PosXY_u16;                // Offset:    0
@@ -98,18 +94,15 @@ struct rage__fwGrassInstanceListDef__InstanceData //16 bytes, Key:2740378365 rag
 };
 StructuredBuffer<rage__fwGrassInstanceListDef__InstanceData> GrassInstances : register(t2);
 
-
 float3 GetGrassInstancePosition(float3 ipos, float3 vc0, float3 vc1, uint iid)
 {
     float3 opos = ipos;
-
 
     float4 windBendParam = float4(gWindBendScaleVar.xy, gWindBendingGlobals.xy);
     if (EnableWind == 0)
     {
         windBendParam = 0;
     }
-
 
     float4 r0, r1, r2, r3, r4, r5, r6, r7;
     uint4 u0, u1, u2, u6;
@@ -146,7 +139,6 @@ float3 GetGrassInstancePosition(float3 ipos, float3 vc0, float3 vc1, uint iid)
     //float3 pab = float3(px, py, pz)*0.000015;
     //float3 fpos = vecBatchAabbMin.xyz + vecBatchAabbDelta.xyz * pab;
     //return opos + fpos - vecPlayerPos.xyz;
-
 
     u2.w = u1.z >> 8;       //ushr r2.w, r1.z, l(8)
     u2.xy = u1.xy >> 16;    //ushr r2.xy, r1.xyxx, l(16)
@@ -252,16 +244,11 @@ float3 GetGrassInstancePosition(float3 ipos, float3 vc0, float3 vc1, uint iid)
     r1.yz = r1.yz * r1.w;   //mul r1.yz, r1.yyzy, r1.wwww
     r0.yz = r1.yz * vc1.z + r0.yz;   //mad r0.yz, r1.yyzy, v3.zzzz, r0.yyzy  //contribute player collision
 
-
     //float3 fpos = r0.yzw;
     return r0.yzw - vecPlayerPos.xyz;
 
-
     //return CamRel.xyz + opos;
 }
-
-
-
 
 void BoneTransform(float4 weights, float4 indices, float3 ipos, float3 inorm, float3 itang, out float3 opos, out float3 onorm, out float3 otang)
 {
@@ -356,10 +343,6 @@ float4 ColourTint(float tx, float tx2, uint iid)
     return tnt;
 }
 
-
-
-
-
 float2 GlobalUVAnim(float2 uv)
 {
     float2 r;
@@ -368,24 +351,6 @@ float2 GlobalUVAnim(float2 uv)
     r.y = dot(globalAnimUV1.xyz, uvw);
     return r;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //grass_batch.fxc_VS_Transform
 //
@@ -790,21 +755,7 @@ mul o2.xyz, r0.xxxx, r1.xyzx  //lighting stuff
 mov o2.w, v4.x  //main texcoords
 mov o3.w, v4.y
 
-
 ret 
 */
 // Approximately 224 instruction slots used
-
-
-
-
-
-
-
-
-
-
-
-
-
 

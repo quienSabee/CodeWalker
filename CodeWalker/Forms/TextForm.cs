@@ -44,7 +44,6 @@ namespace CodeWalker.Forms
         private ExploreForm exploreForm = null;
         public RpfFileEntry rpfFileEntry { get; private set; } = null;
 
-
         public enum TextFileType
         {
             Text = 0,
@@ -53,16 +52,12 @@ namespace CodeWalker.Forms
         }
         private TextFileType fileType = TextFileType.Text;
 
-
-
         public TextForm(ExploreForm owner)
         {
             exploreForm = owner;
 
             InitializeComponent();
         }
-
-
 
         public void LoadText(string filename, string filepath, string text, RpfFileEntry e)
         {
@@ -92,7 +87,6 @@ namespace CodeWalker.Forms
             modified = false;
         }
 
-
         private void UpdateFormTitle()
         {
             Text = fileName + " - " + fileType.ToString() + " Editor - CodeWalker by dexyfex";
@@ -108,16 +102,12 @@ namespace CodeWalker.Forms
 
             Cursor = Cursors.WaitCursor;
 
-
-
             MainTextBox.Text = textValue;
             //MainTextBox.IsChanged = false;
             MainTextBox.ClearUndo();
 
             Cursor = Cursors.Default;
         }
-
-
 
         private bool CloseDocument()
         {
@@ -158,7 +148,6 @@ namespace CodeWalker.Forms
             var fn = OpenFileDialog.FileName;
 
             if (!File.Exists(fn)) return; //couldn't find file?
-
 
             var fnl = fn.ToLowerInvariant();
             if (fnl.EndsWith(".gxt2"))
@@ -229,15 +218,10 @@ namespace CodeWalker.Forms
                 File.WriteAllText(fn, textValue.Replace("\r", "").Replace('\n', '\0'));
             }
 
-
-
             modified = false;
             FilePath = fn;
             FileName = new FileInfo(fn).Name;
         }
-
-
-
 
         private bool SaveToRPF(string txt)
         {
@@ -309,10 +293,6 @@ namespace CodeWalker.Forms
 
             return false;
         }
-
-
-
-
 
         private void MainTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

@@ -19,7 +19,6 @@ namespace CodeWalker.Project.Panels
 
         private bool populatingui = false;
 
-
         public EditAudioInteriorRoomPanel(ProjectForm owner)
         {
             ProjectForm = owner;
@@ -92,7 +91,6 @@ namespace CodeWalker.Project.Panels
                 SoundSetTextBox.Text = cr.SoundSet.ToString();
                 Flags0TextBox.Text = cr.Flags0.Hex;
                 populatingui = false;
-
 
             }
 

@@ -24,7 +24,6 @@ namespace CodeWalker.World
         private float camSmoothing = Settings.Default.CameraSmoothing;
         private bool mouseinvert = Settings.Default.MouseInvert;
 
-
         public SettingsForm(WorldForm owner)
         {
             InitializeComponent();
@@ -84,14 +83,12 @@ namespace CodeWalker.World
             CollisionCacheSizeUpDown.Value = Math.Min(Math.Max(Settings.Default.GPUBoundCompCacheSize / 1048576, CollisionCacheSizeUpDown.Minimum), CollisionCacheSizeUpDown.Maximum);
         }
 
-
         private void AddKeyBinding(string text, Keys key)
         {
             var lvi = KeyBindingsListView.Items.Add(text);
             lvi.SubItems.Add(key.ToString());
             lvi.Tag = key;
         }
-
 
         public void SelectTab(string tab)
         {
@@ -107,7 +104,6 @@ namespace CodeWalker.World
 
         }
 
-
         private void UpdateKeyBindingsListViewItem(string item, Keys val)
         {
             foreach (ListViewItem lvi in KeyBindingsListView.Items)
@@ -120,7 +116,6 @@ namespace CodeWalker.World
                 }
             }
         }
-
 
         private void KeyBindingsListView_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -250,9 +245,7 @@ namespace CodeWalker.World
                 camSmoothing = Settings.Default.CameraSmoothing;
                 LoadMouseSettings();
 
-
                 LoadAdvancedSettings();
-
 
                 if (worldForm != null)
                 {

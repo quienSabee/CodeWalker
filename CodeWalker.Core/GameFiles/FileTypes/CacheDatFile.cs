@@ -165,8 +165,6 @@ namespace CodeWalker.GameFiles
             }
             RootMapNodes = rootMapNodes.ToArray();
 
-
-
             BoundsStoreDict = new Dictionary<MetaHash, BoundsStoreItem>();
             foreach (BoundsStoreItem item in AllBoundsStoreItems)
             {
@@ -184,7 +182,6 @@ namespace CodeWalker.GameFiles
                 //{ }
                 //InteriorProxyDict[prx.Name] = prx;//can't do this! multiples with same name different pos
 
-
                 MapDataStoreNode mnode = null;
                 if (MapNodeDict.TryGetValue(prx.Parent, out mnode))
                 {
@@ -197,7 +194,6 @@ namespace CodeWalker.GameFiles
             {
                 mapnode.InteriorProxyListToArray();
             }
-
 
             br.Dispose();
             ms.Dispose();
@@ -264,7 +260,6 @@ namespace CodeWalker.GameFiles
             }
             WriteString(w, "</module>\n");
 
-
             var buf = new byte[s.Length];
             s.Position = 0;
             s.Read(buf, 0, buf.Length);
@@ -278,7 +273,6 @@ namespace CodeWalker.GameFiles
                 w.Write((byte)s[i]);
             }
         }
-
 
         public void WriteXml(StringBuilder sb, int indent)
         {
@@ -296,8 +290,6 @@ namespace CodeWalker.GameFiles
             AllCInteriorProxies = XmlMeta.ReadItemArray<CInteriorProxy>(node, "InteriorProxies");
             AllBoundsStoreItems = XmlMeta.ReadItemArray<BoundsStoreItem>(node, "BoundsStore");
         }
-
-
 
         public string GetXmlOLD()
         {
@@ -366,7 +358,6 @@ namespace CodeWalker.GameFiles
             sb.AppendLine("</CacheDatFile>");
             return sb.ToString();
         }
-
 
         public override string ToString()
         {
@@ -512,7 +503,6 @@ namespace CodeWalker.GameFiles
             Unk12 = br.ReadUInt64();
             Unk13 = br.ReadUInt64();
             Unk14 = br.ReadUInt64(); //(unk14-unk13)=~ 5500000
-
 
             switch (Unk01)
             {
@@ -766,7 +756,6 @@ namespace CodeWalker.GameFiles
             Unk14 = Xml.GetChildULongAttribute(node, "unk14");
         }
 
-
         public override string ToString()
         {
             return Unk01.ToString() + ", " +
@@ -873,7 +862,6 @@ namespace CodeWalker.GameFiles
             //}
         }
 
-
         public void WriteXml(StringBuilder sb, int indent)
         {
             CacheDatXml.StringTag(sb, indent, "name", CacheDatXml.HashString(Name));
@@ -902,7 +890,6 @@ namespace CodeWalker.GameFiles
             Unk3 = (byte)Xml.GetChildUIntAttribute(node, "unk3");
             Unk4 = (byte)Xml.GetChildUIntAttribute(node, "unk4");
         }
-
 
         public void AddChildToList(MapDataStoreNode child)
         {
@@ -1025,8 +1012,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     public class CacheDatXml : MetaXmlBase
     {
 
@@ -1049,9 +1034,7 @@ namespace CodeWalker.GameFiles
             return sb.ToString();
         }
 
-
     }
-
 
     public class XmlCacheDat
     {
@@ -1069,7 +1052,6 @@ namespace CodeWalker.GameFiles
             cdf.ReadXml(doc.DocumentElement);
             return cdf;
         }
-
 
     }
 

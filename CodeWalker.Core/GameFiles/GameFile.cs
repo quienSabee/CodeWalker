@@ -15,8 +15,6 @@ namespace CodeWalker.GameFiles
         public string FilePath { get; set; } //used by the project form.
         public GameFileType Type { get; set; }
 
-
-
         public GameFile(RpfFileEntry entry, GameFileType type)
         {
             RpfFileEntry = entry;
@@ -47,9 +45,7 @@ namespace CodeWalker.GameFiles
             return (string.IsNullOrEmpty(Name)) ? JenkIndex.GetString(Key.Hash) : Name;
         }
 
-
     }
-
 
     public enum GameFileType : int
     {
@@ -87,10 +83,6 @@ namespace CodeWalker.GameFiles
         Ypdb = 31,
     }
 
-
-
-
-
     public struct GameFileCacheKey
     {
         public uint Hash { get; set; }
@@ -102,7 +94,5 @@ namespace CodeWalker.GameFiles
             Type = type;
         }
     }
-
-
 
 }

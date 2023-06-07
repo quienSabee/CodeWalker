@@ -15,7 +15,6 @@ cbuffer VSSphereVars : register(b1)
     float Radius;
 }
 
-
 float4 main(uint id : SV_VertexID) : SV_POSITION
 {
     static const float twopi = 6.283185307179586476925286766559;

@@ -42,8 +42,6 @@ namespace CodeWalker.Rendering
                 new InputElement("NORMAL", 0, Format.R32G32B32A32_Float, 16, 0),
             });
 
-
-
             List<Vector4> verts = new List<Vector4>();
             Dictionary<Vector4, int> vdict = new Dictionary<Vector4, int>();
             List<SphTri> curtris = new List<SphTri>();
@@ -93,7 +91,6 @@ namespace CodeWalker.Rendering
                     f2 = 3;// + offs;
                 }
 
-
                 curtris.Add(new SphTri(0, i1, i0)); //top cap triangles
 
                 curtris.Add(new SphTri(f1, f2, f1+1));
@@ -101,12 +98,7 @@ namespace CodeWalker.Rendering
 
                 curtris.Add(new SphTri(1, i2, i3)); //bottom cap triangles
 
-
             }
-
-
-
-
 
             List<uint> idata = new List<uint>();
             foreach (var tri in curtris)
@@ -116,7 +108,6 @@ namespace CodeWalker.Rendering
                 idata.Add((uint)tri.v3);
             }
 
-
             VertexBuffer = Buffer.Create(device, BindFlags.VertexBuffer, verts.ToArray());
             vbbinding = new VertexBufferBinding(VertexBuffer, 32, 0);
 
@@ -124,7 +115,6 @@ namespace CodeWalker.Rendering
             indexcount = idata.Count;
 
         }
-
 
         public void Draw(DeviceContext context)
         {
@@ -146,7 +136,6 @@ namespace CodeWalker.Rendering
             context.DrawIndexedInstanced(indexcount, count, 0, 0, 0);
         }
 
-
         public void Dispose()
         {
             if (VertexBuffer != null)
@@ -167,6 +156,5 @@ namespace CodeWalker.Rendering
         }
 
     }
-
 
 }

@@ -23,7 +23,6 @@ namespace CodeWalker.Rendering
         public Vector4 LightColour;
     }
 
-
     public class PathShader : Shader, IDisposable
     {
         bool disposed = false;
@@ -43,7 +42,6 @@ namespace CodeWalker.Rendering
         bool UseDynamicVerts = false;
         GpuCBuffer<VertexTypePC> vertices; //for selection polys/lines use
 
-
         public PathShader(Device device)
         {
             byte[] boxvsbytes = File.ReadAllBytes("Shaders\\PathBoxVS.cso");
@@ -51,7 +49,6 @@ namespace CodeWalker.Rendering
             byte[] dynvsbytes = File.ReadAllBytes("Shaders\\PathDynVS.cso");
             byte[] vsbytes = File.ReadAllBytes("Shaders\\PathVS.cso");
             byte[] psbytes = File.ReadAllBytes("Shaders\\PathPS.cso");
-
 
             boxvs = new VertexShader(device, boxvsbytes);
             boxps = new PixelShader(device, boxpsbytes);
@@ -67,7 +64,6 @@ namespace CodeWalker.Rendering
 
             vertices = new GpuCBuffer<VertexTypePC>(device, 1000); //should be more than needed....
         }
-
 
         public override void SetShader(DeviceContext context)
         {
@@ -119,7 +115,6 @@ namespace CodeWalker.Rendering
             //don't use this
         }
 
-
         public void RenderBatches(DeviceContext context, List<RenderablePathBatch> batches, Camera camera, ShaderGlobalLights lights)
         {
             UseDynamicVerts = false;
@@ -152,7 +147,6 @@ namespace CodeWalker.Rendering
                 context.InputAssembler.SetVertexBuffers(0, pbatch.PathVBBinding);
                 context.Draw(pbatch.PathVertexCount, 0);
             }
-
 
             context.VertexShader.Set(boxvs);
             context.PixelShader.Set(boxps);
@@ -237,9 +231,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
-
-
         public override void UnbindResources(DeviceContext context)
         {
             context.VertexShader.SetConstantBuffer(0, null);
@@ -247,8 +238,6 @@ namespace CodeWalker.Rendering
             context.VertexShader.Set(null);
             context.PixelShader.Set(null);
         }
-
-
 
         public void Dispose()
         {

@@ -32,8 +32,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             FilePath = Name;
 
-
-
             //can be PSO .ymt or XML .meta
             MemoryStream ms = new MemoryStream(data);
             if (PsoFile.IsPSO(ms))
@@ -62,20 +60,15 @@ namespace CodeWalker.GameFiles
             else
             { }
 
-
             if (xdoc.DocumentElement != null)
             {
                 VehicleModelInfo = new CVehicleModelInfoVarGlobal(xdoc.DocumentElement);
             }
 
-
-
-
             Loaded = true;
         }
 
     }
-
 
     [TC(typeof(EXP))] public class CVehicleModelInfoVarGlobal
     {
@@ -951,7 +944,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     public enum CVehicleModelColor_360458334 //vehicle mod color metallic id
     {
         none = -1,
@@ -1272,7 +1264,6 @@ namespace CodeWalker.GameFiles
         VMCP_TOP = 9,
         VMCP_BOTTOM = 10
     }
-
 
 }
 

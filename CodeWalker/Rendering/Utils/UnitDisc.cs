@@ -50,7 +50,6 @@ namespace CodeWalker.Rendering
             vbbinding = new VertexBufferBinding(VertexBuffer, 12, 0);
         }
 
-
         public void Draw(DeviceContext context)
         {
             context.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
@@ -87,7 +86,6 @@ namespace CodeWalker.Rendering
                 new InputElement("POSITION", 0, Format.R32G32B32_Float, 0, 0),
             };
         }
-
 
     }
 }

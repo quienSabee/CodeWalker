@@ -17,9 +17,7 @@ namespace CodeWalker.GameFiles
         public RpfFileEntry FileEntry { get; set; }
         public PsoFile Pso { get; set; }
 
-
         public CutsceneFile2 CutsceneFile2 { get; set; }
-
 
         public CutFile()
         { }
@@ -27,7 +25,6 @@ namespace CodeWalker.GameFiles
         {
             FileEntry = entry;
         }
-
 
         public void Load(byte[] data, RpfFileEntry entry)
         {
@@ -57,7 +54,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
     [TC(typeof(EXP))] public abstract class CutBase : IMetaXmlItem
     {
         public virtual void ReadXml(XmlNode node)
@@ -65,7 +61,6 @@ namespace CodeWalker.GameFiles
         public virtual void WriteXml(StringBuilder sb, int indent)
         { }
     }
-
 
     [TC(typeof(EXP))] public class CutsceneFile2 : CutBase  // rage__cutfCutsceneFile2
     {
@@ -99,11 +94,7 @@ namespace CodeWalker.GameFiles
         public CutConcatData[] concatDataList { get; set; } //concatDataList, PsoDataType.Array, 768, 1, (MetaName)2621474),
         public CutHaltFrequency[] discardFrameList { get; set; } //discardFrameList, PsoDataType.Array, 3344, 0, (MetaName)36)
 
-
-
         public Dictionary<int, CutObject> ObjectsDict { get; set; } = new Dictionary<int, CutObject>();
-
-
 
         public override void ReadXml(XmlNode node)
         {
@@ -140,7 +131,6 @@ namespace CodeWalker.GameFiles
             AssociateObjects();
         }
 
-
         public void AssociateObjects()
         {
             ObjectsDict.Clear();
@@ -154,7 +144,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
 
             CutEventArgs getEventArgs(int i)
             {
@@ -225,8 +214,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
-
 
         public static CutBase ConstructObject(string type)
         {
@@ -313,7 +300,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
     [TC(typeof(EXP))] public class CutParAttributeList : CutBase  // rage__parAttributeList
     {
@@ -439,7 +425,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public abstract class CutObject : CutBase
     {
         public int iObjectId { get; set; } // PsoDataType.SInt, 8, 0, 0),
@@ -509,7 +494,6 @@ namespace CodeWalker.GameFiles
         public bool bOverrideFaceAnimation { get; set; } // PsoDataType.Bool, 106, 0, 0),
         public MetaHash faceAnimationNodeName { get; set; } // PsoDataType.String, 108, 7, 0),
         public MetaHash faceAttributesFilename { get; set; } // PsoDataType.String, 112, 7, 0)
-
 
         public override void ReadXml(XmlNode node)
         {
@@ -825,7 +809,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     public enum CutEventType : int
     {
         LoadScene = 0,
@@ -887,8 +870,6 @@ namespace CodeWalker.GameFiles
         public bool IsChild { get; set; } // PsoDataType.Bool, 44, 0, 0)
 
         public CutEventArgs EventArgs { get; set; }
-
-
 
         public override void ReadXml(XmlNode node)
         {
@@ -1269,6 +1250,5 @@ namespace CodeWalker.GameFiles
             iAttachBoneHash = (ushort)Xml.GetChildUIntAttribute(node, "iAttachBoneHash", "value");
         }
     }
-
 
 }

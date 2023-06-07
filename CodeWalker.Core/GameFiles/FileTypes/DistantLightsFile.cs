@@ -23,7 +23,6 @@ namespace CodeWalker.GameFiles
         public DistantLightsPath[] Paths { get; set; } //PathCount
         public DistantLightsCell[] Cells { get; set; } //CellCount (built from loaded data)
 
-
         public DistantLightsFile() : base(null, GameFileType.DistantLights)
         {
         }
@@ -31,7 +30,6 @@ namespace CodeWalker.GameFiles
         {
             RpfFileEntry = entry;
         }
-
 
         public void Load(byte[] data, RpfFileEntry entry)
         {
@@ -71,7 +69,6 @@ namespace CodeWalker.GameFiles
             return buf;
         }
 
-
         private void Read(DataReader r)
         {
             NodeCount = r.ReadUInt32();
@@ -101,7 +98,6 @@ namespace CodeWalker.GameFiles
             {
                 Paths[i] = new DistantLightsPath(r, HD);
             }
-
 
             BuildCells();
 
@@ -133,7 +129,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
 
         private void BuildCells()
         {

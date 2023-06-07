@@ -43,7 +43,6 @@ namespace CodeWalker.Rendering
 
         InputLayout layout;
 
-
         public MarkerShader(Device device)
         {
             byte[] vsbytes = File.ReadAllBytes("Shaders\\MarkerVS.cso");
@@ -77,9 +76,6 @@ namespace CodeWalker.Rendering
 
         }
 
-
-
-
         public override void SetShader(DeviceContext context)
         {
             context.VertexShader.Set(markervs);
@@ -91,7 +87,6 @@ namespace CodeWalker.Rendering
             context.InputAssembler.InputLayout = layout;
             return true;
         }
-
 
         public override void SetSceneVars(DeviceContext context, Camera camera, Shadowmap shadowmap, ShaderGlobalLights lights)
         {
@@ -139,7 +134,6 @@ namespace CodeWalker.Rendering
             context.VertexShader.Set(null);
             context.PixelShader.Set(null);
         }
-
 
         public void Dispose()
         {

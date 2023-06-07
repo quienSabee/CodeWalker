@@ -17,8 +17,6 @@ namespace CodeWalker.Tools
     {
         Dictionary<uint, string> extraStrings = new Dictionary<uint, string>();
 
-
-
         public JenkIndForm(GameFileCache gameFileCache = null)
         {
             InitializeComponent();
@@ -57,9 +55,6 @@ namespace CodeWalker.Tools
 
         }
 
-
-
-
         private void UpdateStatus(string text)
         {
             try
@@ -92,7 +87,6 @@ namespace CodeWalker.Tools
             }
             catch { }
         }
-
 
         private void FindHash()
         {
@@ -137,7 +131,6 @@ namespace CodeWalker.Tools
             }
             StatusLabel.Text = Convert.ToString(hash, 16).ToUpper().PadLeft(8, '0');
 
-
             var str = JenkIndex.TryGetString(hash);
             var txt = GlobalText.TryGetString(hash);
             var sta = StatsNames.TryGetString(hash);
@@ -172,9 +165,7 @@ namespace CodeWalker.Tools
                 MatchTextBox.Text = "[No match found]";
             }
 
-
         }
-
 
         private string TryGetExtraString(uint hash)
         {
@@ -182,7 +173,6 @@ namespace CodeWalker.Tools
             extraStrings.TryGetValue(hash, out str);
             return str;
         }
-
 
         private void HashTextBox_TextChanged(object sender, EventArgs e)
         {

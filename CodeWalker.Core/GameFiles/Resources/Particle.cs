@@ -7,7 +7,6 @@ using System.Xml;
 using TC = System.ComponentModel.TypeConverterAttribute;
 using EXP = System.ComponentModel.ExpandableObjectConverter;
 
-
 /*
     Copyright(c) 2017 Neodymium
 
@@ -29,13 +28,9 @@ using EXP = System.ComponentModel.ExpandableObjectConverter;
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 
-
-
     //proudly mangled by dex
 
 */
-
-
 
 namespace CodeWalker.GameFiles
 {
@@ -66,7 +61,6 @@ namespace CodeWalker.GameFiles
         public ParticleEffectRuleDictionary EffectRuleDictionary { get; set; }
         public ParticleEmitterRuleDictionary EmitterRuleDictionary { get; set; }
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             base.Read(reader, parameters);
@@ -90,8 +84,6 @@ namespace CodeWalker.GameFiles
             this.ParticleRuleDictionary = reader.ReadBlockAt<ParticleRuleDictionary>(this.ParticleRuleDictionaryPointer);
             this.EffectRuleDictionary = reader.ReadBlockAt<ParticleEffectRuleDictionary>(this.EmitterRuleDictionaryPointer);
             this.EmitterRuleDictionary = reader.ReadBlockAt<ParticleEmitterRuleDictionary>(this.EffectRuleDictionaryPointer);
-
-
 
             //if (Unknown_18h != 0)
             //{ }//no hit
@@ -206,7 +198,6 @@ namespace CodeWalker.GameFiles
             return p;
         }
 
-
         public void AssignChildren()
         {
             //assigns any child references on objects that are stored in main dictionaries
@@ -257,10 +248,6 @@ namespace CodeWalker.GameFiles
                     efrdict[efr.NameHash] = efr;
                 }
             }
-
-
-
-
 
             if (EffectRuleDictionary?.EffectRules?.data_items != null)
             {
@@ -346,9 +333,7 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
         }
-
 
         public override IResourceBlock[] GetReferences()
         {
@@ -362,7 +347,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
     }
-
 
     [TC(typeof(EXP))] public class ParticleRuleDictionary : ResourceSystemBlock
     {
@@ -379,7 +363,6 @@ namespace CodeWalker.GameFiles
         public ulong Unknown_18h = 1; // 0x0000000000000001
         public ResourceSimpleList64_s<MetaHash> ParticleRuleNameHashes { get; set; }
         public ResourcePointerList64<ParticleRule> ParticleRules { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -462,7 +445,6 @@ namespace CodeWalker.GameFiles
             };
         }
     }
-
 
     [TC(typeof(EXP))] public class ParticleEffectRuleDictionary : ResourceSystemBlock
     {
@@ -561,7 +543,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public class ParticleEmitterRuleDictionary : ResourceSystemBlock
     {
         // pgBase
@@ -578,7 +559,6 @@ namespace CodeWalker.GameFiles
         public ResourceSimpleList64_s<MetaHash> EmitterRuleNameHashes { get; set; }
         public ResourcePointerList64<ParticleEmitterRule> EmitterRules { get; set; }
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             // read structure data
@@ -589,7 +569,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_18h = reader.ReadUInt64();
             this.EmitterRuleNameHashes = reader.ReadBlock<ResourceSimpleList64_s<MetaHash>>();
             this.EmitterRules = reader.ReadBlock<ResourcePointerList64<ParticleEmitterRule>>();
-
 
             //if (Unknown_4h != 1)
             //{ }//no hit
@@ -661,13 +640,6 @@ namespace CodeWalker.GameFiles
             };
         }
     }
-
-
-
-
-
-
-
 
     [TC(typeof(EXP))] public class ParticleRule : ResourceSystemBlock
     {
@@ -799,7 +771,6 @@ namespace CodeWalker.GameFiles
 
             #endregion
 
-
             if (!string.IsNullOrEmpty(Name?.Value))
             {
                 JenkIndex.Ensure(Name.Value);
@@ -807,7 +778,6 @@ namespace CodeWalker.GameFiles
 
             if ((Drawables?.data_items?.Length ?? 0) != 0)
             { }
-
 
             #region test
 
@@ -898,9 +868,6 @@ namespace CodeWalker.GameFiles
             //    if (!bl1.Contains(b))
             //    { }//no hit
             //}
-
-
-
 
             //if (Unknown_4h != 1)
             //{ }//no hit
@@ -1304,8 +1271,6 @@ namespace CodeWalker.GameFiles
             Spawner2 = new ParticleEffectSpawner();
             Spawner2.ReadXml(node.SelectSingleNode("Spawner2"));
 
-
-
             var bnode = node.SelectSingleNode("Behaviours");
             var blist = new List<ParticleBehaviour>();
             if (bnode != null)
@@ -1322,12 +1287,8 @@ namespace CodeWalker.GameFiles
             }
             BuildBehaviours(blist);
 
-
-
-
             UnknownList1 = new ResourceSimpleList64<ParticleRuleUnknownItem>();
             UnknownList1.data_items = XmlMeta.ReadItemArrayNullable<ParticleRuleUnknownItem>(node, "UnknownList1");
-
 
             ResourcePointerList64<ParticleShaderVar> readShaderVars(string name)
             {
@@ -1351,11 +1312,9 @@ namespace CodeWalker.GameFiles
             }
             ShaderVars = readShaderVars("ShaderVars");
 
-
             Drawables = new ResourceSimpleList64<ParticleDrawable>();
             Drawables.data_items = XmlMeta.ReadItemArrayNullable<ParticleDrawable>(node, "Drawables");
         }
-
 
         public void BuildBehaviours(List<ParticleBehaviour> blist)
         {
@@ -1427,9 +1386,7 @@ namespace CodeWalker.GameFiles
             BehaviourList5 = new ResourcePointerList64<ParticleBehaviour>();
             BehaviourList5.data_items = blist5.ToArray();
 
-
         }
-
 
         public override IResourceBlock[] GetReferences()
         {
@@ -1462,13 +1419,9 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public class ParticleRuleUnknownItem : ResourceSystemBlock, IMetaXmlItem
     {
         public override long BlockLength => 0x58;
-
-
-
 
         // structure data
         public PsoChar32 Name { get; set; }
@@ -1571,7 +1524,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
     [TC(typeof(EXP))] public class ParticleEffectSpawner : ResourceSystemBlock
     {
@@ -1875,7 +1827,6 @@ namespace CodeWalker.GameFiles
             { }
         }
 
-
         public override IResourceBlock[] GetReferences()
         {
             var list = new List<IResourceBlock>();
@@ -1890,7 +1841,6 @@ namespace CodeWalker.GameFiles
             return (!string.IsNullOrEmpty(str)) ? str : base.ToString();
         }
     }
-
 
     [TC(typeof(EXP))] public class ParticleDrawable : ResourceSystemBlock, IMetaXmlItem
     {
@@ -2031,15 +1981,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
-
-
-
-
-
-
     [TC(typeof(EXP))] public class ParticleEffectRule : ResourceSystemBlock
     {
         // pgBase
@@ -2111,7 +2052,6 @@ namespace CodeWalker.GameFiles
         public ResourcePointerArray64<ParticleEventEmitter> EventEmitters { get; set; }
         public ParticleUnknown1 UnknownData { get; set; }
         public ResourcePointerArray64<ParticleKeyframeProp> KeyframeProps { get; set; } // these just point to the 5x embedded KeyframeProps, padded to 16 items
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -2188,7 +2128,6 @@ namespace CodeWalker.GameFiles
             }
 
             #endregion
-
 
             #region testing
 
@@ -2649,7 +2588,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             var kflist = XmlMeta.ReadItemArray<ParticleKeyframeProp>(node, "KeyframeProperties")?.ToList() ?? new List<ParticleKeyframeProp>();
             KeyframeProp0 = (kflist.Count > 0) ? kflist[0] : new ParticleKeyframeProp();
             KeyframeProp1 = (kflist.Count > 1) ? kflist[1] : new ParticleKeyframeProp();
@@ -2703,7 +2641,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public class ParticleEventEmitter : ResourceSystemBlock, IMetaXmlItem
     {
         // ptxEvent
@@ -2739,7 +2676,6 @@ namespace CodeWalker.GameFiles
         public ParticleEmitterRule EmitterRule { get; set; }
         public ParticleRule ParticleRule { get; set; }
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             // read structure data
@@ -2770,7 +2706,6 @@ namespace CodeWalker.GameFiles
             this.ParticleRuleName = reader.ReadBlockAt<string_r>(this.ParticleRuleNamePointer);
             this.EmitterRule = reader.ReadBlockAt<ParticleEmitterRule>(this.EmitterRulePointer);
             this.ParticleRule = reader.ReadBlockAt<ParticleRule>(this.ParticleRulePointer);
-
 
             if (!string.IsNullOrEmpty(EmitterRuleName?.Value))
             {
@@ -2994,7 +2929,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
     [TC(typeof(EXP))] public class ParticleUnknown1 : ResourceSystemBlock
     {
         public override long BlockLength => 0x40;
@@ -3031,7 +2965,6 @@ namespace CodeWalker.GameFiles
             if ((cnt3 != 0) && (cnt3 != cnt1))
             { }//hit
 
-
             //var dic = new Dictionary<MetaHash, ParticleUnknown2>();
             //if (Unknown_10h?.data_items != null)
             //{
@@ -3057,7 +2990,6 @@ namespace CodeWalker.GameFiles
             //        { }//no hit
             //    }
             //}
-
 
         }
         public override void Write(ResourceDataWriter writer, params object[] parameters)
@@ -3150,7 +3082,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public class ParticleStringBlock : ResourceSystemBlock
     {
         public override long BlockLength => 24;
@@ -3177,7 +3108,6 @@ namespace CodeWalker.GameFiles
             //{
             //    JenkIndex.Ensure(String1.Value);
             //}
-
 
             //if (Unknown_8h != 0)
             //{ }//no hit
@@ -3207,7 +3137,6 @@ namespace CodeWalker.GameFiles
             return Name?.ToString() ?? base.ToString();
         }
     }
-
 
     [TC(typeof(EXP))] public class ParticleUnknown2Block : ResourceSystemBlock
     {
@@ -3257,7 +3186,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
     [TC(typeof(EXP))] public class ParticleUnknown2 : ResourceSystemBlock, IMetaXmlItem
     {
@@ -3321,7 +3249,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
     [TC(typeof(EXP))] public class ParticleUnknown3 : ResourceSystemBlock, IMetaXmlItem
     {
@@ -3412,15 +3339,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
-
-
-
-
-
-
     [TC(typeof(EXP))] public class ParticleEmitterRule : ResourceSystemBlock
     {
         // pgBase
@@ -3501,7 +3419,6 @@ namespace CodeWalker.GameFiles
             this.Domain2 = reader.ReadBlockAt<ParticleDomain>(this.Domain2Pointer);
             this.Domain3 = reader.ReadBlockAt<ParticleDomain>(this.Domain3Pointer);
             this.KeyframeProps2 = reader.ReadBlockAt<ResourcePointerArray64<ParticleKeyframeProp>>(this.KeyframeProps2Pointer, this.KeyframePropsCount2);
-
 
             if (!string.IsNullOrEmpty(Name?.Value))
             {
@@ -3594,7 +3511,6 @@ namespace CodeWalker.GameFiles
             this.Domain3Pointer = (ulong)(this.Domain3 != null ? this.Domain3.FilePosition : 0);
             this.KeyframeProps2Pointer = (ulong)(this.KeyframeProps2 != null ? this.KeyframeProps2.FilePosition : 0);
             //this.refcnt2 = (ushort)(this.refs != null ? this.refs.Count : 0);
-
 
             // write structure data
             writer.Write(this.VFT);
@@ -3698,13 +3614,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
-
-
-
-
     [TC(typeof(EXP))] public struct ParticleKeyframePropName
     {
         public uint Hash { get; set; }
@@ -3751,7 +3660,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TC(typeof(EXP))] public class ParticleKeyframeProp : ResourceSystemBlock, IMetaXmlItem
     {
         // datBase
@@ -3779,7 +3687,6 @@ namespace CodeWalker.GameFiles
         public ulong Unknown_80h; // 0x0000000000000000
         public ulong Unknown_88h; // 0x0000000000000000
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             // read structure data
@@ -3802,7 +3709,6 @@ namespace CodeWalker.GameFiles
             this.Values = reader.ReadBlock<ResourceSimpleList64<ParticleKeyframePropValue>>();
             this.Unknown_80h = reader.ReadUInt64();
             this.Unknown_88h = reader.ReadUInt64();
-
 
             //if (Unknown_4h != 1)
             //{ }//no hit
@@ -3927,10 +3833,6 @@ namespace CodeWalker.GameFiles
             return Name.ToString() + " (" + (Values?.data_items?.Length ?? 0).ToString() + " values)";
         }
 
-
-
-
-
         public static string GetName(uint hash)
         {
             if (NameDict == null)
@@ -4020,9 +3922,7 @@ namespace CodeWalker.GameFiles
         }
         private static Dictionary<uint, string> NameDict;
 
-
     }
-
 
     [TC(typeof(EXP))] public class ParticleKeyframePropValue : ResourceSystemBlock, IMetaXmlItem
     {
@@ -4172,17 +4072,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
     public enum ParticleDomainType : byte
     {
         Box = 0,
@@ -4237,7 +4126,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_270h = reader.ReadUInt64();
             this.Unknown_278h = reader.ReadUInt64();
 
-
             //if (KeyframeProps?.data_items?.Length != 4)
             //{ }//no hit
             //else
@@ -4253,8 +4141,6 @@ namespace CodeWalker.GameFiles
             //}
             //if (KeyframeProps?.EntriesCapacity != 16)
             //{ }//no hit  ... how to handle this when saving???
-
-
 
             //if (Unknown_4h != 1)
             //{ }//no hit
@@ -4480,19 +4366,6 @@ namespace CodeWalker.GameFiles
         // ptxDomainAttractor
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public enum ParticleBehaviourType : uint
     {
         Age = 0xF5B33BAA,
@@ -4650,7 +4523,6 @@ namespace CodeWalker.GameFiles
             return "Behaviour: " + Type.ToString();
         }
 
-
         public void CreateKeyframeProps(params ParticleKeyframeProp[] props)
         {
             var plist = props.ToList();
@@ -4684,7 +4556,6 @@ namespace CodeWalker.GameFiles
     {
         // ptxu_Age
         public override long BlockLength => 0x30;
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -4826,7 +4697,6 @@ namespace CodeWalker.GameFiles
     {
         // ptxu_Velocity
         public override long BlockLength => 0x30;
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -5291,7 +5161,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_C0h = reader.ReadUInt32();
             this.Unknown_C4h = reader.ReadUInt32();
             this.Unknown_C8h = reader.ReadUInt64();
-
 
             //switch (Unknown_C0h)
             //{
@@ -6192,7 +6061,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_548h = reader.ReadUInt32();
             this.Unknown_54Ch = reader.ReadUInt32();
 
-
             switch (Unknown_540h)
             {
                 case 0:
@@ -6860,7 +6728,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_274h = reader.ReadUInt32();
             this.Unknown_278h = reader.ReadUInt64();
 
-
             //if ((Unknown_270h != 0) && (Unknown_270h != 2))
             //{ }//no hit
             //switch (Unknown_274h)
@@ -6980,7 +6847,6 @@ namespace CodeWalker.GameFiles
 
             // read structure data
             this.KeyframeProp0 = reader.ReadBlock<ParticleKeyframeProp>();
-
 
         }
         public override void Write(ResourceDataWriter writer, params object[] parameters)
@@ -7256,7 +7122,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_424h = reader.ReadSingle();
             this.Unknown_428h = reader.ReadUInt32();
             this.Unknown_42Ch = reader.ReadUInt32();
-
 
             //switch (Unknown_420h)
             //{
@@ -7708,17 +7573,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
     public enum ParticleShaderVarType : byte
     {
         Vector2 = 2,
@@ -8037,7 +7891,6 @@ namespace CodeWalker.GameFiles
             this.Texture = reader.ReadBlockAt<Texture>(this.TexturePointer);
             this.TextureName = reader.ReadBlockAt<string_r>(this.TextureNamePointer);
 
-
             //switch (Unknown_18h) //shader var index..?
             //{
             //    case 7:
@@ -8291,13 +8144,5 @@ namespace CodeWalker.GameFiles
             Unknown_10h = Xml.GetChildFloatAttribute(node, "Unknown10");
         }
     }
-
-
-
-
-
-
-
-
 
 }

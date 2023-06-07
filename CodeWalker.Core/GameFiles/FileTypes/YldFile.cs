@@ -16,9 +16,7 @@ namespace CodeWalker.GameFiles
 
         public Dictionary<uint, CharacterCloth> Dict { get; set; }
 
-
         public string LoadException { get; set; }
-
 
         public YldFile() : base(null, GameFileType.Yld)
         {
@@ -32,7 +30,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             RpfFileEntry = entry;
             //Hash = entry.ShortNameHash;
-
 
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
@@ -52,7 +49,6 @@ namespace CodeWalker.GameFiles
             }
 
             ClothDictionary = rd?.ReadBlock<ClothDictionary>();
-
 
             if (ClothDictionary != null)
             {
@@ -80,8 +76,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
     public class YldXml : MetaXmlBase
     {

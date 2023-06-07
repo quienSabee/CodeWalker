@@ -2,7 +2,6 @@
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
-using System.Threading;
 using Device = SharpDX.Direct3D11.Device;
 using MapFlags = SharpDX.Direct3D11.MapFlags;
 
@@ -10,80 +9,12 @@ namespace CodeWalker.Rendering
 {
     public class CubemapRenderer
     {
-        public static void RenderCubemap()
+        public static void RenderScene(DeviceContext context, RenderTargetView rt, DepthStencilView depth, ShaderManager shaders)
         {
-            int width = 1024;
-            int height = 1024;
+            context.OutputMerger.SetRenderTargets(depth, rt);
+            context.ClearRenderTargetView(rt, Color.Magenta);
+            context.ClearDepthStencilView(depth, DepthStencilClearFlags.Depth, 0.0f, 0);
 
-            Device device = new Device(DriverType.Hardware, DeviceCreationFlags.None, new FeatureLevel[] { FeatureLevel.Level_11_0, FeatureLevel.Level_10_1, FeatureLevel.Level_10_0 });
-
-            Texture2D cubemapTexture = new Texture2D(device, new Texture2DDescription()
-            {
-                Width = width,
-                Height = height,
-                Format = Format.R8G8B8A8_UInt,
-                ArraySize = 6,
-                MipLevels = 1,
-                SampleDescription = new SampleDescription(4, 0),
-                Usage = ResourceUsage.Staging,
-                BindFlags = BindFlags.RenderTarget | BindFlags.ShaderResource,
-                CpuAccessFlags = CpuAccessFlags.Read,
-                OptionFlags = ResourceOptionFlags.TextureCube
-            });
-
-            Texture2D depthBuffer = new Texture2D(device, new Texture2DDescription()
-            {
-                Width = width,
-                Height = height,
-                Format = Format.D32_Float,
-                ArraySize = 6,
-                MipLevels = 1,
-                SampleDescription = new SampleDescription(4, 0),
-                Usage = ResourceUsage.Staging,
-                BindFlags = BindFlags.DepthStencil,
-                CpuAccessFlags = CpuAccessFlags.Read,
-                OptionFlags = ResourceOptionFlags.None
-            });
-
-            RenderTargetView cubemapView = new RenderTargetView(device, cubemapTexture, new RenderTargetViewDescription()
-            {
-                Format = cubemapTexture.Description.Format,
-                Dimension = RenderTargetViewDimension.Texture2DArray,
-                Texture2DArray = new RenderTargetViewDescription.Texture2DArrayResource()
-                {
-                    MipSlice = 0,
-                    ArraySize = 6
-                }
-            });
-            DepthStencilView depthStencilView = new DepthStencilView(device, depthBuffer);
-            ShaderResourceView shaderView = new ShaderResourceView(device, cubemapTexture, new ShaderResourceViewDescription()
-            {
-                Format = cubemapTexture.Description.Format,
-                Dimension = ShaderResourceViewDimension.TextureCube,
-                TextureCube = new ShaderResourceViewDescription.TextureCubeResource()
-                {
-                    MipLevels = cubemapTexture.Description.MipLevels,
-                    MostDetailedMip = 0,
-                }
-            });
-
-            Viewport viewPort = new Viewport(0, 0, width, height, 0.0f, 1.0f);
-
-            //GameFileCache gameFileCache = GameFileCacheFactory.Create();
-
-            DeviceContext context = device.ImmediateContext;
-            context.OutputMerger.SetRenderTargets(depthStencilView, cubemapView);
-            context.Rasterizer.SetViewport(viewPort);
-            context.PixelShader.SetShaderResource(0, shaderView);
-
-            context.ClearRenderTargetView(cubemapView, Color.Magenta);
-            context.ClearDepthStencilView(depthStencilView, DepthStencilClearFlags.Depth, 0.0f, 0);
-
-            GetTextureData(context, cubemapTexture);
-
-            device?.Dispose();
-            cubemapView?.Dispose();
-            shaderView?.Dispose();
         }
 
         private static byte[] GetTextureData(DeviceContext context, Texture2D texture)

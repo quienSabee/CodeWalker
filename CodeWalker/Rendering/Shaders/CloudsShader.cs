@@ -83,7 +83,6 @@ namespace CodeWalker.Rendering
         public Vector2 cloudLayerAnimScale3;       // Offset:  456 Size:     8
     };
 
-
     public class CloudsShader : Shader, IDisposable
     {
         bool disposed = false;
@@ -229,7 +228,6 @@ namespace CodeWalker.Rendering
             RenderableTexture DetailNormal2Sampler = null;
             RenderableTexture DepthMapTexSampler = null;
 
-
             if ((geom.RenderableTextures != null) && (geom.RenderableTextures.Length > 0))
             {
                 for (int i = 0; i < geom.RenderableTextures.Length; i++)
@@ -304,7 +302,6 @@ namespace CodeWalker.Rendering
 
             context.PixelShader.SetSampler(0, AnisotropicFilter ? texsampleranis : texsampler);
 
-
         }
 
         public override bool SetInputLayout(DeviceContext context, VertexType type)
@@ -334,7 +331,6 @@ namespace CodeWalker.Rendering
         {
             if (disposed) return;
             disposed = true;
-
 
             texsampler.Dispose();
             texsampleranis.Dispose();

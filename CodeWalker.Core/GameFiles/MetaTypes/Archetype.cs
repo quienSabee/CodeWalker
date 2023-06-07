@@ -28,9 +28,6 @@ namespace CodeWalker.GameFiles
         public float LodDist { get; set; }
         public MetaWrapper[] Extensions { get; set; }
 
-
-
-
         public string Name 
         {
             get 
@@ -45,7 +42,6 @@ namespace CodeWalker.GameFiles
                 return _BaseArchetypeDef.assetName.ToString();
             }
         }
-
 
         protected void InitVars(ref CBaseArchetypeDef arch)
         {
@@ -91,7 +87,6 @@ namespace CodeWalker.GameFiles
         public string[] ActiveHoursText { get; set; }
         public bool ExtraFlag { get { return ((TimeFlags >> 24) & 1) == 1; } }
 
-
         public void Init(YtypFile ytyp, ref CTimeArchetypeDef arch)
         {
             Ytyp = ytyp;
@@ -110,7 +105,6 @@ namespace CodeWalker.GameFiles
             if ((h < 0) || (h > 23)) return true;
             return ActiveHours[h];
         }
-
 
         public void UpdateActiveHours()
         {
@@ -138,13 +132,11 @@ namespace CodeWalker.GameFiles
             UpdateActiveHours();
         }
 
-
     }
 
     public class MloArchetype : Archetype
     {
         public override MetaName Type => MetaName.CMloArchetypeDef;
-
 
         public CMloArchetypeDef MloArchetypeDef => _MloArchetypeDef; // for browsing.
         public CMloArchetypeDef _MloArchetypeDef;
@@ -155,7 +147,6 @@ namespace CodeWalker.GameFiles
         public MCMloPortalDef[] portals { get; set; }
         public MCMloEntitySet[] entitySets { get; set; }
         public CMloTimeCycleModifier[] timeCycleModifiers { get; set; }
-
 
         public void Init(YtypFile ytyp, ref CMloArchetypeDef arch)
         {
@@ -183,7 +174,6 @@ namespace CodeWalker.GameFiles
             }
 
             var mcEntityDef = new MCEntityDef(ref ent._CEntityDef, this);
-
 
             if ((roomIndex >= 0) || (portalIndex >= 0))
             {
@@ -216,7 +206,6 @@ namespace CodeWalker.GameFiles
                 var locs = entset.Locations?.ToList() ?? new List<uint>();
                 locs.Add(0);//choose a better default location?
                 entset.Locations = locs.ToArray();
-
 
                 var mloInstance = ent.MloParent?.MloInstance;
                 if ((mloInstance?.EntitySets != null) && (entsetIndex < mloInstance.EntitySets.Length))
@@ -375,9 +364,6 @@ namespace CodeWalker.GameFiles
             UpdateAllEntityIndexes();
         }
 
-
-
-
         private void FixPortalIndexes(int deletedIndex)
         {
             foreach (var portal in portals)
@@ -457,7 +443,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public void LoadChildren(Meta meta)
         {
             var centities = MetaTypes.ConvertDataArray<CEntityDef>(meta, MetaName.CEntityDef, _MloArchetypeDefData.entities);
@@ -500,7 +485,6 @@ namespace CodeWalker.GameFiles
                 }
                 UpdateAllEntityIndexes();
             }
-
 
             timeCycleModifiers = MetaTypes.ConvertDataArray<CMloTimeCycleModifier>(meta, MetaName.CMloTimeCycleModifier, _MloArchetypeDefData.timeCycleModifiers);
 
@@ -1060,6 +1044,5 @@ namespace CodeWalker.GameFiles
             return Entities.Remove(ent);
         }
     }
-
 
 }

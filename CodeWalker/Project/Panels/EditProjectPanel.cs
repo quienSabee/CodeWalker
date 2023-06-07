@@ -21,7 +21,6 @@ namespace CodeWalker.Project.Panels
             InitializeComponent();
         }
 
-
         public void SetProject(ProjectFile project)
         {
             Project = project;

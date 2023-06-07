@@ -525,7 +525,6 @@ namespace CodeWalker.GameFiles
                         transitions = sb.Transitions;
                     }
 
-
                     if (n is MrfNodeInlinedStateMachine im)
                     {
                         w.WriteLine("    n{1} -> n{0} [color = black, xlabel=\"fallback\"]", n.FileOffset, im.FallbackNode.FileOffset);
@@ -805,8 +804,6 @@ namespace CodeWalker.GameFiles
             }
         }
     }
-
-
 
     // Unused node indexes by GTAV: 11, 12, 14, 16
     // Exist in GTAV but not used in MRFs: 4, 8, 10, 17, 21, 22, 28, 29, 31, 32
@@ -2096,8 +2093,6 @@ namespace CodeWalker.GameFiles
             return $"{FloatUtil.ToString(Weight)} - {WeightParameterName} - {FrameFilterDictionaryName} - {FrameFilterName} - {FrameFilterParameterName}";
         }
     }
-
-
 
 #endregion
 
@@ -3494,7 +3489,6 @@ namespace CodeWalker.GameFiles
         {
             base.Read(r);
 
-
             if (StateChildCount > 0)
             {
                 States = new MrfStateRef[StateChildCount];
@@ -4863,7 +4857,6 @@ namespace CodeWalker.GameFiles
             OperationsFileOffset = (int)(r.Position + OperationsOffset - 4);
             OperationCount = r.ReadUInt32();
 
-
             if (TransitionCount > 0)
             {
                 if (r.Position != TransitionsFileOffset)
@@ -5346,8 +5339,6 @@ namespace CodeWalker.GameFiles
     }
 
 #endregion
-
-
 
     public class MrfXml : MetaXmlBase
     {

@@ -18,7 +18,6 @@ namespace CodeWalker.Forms
         private DrawableBase Drawable;
         private Dictionary<uint, Drawable> DrawableDict;
 
-
         public ModelMatForm(ModelForm modelForm)
         {
             InitializeComponent();
@@ -26,7 +25,6 @@ namespace CodeWalker.Forms
             ModelForm = modelForm;
 
         }
-
 
         public void LoadModel(DrawableBase drawable)
         {
@@ -138,7 +136,6 @@ namespace CodeWalker.Forms
             }
         }
 
-
         private void SelectGeometry(DrawableGeometry geom)
         {
             MaterialPropertiesPanel.Controls.Clear();
@@ -207,7 +204,6 @@ namespace CodeWalker.Forms
 
             }
 
-
             MaterialPropertiesPanel.Controls.Add(tmpPanel);
         }
 
@@ -253,7 +249,6 @@ namespace CodeWalker.Forms
                 parm.Data = vecs;
             }
 
-
             var geom = ModelsTreeView.SelectedNode?.Tag as DrawableGeometry;
             if (geom != null)
             {
@@ -288,7 +283,6 @@ namespace CodeWalker.Forms
                 }
             }
         }
-
 
         private void ModelMatForm_FormClosed(object sender, FormClosedEventArgs e)
         {

@@ -36,7 +36,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             RpfFileEntry = entry;
 
-
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
             {
@@ -68,7 +67,6 @@ namespace CodeWalker.GameFiles
                     Dict[hash] = drawable;
                     drawable.Owner = this;
                 }
-
 
                 for (int i = 0; (i < drawables.Length) && (i < hashes.Length); i++)
                 {
@@ -102,9 +100,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
-
 
     public class YddXml : MetaXmlBase
     {
@@ -152,7 +147,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
 }

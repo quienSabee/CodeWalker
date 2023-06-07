@@ -41,8 +41,6 @@ namespace CodeWalker.World
 
     }
 
-
-
     public class PedEntity : Entity
     {
 
@@ -56,7 +54,6 @@ namespace CodeWalker.World
         public Entity CameraEntity = new Entity();
 
         public bool OnGround = false;
-
 
         public PedEntity()
         {
@@ -83,7 +80,6 @@ namespace CodeWalker.World
             Quaternion rot = Quaternion.Identity;// .RotationAxis(Vector3.UnitZ, -ControlMovement.X * rotspd * elapsed);
             Quaternion ori = Quaternion.Multiply(Orientation, rot);
             SetOrientation(ori);
-
 
             float jmpamt = (ControlJump ? jmpvel : 0);
             Vector3 curvel = Velocity;
@@ -134,14 +130,11 @@ namespace CodeWalker.World
                 }
                 //Position = collpos; //last known ok position
 
-
-
                 bool wasOnGround = OnGround;
                 OnGround = (Vector3.Dot(coll.SphereHit.Normal, Vector3.UnitZ) > 0.8f);
                 if (OnGround)
                 {
                 }
-
 
                 Vector3 findisp = Position - oldpos;
                 float findispl = findisp.Length();
@@ -183,7 +176,6 @@ namespace CodeWalker.World
             CameraEntity.Position = Position;
         }
 
-
         private void SetOrientation(Quaternion ori)
         {
             Orientation = ori;
@@ -193,6 +185,5 @@ namespace CodeWalker.World
         }
 
     }
-
 
 }

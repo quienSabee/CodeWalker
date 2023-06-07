@@ -105,7 +105,6 @@ namespace CodeWalker
             return Interlocked.Read(ref CurrentMemoryUsage) < MaxMemoryUsage;
         }
 
-
         public void Clear()
         {
             loadedList.Clear();
@@ -124,7 +123,6 @@ namespace CodeWalker
             }
         }
 
-
         public void Compact()
         {
             var oldlln = loadedList.First;
@@ -139,7 +137,6 @@ namespace CodeWalker
                 oldlln = nextln;
             }
         }
-
 
     }
 

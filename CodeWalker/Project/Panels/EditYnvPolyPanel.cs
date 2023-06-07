@@ -37,7 +37,6 @@ namespace CodeWalker.Project.Panels
             Text = "Nav Poly " + YnvPoly.Index.ToString();
         }
 
-
         public void UpdateYnvUI()
         {
             if (YnvPoly == null)
@@ -76,7 +75,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
         private void SetCheckedListBoxValues(CheckedListBox clb, byte flags)
         {
             for (int i = 0; i < clb.Items.Count; i++)
@@ -105,7 +103,6 @@ namespace CodeWalker.Project.Panels
             }
             return r;
         }
-
 
         private void AreaIDUpDown_ValueChanged(object sender, EventArgs e)
         {

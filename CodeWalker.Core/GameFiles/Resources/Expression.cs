@@ -29,9 +29,7 @@ using System.Xml;
     THE SOFTWARE.
 */
 
-
 //ruthlessly stolen
-
 
 namespace CodeWalker.GameFiles
 {
@@ -50,9 +48,7 @@ namespace CodeWalker.GameFiles
         public ResourceSimpleList64_s<MetaHash> ExpressionNameHashes { get; set; }
         public ResourcePointerList64<Expression> Expressions { get; set; }
 
-        
         public Dictionary<MetaHash, Expression> ExprMap { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -141,7 +137,6 @@ namespace CodeWalker.GameFiles
             return ed;
         }
 
-
         public override IResourceBlock[] GetReferences()
         {
             var list = new List<IResourceBlock>(base.GetReferences());
@@ -154,7 +149,6 @@ namespace CodeWalker.GameFiles
                 new Tuple<long, IResourceBlock>(0x30, Expressions)
             };
         }
-
 
         public void BuildMap()
         {
@@ -177,8 +171,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
     [TC(typeof(EXP))] public class Expression : ResourceSystemBlock
     {
@@ -218,7 +210,6 @@ namespace CodeWalker.GameFiles
 
         public Dictionary<ExpressionBoneTrack, ExpressionBoneTrack> BoneTracksDict { get; set; }
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             // read structure data
@@ -254,10 +245,7 @@ namespace CodeWalker.GameFiles
 
             JenkIndex.Ensure(GetShortName());
 
-
             BuildBoneTracksDict();
-
-
 
             #region testing
 
@@ -426,7 +414,6 @@ namespace CodeWalker.GameFiles
             };
         }
 
-
         public void BuildBoneTracksDict()
         {
             BoneTracksDict = new Dictionary<ExpressionBoneTrack, ExpressionBoneTrack>();
@@ -528,20 +515,16 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public string GetShortName()
         {
             return Path.GetFileNameWithoutExtension(Name?.Value ?? "").ToLowerInvariant();
         }
-
 
         public override string ToString()
         {
             return (Name?.ToString() ?? base.ToString()) + "   " + Unknown_74h.ToString();
         }
     }
-
-
 
     [TC(typeof(EXP))] public class ExpressionStream : ResourceSystemBlock, IMetaXmlItem
     {
@@ -560,11 +543,8 @@ namespace CodeWalker.GameFiles
         public byte[] Data2 { get; set; }
         public byte[] Data3 { get; set; }
 
-
         public ExpressionNodeBase[] Items { get; set; }
         public ExpressionNodeBase[] Roots { get; set; }
-
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -578,12 +558,8 @@ namespace CodeWalker.GameFiles
             this.Data2 = reader.ReadBytes((int)Data2Length);
             this.Data3 = reader.ReadBytes((int)Data3Length);
 
-
             ReadItems();
             BuildHierarchy();
-
-
-
 
             #region testing
             //FlattenHierarchy();
@@ -676,7 +652,6 @@ namespace CodeWalker.GameFiles
             }
             YedXml.CloseTag(sb, indent, "Instructions");
 
-
         }
         public void ReadXml(XmlNode node)
         {
@@ -706,9 +681,6 @@ namespace CodeWalker.GameFiles
             BuildHierarchy();
 
         }
-
-
-
 
         public void ReadItems()
         {
@@ -814,9 +786,7 @@ namespace CodeWalker.GameFiles
                 stack.Push(item);
             }
 
-
             Roots = stack.Reverse().ToArray();
-
 
             foreach (var item in Items) //probably using the stack caused child arrays to be reversed, so reverse them back again
             {
@@ -825,7 +795,6 @@ namespace CodeWalker.GameFiles
                     Array.Reverse(item.Children);
                 }
             }
-
 
         }
 
@@ -891,9 +860,6 @@ namespace CodeWalker.GameFiles
             Data3Length = (ushort)Data3.Length;
         }
 
-
-
-
         public static ExpressionNodeBase CreateItem(ExpressionNodeType type)
         {
             switch (type)
@@ -955,7 +921,6 @@ namespace CodeWalker.GameFiles
                 case ExpressionNodeType.Unk2D:
                     return new ExpressionNode2B();
 
-
                 case ExpressionNodeType.Unk05: return new ExpressionNode05();
                 case ExpressionNodeType.Unk0B: return new ExpressionNode0B();
                 case ExpressionNodeType.Jiggle: return new ExpressionNodeJiggle();
@@ -965,14 +930,12 @@ namespace CodeWalker.GameFiles
             return new ExpressionNodeBase();
         }
 
-
         public override string ToString()
         {
             return NameHash.ToString() + " (" + (Items?.Length??0).ToString() + " items, " + (Roots?.Length??0).ToString() + " roots)";
         }
 
     }
-
 
     public enum ExpressionNodeType : byte
     {
@@ -1030,7 +993,6 @@ namespace CodeWalker.GameFiles
         Unk49 = 0x49,
     }
 
-
     [TC(typeof(EXP))] public class ExpressionNodeBase
     {
     
@@ -1047,7 +1009,6 @@ crExprInstrFrame
 crExprInstrLookAt
 crExprInstrVariable
         */
-
 
         public ExpressionNodeType Type { get; set; }
 
@@ -1146,7 +1107,6 @@ crExprInstrVariable
             if (tlen != dlen)
             { }//no hitting
 
-
             Items = new ItemStruct[ItemCount];
             for (int i = 0; i < ItemCount; i++)
             {
@@ -1162,7 +1122,6 @@ crExprInstrVariable
                     Items[i].Values[n] = r1.ReadSingle();
                 }
             }
-
 
             switch (ItemCount)
             {
@@ -1639,9 +1598,6 @@ crExprInstrVariable
         }
     }
 
-
-
-
     [TC(typeof(EXP))] public class ExpressionJiggleBlock : ResourceSystemBlock
     {
         public override long BlockLength => 0xA0;
@@ -1664,8 +1620,6 @@ crExprInstrVariable
             return JiggleData?.ToString() ?? base.ToString();
         }
     }
-
-
 
     [TC(typeof(EXP))] public class ExpressionJiggleData
     {
@@ -1910,7 +1864,6 @@ crExprInstrVariable
         }
     }
 
-
     [TC(typeof(EXP))] public struct ExpressionBoneTrack : IMetaXmlItem
     {
         public ushort BoneTag { get; set; }
@@ -1935,6 +1888,5 @@ crExprInstrVariable
             return BoneTag.ToString() + ", " + Track.ToString() + ", " + Flags.ToString();
         }
     }
-
 
 }

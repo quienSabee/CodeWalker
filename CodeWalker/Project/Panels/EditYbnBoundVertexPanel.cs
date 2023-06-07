@@ -54,7 +54,6 @@ namespace CodeWalker.Project.Panels
             Text = fn + ((CollisionVertex?.Owner?.HasChanged ?? false) ? "*" : "");
         }
 
-
         public void UpdateUI()
         {
             if (CollisionVertex == null)

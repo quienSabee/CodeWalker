@@ -84,7 +84,6 @@ namespace CodeWalker.Rendering
         }
     }
 
-
     public struct VertexTypeDefault //id: 84500486, stride: 36, flags: 89, refs: 76099
     {
         public Vector3 Position;
@@ -379,9 +378,6 @@ namespace CodeWalker.Rendering
         public uint Colour0;
     }
 
-
-
-
     public struct VertexTypePCCH2H4 //id: 34185222, stride: 32, flags: 16473, types: 216172782140628998, refs: 2191 (yft only)  - frag cloth normalmapped
     {
         public Vector3 Position;
@@ -403,8 +399,6 @@ namespace CodeWalker.Rendering
         public ushort TexcoordX;// Vector2 Texcoord;
         public ushort TexcoordY;
     }
-
-
 
     public struct VertexTypePBBNCTT //id: 1426680214, stride: 52, flags: 223, types: 8598872888530528662, refs: 1470
     {
@@ -460,8 +454,6 @@ namespace CodeWalker.Rendering
         public Vector2 Texcoord2;
     }
 
-
-
     public struct VertexTypePBBNCTTTX //id: 1510566300, stride: 76, flags: 16863, types: 8598872888530528662, refs: 38
     {
         public Vector3 Position;
@@ -475,21 +467,9 @@ namespace CodeWalker.Rendering
         public Vector4 Tangent;
     }
 
-
-
-
-
-
-
-
-
-
-
-
     /*
 
     //full types output from all ydr/ydd files
-
 
     public struct VertexType89 //id: 84500486, stride: 36, flags: 89, types: 8598872888530528662, refs: 76099
     {
@@ -797,20 +777,9 @@ namespace CodeWalker.Rendering
        public uint Component5;
     }
 
-
-
-
     */
 
-
-
-
-
-
-
-
     /*
-
 
     //full types output from all yft files
     
@@ -1017,8 +986,6 @@ namespace CodeWalker.Rendering
        public Vector2 Component6;
     }
 
-
-
     //new (xmas 2017?)
     
     public struct VertexType16863 //id: 1510566300, stride: 76, flags: 16863, types: 8598872888530528662, refs: 38
@@ -1034,11 +1001,6 @@ namespace CodeWalker.Rendering
        public Vector4 Component9;
     }
 
-
-
-
-
      */
-
 
 }

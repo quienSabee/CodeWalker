@@ -29,13 +29,11 @@ namespace CodeWalker.Forms
         ExploreForm ExploreForm;
         object CurrentFile;
 
-
         public GenericForm(ExploreForm exploreForm)
         {
             ExploreForm = exploreForm;
             InitializeComponent();
         }
-
 
         public void LoadFile(object file, RpfFileEntry fileEntry)
         {
@@ -47,7 +45,6 @@ namespace CodeWalker.Forms
 
             UpdateFormTitle();
         }
-
 
         private void UpdateFormTitle()
         {

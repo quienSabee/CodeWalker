@@ -68,12 +68,7 @@ namespace CodeWalker.GameFiles
             return data;
         }
 
-
     }
-
-
-
-
 
     public class YftXml : MetaXmlBase
     {
@@ -121,8 +116,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
-
 
 }

@@ -67,7 +67,6 @@ namespace CodeWalker.World
             Inited = true;
         }
 
-
         public void SetTime(float hour)
         {
             float day = Math.Max(hour / 24.0f, 0.0f);
@@ -119,6 +118,5 @@ namespace CodeWalker.World
             uw_tc_mod = Xml.GetStringAttribute(node, "uw_tc_mod");
         }
     }
-
 
 }

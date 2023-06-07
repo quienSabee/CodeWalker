@@ -52,7 +52,6 @@ namespace CodeWalker.World
         private float MouseY = 0;
         private object syncRoot = new object();
 
-
         public Camera(float smoothness, float sensitivity, float fov)
         {
             Smoothness = smoothness;
@@ -60,7 +59,6 @@ namespace CodeWalker.World
             FieldOfView = fov;
             FieldOfViewFactor = 0.5f / (float)Math.Tan(FieldOfView * 0.5f);
         }
-
 
         public void SetMousePosition(int x, int y)
         {
@@ -122,9 +120,6 @@ namespace CodeWalker.World
                 UpdateProj = true;
             }
 
-
-
-
             if (IsMapView)
             {
                 //in map view, need a constant view matrix aligned to XY.
@@ -163,7 +158,6 @@ namespace CodeWalker.World
                 ViewDirection = Vector3.Normalize(-rdir);
                 UpDirection = up;
             }
-
 
             //M16FLookAt(LocalProjection.ViewMatrix, V3F(0.0f, 0.0f, 0.0f), LocalProjection.ViewDirection, LocalProjection.UpDirection);
             ViewQuaternion = Quaternion.LookAtRH(Vector3.Zero, ViewDirection, UpDirection);

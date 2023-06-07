@@ -112,7 +112,6 @@ namespace CodeWalker.GameFiles
             return l;
         }
 
-
         public override IResourceBlock[] GetReferences()
         {
             var list = new List<IResourceBlock>(base.GetReferences());
@@ -120,7 +119,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
     }
-
 
     public class WaypointRecordEntry : ResourceSystemBlock
     {
@@ -168,6 +166,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
 }

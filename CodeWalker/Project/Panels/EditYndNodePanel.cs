@@ -52,7 +52,6 @@ namespace CodeWalker.Project.Panels
             LoadPathNodeLinkPage();
         }
 
-
         private void LoadPathNodeTabPage()
         {
 
@@ -101,7 +100,6 @@ namespace CodeWalker.Project.Panels
                     }
                 }
                 populatingui = false;
-
 
                 if (ProjectForm.WorldForm != null)
                 {
@@ -176,7 +174,6 @@ namespace CodeWalker.Project.Panels
                 populatingui = false;
             }
 
-
         }
 
         private void UpdatePathNodeFlagsUI(bool updateCheckboxes, bool updateUpDowns)
@@ -188,7 +185,6 @@ namespace CodeWalker.Project.Panels
             var flags3 = CurrentPathNode?.Flags3.Value ?? 0;
             var flags4 = CurrentPathNode?.Flags4.Value ?? 0;
             var flags5 = (uint)(CurrentPathNode?.LinkCountUnk ?? 0);
-
 
             if (updateCheckboxes)
             {
@@ -267,7 +263,6 @@ namespace CodeWalker.Project.Panels
             var flags0 = CurrentPathLink?.Flags0.Value ?? 0;
             var flags1 = CurrentPathLink?.Flags1.Value ?? 0;
             var flags2 = CurrentPathLink?.Flags2.Value ?? 0;
-
 
             if (updateCheckboxes)
             {
@@ -361,7 +356,6 @@ namespace CodeWalker.Project.Panels
             flags5 = BitUtil.UpdateBit(flags5, 0, PathNodeFlags51CheckBox.Checked);
             flags5 = BitUtil.UpdateBit(flags5, 1, PathNodeFlags52CheckBox.Checked);
             flags5 = BitUtil.UpdateBit(flags5, 2, PathNodeFlags53CheckBox.Checked);
-
 
             lock (ProjectForm.ProjectSyncRoot)
             {
@@ -550,7 +544,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
         private void AddPathLink()
         {
             if (CurrentPathNode == null) return;
@@ -621,19 +614,12 @@ namespace CodeWalker.Project.Panels
             CurrentPathLink.Node2 = linknode;
             CurrentPathLink.UpdateLength();
 
-
             ////need to rebuild the link verts.. updating the graphics should do it...
             if (ProjectForm.WorldForm != null)
             {
                 ProjectForm.WorldForm.UpdatePathYndGraphics(CurrentYndFile, false);
             }
         }
-
-
-
-
-
-
 
         private void PathNodeAreaIDUpDown_ValueChanged(object sender, EventArgs e)
         {
@@ -943,7 +929,6 @@ namespace CodeWalker.Project.Panels
             SetPathNodeFlagsFromCheckBoxes();
         }
 
-
         private void PathNodeLinksListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CurrentPathLink = PathNodeLinksListBox.SelectedItem as YndLink;
@@ -1108,7 +1093,6 @@ namespace CodeWalker.Project.Panels
                 }
             }
         }
-
 
         private void PathNodeJunctionEnableCheckBox_CheckedChanged(object sender, EventArgs e)
         {

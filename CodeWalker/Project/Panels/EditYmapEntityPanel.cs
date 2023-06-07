@@ -36,7 +36,6 @@ namespace CodeWalker.Project.Panels
             Text = CurrentEntity?.Name ?? "Entity";
         }
 
-
         private void LoadDropDowns()
         {
             EntityLodLevelComboBox.Items.Clear();
@@ -54,7 +53,6 @@ namespace CodeWalker.Project.Panels
             EntityPriorityLevelComboBox.Items.Add(rage__ePriorityLevel.PRI_OPTIONAL_MEDIUM);
             EntityPriorityLevelComboBox.Items.Add(rage__ePriorityLevel.PRI_OPTIONAL_LOW);
         }
-
 
         private void LoadEntity(bool sameEntity)
         {
@@ -123,8 +121,6 @@ namespace CodeWalker.Project.Panels
                     EntityFlagsCheckedListBox.SetItemCheckState(i, cv ? CheckState.Checked : CheckState.Unchecked);
                 }
 
-
-
                 MiloEntitySetsListBox.Items.Clear();
                 if (CurrentEntity.MloInstance != null)
                 {
@@ -152,18 +148,14 @@ namespace CodeWalker.Project.Panels
                     MiloFlagsTextBox.Text = string.Empty;
                 }
 
-
                 populatingui = false;
 
-
                 UpdateTabVisibility();
-
 
                 if (rotupd && sameEntity)
                 {
                     UpdateRotationFlag();
                 }
-
 
                 var ms = ProjectForm.WorldForm?.CurrentMapSelection;
                 if ((ms?.EntityDef != CurrentEntity) && (ms?.MloEntityDef != CurrentEntity))
@@ -223,7 +215,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
         private void UpdateRotationFlag()
         {
             if (CurrentEntity == null) return;
@@ -233,7 +224,6 @@ namespace CodeWalker.Project.Panels
 
             EntityFlagsCheckedListBox.SetItemChecked(0, flag);
         }
-
 
         private void EntityArchetypeTextBox_TextChanged(object sender, EventArgs e)
         {

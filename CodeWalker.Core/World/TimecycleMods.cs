@@ -14,8 +14,6 @@ namespace CodeWalker.World
 
         public Dictionary<uint, TimecycleMod> Dict = new Dictionary<uint, TimecycleMod>();
 
-
-
         public void Init(GameFileCache gameFileCache, Action<string> updateStatus)
         {
             Dict.Clear();
@@ -46,7 +44,6 @@ namespace CodeWalker.World
                 }
             }
 
-
             gameFileCache.TimeCycleModsDict = Dict;
         }
 
@@ -69,9 +66,7 @@ namespace CodeWalker.World
 
         }
 
-
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class TimecycleMod

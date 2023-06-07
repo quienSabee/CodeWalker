@@ -178,9 +178,6 @@ namespace CodeWalker.Project.Panels
             ProjectForm.DeleteMloEntitySet();
         }
 
-
-
-
         class LocationItem
         {
             public uint Location { get; set; }

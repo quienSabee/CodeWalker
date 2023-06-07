@@ -8,8 +8,6 @@ using System.Windows.Forms;
 namespace CodeWalker
 {
 
-
-
     public class InputManager
     {
         public Controller xbcontroller = null;
@@ -29,10 +27,6 @@ namespace CodeWalker
         public float xblt = 0; //left trigger value
         public float xbrt = 0; //right trigger value
 
-
-
-
-
         public volatile bool kbmovefwd = false;
         public volatile bool kbmovebck = false;
         public volatile bool kbmovelft = false;
@@ -46,9 +40,6 @@ namespace CodeWalker
 
         public bool CtrlPressed = false;
         public bool ShiftPressed = false;
-
-
-
 
         public void Init()
         {
@@ -74,11 +65,6 @@ namespace CodeWalker
             }
 
         }
-
-
-
-
-
 
         public void Update()
         {
@@ -113,8 +99,6 @@ namespace CodeWalker
             }
 
         }
-
-
 
         public void KeyDown(KeyEventArgs e, bool enablemove)
         {
@@ -169,8 +153,6 @@ namespace CodeWalker
             kbjump = false;
         }
 
-
-
         public Vector3 KeyboardMoveVec(bool mapview = false)
         {
             Vector3 movevec = Vector3.Zero;
@@ -194,8 +176,6 @@ namespace CodeWalker
             }
             return movevec;
         }
-
-
 
         public Vector4 ControllerMainAxes()
         {
@@ -236,11 +216,7 @@ namespace CodeWalker
             return (((xbcontrollerstate.Gamepad.Buttons & b) != 0) && ((xbcontrollerstateprev.Gamepad.Buttons & b) == 0));
         }
 
-
     }
-
-
-
 
     public class KeyBindings
     {
@@ -329,7 +305,5 @@ namespace CodeWalker
         }
 
     }
-
-
 
 }

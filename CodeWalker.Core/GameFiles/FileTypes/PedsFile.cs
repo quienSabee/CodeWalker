@@ -10,7 +10,6 @@ using System.Xml;
 using TC = System.ComponentModel.TypeConverterAttribute;
 using EXP = System.ComponentModel.ExpandableObjectConverter;
 
-
 namespace CodeWalker.GameFiles
 {
     [TC(typeof(EXP))] public class PedsFile : GameFile, PackedFile
@@ -30,8 +29,6 @@ namespace CodeWalker.GameFiles
             RpfFileEntry = entry;
             Name = entry.Name;
             FilePath = Name;
-
-
 
             //can be PSO .ymt or XML .meta
             MemoryStream ms = new MemoryStream(data);
@@ -61,20 +58,14 @@ namespace CodeWalker.GameFiles
             else
             { }
 
-
             if (xdoc.DocumentElement != null)
             {
                 InitDataList = new CPedModelInfo__InitDataList(xdoc.DocumentElement);
             }
 
-
-
-
             Loaded = true;
         }
     }
-
-
 
     [TC(typeof(EXP))] public class CPedModelInfo__InitDataList
     {
@@ -204,7 +195,6 @@ namespace CodeWalker.GameFiles
         public float DefaultRemoveRangeMultiplier { get; set; }
         public bool AllowCloseSpawning { get; set; }
 
-
         public CPedModelInfo__InitData(XmlNode node)
         {
             Name = Xml.GetChildInnerText(node, "Name");
@@ -288,7 +278,6 @@ namespace CodeWalker.GameFiles
             AllowCloseSpawning = Xml.GetChildBoolAttribute(node, "AllowCloseSpawning", "value");
         }
 
-
         public override string ToString()
         {
             return Name;
@@ -337,11 +326,5 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
-
-
 }
-
 

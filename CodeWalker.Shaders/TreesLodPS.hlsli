@@ -3,7 +3,6 @@
 Texture2D<float4> Colourmap : register(t0);
 SamplerState TextureSS : register(s0);
 
-
 cbuffer PSSceneVars : register(b0)
 {
     ShaderGlobalLightParams GlobalLights;
@@ -15,7 +14,6 @@ cbuffer PSEntityVars : register(b1)
     uint Pad2;
     uint Pad3;
 }
-
 
 struct VS_OUTPUT
 {

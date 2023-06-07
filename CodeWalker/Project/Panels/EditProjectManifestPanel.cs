@@ -44,7 +44,6 @@ namespace CodeWalker.Project.Panels
 
         }
 
-
         public void SetProject(ProjectFile project)
         {
             //TODO: include _manifest.ymf in project and load/save
@@ -53,9 +52,6 @@ namespace CodeWalker.Project.Panels
 
             GenerateProjectManifest();
         }
-
-
-
 
         private void GenerateProjectManifest()
         {
@@ -69,7 +65,6 @@ namespace CodeWalker.Project.Panels
             sb.AppendLine("  <MapDataGroups/>");
             sb.AppendLine("  <HDTxdBindingArray/>");
             sb.AppendLine("  <imapDependencies/>");
-
 
             var getYtypName = new Func<YtypFile, string>((ytyp) =>
             {
@@ -88,7 +83,6 @@ namespace CodeWalker.Project.Panels
                 }
                 return ytypname;
             });
-
 
             if (CurrentProjectFile != null)
             {

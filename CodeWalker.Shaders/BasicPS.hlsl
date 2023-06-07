@@ -1,6 +1,5 @@
 #include "BasicPS.hlsli"
 
-
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
     float4 c = float4(0.5, 0.5, 0.5, 1);
@@ -74,7 +73,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
         if (RenderModeIndex == 3) c.rgb = float3(input.Texcoord2, 0);
     }
 
-
     float3 spec = 0;
 
     if (RenderMode == 0)
@@ -82,7 +80,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 
         float4 nv = Bumpmap.Sample(TextureSS, input.Texcoord0);  //sample r1.xyzw, v2.xyxx, t3.xyzw, s3  (BumpSampler)
         float4 sv = Specmap.Sample(TextureSS, input.Texcoord0);  //sample r2.xyzw, v2.xyxx, t4.xyzw, s4  (SpecSampler)
-
 
         float2 nmv = nv.xy;
         float4 r0 = 0, r1, r2, r3;
@@ -104,10 +101,7 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 
             norm = NormalMap(nmv, bumpiness, input.Normal.xyz, input.Tangent.xyz, input.Bitangent.xyz);
 
-
         }
-        
-
 
         if (EnableSpecMap == 0)
         {
@@ -158,11 +152,9 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 
     }
 
-
     float4 fc = c;
 
     c.rgb = FullLighting(c.rgb, spec, norm, input.Colour0, GlobalLights, EnableShadows, input.Shadows.x, input.LightShadow);
-
 
     if (IsEmissive==1)
     {
@@ -176,10 +168,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
     c.a = saturate(c.a);
     return c;
 }
-
-
-
-
 
 //normal_spec_detail.fxc_PS_DeferredTextured
 
@@ -254,24 +242,6 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 //mul r0.xy, r1.xzxx, l(0.500000, 0.500000, 0.000000, 0.000000)
 //sqrt o3.xy, r0.xyxx
 //mov o3.zw, l(0,0,0,1.001884)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 //normal_spec.fxc_PS_DeferredTextured

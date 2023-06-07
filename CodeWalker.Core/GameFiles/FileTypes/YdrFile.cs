@@ -32,7 +32,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             RpfFileEntry = entry;
 
-
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
             {
@@ -65,11 +64,7 @@ namespace CodeWalker.GameFiles
             return data;
         }
 
-
     }
-
-
-
 
     public class YdrXml : MetaXmlBase
     {
@@ -117,7 +112,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
 }

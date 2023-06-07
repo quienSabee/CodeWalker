@@ -28,21 +28,15 @@ namespace CodeWalker.Forms
         }
         public string FilePath { get; set; }
 
-
-
-
         public YwrForm()
         {
             InitializeComponent();
         }
 
-
-
         private void UpdateFormTitle()
         {
             Text = fileName + " - Waypoint Records Viewer - CodeWalker by dexyfex";
         }
-
 
         public void LoadYwr(YwrFile ywr)
         {

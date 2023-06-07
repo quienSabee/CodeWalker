@@ -14,14 +14,12 @@ namespace CodeWalker.GameFiles
     {
         public TextureDictionary TextureDict { get; set; }
 
-
         public YtdFile() : base(null, GameFileType.Ytd)
         {
         }
         public YtdFile(RpfFileEntry entry) : base(entry, GameFileType.Ytd)
         {
         }
-
 
         public void Load(byte[] data)
         {
@@ -36,7 +34,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             RpfFileEntry = entry;
 
-
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
             {
@@ -44,7 +41,6 @@ namespace CodeWalker.GameFiles
             }
 
             ResourceDataReader rd = new ResourceDataReader(resentry, data);
-
 
             TextureDict = rd.ReadBlock<TextureDictionary>();
 
@@ -56,7 +52,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public byte[] Save()
         {
             byte[] data = ResourceBuilder.Build(TextureDict, 13); //ytd is type/version 13...
@@ -64,11 +59,7 @@ namespace CodeWalker.GameFiles
             return data;
         }
 
-
     }
-
-
-
 
     public class YtdXml : MetaXmlBase
     {
@@ -116,7 +107,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
 }

@@ -32,7 +32,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             FilePath = Name;
 
-
             //can be PSO .ymt or XML .meta
             MemoryStream ms = new MemoryStream(data);
             if (PsoFile.IsPSO(ms))
@@ -61,12 +60,10 @@ namespace CodeWalker.GameFiles
             else
             { }
 
-
             if (xdoc.DocumentElement != null)
             {
                 VehicleModelInfo = new CVehicleModelInfoVariation(xdoc.DocumentElement);
             }
-
 
             Loaded = true;
         }
@@ -215,7 +212,6 @@ namespace CodeWalker.GameFiles
                     liveries = alist.ToArray();
                 }
             }
-
 
         }
     }

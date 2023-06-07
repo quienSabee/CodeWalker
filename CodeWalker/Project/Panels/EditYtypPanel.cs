@@ -55,7 +55,6 @@ namespace CodeWalker.Project.Panels
             Text = fn + (Ytyp.HasChanged ? "*" : "");
         }
 
-
         public void UpdateYtypUI()
         {
         }

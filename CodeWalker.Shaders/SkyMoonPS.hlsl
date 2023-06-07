@@ -13,7 +13,6 @@ struct VS_OUTPUT
     float2 Texcoord : TEXCOORD0;
 };
 
-
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
     float2 texc = input.Texcoord;

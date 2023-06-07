@@ -90,7 +90,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
         private void RoomFromTextBox_TextChanged(object sender, EventArgs e)
         {
             if (populatingui) return;

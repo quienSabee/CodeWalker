@@ -5,14 +5,12 @@ struct VS_Output
     float2 Tex : TEXCOORD0;
 };
 
-
 Texture2D<float4> tex : register( t0 );
 StructuredBuffer<float> lum : register( t1 );
 Texture2D<float4> bloom : register( t2 );
 
 SamplerState PointSampler : register (s0);
 SamplerState LinearSampler : register (s1);
-
 
 static const float  MIDDLE_GRAY = 0.72f;
 static const float  LUM_WHITE = 1.5f;
@@ -21,7 +19,6 @@ cbuffer cbPS : register( b0 )
 {
     float4    g_param;   
 };
-
 
 float4 main(VS_Output input) : SV_TARGET
 {

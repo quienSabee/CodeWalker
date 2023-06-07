@@ -35,7 +35,6 @@ namespace CodeWalker.GameFiles
         public TextureDictionary TextureDictionary { get; set; }
         public ResourcePointerArray64<ShaderFX> Shaders { get; set; }
 
-
         public int TotalParameters
         {
             get
@@ -51,7 +50,6 @@ namespace CodeWalker.GameFiles
                 return c;
             }
         }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -77,7 +75,6 @@ namespace CodeWalker.GameFiles
                 this.ShadersPointer, // offset
                 this.ShadersCount1
             );
-
 
             // wtf is Unknown_30h ???
             //switch (ShadersCount1)
@@ -209,7 +206,6 @@ namespace CodeWalker.GameFiles
                 Shaders.data_items = shaders;
             }
 
-
             if ((shaders != null) && (TextureDictionary != null))
             {
                 foreach (var shader in shaders)
@@ -232,7 +228,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
 
         public override IResourceBlock[] GetReferences()
         {
@@ -396,7 +391,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
         public override string ToString()
         {
             return Name.ToString() + " (" + FileName.ToString() + ")";
@@ -544,7 +538,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             reader.Position += offset; //Vector4 data gets embedded here... but why pointers in params also???
 
             var hashes = new List<MetaName>();
@@ -555,7 +548,6 @@ namespace CodeWalker.GameFiles
 
             Parameters = paras.ToArray();
             Hashes = hashes.ToArray();
-
 
             ////testing padding area at the end of the block...
             //var psiz1 = Owner.ParameterDataSize;
@@ -577,7 +569,6 @@ namespace CodeWalker.GameFiles
             //        { break; }//no hit
             //    }
             //}
-
 
             //// just testing...
             //for (int i = 0; i < Parameters.Length; i++)
@@ -621,7 +612,6 @@ namespace CodeWalker.GameFiles
             //    }
             //}
 
-
         }
         public override void Write(ResourceDataWriter writer, params object[] parameters)
         {
@@ -647,8 +637,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
-
 
             // write parameter infos
             foreach (var f in Parameters)
@@ -677,7 +665,6 @@ namespace CodeWalker.GameFiles
             {
                 writer.Write((uint)h);
             }
-
 
             //write end padding stuff
             var psiz = ParametersDataSize;
@@ -813,9 +800,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
-
-
         public override IResourceBlock[] GetReferences()
         {
             var list = new List<IResourceBlock>();
@@ -867,8 +851,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class Skeleton : ResourceSystemBlock
     {
         public override long BlockLength
@@ -914,13 +896,10 @@ namespace CodeWalker.GameFiles
         private ResourceSystemStructBlock<short> ParentIndicesBlock = null;
         private ResourceSystemStructBlock<short> ChildIndicesBlock = null;
 
-
         public Dictionary<ushort, Bone> BonesMap { get; set; }//for convienience finding bones by tag
         public Bone[] BonesSorted { get; set; } //sometimes bones aren't in parent>child order in the files! (eg player chars)
 
-
         public Matrix3_s[] BoneTransforms; //for rendering
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -955,7 +934,6 @@ namespace CodeWalker.GameFiles
             this.Transformations = reader.ReadStructsAt<Matrix>(this.TransformationsPointer, this.BonesCount);
             this.ParentIndices = reader.ReadShortsAt(this.ParentIndicesPointer, this.BonesCount);
             this.ChildIndices = reader.ReadShortsAt(this.ChildIndicesPointer, this.ChildIndicesCount);
-
 
             AssignBoneParents();
 
@@ -1000,7 +978,6 @@ namespace CodeWalker.GameFiles
             this.BonesCount = (ushort)(this.Bones?.Items != null ? this.Bones.Items.Length : 0);
             this.ChildIndicesCount = (ushort)(this.ChildIndicesBlock != null ? this.ChildIndicesBlock.ItemCount : 0);
             this.BoneTagsCount = Math.Min(BonesCount, BoneTagsCapacity);
-
 
             // write structure data
             writer.Write(this.VFT);
@@ -1089,11 +1066,6 @@ namespace CodeWalker.GameFiles
             }
             return list.ToArray();
         }
-
-
-
-
-
 
         public void AssignBoneParents()
         {
@@ -1191,8 +1163,6 @@ namespace CodeWalker.GameFiles
                     layer.InsertRange(0, extlayer);
                 }
 
-
-
                 foreach (var l in layers)
                 {
                     Bone lastbone = null;
@@ -1215,10 +1185,6 @@ namespace CodeWalker.GameFiles
                         }
                     }
                 }
-
-
-
-
 
                 //////just testing
                 //var numchilds = ChildIndices?.Length ?? 0;
@@ -1244,9 +1210,6 @@ namespace CodeWalker.GameFiles
                 //if (numchilds != childs.Count)
                 //{ }
 
-
-
-
                 //var numbones = Bones.Items.Length;
                 //var numchilds = ChildIndices?.Length ?? 0;
                 //for (int i = 0; i < numchilds; i += 2)
@@ -1261,9 +1224,6 @@ namespace CodeWalker.GameFiles
                 //    if (pind != bone.ParentIndex)
                 //    { }//shouldn't happen?
                 //}
-
-
-
 
             }
 
@@ -1329,7 +1289,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             //if (BoneTags?.data_items != null) //just testing - all ok
             //{
             //    var numtags = BoneTags.data_items.Length;
@@ -1354,10 +1313,8 @@ namespace CodeWalker.GameFiles
             //    }
             //}
 
-
             BoneTags = new ResourcePointerArray64<SkeletonBoneTag>();
             BoneTags.data_items = newtags.ToArray();
-
 
         }
 
@@ -1427,7 +1384,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public static uint GetNumHashBuckets(int nHashes)
         {
             //todo: refactor with same in Clip.cs?
@@ -1450,8 +1406,6 @@ namespace CodeWalker.GameFiles
             else /*if (nHashes < 65521)*/ return 65521;
             //return ((uint)nHashes / 4) * 4 + 3;
         }
-
-
 
         public void ResetBoneTransforms()
         {
@@ -1480,11 +1434,6 @@ namespace CodeWalker.GameFiles
                 BoneTransforms[i] = bt;
             }
         }
-
-
-
-
-
 
         public Skeleton Clone()
         {
@@ -1567,8 +1516,6 @@ namespace CodeWalker.GameFiles
             return skel;
         }
 
-
-
     }
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class SkeletonBonesBlock : ResourceSystemBlock
@@ -1595,7 +1542,6 @@ namespace CodeWalker.GameFiles
         public uint Unk2; // 0
         public Bone[] Items { get; set; }
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             Count = reader.ReadUInt32();
@@ -1610,7 +1556,6 @@ namespace CodeWalker.GameFiles
                 items[i] = reader.ReadBlock<Bone>();
             }
             Items = items;
-
 
             //if (Count != count)
             //{ }//no hit
@@ -2120,7 +2065,6 @@ namespace CodeWalker.GameFiles
 
         private string_r NameBlock = null;
 
-
         //used by CW for animating skeletons.
         public Quaternion AnimRotation;//relative to parent
         public Vector3 AnimTranslation;//relative to parent
@@ -2160,7 +2104,6 @@ namespace CodeWalker.GameFiles
             AnimRotation = Rotation;
             AnimTranslation = Translation;
             AnimScale = Scale;
-
 
             //if (Unknown_1Ch != 0)
             //{ }
@@ -2234,7 +2177,6 @@ namespace CodeWalker.GameFiles
         {
             return Tag.ToString() + ": " + Name;
         }
-
 
         public void UpdateAnimTransform()
         {
@@ -2334,7 +2276,6 @@ namespace CodeWalker.GameFiles
         private ResourceSystemStructBlock<JointRotationLimit_s> RotationLimitsBlock = null; //for saving only
         private ResourceSystemStructBlock<JointTranslationLimit_s> TranslationLimitsBlock = null;
 
-
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
             // read structure data
@@ -2370,7 +2311,6 @@ namespace CodeWalker.GameFiles
             //if (Unknown_38h != 0)
             //{ }
 
-
         }
         public override void Write(ResourceDataWriter writer, params object[] parameters)
         {
@@ -2379,7 +2319,6 @@ namespace CodeWalker.GameFiles
             this.TranslationLimitsPointer = (ulong)(this.TranslationLimitsBlock != null ? this.TranslationLimitsBlock.FilePosition : 0);
             this.RotationLimitsCount = (ushort)(this.RotationLimitsBlock != null ? this.RotationLimitsBlock.ItemCount : 0);
             this.TranslationLimitsCount = (ushort)(this.TranslationLimitsBlock != null ? this.TranslationLimitsBlock.ItemCount : 0);
-
 
             // write structure data
             writer.Write(this.VFT);
@@ -2574,10 +2513,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class DrawableModelsBlock : ResourceSystemBlock
     {
         public override long BlockLength
@@ -2613,7 +2548,6 @@ namespace CodeWalker.GameFiles
         public ulong[] LowPointers { get; set; }
         public ulong[] VLowPointers { get; set; }
         public ulong[] ExtraPointers { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -2724,7 +2658,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         private long Pad(long o) => ((16 - (o % 16)) % 16);
         private long HeaderLength(int listlength) => 16 + ((listlength) * 8);
         private long ListLength(DrawableModel[] list, long o)
@@ -2735,7 +2668,6 @@ namespace CodeWalker.GameFiles
             foreach (var m in list) l += Pad(l) + m.BlockLength;
             return Pad(o) + l;
         }
-
 
         public override Tuple<long, IResourceBlock>[] GetParts()
         {
@@ -2764,7 +2696,6 @@ namespace CodeWalker.GameFiles
 
             return parts.ToArray();
         }
-
 
         public long GetHighPointer()
         {
@@ -2881,11 +2812,6 @@ namespace CodeWalker.GameFiles
             set { RenderMaskFlags = (ushort)((RenderMaskFlags & 0xFFu) + ((value & 0xFFu) << 8)); }
         }
 
-
-
-
-
-
         public long MemoryUsage
         {
             get
@@ -2957,7 +2883,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
 
             ////just testing!
 
@@ -3049,8 +2974,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
-
             // write structure data
             writer.Write(this.VFT);
             writer.Write(this.Unknown_4h);
@@ -3063,7 +2986,6 @@ namespace CodeWalker.GameFiles
             writer.Write(this.SkeletonBinding);
             writer.Write(this.RenderMaskFlags);
             writer.Write(this.GeometriesCount3);
-
 
             for (int i = 0; i < GeometriesCount1; i++)
             {
@@ -3145,7 +3067,6 @@ namespace CodeWalker.GameFiles
             BoundsData = (aabbs.Count > 0) ? aabbs.ToArray() : null;
             ShaderMapping = (shids.Count > 0) ? shids.ToArray() : null;
         }
-
 
         public override Tuple<long, IResourceBlock>[] GetParts()
         {
@@ -3232,9 +3153,7 @@ namespace CodeWalker.GameFiles
         public ushort ShaderID { get; set; }//read/written by parent model
         public AABB_s AABB { get; set; }//read/written by parent model
 
-
         public bool UpdateRenderableParameters = false; //used by model material editor...
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -3320,7 +3239,6 @@ namespace CodeWalker.GameFiles
             //else
             //{ }//no hit
 
-
             //if (Unknown_4h != 1)
             //{ }
             //if (Unknown_8h != 0)
@@ -3362,7 +3280,6 @@ namespace CodeWalker.GameFiles
             this.TrianglesCount = this.IndicesCount / 3; //TODO: fix?
             this.BoneIdsPointer = (BoneIds != null) ? (ulong)(writer.Position + 152 + ((BoneIds.Length > 4) ? 8 : 0)) : 0;
             this.BoneIdsCount = (ushort)(BoneIds?.Length ?? 0);
-            
 
             // write structure data
             writer.Write(this.VFT);
@@ -3561,7 +3478,6 @@ namespace CodeWalker.GameFiles
                 this.Info
             );
 
-
             //switch (Flags)
             //{
             //    case 0:
@@ -3678,7 +3594,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public override IResourceBlock[] GetReferences()
         {
             var list = new List<IResourceBlock>();
@@ -3692,7 +3607,6 @@ namespace CodeWalker.GameFiles
     [TypeConverter(typeof(ExpandableObjectConverter))] public class VertexData : ResourceSystemBlock
     {
 
-
         //private int length = 0;
         public override long BlockLength
         {
@@ -3702,14 +3616,12 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public int VertexStride { get; set; }
         public int VertexCount { get; set; }
         public VertexDeclaration Info { get; set; }
         public VertexType VertexType { get; set; }
 
         public byte[] VertexBytes { get; set; }
-
 
         public long MemoryUsage
         {
@@ -3819,7 +3731,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
 
         public void AllocateData(int vertexCount)
         {
@@ -4219,7 +4130,6 @@ namespace CodeWalker.GameFiles
             return new Color(0, 0, 0, 0);
         }
 
-
         public override string ToString()
         {
             return "Type: " + VertexType.ToString() + ", Count: " + VertexCount.ToString();
@@ -4392,9 +4302,7 @@ namespace CodeWalker.GameFiles
         //public ResourceSimpleArray<ushort_r> Indices;
         public ushort[] Indices { get; set; }
 
-
         private ResourceSystemStructBlock<ushort> IndicesBlock = null; //only used when saving
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -4420,7 +4328,6 @@ namespace CodeWalker.GameFiles
             //    this.IndicesCount
             //);
             this.Indices = reader.ReadUshortsAt(this.IndicesPointer, this.IndicesCount);
-
 
             //if (Unknown_4h != 1)
             //{ }
@@ -4485,7 +4392,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public override IResourceBlock[] GetReferences()
         {
             var list = new List<IResourceBlock>();
@@ -4497,7 +4403,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
     }
-
 
     public enum LightType : byte
     {
@@ -4562,7 +4467,6 @@ namespace CodeWalker.GameFiles
 
         public bool UpdateRenderable = false; //used by model light form
 
-
         public Quaternion Orientation
         {
             get
@@ -4598,7 +4502,6 @@ namespace CodeWalker.GameFiles
                 Tangent = Vector3.Normalize(delta.Multiply(Tangent));
             }
         }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -4784,8 +4687,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class DrawableBase : ResourceFileBase
     {
         public override long BlockLength
@@ -4861,13 +4762,11 @@ namespace CodeWalker.GameFiles
             set { RenderMaskFlagsVlow = (RenderMaskFlagsVlow & 0xFFFF00FF) + ((value & 0xFFu) << 8); }
         }
 
-
         // reference data
         public ShaderGroup ShaderGroup { get; set; }
         public Skeleton Skeleton { get; set; }
         public Joints Joints { get; set; }
         public DrawableModelsBlock DrawableModels { get; set; }
-
 
         public DrawableModel[] AllModels { get; set; }
         public Dictionary<ulong, VertexDeclaration> VertexDecls { get; set; }
@@ -4896,7 +4795,6 @@ namespace CodeWalker.GameFiles
                 return val;
             }
         }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -4935,11 +4833,9 @@ namespace CodeWalker.GameFiles
             this.Joints = reader.ReadBlockAt<Joints>(this.JointsPointer);
             this.DrawableModels = reader.ReadBlockAt<DrawableModelsBlock>((DrawableModelsPointer == 0) ? DrawableModelsHighPointer : DrawableModelsPointer, this);
 
-
             BuildAllModels();
             BuildVertexDecls();
             AssignGeometryShaders(ShaderGroup);
-
 
             ////just testing!!!
 
@@ -4979,7 +4875,6 @@ namespace CodeWalker.GameFiles
             //    { }//no hit
             //    ptr += listlength(DrawableModels?.VLow);
             //}
-
 
             //switch (Unknown_3Ch)
             //{
@@ -5319,7 +5214,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
         public void AssignGeometryShaders(ShaderGroup shaderGrp)
         {
             //if (shaderGrp != null)
@@ -5349,8 +5243,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
-
 
         public void BuildAllModels()
         {
@@ -5389,7 +5281,6 @@ namespace CodeWalker.GameFiles
             VertexDecls = new Dictionary<ulong, VertexDeclaration>(vds);
         }
 
-
         public void BuildRenderMasks()
         {
             var hmask = BuildRenderMask(DrawableModels?.High);
@@ -5425,7 +5316,6 @@ namespace CodeWalker.GameFiles
             }
             return mask;
         }
-
 
         public DrawableBase ShallowCopy()
         {
@@ -5506,14 +5396,11 @@ namespace CodeWalker.GameFiles
 
         public string ErrorMessage { get; set; }
 
-
         private string_r NameBlock = null;//only used when saving..
-
 
 #if DEBUG
         public ResourceAnalyzer Analyzer { get; set; }
 #endif
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -5550,7 +5437,6 @@ namespace CodeWalker.GameFiles
 
             if (UnkPointer != 0)
             { }
-
 
 #if DEBUG
             Analyzer = new ResourceAnalyzer(reader);
@@ -5613,7 +5499,6 @@ namespace CodeWalker.GameFiles
             return d;
         }
 
-
         public override IResourceBlock[] GetReferences()
         {
             var list = new List<IResourceBlock>(base.GetReferences());
@@ -5632,7 +5517,6 @@ namespace CodeWalker.GameFiles
             };
         }
 
-
         public override string ToString()
         {
             return Name;
@@ -5648,7 +5532,6 @@ namespace CodeWalker.GameFiles
 
         // structure data
         public ulong UnkPointer { get; set; }
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -5716,9 +5599,7 @@ namespace CodeWalker.GameFiles
         public uint[] Hashes { get; set; }
         public ResourcePointerArray64<DrawablePtfx> Drawables { get; set; }
 
-
         private ResourceSystemStructBlock<uint> HashesBlock = null;//only used for saving
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -5864,9 +5745,7 @@ namespace CodeWalker.GameFiles
         public uint[] Hashes { get; set; }
         public ResourcePointerArray64<Drawable> Drawables { get; set; }
 
-
         private ResourceSystemStructBlock<uint> HashesBlock = null;//only used for saving
-
 
         public long MemoryUsage
         {
@@ -6001,6 +5880,5 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
     }
-
 
 }

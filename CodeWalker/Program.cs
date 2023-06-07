@@ -61,7 +61,6 @@ namespace CodeWalker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
             // Always check the GTA folder first thing
             if (!GTAFolder.UpdateGTAFolder(Properties.Settings.Default.RememberGTAFolder))
             {
@@ -105,7 +104,6 @@ namespace CodeWalker
             }
 #endif
         }
-
 
         static void EnsureJumpList()
         {

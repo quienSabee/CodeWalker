@@ -42,8 +42,6 @@ namespace CodeWalker.Rendering
                 //new InputElement("NORMAL", 0, Format.R32G32B32A32_Float, 16, 0),
             });
 
-
-
             List<Vector3> verts = new List<Vector3>();
             Dictionary<Vector3, int> vdict = new Dictionary<Vector3, int>();
             List<SphTri> curtris = new List<SphTri>();
@@ -68,7 +66,6 @@ namespace CodeWalker.Rendering
             {
                 vdict[verts[i]] = i;
             }
-
 
             for (int i = 0; i < detail; i++)
             {
@@ -110,7 +107,6 @@ namespace CodeWalker.Rendering
                 nxttris = cur;
             }
 
-
             List<Vector4> vdata = new List<Vector4>();
             foreach (var vert in verts)
             {
@@ -125,7 +121,6 @@ namespace CodeWalker.Rendering
                 idata.Add((uint)(invert ? tri.v2 : tri.v3));
             }
 
-
             VertexBuffer = Buffer.Create(device, BindFlags.VertexBuffer, vdata.ToArray());
             vbbinding = new VertexBufferBinding(VertexBuffer, 16, 0);
 
@@ -133,7 +128,6 @@ namespace CodeWalker.Rendering
             indexcount = idata.Count;
 
         }
-
 
         public void Draw(DeviceContext context)
         {
@@ -155,7 +149,6 @@ namespace CodeWalker.Rendering
             context.DrawIndexedInstanced(indexcount, count, 0, 0, 0);
         }
 
-
         public void Dispose()
         {
             if (VertexBuffer != null)
@@ -176,6 +169,5 @@ namespace CodeWalker.Rendering
         }
 
     }
-
 
 }

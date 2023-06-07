@@ -32,7 +32,6 @@ namespace CodeWalker.GameFiles
         public BoxOccluder[] CBoxOccluders { get; set; }
         public OccludeModel[] COccludeModels { get; set; }
 
-
         public string[] Strings { get; set; }
         public YmapEntityDef[] AllEntities;
         public YmapEntityDef[] RootEntities;
@@ -58,13 +57,11 @@ namespace CodeWalker.GameFiles
         public YmapBoxOccluder[] BoxOccluders { get; set; }
         public YmapOccludeModel[] OccludeModels { get; set; }
 
-
         //fields used by the editor:
         public bool HasChanged { get; set; } = false;
         public List<string> SaveWarnings = null;
         public bool LodManagerUpdate = false; //forces the LOD manager to refresh this ymap when rendering
         public YmapEntityDef[] LodManagerOldEntities = null; //when entities are removed, need the old ones to remove from lod manager
-
 
         public YmapFile() : base(null, GameFileType.Ymap)
         {
@@ -100,11 +97,7 @@ namespace CodeWalker.GameFiles
 
             Meta = rd.ReadBlock<Meta>();//maybe null this after load to reduce memory consumption?
 
-
-
             CMapData = MetaTypes.GetTypedData<CMapData>(Meta, MetaName.CMapData);
-
-
 
             Strings = MetaTypes.GetStrings(Meta);
             if (Strings != null)
@@ -116,7 +109,6 @@ namespace CodeWalker.GameFiles
             }
 
             physicsDictionaries = MetaTypes.GetHashArray(Meta, _CMapData.physicsDictionaries);
-
 
             EnsureEntities(Meta); //load all the entity data and create the YmapEntityDefs
 
@@ -135,7 +127,6 @@ namespace CodeWalker.GameFiles
             EnsureOccludeModels(Meta);
 
             EnsureContainerLods(Meta);
-
 
             #region data block test and old code
 
@@ -174,21 +165,14 @@ namespace CodeWalker.GameFiles
             //    }
             //}
 
-
-
             //MetaTypes.ParseMetaData(Meta);
 
             //string shortname = resentry.Name.Substring(0, resentry.Name.LastIndexOf('.'));
             //uint namehash = JenkHash.GenHash(shortname);
 
-
-
-
-
             //CLightAttrDefs = MetaTypes.GetTypedDataArray<CLightAttrDef>(Meta, MetaName.CLightAttrDef);
             //if (CLightAttrDefs != null)
             //{ }
-
 
             //var unk5s = MetaTypes.GetTypedDataArray<SectionUNKNOWN5>(Meta, MetaName.SectionUNKNOWN5);
             //if (unk5s != null) //used in occlusion ymaps
@@ -232,8 +216,6 @@ namespace CodeWalker.GameFiles
 //#endif
         }
 
-
-
         private void NonMetaLoad(byte[] data)
         {
             //non meta not supported yet! but see what's in there...
@@ -255,8 +237,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
-
         private void EnsureEntities(Meta Meta)
         {
             //CMloInstanceDefs = MetaTypes.ConvertDataArray<CMloInstanceDef>(Meta, MetaName.CMloInstanceDef, CMapData.entities);
@@ -269,9 +249,6 @@ namespace CodeWalker.GameFiles
             CEntityDefs = MetaTypes.GetTypedDataArray<CEntityDef>(Meta, MetaName.CEntityDef);
             if (CEntityDefs != null)
             { }
-
-
-
 
             int instcount = 0;
             if (CEntityDefs != null) instcount += CEntityDefs.Length;
@@ -308,7 +285,6 @@ namespace CodeWalker.GameFiles
                         mlodefs.Add(d);
                     }
                 }
-
 
                 for (int i = 0; i < alldefs.Count; i++)
                 {
@@ -352,7 +328,6 @@ namespace CodeWalker.GameFiles
                 {
                     MloEntities = mlodefs.ToArray();
                 }
-
 
                 foreach (var ent in AllEntities)
                 {
@@ -494,11 +469,9 @@ namespace CodeWalker.GameFiles
             {
                 //string str = MetaTypes.GetTypesInitString(Meta); //to generate structinfos and enuminfos
 
-
             }
 
         }
-
 
         public void BuildCEntityDefs()
         {
@@ -511,7 +484,6 @@ namespace CodeWalker.GameFiles
             {
                 return;
             }
-
 
             List<CEntityDef> centdefs = new List<CEntityDef>();
             List<CMloInstanceDef> cmlodefs = new List<CMloInstanceDef>();
@@ -616,7 +588,6 @@ namespace CodeWalker.GameFiles
         {
             //direct save to a raw, compressed ymap file (openIV-compatible format)
 
-
             //since Ymap object contents have been modified, need to recreate the arrays which are what is saved.
             BuildCEntityDefs(); //technically this isn't required anymore since the CEntityDefs is no longer used for saving.
             BuildCCarGens();
@@ -630,16 +601,11 @@ namespace CodeWalker.GameFiles
             //BuildTimecycleModifiers(); //already being saved - update them..
             //BuildContainerLods();
 
-
-
             MetaBuilder mb = new MetaBuilder();
-
 
             var mdb = mb.EnsureBlock(MetaName.CMapData);
 
             CMapData mapdata = CMapData;
-
-
 
             if ((AllEntities != null) && (AllEntities.Length > 0))
             {
@@ -679,8 +645,6 @@ namespace CodeWalker.GameFiles
             mapdata.physicsDictionaries = mb.AddHashArrayPtr(physicsDictionaries);
 
             mapdata.carGenerators = mb.AddItemArrayPtr(MetaName.CCarGen, CCarGens);
-
-
 
             //clear everything else out for now - TODO: fix
             if (mapdata.containerLods.Count1 != 0) LogSaveWarning("containerLods were not saved. (TODO!)");
@@ -767,7 +731,6 @@ namespace CodeWalker.GameFiles
                 mapdata.occludeModels = new Array_Structure();
             }
 
-
             var block = new CBlockDesc();
             block.name = mb.AddStringPtr(Path.GetFileNameWithoutExtension(Name));
             block.exportedBy = mb.AddStringPtr("CodeWalker");
@@ -775,15 +738,11 @@ namespace CodeWalker.GameFiles
 
             mapdata.block = block;
 
-
             string name = Path.GetFileNameWithoutExtension(Name);
             uint nameHash = JenkHash.GenHash(name);
             mapdata.name = new MetaHash(nameHash);//make sure name is upto date...
 
-
             mb.AddItem(MetaName.CMapData, mapdata);
-
-
 
             //make sure all the relevant structure and enum infos are present.
             if ((GrassInstanceBatches != null) && (GrassInstanceBatches.Length > 0))
@@ -829,11 +788,9 @@ namespace CodeWalker.GameFiles
                 mb.AddStructureInfo(MetaName.OccludeModel);
             }
 
-
             Meta meta = mb.GetMeta();
 
             byte[] data = ResourceBuilder.Build(meta, 2); //ymap is version 2...
-
 
             return data;
         }
@@ -843,9 +800,6 @@ namespace CodeWalker.GameFiles
             if (SaveWarnings == null) SaveWarnings = new List<string>();
             SaveWarnings.Add(w);
         }
-
-
-
 
         public void EnsureChildYmaps(GameFileCache gfc)
         {
@@ -867,7 +821,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
 
             bool needupd = false;
             if (ChildYmaps != null)
@@ -938,9 +891,7 @@ namespace CodeWalker.GameFiles
                 RootEntities = newroots.ToArray();
             }
 
-
         }
-
 
         public void ConnectToParent(YmapFile pymap)
         {
@@ -979,10 +930,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
-
-
         public void AddEntity(YmapEntityDef ent)
         {
             //used by the editor to add to the ymap.
@@ -993,7 +940,6 @@ namespace CodeWalker.GameFiles
             ent.Ymap = this;
             allents.Add(ent);
             AllEntities = allents.ToArray();
-
 
             if ((ent.Parent == null) || (ent.Parent.Ymap != this))
             {
@@ -1051,7 +997,6 @@ namespace CodeWalker.GameFiles
             return res;
         }
 
-
         public void AddCarGen(YmapCarGen cargen)
         {
             List<YmapCarGen> cargens = new List<YmapCarGen>();
@@ -1085,14 +1030,12 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             CarGenerators = newcargens.ToArray();
 
             HasChanged = true;
 
             return true;
         }
-
 
         public void AddLodLight(YmapLODLight lodlight)
         {
@@ -1158,7 +1101,6 @@ namespace CodeWalker.GameFiles
             return true;
         }
 
-
         public void AddBoxOccluder(YmapBoxOccluder box)
         {
             if (box == null) return;
@@ -1199,7 +1141,6 @@ namespace CodeWalker.GameFiles
             return true;
         }
 
-
         public void AddOccludeModel(YmapOccludeModel model)
         {
             if (model == null) return;
@@ -1238,7 +1179,6 @@ namespace CodeWalker.GameFiles
 
             return true;
         }
-
 
         public void AddOccludeModelTriangle(YmapOccludeModelTriangle tri)
         {
@@ -1281,7 +1221,6 @@ namespace CodeWalker.GameFiles
 
             return true;
         }
-
 
         public void AddGrassBatch(YmapGrassInstanceBatch newbatch)
         {
@@ -1329,9 +1268,6 @@ namespace CodeWalker.GameFiles
             return true;
         }
 
-
-
-
         public void SetName(string newname)
         {
             var newnamel = newname.ToLowerInvariant();
@@ -1355,7 +1291,6 @@ namespace CodeWalker.GameFiles
             var newname = Path.GetFileNameWithoutExtension(filepath);
             SetName(newname);
         }
-
 
         public bool CalcFlags()
         {
@@ -1420,7 +1355,6 @@ namespace CodeWalker.GameFiles
             {
                 contentFlags = SetBit(contentFlags, 5); //32
             }
-
 
             bool change = false;
             if (_CMapData.flags != flags)
@@ -1599,7 +1533,6 @@ namespace CodeWalker.GameFiles
             return change;
         }
 
-
         private void UpdateGrassPhysDict(bool add)
         {
             var physDict = physicsDictionaries?.ToList() ?? new List<MetaHash>();
@@ -1664,7 +1597,6 @@ namespace CodeWalker.GameFiles
 
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class YmapEntityDef
     {
@@ -1714,12 +1646,10 @@ namespace CodeWalker.GameFiles
         public LinkedList<YmapEntityDef> LodManagerChildren = null;
         public object LodManagerRenderable = null;
 
-
         public LightInstance[] Lights { get; set; }
         //public uint[] LightHashTest { get; set; }
 
         public bool LodInParentYmap { get { return ((_CEntityDef.flags >> 3) & 1) > 0; } }
-
 
         public string Name
         {
@@ -1728,7 +1658,6 @@ namespace CodeWalker.GameFiles
                 return _CEntityDef.archetypeName.ToString();
             }
         }
-
 
         public YmapEntityDef()
         {
@@ -1776,7 +1705,6 @@ namespace CodeWalker.GameFiles
             UpdateWidgetOrientation();
             UpdateEntityHash();
         }
-
 
         public void SetArchetype(Archetype arch)
         {
@@ -1848,7 +1776,6 @@ namespace CodeWalker.GameFiles
                 _CEntityDef.position = pos;
                 UpdateBB();
             }
-
 
             if (MloInstance != null)
             {
@@ -1992,7 +1919,6 @@ namespace CodeWalker.GameFiles
             entity._Data.rotation = _CEntityDef.rotation;
         }
 
-
         public void SetPivotPosition(Vector3 pos)
         {
             PivotPosition = pos;
@@ -2006,7 +1932,6 @@ namespace CodeWalker.GameFiles
 
             UpdateWidgetOrientation();
         }
-
 
         public void SetPositionFromWidget(Vector3 pos)
         {
@@ -2030,7 +1955,6 @@ namespace CodeWalker.GameFiles
             SetPivotOrientation(Quaternion.Multiply(orinv, ori));
         }
 
-
         public void UpdateWidgetPosition()
         {
             WidgetPosition = Position + Orientation.Multiply(PivotPosition);
@@ -2039,7 +1963,6 @@ namespace CodeWalker.GameFiles
         {
             WidgetOrientation = Quaternion.Multiply(Orientation, PivotOrientation);
         }
-
 
         public void AddChild(YmapEntityDef c)
         {
@@ -2089,7 +2012,6 @@ namespace CodeWalker.GameFiles
             ChildList = null;
         }
 
-
         public void LodManagerAddChild(YmapEntityDef child)
         {
             if (LodManagerChildren == null)
@@ -2103,13 +2025,10 @@ namespace CodeWalker.GameFiles
             LodManagerChildren?.Remove(child);//could improve this by caching the list node....
         }
 
-
         public override string ToString()
         {
             return _CEntityDef.ToString() + ((ChildList != null) ? (" (" + ChildList.Count.ToString() + " children) ") : " ") + _CEntityDef.lodLevel.ToString();
         }
-
-
 
         public void EnsureLights(DrawableBase db)
         {
@@ -2186,7 +2105,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public static uint ComputeLightHash(uint[] ints, uint seed = 0)
         {
             var a2 = ints.Length;
@@ -2244,7 +2162,6 @@ namespace CodeWalker.GameFiles
             return v5;
         }
 
-
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public class LightInstance
         {
@@ -2259,7 +2176,6 @@ namespace CodeWalker.GameFiles
             }
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class YmapGrassInstanceBatch
@@ -2788,7 +2704,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public void RebuildFromLodLights(YmapLODLight[] lodlights)
         {
             var n = lodlights?.Length ?? 0;
@@ -2814,7 +2729,6 @@ namespace CodeWalker.GameFiles
             CalcBB();
 
         }
-
 
         public override string ToString()
         {
@@ -2884,7 +2798,6 @@ namespace CodeWalker.GameFiles
             BVH = new PathBVH(LodLights, 10, 10);
         }
 
-
         public void CalcBB()
         {
             var positions = Ymap?.Parent?.DistantLODLights?.positions;
@@ -2951,7 +2864,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
 
         public override string ToString()
         {
@@ -3138,8 +3050,6 @@ namespace CodeWalker.GameFiles
             Scale = scale;
         }
 
-
-
         public void CopyFrom(YmapLODLight l)
         {
             Colour = l.Colour;
@@ -3159,7 +3069,6 @@ namespace CodeWalker.GameFiles
             TangentY = l.TangentY;
         }
 
-
         public override string ToString()
         {
             return Index.ToString() + ": " + Position.ToString();
@@ -3178,7 +3087,6 @@ namespace CodeWalker.GameFiles
         public YmapFile Ymap { get; set; }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class YmapCarGen
     {
@@ -3192,7 +3100,6 @@ namespace CodeWalker.GameFiles
 
         public YmapFile Ymap { get; set; }
 
-
         public YmapCarGen(YmapFile ymap, CCarGen cargen)
         {
             float hlen = cargen.perpendicularLength * 0.5f;
@@ -3203,7 +3110,6 @@ namespace CodeWalker.GameFiles
             BBMin = new Vector3(-hlen);
             BBMax = new Vector3(hlen);
         }
-
 
         public void CalcOrientation()
         {
@@ -3262,7 +3168,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class YmapOccludeModel : BasePathData
     {
@@ -3297,7 +3202,6 @@ namespace CodeWalker.GameFiles
             _OccludeModel = model;
         }
 
-
         public void Load(Meta meta)
         {
             var vptr = _OccludeModel.verts;
@@ -3310,7 +3214,6 @@ namespace CodeWalker.GameFiles
             Indices = new byte[indexCount];
             Buffer.BlockCopy(Data, indicesOffset, Indices, 0, indexCount);
         }
-
 
         public void BuildTriangles()
         {
@@ -3472,15 +3375,12 @@ namespace CodeWalker.GameFiles
 
         public YmapFile Ymap { get; set; }
 
-
         public Vector3 Position { get; set; }
         public Vector3 Size { get; set; }
         public Vector3 BBMin { get; set; }
         public Vector3 BBMax { get; set; }
         public Quaternion Orientation { get; set; }
         public int Index { get; set; }
-
-
 
         public YmapBoxOccluder(YmapFile ymap, BoxOccluder box)
         {
@@ -3514,14 +3414,12 @@ namespace CodeWalker.GameFiles
             _Box.iCosZ = (short)Math.Round(dir.Y * 32767.0f);
         }
 
-
         public void SetSize(Vector3 s)
         {
             Size = s;
             BBMin = Size * -0.5f;
             BBMax = Size * 0.5f;
         }
-
 
         public EditorVertex[] GetTriangleVertices()
         {

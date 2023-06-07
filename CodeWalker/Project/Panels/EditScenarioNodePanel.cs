@@ -73,7 +73,6 @@ namespace CodeWalker.Project.Panels
         private void UpdateTabVisibility()
         {
 
-
             //avoid resetting the tabs if no change is necessary.
             bool ok = true;
             bool pointTabVis = false;
@@ -121,7 +120,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
         private void LoadScenarioDropDowns()
         {
             if (ScenarioPointTypeComboBox.Items.Count > 0) return;
@@ -167,12 +165,10 @@ namespace CodeWalker.Project.Panels
                 ScenarioClusterPointModelSetComboBox.Items.Add(vmset);
             }
 
-
             ScenarioEntityPointAvailableInMpSpComboBox.Items.Clear();
             ScenarioEntityPointAvailableInMpSpComboBox.Items.Add(CSpawnPoint__AvailabilityMpSp.kBoth);
             ScenarioEntityPointAvailableInMpSpComboBox.Items.Add(CSpawnPoint__AvailabilityMpSp.kOnlySp);
             ScenarioEntityPointAvailableInMpSpComboBox.Items.Add(CSpawnPoint__AvailabilityMpSp.kOnlyMp);
-
 
             ScenarioChainEdgeActionComboBox.Items.Clear();
             ScenarioChainEdgeActionComboBox.Items.Add(CScenarioChainingEdge__eAction.Move);
@@ -613,14 +609,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
-
-
-
-
-
-
-
         private void AddScenarioChainEdge()
         {
             var chain = CurrentScenarioNode?.ChainingNode?.Chain;
@@ -686,7 +674,6 @@ namespace CodeWalker.Project.Panels
             var edges = CurrentScenario?.CScenarioPointRegion?.Paths?.Edges;
             if (edges == null) return;
 
-
             int lasti = (chain.Edges?.Length ?? 0) - 1;
 
             var edgeid = 0;
@@ -728,7 +715,6 @@ namespace CodeWalker.Project.Panels
             if (CurrentScenarioChainEdge == null) return;
             if (CurrentScenario == null) return;
 
-
             var chains = CurrentScenario?.CScenarioPointRegion?.Paths;
             if (chains == null) return;
 
@@ -747,15 +733,6 @@ namespace CodeWalker.Project.Panels
                 ProjectForm.WorldForm.UpdateScenarioGraphics(CurrentScenario, false);
             }
         }
-
-
-
-
-
-
-
-
-
 
         private void ScenarioPointAddToProjectButton_Click(object sender, EventArgs e)
         {
@@ -1088,8 +1065,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
-
         private void ScenarioEntityAddToProjectButton_Click(object sender, EventArgs e)
         {
             ProjectForm.AddScenarioToProject(CurrentScenario);
@@ -1217,8 +1192,6 @@ namespace CodeWalker.Project.Panels
         {
             ProjectForm.AddScenarioEntityPoint();
         }
-
-
 
         private void ScenarioEntityPointAddToProjectButton_Click(object sender, EventArgs e)
         {
@@ -1638,8 +1611,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
-
         private void ScenarioChainNodeAddToProjectButton_Click(object sender, EventArgs e)
         {
             ProjectForm.AddScenarioToProject(CurrentScenario);
@@ -1774,7 +1745,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
         private void ScenarioChainAddToProjectButton_Click(object sender, EventArgs e)
         {
             ProjectForm.AddScenarioToProject(CurrentScenario);
@@ -1831,7 +1801,6 @@ namespace CodeWalker.Project.Panels
                 }
             }
         }
-
 
         private void ScenarioChainEdgeNodeIndexFromUpDown_ValueChanged(object sender, EventArgs e)
         {
@@ -1925,8 +1894,6 @@ namespace CodeWalker.Project.Panels
                 }
             }
         }
-
-
 
         private void ScenarioClusterAddToProjectButton_Click(object sender, EventArgs e)
         {
@@ -2061,8 +2028,6 @@ namespace CodeWalker.Project.Panels
         {
             ProjectForm.AddScenarioClusterPoint();
         }
-
-
 
         private void ScenarioClusterPointAddToProjectButton_Click(object sender, EventArgs e)
         {

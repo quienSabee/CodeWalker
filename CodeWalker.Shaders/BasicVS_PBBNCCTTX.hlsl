@@ -13,7 +13,6 @@ struct VS_INPUT
     float4 Tangent : TANGENT;
 };
 
-
 VS_OUTPUT main(VS_INPUT input, uint iid : SV_InstanceID)
 {
     VS_OUTPUT output;
@@ -45,11 +44,7 @@ VS_OUTPUT main(VS_INPUT input, uint iid : SV_InstanceID)
     return output;
 }
 
-
 /*
-
-
-
 
 WIND FOR CLOTHING
 
@@ -61,13 +56,10 @@ mad r2.xyz, globalScalars2.xxxx, r2.xyzx, r0.wwww
 sincos r2.xyz, null, r2.xyzx
 mad r1.xyz, r2.xyzx, r1.xyzx, r4.xyzx //OUTPUT - r4 is base bone transform, r1,r2?
 
-
 translation:
 
 r1.xyz = umGlobalParams.xxy * umPedGlobalOverrideParams.xxy * vc[1].xxz;
 r2.xyz = umGlobalParams.zzw * umPedGlobalOverrideParams.zzw * globalScalars2.xxx + (vc[1].y * 6.283185)
 pos.xyz += r1 * cos(r2);
-
-
 
 */

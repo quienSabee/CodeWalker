@@ -59,8 +59,6 @@ namespace CodeWalker.World
             Inited = true;
         }
 
-
-
         public List<T> GetVisibleQuads<T>(Camera camera, IEnumerable<T> allQuads) where T : BaseWaterQuad
         {
             List<T> quads = new List<T>();
@@ -118,7 +116,6 @@ namespace CodeWalker.World
         public float a3 { get; set; }
         public float a4 { get; set; }
         public bool NoStencil { get; set; }
-
 
         public override void Init(XmlNode node, int index)
         {
@@ -190,7 +187,6 @@ namespace CodeWalker.World
         public float YDirection { get; set; }
         public Quaternion WaveOrientation { get; set; }
 
-
         public override void Init(XmlNode node, int index)
         {
             xmlNodeIndex = index;
@@ -219,7 +215,5 @@ namespace CodeWalker.World
         }
 
     }
-
-
 
 }

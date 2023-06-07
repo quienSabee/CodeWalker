@@ -29,7 +29,6 @@ namespace CodeWalker.GameFiles
         public FxcVariable[] Variables2 { get; set; }
         public FxcTechnique[] Techniques { get; set; }
 
-
         public FxcShader[] Shaders { get; set; }
         public FxcShader[] VertexShaders { get; set; }
         public FxcShader[] PixelShaders { get; set; }
@@ -40,11 +39,6 @@ namespace CodeWalker.GameFiles
 
         public Dictionary<uint, FxcCBuffer> CBufferDict { get; set; }
         public FxcVariable[] GlobalVariables { get; set; }
-
-
-
-
-
 
         public void Load(byte[] data, RpfFileEntry entry)
         {
@@ -76,7 +70,6 @@ namespace CodeWalker.GameFiles
                 PresetParams = pparams.ToArray();
             }
 
-
             var groups = new List<FxcShaderGroup>();
             var shaders = new List<FxcShader>();
             for (int i = 0; i < 6; i++)
@@ -100,11 +93,8 @@ namespace CodeWalker.GameFiles
             GeometryShaders = groups[4].Shaders;
             HullShaders = groups[5].Shaders;
 
-
-
             List<FxcVariable> globalVars = new List<FxcVariable>();
             CBufferDict = new Dictionary<uint, FxcCBuffer>();
-
 
             byte cbCount1 = br.ReadByte();
             if (cbCount1 > 0)
@@ -190,17 +180,14 @@ namespace CodeWalker.GameFiles
                 Techniques = techniques.ToArray();
             }
 
-
             foreach (var cbuf in CBufferDict.Values)
             {
                 cbuf.ConsolidateVariables();
             }
             GlobalVariables = globalVars.ToArray();
 
-
             if (ms.Position != ms.Length)
             { }//no hit
-
 
             ms.Dispose();
         }
@@ -220,7 +207,6 @@ namespace CodeWalker.GameFiles
                 PresetParams[i].Write(w);
             }
 
-
             ShaderGroups[0].Shaders = VertexShaders;
             ShaderGroups[1].Shaders = PixelShaders;
             ShaderGroups[2].Shaders = ComputeShaders;
@@ -233,7 +219,6 @@ namespace CodeWalker.GameFiles
                 var group = ShaderGroups[i];
                 group.Write(w, i);
             }
-
 
             var cbCount1 = (byte)(CBuffers1?.Length ?? 0);
             w.Write(cbCount1);
@@ -270,13 +255,11 @@ namespace CodeWalker.GameFiles
                 Techniques[i].Write(w);
             }
 
-
             var buf = new byte[s.Length];
             s.Position = 0;
             s.Read(buf, 0, buf.Length);
             return buf;
         }
-
 
         public void WriteXml(StringBuilder sb, int indent, string csofolder)
         {
@@ -391,8 +374,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
-
 
         public string GetMetaString()
         {
@@ -549,7 +530,6 @@ namespace CodeWalker.GameFiles
             return sb.ToString();
         }
 
-
         public FxcShader GetVS(int id)
         {
             int i = id - 1;
@@ -678,8 +658,6 @@ namespace CodeWalker.GameFiles
             return 0;
         }
 
-
-
         public static string ReadString(BinaryReader br)
         {
             byte sl = br.ReadByte();
@@ -741,7 +719,6 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
     [TC(typeof(EXP))] public class FxcPresetParam : IMetaXmlItem
     {
@@ -933,7 +910,6 @@ namespace CodeWalker.GameFiles
                 { }//no hit
             }
 
-
             uint datalength = br.ReadUInt32();
             if (datalength > 0)
             {
@@ -1103,7 +1079,6 @@ namespace CodeWalker.GameFiles
 
             Buffers = XmlMeta.ReadItemArray<FxcShaderBufferRef>(node, "Buffers");
 
-
             var filename = Xml.GetChildInnerText(node, "File")?.Replace("/", "")?.Replace("\\", "");
             if (!string.IsNullOrEmpty(filename) && !string.IsNullOrEmpty(csofolder))
             {
@@ -1119,8 +1094,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
-
 
         public override string ToString()
         {
@@ -1316,7 +1289,6 @@ namespace CodeWalker.GameFiles
             Unused1 = br.ReadByte(); //always 0
             CBufferName = br.ReadUInt32();
 
-
             ParamCount = br.ReadByte(); //1
             if (ParamCount > 0)
             {
@@ -1351,8 +1323,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
-
             //switch (Group)
             //{
             //    case 0:
@@ -1379,7 +1349,6 @@ namespace CodeWalker.GameFiles
             //    default:
             //        break;
             //}
-
 
         }
         public void Write(BinaryWriter bw)
@@ -1421,7 +1390,6 @@ namespace CodeWalker.GameFiles
                     bw.Write(ValuesF[i]);
                 }
             }
-
 
         }
 
@@ -1470,7 +1438,6 @@ namespace CodeWalker.GameFiles
                 ValuesF = Xml.GetChildRawFloatArrayNullable(node, "Values");
             }
         }
-
 
         public override string ToString()
         {
@@ -1724,7 +1691,6 @@ namespace CodeWalker.GameFiles
             Params = XmlMeta.ReadItemArray<FxcPassParam>(node, "Params");
         }
 
-
         public void GetNamesFromIndices(FxcFile fxc)
         {
             VSName = fxc.GetVS(VS)?.Name;
@@ -1743,7 +1709,6 @@ namespace CodeWalker.GameFiles
             GS = fxc.GetGSID(GSName);
             HS = fxc.GetHSID(HSName);
         }
-
 
         public override string ToString()
         {
@@ -1844,13 +1809,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
-
-
-
-
     public class FxcXml : MetaXmlBase
     {
 
@@ -1890,7 +1848,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
 }

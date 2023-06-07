@@ -20,12 +20,7 @@ namespace CodeWalker.GameFiles
 
         public MCPedVariationInfo VariationInfo { get; set; }
 
-
-
         public string[] Strings { get; set; }
-
-
-
 
         public PedFile() : base(null, GameFileType.Ped)
         { }
@@ -38,7 +33,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             FilePath = Name;
 
-
             RpfResourceFileEntry resentry = entry as RpfResourceFileEntry;
             if (resentry == null)
             {
@@ -47,20 +41,14 @@ namespace CodeWalker.GameFiles
                 return;
             }
 
-
             ResourceDataReader rd = new ResourceDataReader(resentry, data);
 
             Meta = rd.ReadBlock<Meta>();
 
-
             LoadMeta();
-
-
 
             Loaded = true;
         }
-
-
 
         private void LoadMeta()
         {
@@ -86,8 +74,6 @@ namespace CodeWalker.GameFiles
 
         }
 
-
-
         private void NonMetaLoad(byte[] data)
         {
             //non meta not supported yet! but see what's in there...
@@ -108,17 +94,6 @@ namespace CodeWalker.GameFiles
             }
 
         }
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

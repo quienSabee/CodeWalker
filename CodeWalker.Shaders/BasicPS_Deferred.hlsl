@@ -1,6 +1,5 @@
 #include "BasicPS.hlsli"
 
-
 PS_OUTPUT main(VS_OUTPUT input)
 {
     float4 c = float4(0.5, 0.5, 0.5, 1);
@@ -79,7 +78,6 @@ PS_OUTPUT main(VS_OUTPUT input)
         if (RenderModeIndex == 3) c.rgb = float3(input.Texcoord2, 0);
     }
 
-
     float3 spec = 0;
 
     if (RenderMode == 0)
@@ -87,7 +85,6 @@ PS_OUTPUT main(VS_OUTPUT input)
 
         float4 nv = Bumpmap.Sample(TextureSS, input.Texcoord0);
         float4 sv = Specmap.Sample(TextureSS, input.Texcoord0);
-
 
         float2 nmv = nv.xy;
         float4 r0 = 0, r1, r2, r3;
@@ -108,10 +105,7 @@ PS_OUTPUT main(VS_OUTPUT input)
 
             norm = NormalMap(nmv, bumpiness, input.Normal.xyz, input.Tangent.xyz, input.Bitangent.xyz);
 
-
         }
-        
-
 
         if (EnableSpecMap == 0)
         {
@@ -147,23 +141,19 @@ PS_OUTPUT main(VS_OUTPUT input)
         float3 tc = c.rgb * r0.x;
         c.rgb = tc * r0.z; //diffuse factors...
 
-
         spec.xy = sqrt(r3.xy);
         spec.z = r0.z;
         
     }
 
-
     float emiss = (IsEmissive == 1) ? 1.0 : 0.0;
 
     c.a = saturate(c.a);
-    
-    
+
     float4 a = c.aaaa;
     if(IsDecal==3) a.xzw = 0; //normal_only
     if(IsDecal==4) a.xyw = 0; //spec_only
-    
-    
+
     PS_OUTPUT output;
     output.Diffuse = float4(c.rgb, a.x);
     output.Normal = float4(saturate(norm * 0.5 + 0.5), a.y);
@@ -172,6 +162,4 @@ PS_OUTPUT main(VS_OUTPUT input)
 
     return output;
 }
-
-
 

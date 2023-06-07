@@ -22,7 +22,6 @@
 
 //now with enhanced uglification for codewalker
 
-
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -35,14 +34,12 @@ using System.Xml;
 namespace CodeWalker.GameFiles
 {
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class NavMesh : ResourceFileBase
     {
         public override long BlockLength
         {
             get { return 368; }
         }
-
 
         public NavMeshFlags ContentFlags { get; set; }
         public uint VersionUnk1 { get; set; } = 0x00010011; // 0x00010011
@@ -77,7 +74,6 @@ namespace CodeWalker.GameFiles
         public uint Unused_168h { get; set; } // 0x00000000
         public uint Unused_16Ch { get; set; } // 0x00000000
 
-
         public NavMeshList<NavMeshVertex> Vertices { get; set; }
         public NavMeshList<ushort> Indices { get; set; }
         public NavMeshList<NavMeshEdge> Edges { get; set; }
@@ -86,12 +82,8 @@ namespace CodeWalker.GameFiles
         public NavMeshPortal[] Portals { get; set; }
         public ushort[] PortalLinks { get; set; }
 
-
-
-
         private ResourceSystemStructBlock<NavMeshPortal> PortalsBlock = null;
         private ResourceSystemStructBlock<ushort> PortalLinksBlock = null;
-
 
         public Vector3 AABBMin
         {
@@ -123,8 +115,6 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
-
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -163,8 +153,6 @@ namespace CodeWalker.GameFiles
             Unused_168h = reader.ReadUInt32();
             Unused_16Ch = reader.ReadUInt32();
 
-
-
             Vertices = reader.ReadBlockAt<NavMeshList<NavMeshVertex>>(VerticesPointer);
             Indices = reader.ReadBlockAt<NavMeshList<ushort>>(IndicesPointer);
             Edges = reader.ReadBlockAt<NavMeshList<NavMeshEdge>>(EdgesPointer);
@@ -172,9 +160,6 @@ namespace CodeWalker.GameFiles
             SectorTree = reader.ReadBlockAt<NavMeshSector>(SectorTreePointer);
             Portals = reader.ReadStructsAt<NavMeshPortal>(PortalsPointer, PortalsCount);
             PortalLinks = reader.ReadUshortsAt(PortalLinksPointer, PortalLinksCount);
-
-
-
 
             ////testing!
             //if (VersionUnk1 != 0x00010011)
@@ -225,9 +210,7 @@ namespace CodeWalker.GameFiles
             PortalsPointer = (ulong)(PortalsBlock?.FilePosition ?? 0);
             PortalLinksPointer = (ulong)(PortalLinksBlock?.FilePosition ?? 0);
 
-
             UpdateCounts();
-
 
             writer.Write((uint)ContentFlags);
             writer.Write(VersionUnk1);
@@ -284,15 +267,8 @@ namespace CodeWalker.GameFiles
                 list.Add(PortalLinksBlock);
             }
 
-
-
-
             return list.ToArray();
         }
-
-
-
-
 
         public void UpdateCounts()
         {
@@ -301,8 +277,6 @@ namespace CodeWalker.GameFiles
             PolysCount = Polys?.ItemCount ?? 0;
             PortalsCount = (uint)(Portals?.Length ?? 0);
             PortalLinksCount = (uint)(PortalLinks?.Length ?? 0);
-
-
 
             uint totbytes = 0;
             uint pointcount = 0;
@@ -331,14 +305,10 @@ namespace CodeWalker.GameFiles
             { }
             TotalBytes = totbytes;
 
-
-
             if ((PointsCount != pointcount) && (PointsCount != 0))
             { }
             PointsCount = pointcount;
         }
-
-
 
         public void SetDefaults(bool vehicle)
         {
@@ -347,13 +317,11 @@ namespace CodeWalker.GameFiles
             Transform = Matrix.Identity;
         }
 
-
         public override string ToString()
         {
             return "(Size: " + FloatUtil.GetVector3String(AABBSize) + ")";
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct NavMeshUintArray
     {
@@ -503,7 +471,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class NavMeshList<T> : ResourceSystemBlock where T : struct
     {
         public override long BlockLength
@@ -535,8 +502,6 @@ namespace CodeWalker.GameFiles
                 return ItemCount * (uint)ItemSize;
             }
         }
-
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -588,8 +553,6 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
-
         public List<T> GetFullList()
         {
             List<T> list = new List<T>((int)ItemCount);
@@ -607,7 +570,6 @@ namespace CodeWalker.GameFiles
 
             return list;
         }
-
 
         public void RebuildList(List<T> items)
         {
@@ -643,7 +605,6 @@ namespace CodeWalker.GameFiles
             ItemCount = (uint)items.Count;
         }
 
-
         public override string ToString()
         {
             return "(" + ItemCount.ToString() + " total items, " + ListPartsCount.ToString() + " parts)";
@@ -664,7 +625,6 @@ namespace CodeWalker.GameFiles
         public T[] Items { get; set; }
 
         private ResourceSystemStructBlock<T> ItemsBlock = null;
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -705,14 +665,11 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct NavMeshVertex
     {
         public ushort X { get; set; }
         public ushort Y { get; set; }
         public ushort Z { get; set; }
-
 
         public Vector3 Position { get { return ToVector3(); } set { FromVector3(value); } }
 
@@ -771,8 +728,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct NavMeshEdge
     {
         public NavMeshEdgePart _Poly1;
@@ -811,8 +766,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct NavMeshPoly
     {
         public ushort PolyFlags0 { get; set; }
@@ -828,7 +781,6 @@ namespace CodeWalker.GameFiles
         public uint PolyFlags2 { get; set; }
         public uint PartFlags { get; set; }
 
-
         //public int IndexUnk { get { return (IndexFlags >> 0) & 31; } } //always 0
         public int IndexCount { get { return (IndexFlags >> 5); } set { IndexFlags = (ushort)((IndexFlags & 31) | ((value & 0x7FF) << 5)); } }
 
@@ -836,7 +788,6 @@ namespace CodeWalker.GameFiles
         public ushort PartID { get { return (ushort)((PartFlags >> 4) & 0xFF); } set { PartFlags = ((PartFlags & 0xFFFFF00F) | (((uint)value & 0xFF) << 4)); } }
         public byte PortalLinkCount { get { return (byte)((PartFlags >> 12) & 0x7); } set { PartFlags = ((PartFlags & 0xFFFF8FFF) | (((uint)value & 0x7) << 12)); } }
         public uint PortalLinkID { get { return ((PartFlags >> 15) & 0x1FFFF); } set { PartFlags = ((PartFlags & 0x7FFF) | ((value & 0x1FFFF) << 15)); } }
-
 
         public byte UnkX { get { return (byte)((PolyFlags2 >> 0) & 0xFF); } set { PolyFlags2 = (PolyFlags2 & 0xFFFFFF00) | ((value & 0xFFu)<<0); } }
         public byte UnkY { get { return (byte)((PolyFlags2 >> 8) & 0xFF); } set { PolyFlags2 = (PolyFlags2 & 0xFFFF00FF) | ((value & 0xFFu)<<8); } }
@@ -849,7 +800,6 @@ namespace CodeWalker.GameFiles
         //public uint UnkFlags0 { get { return (uint)((PolyFlags0 >> 8) & 0xFF); } } //always 0
         //public uint UnkFlags1 { get { return (uint)((PolyFlags1 >> 17) & 0xFFFF); } } //always 0
         //public uint UnkFlags2 { get { return (uint)((PolyFlags2 >> 24) & 0xFF); } } //always 0
-
 
         public override string ToString()
         {
@@ -867,8 +817,6 @@ namespace CodeWalker.GameFiles
                 PortalLinkID.ToString();
         }
     }
-
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class NavMeshSector : ResourceSystemBlock
     {
@@ -971,14 +919,12 @@ namespace CodeWalker.GameFiles
             return list.ToArray();
         }
 
-
         public void SetAABBs(Vector3 min, Vector3 max)
         {
             AABBMin = new Vector4(min, float.NaN);
             AABBMax = new Vector4(max, float.NaN);
             CellAABB = new NavMeshAABB() { Min = min, Max = max };
         }
-
 
         public override string ToString()
         {
@@ -1029,7 +975,6 @@ namespace CodeWalker.GameFiles
             PointsPointer = (ulong)(PointsBlock?.FilePosition ?? 0);
             PointsCount = (ushort)(Points?.Length ?? 0);
 
-
             writer.Write(PointsStartID);
             writer.Write(Unused_04h);
             writer.Write(PolyIDsPointer);
@@ -1054,7 +999,6 @@ namespace CodeWalker.GameFiles
                 list.Add(PointsBlock);
             }
 
-
             return list.ToArray();
         }
 
@@ -1071,7 +1015,6 @@ namespace CodeWalker.GameFiles
         public ushort Z { get; set; }
         public byte Angle { get; set; }
         public byte Type { get; set; }//0,1,2,3,4,5,128,171,254
-
 
         public Vector3 Position
         {
@@ -1094,10 +1037,7 @@ namespace CodeWalker.GameFiles
             return Type.ToString() + ": " + Angle.ToString() + ", " + Position.ToString();
         }
 
-
     }
-
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public struct NavMeshPortal
     {
@@ -1126,9 +1066,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
-
     [Flags] public enum NavMeshFlags : uint
     {
         None = 0,
@@ -1138,6 +1075,5 @@ namespace CodeWalker.GameFiles
         Unknown8 = 8,
         Unknown16 = 16,
     }
-
 
 }

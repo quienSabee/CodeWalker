@@ -1,6 +1,4 @@
 
-
-
 cbuffer VSSceneVars : register(b0)
 {
     float4x4 ViewProj;
@@ -9,7 +7,6 @@ cbuffer VSSceneVars : register(b0)
 }
 
 StructuredBuffer<float4> Nodes : register(t0);
-
 
 struct VS_INPUT
 {
@@ -23,8 +20,6 @@ struct VS_OUTPUT
     float4 Colour    : COLOR0;
     float3 Normal    : NORMAL;
 };
-
-
 
 VS_OUTPUT main(VS_INPUT input, uint iid : SV_InstanceID)
 {

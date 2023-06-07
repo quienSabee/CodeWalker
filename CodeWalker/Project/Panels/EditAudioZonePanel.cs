@@ -21,7 +21,6 @@ namespace CodeWalker.Project.Panels
 
         private bool populatingui = false;
 
-
         public EditAudioZonePanel(ProjectForm owner)
         {
             ProjectForm = owner;
@@ -40,7 +39,6 @@ namespace CodeWalker.Project.Panels
         {
             Text = CurrentZone?.NameHash.ToString() ?? "";
         }
-
 
         private void UpdateUI()
         {
@@ -143,7 +141,6 @@ namespace CodeWalker.Project.Panels
 
         }
 
-
         private void ProjectItemChanged()
         {
             CurrentZone?.UpdateFromZone();//also update the placement wrapper
@@ -153,7 +150,6 @@ namespace CodeWalker.Project.Panels
                 ProjectForm.SetAudioFileHasChanged(true);
             }
         }
-
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {

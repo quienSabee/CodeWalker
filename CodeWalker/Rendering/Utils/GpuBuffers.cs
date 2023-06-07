@@ -52,7 +52,6 @@ namespace CodeWalker.Rendering
         }
     }
 
-
     public class GpuABuffer<T> where T : struct //Dynamic GPU buffer of items updated by CPU, for array of structs used as a constant buffer
     {
         public int StructSize;
@@ -93,7 +92,6 @@ namespace CodeWalker.Rendering
 
     }
 
-
     public class GpuSBuffer<T> where T : struct //for static struct data as resource view
     {
         public int StructSize;
@@ -125,7 +123,6 @@ namespace CodeWalker.Rendering
             }
         }
     }
-
 
     public class GpuCBuffer<T> where T : struct //Dynamic GPU buffer of items updated by CPU
     {
@@ -207,7 +204,6 @@ namespace CodeWalker.Rendering
 
     }
 
-
     public class GpuBuffer<T> where T : struct //Dynamic GPU buffer of items updated by compute shader
     {
         public int StructSize;
@@ -249,7 +245,6 @@ namespace CodeWalker.Rendering
             }
         }
     }
-
 
     public class GpuTexture //texture and render targets (depth, MS).
     {
@@ -424,8 +419,6 @@ namespace CodeWalker.Rendering
             }
         }
 
-
-
         public static Format GetDepthTexFormat(Format df)
         {
             Format dtexf = Format.R32_Typeless;
@@ -468,7 +461,6 @@ namespace CodeWalker.Rendering
         }
 
     }
-
 
     public class GpuMultiTexture //multiple texture and render targets (depth).
     {

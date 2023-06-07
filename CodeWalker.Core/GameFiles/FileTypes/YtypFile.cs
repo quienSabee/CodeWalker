@@ -12,11 +12,9 @@ namespace CodeWalker.GameFiles
     public class YtypFile : GameFile, PackedFile
     {
 
-
         public Meta Meta { get; set; }
         public PsoFile Pso { get; set; }
         public RbfFile Rbf { get; set; }
-
 
         public uint NameHash { get; set; }
         public string[] Strings { get; set; }
@@ -30,12 +28,9 @@ namespace CodeWalker.GameFiles
 
         public CCompositeEntityType[] CompositeEntityTypes { get; set; }
 
-
         //fields used by the editor:
         public bool HasChanged { get; set; } = false;
         public List<string> SaveWarnings = null;
-
-
 
         public YtypFile() : base(null, GameFileType.Ytyp)
         {
@@ -43,7 +38,6 @@ namespace CodeWalker.GameFiles
         public YtypFile(RpfFileEntry entry) : base(entry, GameFileType.Ytyp)
         {
         }
-
 
         public override string ToString()
         {
@@ -159,7 +153,6 @@ namespace CodeWalker.GameFiles
                 mb.AddStructureInfo(MetaName.CCompositeEntityType);
             }
 
-
             mb.AddItem(MetaName.CMapTypes, mapTypes);
 
             Meta meta = mb.GetMeta();
@@ -204,17 +197,11 @@ namespace CodeWalker.GameFiles
                 return;
             }
 
-
-
-
-
             ResourceDataReader rd = new ResourceDataReader(resentry, data);
 
             Meta = rd.ReadBlock<Meta>();
 
-
             _CMapTypes = MetaTypes.GetTypedData<CMapTypes>(Meta, MetaName.CMapTypes);
-
 
             List<Archetype> allarchs = new List<Archetype>();
 
@@ -269,19 +256,16 @@ namespace CodeWalker.GameFiles
             }
             AllArchetypes = allarchs.ToArray();
 
-
             Extensions = MetaTypes.GetExtensions(Meta, _CMapTypes.extensions);
 
             if (Extensions != null)
             { }
-
 
             //AudioEmitters = MetaTypes.GetTypedDataArray<CExtensionDefAudioEmitter>(Meta, MetaName.CExtensionDefAudioEmitter);
             //if (AudioEmitters != null)
             //{ }
 
             //CEntityDefs = MetaTypes.GetTypedDataArray<CEntityDef>(Meta, MetaName.CEntityDef);
-
 
             CompositeEntityTypes = MetaTypes.ConvertDataArray<CCompositeEntityType>(Meta, MetaName.CCompositeEntityType, _CMapTypes.compositeEntityTypes);
             if (CompositeEntityTypes != null)
@@ -309,7 +293,6 @@ namespace CodeWalker.GameFiles
                     JenkIndex.Ensure(str); //just shove them in there
                 }
             }
-
 
             //foreach (var block in Meta.DataBlocks)
             //{
@@ -349,18 +332,9 @@ namespace CodeWalker.GameFiles
             //    }
             //}
 
-
-
-
             //MetaTypes.ParseMetaData(Meta);
 
-
-
-
-
-
         }
-
 
         public void AddArchetype(Archetype archetype)
         {
@@ -395,10 +369,5 @@ namespace CodeWalker.GameFiles
             return false;
         }
     }
-
-
-
-
-
 
 }

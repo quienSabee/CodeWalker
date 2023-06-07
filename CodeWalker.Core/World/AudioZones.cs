@@ -19,7 +19,6 @@ namespace CodeWalker.World
 
         public Dictionary<RelFile, AudioPlacement[]> PlacementsDict = new Dictionary<RelFile, AudioPlacement[]>();
 
-
         public void Init(GameFileCache gameFileCache, Action<string> updateStatus)
         {
             Inited = false;
@@ -29,7 +28,6 @@ namespace CodeWalker.World
             Zones.Clear();
             Emitters.Clear();
             AllItems.Clear();
-
 
             List<AudioPlacement> placements = new List<AudioPlacement>();
 
@@ -49,7 +47,6 @@ namespace CodeWalker.World
 
             Inited = true;
         }
-
 
         private void CreatePlacements(RelFile relfile, List<AudioPlacement> placements, bool addtoLists = false)
         {
@@ -73,7 +70,6 @@ namespace CodeWalker.World
             }
         }
 
-
         public void GetPlacements(List<RelFile> relfiles, List<AudioPlacement> placements)
         {
 
@@ -95,10 +91,7 @@ namespace CodeWalker.World
 
         }
 
-
     }
-
-
 
     public class AudioPlacement
     {
@@ -127,7 +120,6 @@ namespace CodeWalker.World
         public Quaternion OrientationInv { get; set; }
         public float HitSphereRad { get; set; }
 
-
         public AudioPlacement(RelFile rel, Dat151AmbientZone zone)
         {
             RelFile = rel;
@@ -146,7 +138,6 @@ namespace CodeWalker.World
 
             UpdateFromEmitter();
         }
-
 
         public void UpdateFromZone()
         {
@@ -228,7 +219,6 @@ namespace CodeWalker.World
 
         }
 
-
         public void SetPosition(Vector3 pos)
         {
             bool useouter = ((InnerMax.X == 0) || (InnerMax.Y == 0) || (InnerMax.Z == 0));
@@ -258,7 +248,6 @@ namespace CodeWalker.World
             float rad2deg = (float)(180.0 / Math.PI);
             float dangl = angl * rad2deg;
             uint uangl = (uint)dangl;
-
 
             if (InnerOri == OuterOri)
             {
@@ -294,13 +283,11 @@ namespace CodeWalker.World
             }
         }
 
-
         public string GetNameString()
         {
             if (!string.IsNullOrEmpty(Name)) return Name;
             return NameHash.ToString();
         }
     }
-
 
 }

@@ -35,8 +35,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
          * 
          */
 
-
-
         public List<YnvPoly> PolyList = new List<YnvPoly>();
         public string VehicleName = string.Empty;
         private SpaceNavGrid NavGrid = null;
@@ -56,11 +54,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
 
             return poly;
         }
-
-
-
-
-
 
         public List<YnvFile> Build(bool forVehicle)
         {
@@ -82,7 +75,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
                 //2: assign polys into their new ynv's
                 AddPolysIntoGrid(splitpolysY);
 
-
                 //3: fix up generated ynv's
                 FinalizeYnvs(YnvFiles, false);
 
@@ -90,10 +82,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
 
             return YnvFiles;
         }
-
-
-
-
 
         private List<YnvPoly> SplitPolys(List<YnvPoly> polys, bool xaxis)
         {
@@ -168,7 +156,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
                         poly1.Vertices = verts1.ToArray();
                         poly2.Vertices = verts2.ToArray();
 
-
                         //save this information for the edge splitting pass
                         var polysplit = new YnvPolySplit();
                         polysplit.Orig = poly;
@@ -177,7 +164,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
                         polysplit.Split1 = split1;
                         polysplit.Split2 = split2end;
                         polysplits[poly] = polysplit;
-
 
                         newpolys.Add(poly1);
                         newpolys.Add(poly2);
@@ -189,7 +175,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
                     newpolys.Add(poly);
                 }
             }
-
 
             foreach (var polysplit in polysplits.Values) //build new edges for split polys
             {
@@ -243,7 +228,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
                 edges2.Add(edge2b);
                 edges2.Add(splitb);
 
-
                 poly1.Edges = edges1.ToArray();
                 poly2.Edges = edges2.ToArray();
 
@@ -269,7 +253,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
                     if (edge.Poly1 == null)
                     { continue; }//probably this edge joins to nothing
 
-
                     YnvPolySplit polysplit;
                     if (polysplits.TryGetValue(edge.Poly1, out polysplit))
                     {
@@ -282,7 +265,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
 
                 }
             }
-
 
             return newpolys;
         }
@@ -364,8 +346,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
             polysplits.TryGetValue(poly, out r);
             return r;
         }
-
-
 
         private void AddPolysIntoGrid(List<YnvPoly> polys)
         {
@@ -449,7 +429,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
             }
         }
 
-
         private void FinalizeYnvs(List<YnvFile> ynvs, bool vehicle)
         {
 
@@ -472,10 +451,7 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
                 ys.AABBMin = new Vector4(ys.AABBMin.X, ys.AABBMin.Y, zmin, 0.0f);
                 ys.AABBMax = new Vector4(ys.AABBMax.X, ys.AABBMax.Y, zmax, 0.0f);
 
-
                 ynv.UpdateContentFlags(vehicle);
-
-
 
                 //fix up flags on edges that cross ynv borders
                 foreach (var poly in ynv.Polys)
@@ -511,7 +487,6 @@ namespace CodeWalker.Core.GameFiles.FileTypes.Builders
                     }
                     poly.B19_IsCellEdge = border;
                 }
-
 
             }
 

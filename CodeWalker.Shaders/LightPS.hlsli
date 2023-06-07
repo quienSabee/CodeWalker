@@ -1,6 +1,5 @@
 #include "Shadowmap.hlsli"
 
-
 struct PS_OUTPUT
 {
     float4 Colour : SV_TARGET;
@@ -40,8 +39,6 @@ cbuffer PSLightInstVars : register(b2)
     float InstCullingPlaneOffset;
 }
 
-
-
 struct LODLight
 {
     float3 Position;
@@ -57,9 +54,6 @@ struct LODLight
 };
 
 StructuredBuffer<LODLight> LODLights : register(t6);
-
-
-
 
 float3 GetReflectedDir(float3 camRel, float3 norm)
 {
@@ -97,7 +91,6 @@ float GetAttenuation(float ldist, float falloff, float falloffExponent)
     float d = ldist / falloff;
     return saturate((1 - d) / (1 + d*d*falloffExponent));
 }
-
 
 float3 DeferredDirectionalLight(float3 camRel, float3 norm, float4 diffuse, float4 specular, float4 irradiance)
 {
@@ -220,8 +213,4 @@ float4 DeferredLight(float3 camRel, float3 norm, float4 diffuse, float4 specular
 
     return float4(lcol, 1);
 }
-
-
-
-
 

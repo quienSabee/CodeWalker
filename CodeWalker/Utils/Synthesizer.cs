@@ -2171,8 +2171,6 @@ namespace CodeWalker.Utils
             stateBlock.Y = previousSample;
         }
 
-
-
         public struct StateBlock
         {
             public float X { get; set; }

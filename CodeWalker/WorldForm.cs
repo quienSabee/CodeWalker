@@ -327,9 +327,7 @@ namespace CodeWalker
 
             space.AddPersistentEntity(pedEntity);
 
-
             LoadSettings();
-
 
             formopen = true;
             new Thread(new ThreadStart(ContentThread)).Start();
@@ -390,7 +388,7 @@ namespace CodeWalker
             BeginMouseHitTest();
             
             Renderer.BeginRender(context);
-            Renderer.RenderSkyAndClouds();
+            //Renderer.RenderSkyAndClouds();
             Renderer.SelectedDrawable = SelectedItem.Drawable;
             if (renderworld)
             {
@@ -408,11 +406,11 @@ namespace CodeWalker
             RenderSelection();
             RenderMoused();
             Renderer.RenderQueued();
-            Renderer.RenderBounds(SelectionMode);
-            Renderer.RenderSelectionGeometry(SelectionMode);
+            //Renderer.RenderBounds(SelectionMode);
+            //Renderer.RenderSelectionGeometry(SelectionMode);
             Renderer.RenderFinalPass();
-            RenderMarkers();
-            RenderWidgets();
+            //RenderMarkers();
+            //RenderWidgets();
             Renderer.EndRender();
 
             Monitor.Exit(Renderer.RenderSyncRoot);
@@ -429,7 +427,6 @@ namespace CodeWalker
             }
             return true;
         }
-
 
         private void UpdateTimeOfDayLabel()
         {
@@ -448,7 +445,6 @@ namespace CodeWalker
             var s = Settings.Default;
 
             float moveSpeed = 50.0f;
-
 
             Input.Update();
 
@@ -1195,7 +1191,6 @@ namespace CodeWalker
             {
                 ori = ori * CurMouseHit.BBOrientation;
             }
-
 
             Renderer.RenderMouseHit(mode, ref camrel, ref bbmin, ref bbmax, ref scale, ref ori, bsphrad);
         }
@@ -2130,7 +2125,6 @@ namespace CodeWalker
 
             ent.SetArchetype(arch);
 
-
             Entity e = new Entity();
             e.Position = pos;
             e.Velocity = vel;
@@ -2561,7 +2555,6 @@ namespace CodeWalker
             //    }
             //}
 
-
             //Bounds b = null;
             //var dd = drawable as Drawable;
             //if (dd != null)
@@ -2900,7 +2893,6 @@ namespace CodeWalker
                 //mb.Scale = Vector3.One;
                 //BoundingBoxes.Add(mb);
 
-
                 if (navsector.SubTree1 != null)
                 {
                     UpdateMouseHits(ynv, navsector.SubTree1, rootsec, ref mray);
@@ -3038,7 +3030,6 @@ namespace CodeWalker
                             outer += halfwidth;
                         }
 
-
                         mb.CamRelPos = n.Position - camera.Position;
                         mb.BBMin = new Vector3(-linkrad - outer, -linkrad, 0.0f);
                         mb.BBMax = new Vector3(linkrad - inner, linkrad, dl);
@@ -3147,7 +3138,6 @@ namespace CodeWalker
                 var nc = n.ChainingNode?.Chain;
                 var ncl = n.Cluster;
 
-
                 //float linkrad = 0.25f;
                 //if (n.Links != null)
                 //{
@@ -3198,7 +3188,6 @@ namespace CodeWalker
                     mb.CamRelPos = ncl.Position - camera.Position;
                     mb.Orientation = Quaternion.Identity;
                     Renderer.HilightBoxes.Add(mb);
-
 
                     //show boxes for points in the cluster
                     if ((ncl.Points != null) && (ncl.Points.MyPoints != null))
@@ -4226,7 +4215,6 @@ namespace CodeWalker
                     }
                     CloudsComboBox.SelectedIndex = Math.Max(CloudsComboBox.FindString(Renderer.individualcloudfrag), 0);
 
-
                     CloudParamComboBox.Items.Clear();
                     foreach (var setting in clouds.AnimSettings.Values)
                     {
@@ -4527,7 +4515,6 @@ namespace CodeWalker
             
             SetTimeOfDay(s.TimeOfDay);
             Renderer.SetWeatherType(s.Weather);
-            
 
             EnableModsCheckBox.Checked = s.EnableMods;
             DlcLevelComboBox.Text = s.DLC;
@@ -6031,7 +6018,6 @@ namespace CodeWalker
             bool ctrl = Input.CtrlPressed;
             bool shift = Input.ShiftPressed;
 
-
             if (!ctrl)
             {
                 if (k == kb.MoveSlowerZoomIn)
@@ -6043,7 +6029,6 @@ namespace CodeWalker
                     camera.MouseZoom(-1);
                 }
             }
-
 
             if (!Input.kbmoving && !Widget.IsDragging) //don't trigger further actions if camera moving or widget dragging 
             {

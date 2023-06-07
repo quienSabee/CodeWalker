@@ -40,8 +40,6 @@ namespace CodeWalker.Project.Panels
         {
             CurrentProjectFile = project;
 
-
-
         }
 
         private void GenerateButton_Click(object sender, EventArgs e)
@@ -74,14 +72,10 @@ namespace CodeWalker.Project.Panels
             //    return;
             //}
 
-
             GenerateButton.Enabled = false;
-
-
 
             float density = 0.5f; //distance between vertices for the initial grid
             //float clipdz = 0.5f; //any polygons with greater steepness should be removed
-
 
             //Vector2 vertexCounts = (max - min) / density;
             //int vertexCountX = (int)vertexCounts.X;
@@ -97,13 +91,11 @@ namespace CodeWalker.Project.Panels
             Task.Run(() =>
             {
 
-
                 //find vertices in one world cell at a time, by raycasting in a grid pattern. 
                 //then filter those based on polygon slope deltas (and materials) to reduce the detail.
                 //then add the generated verts for the cell into a master quadtree/bvh/grid
                 //after all verts are generated, do voronoi tessellation with those to generate the nav polys.
                 //finally, remove any polys that are steeper than the threshold.
-
 
                 var vgrid = new VertexGrid();
                 var vert = new GenVertex();
@@ -155,8 +147,6 @@ namespace CodeWalker.Project.Panels
                     }
                 }
 
-
-
                 //ray-cast each XY vertex position, and find the height and surface from ybn's
                 //continue casting down to find more surfaces...
 
@@ -205,34 +195,12 @@ namespace CodeWalker.Project.Panels
 
                 vgrid.EndGrid(); //build vertex array
 
-
-
-
-
                 vgrid.ConnectVertices();
-
 
                 var genPolys = vgrid.GenPolys2();
                 polys.AddRange(genPolys);
 
                 newCount += genPolys.Count;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 //try merge generated polys into bigger ones, while keeping convex!
                 UpdateStatus("Building edge dictionary...");
@@ -323,9 +291,7 @@ namespace CodeWalker.Project.Panels
                         var dist = (polycenter - poly2center).Length();
                         if (dist > dthresh) continue;
 
-
                         //if we got here, can merge these 2 polys....
-
 
                         var newverts = new List<Vector3>();
                         //add verts from poly1 from 0 to poly1 edge index (ip)
@@ -340,9 +306,6 @@ namespace CodeWalker.Project.Panels
                         for (int j = 0; j <= eind1; j++) newverts.Add(poly.Vertices[j]);
                         for (int j = l2beg; j <= l2end; j++) newverts.Add(poly2.Vertices[j % p2cnt]);
                         for (int j = l1beg; j < p1cnt; j++) newverts.Add(poly.Vertices[j]);
-
-
-
 
                         var varr = newverts.ToArray();
                         var remredun = true;
@@ -385,14 +348,9 @@ namespace CodeWalker.Project.Panels
                             { }
                         }
 
-
-
-
-
                         var newpoly = new GenPoly(newverts.ToArray(), poly);
                         newpoly.Index = polys.Count;
                         polys.Add(newpoly);//try merge this poly again later...
-
 
                         //for all the edges in this new poly, need to update all the values!!! polys and indices!
                         for (int j = 0; j < newpoly.Vertices.Length; j++)
@@ -430,7 +388,6 @@ namespace CodeWalker.Project.Panels
                 }
                 polys = mergedPolys;
 
-                
                 UpdateStatus("Merging edges...");
                 edgeDict = new Dictionary<GenEdgeKey, GenEdge>();
                 buildEdgeDict();
@@ -466,7 +423,6 @@ namespace CodeWalker.Project.Panels
                         if ((poly0 != poly1) || (dp < usedpthresh) || (dp2 < -0.05))//can't merge, move on to next edge
                         { continue; }
 
-
                         if ((poly0 != null) && (poly0.Vertices.Length < 5))
                         { continue; }
 
@@ -474,7 +430,6 @@ namespace CodeWalker.Project.Panels
                         poly.RemoveVertex(verti);
                         poly0?.RemoveVertex(verti);//if poly0==poly, remove same vertex twice?
 
-                        
                         //remove merged edges from edge dict, and add new edge to it
                         tryRemoveEdge(vert0, verti);
                         tryRemoveEdge(verti, vert1);
@@ -490,8 +445,6 @@ namespace CodeWalker.Project.Panels
                     }
                 }
 
-
-                
                 UpdateStatus("Convexifying polygons...");
                 mergedPolys = new List<GenPoly>();
                 var getAngle = new Func<GenPoly, int, int, float>((poly, i1, i2) => 
@@ -578,7 +531,6 @@ namespace CodeWalker.Project.Panels
                 {
                     var vcnt = poly.Vertices.Length;
 
-
                     //step backwards to find a valid split
                     var i0 = starti - 1; if (i0 < 0) i0 += vcnt;
                     var curangl = getAngle(poly, i0, starti);
@@ -621,8 +573,6 @@ namespace CodeWalker.Project.Panels
                         return iok;
                     }
 
-
-
                     //couldn't split by stepping backwards... so try split by stepping forwards!
                     i0 = (starti + 1) % vcnt;
                     curangl = getAngle(poly, starti, i0);
@@ -664,13 +614,8 @@ namespace CodeWalker.Project.Panels
                         return iok | 0x40000000;//set this flag to indicate polys got switched
                     }
 
-
-
                     //can't go either way... what now?
                     { }
-
-
-
 
                     return -1;
                 });
@@ -714,7 +659,6 @@ namespace CodeWalker.Project.Panels
                             }
                             var varr2 = newverts.ToArray();
 
-
                             var newpoly = new GenPoly((reversed ? varr2 : varr1), poly);
                             newpoly.Index = mergedPolys.Count;
                             mergedPolys.Add(newpoly);
@@ -742,11 +686,6 @@ namespace CodeWalker.Project.Panels
                     //else
                     //{ } //poly is already convex..
 
-
-
-
-
-
                     poly.Index = mergedPolys.Count;
                     mergedPolys.Add(poly);
                 }
@@ -757,10 +696,6 @@ namespace CodeWalker.Project.Panels
 
                 newCount = polys.Count;
 
-
-
-
-
                 UpdateStatus("Building YNVs...");
                 foreach (var poly in polys)
                 {
@@ -770,24 +705,15 @@ namespace CodeWalker.Project.Panels
                     if (ypoly == null)
                     { continue; }
 
-
                     //TODO: add poly edges!
 
                     ypoly.B02_IsFootpath = (poly.Material.Index == 1);
 
                     ypoly.B18_IsRoad = (poly.Material.Index == 4);//4,5,6
 
-
                 }
 
-
-
-
                 var ynvs = builder.Build(false);//todo:vehicles!
-
-
-
-
 
                 UpdateStatus("Creating YNV files...");
 
@@ -805,14 +731,11 @@ namespace CodeWalker.Project.Panels
                     nynv.Name = ynv.RpfFileEntry.Name;
                     nynv.Load(bytes);
 
-
                     ProjectForm.Invoke((MethodInvoker)delegate
                     {
                         ProjectForm.AddYnvToProject(nynv);
                     });
                 }
-
-
 
                 var statf = "{0} hit tests, {1} hits, {2} new polys";
                 var stats = string.Format(statf, hitTestCount, hitCount, newCount);
@@ -820,9 +743,6 @@ namespace CodeWalker.Project.Panels
                 GenerateComplete();
             });
         }
-
-
-
 
         private struct GenVertex
         {
@@ -903,7 +823,6 @@ namespace CodeWalker.Project.Panels
             //public GenEdge[] Edges;
 
             public bool Merged = false;
-
 
             public GenPoly() { }
             public GenPoly(Vector3[] verts, ref GenVertex vert)
@@ -1042,18 +961,12 @@ namespace CodeWalker.Project.Panels
                 return mini;
             }
 
-
-
             public bool CompareVertexTypes(int i1, int i2)
             {
                 if (Vertices[i1].Material.Index != Vertices[i2].Material.Index) return false;
                 if (Vertices[i1].PolyFlags != Vertices[i2].PolyFlags) return false;
                 return true;
             }
-
-
-
-
 
             public void ConnectVertices()
             {
@@ -1097,9 +1010,6 @@ namespace CodeWalker.Project.Panels
 
             }
 
-
-
-
             public List<GenPoly> GenPolys()
             {
                 List<GenPoly> polys = new List<GenPoly>();
@@ -1118,10 +1028,6 @@ namespace CodeWalker.Project.Panels
                             if ((Vertices[i].PrevIDX < 0) && (Vertices[i].PrevIDY < 0) && (Vertices[i].NextIDX < 0) && (Vertices[i].NextIDY < 0)) continue; //(not connected to anything)
 
                             //if (!(Vertices[i].CompPrevX || Vertices[i].CompPrevY || Vertices[i].CompNextX || Vertices[i].CompNextY)) //continue; //all joins are different - discard this vertex
-                            
-
-
-
 
                             GenPoly poly = new GenPoly(); //start a new poly
                             poly.Index = polys.Count;
@@ -1188,8 +1094,6 @@ namespace CodeWalker.Project.Panels
                                 }
                             }
 
-
-
                             {
                             //if (dnx > 0) //can move along +X
                             //{
@@ -1217,13 +1121,10 @@ namespace CodeWalker.Project.Panels
                             //}
                             }
 
-
-
                         }
                     }
 
                 }
-
 
                 //create corner vertex vectors and edges for the new polys
                 foreach (var poly in polys)
@@ -1244,7 +1145,6 @@ namespace CodeWalker.Project.Panels
 
                 }
 
-
                 return polys;
             }
 
@@ -1264,7 +1164,6 @@ namespace CodeWalker.Project.Panels
                 CornersB.Clear();
                 CornersT.Clear();
 
-
                 int dirpy, dirny;
                 switch (dir) //lookup perpendicular directions
                 {
@@ -1274,7 +1173,6 @@ namespace CodeWalker.Project.Panels
                     case 2: dirpy = 1; dirny = 3; break;
                     case 3: dirpy = 2; dirny = 0; break;
                 }
-
 
                 for (int qx = 0; qx <= maxdnx; qx++)//go along the row until the next poly is hit...
                 {
@@ -1337,7 +1235,6 @@ namespace CodeWalker.Project.Panels
                         break;
                     }
 
-
                     lastqx = qx;
                 }
 
@@ -1367,7 +1264,6 @@ namespace CodeWalker.Project.Panels
                 CornersB.Clear();
                 CornersT.Clear();
 
-
                 int dirpy, dirny, dirpx;
                 switch (dir) //lookup perpendicular directions
                 {
@@ -1384,8 +1280,6 @@ namespace CodeWalker.Project.Panels
                     qi = ti; //make sure to start at the leftmost point...
                 }
 
-
-
                 //loop until top and bottom lines intersect, or moved more than max dist
 
                 float slopeb = FindSlope(ref vpl, plt, qi, dir, dirpy, dirny, 100);
@@ -1400,7 +1294,6 @@ namespace CodeWalker.Project.Panels
 
                 for (int x = 0; x < 50; x++)
                 {
-
 
                     //fill the column (assign the verts to this poly)
                     int qib = qi;
@@ -1423,7 +1316,6 @@ namespace CodeWalker.Project.Panels
                         qit = ti;
                         dyt++;
                     }
-
 
                     //move on to the next column
                     //find the start point (and y offset) for the next column
@@ -1466,7 +1358,6 @@ namespace CodeWalker.Project.Panels
                     }
                     if (nxi < 0)
                     { break; }//shouldn't happen?
-
 
                     int nextyb;
                     int nextyt;
@@ -1521,8 +1412,6 @@ namespace CodeWalker.Project.Panels
 
                     if (iscornerb) { }
 
-
-
                     qi = nxi;
                     syb = nextsyb;// nextyb - dyb;
                     syt = nextsyt;// nextyt - dyt;
@@ -1532,11 +1421,7 @@ namespace CodeWalker.Project.Panels
                     //find top/bottom max dists and limit them according to slope
                     //check if slopes intersect at this column, stop if they do
 
-
                 }
-
-
-
 
             }
             private void AssignVertices3(ref Plane vpl, float plt, int i, int dir, GenPoly poly)
@@ -1547,7 +1432,6 @@ namespace CodeWalker.Project.Panels
                 CornersT.Clear();
                 VerticesB.Clear();
                 VerticesT.Clear();
-
 
                 int dirpy, dirny, dirpx;
                 switch (dir) //lookup perpendicular directions
@@ -1564,7 +1448,6 @@ namespace CodeWalker.Project.Panels
                 {
                     qi = ti; //make sure to start at the leftmost point...
                 }
-
 
                 //find the bottom and top leftmost points to start the first col, and fill the col
                 int qib = qi;
@@ -1588,8 +1471,6 @@ namespace CodeWalker.Project.Panels
                 CornersB.Add(qib);
                 CornersT.Add(qit);
 
-
-
                 //find bottom and top slopes
                 float slopeb = FindSlope(ref vpl, plt, qib, dir, dirpy, dirny, dyb > 0 ? dyb : 100);
                 float slopet = FindSlope(ref vpl, plt, qit, dir, dirny, dirpy, dyt > 0 ? dyt : 100);
@@ -1602,23 +1483,7 @@ namespace CodeWalker.Project.Panels
                 //int ndyb = 0;
                 //int ndyt = 0;
 
-
-
-
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             public List<GenPoly> GenPolys2()
             {
@@ -1639,7 +1504,6 @@ namespace CodeWalker.Project.Panels
                             var nidxy = -1;
                             var nidyx = -1;
 
-
                             if ((nidx < 0) || (nidy < 0)) continue; //(can't form a square... try with less verts?)
 
                             //try to find the index of the opposite corner... 
@@ -1652,7 +1516,6 @@ namespace CodeWalker.Project.Panels
                             if (nidxy != nidyx)
                             { }
 
-
                             if (nidxy == -1)
                             {
                                 if (nidyx == -1)
@@ -1660,14 +1523,12 @@ namespace CodeWalker.Project.Panels
                                 nidxy = nidyx;
                             }
 
-
                             bool f0 = CompareVertexTypes(i, nidx);
                             bool f1 = CompareVertexTypes(nidx, nidxy);
                             bool f2 = CompareVertexTypes(nidy, nidxy);
                             bool f3 = CompareVertexTypes(i, nidy);
                             //bool f4 = CompareVertexTypes(i, nidxy); //diagonal
                             //bool f5 = CompareVertexTypes(nidx, nidy); //diagonal
-
 
                             var v0 = Vertices[i];
                             var v1 = Vertices[nidx];
@@ -1683,8 +1544,6 @@ namespace CodeWalker.Project.Panels
                             var s2 = (p2 + p3) * 0.5f;
                             var s3 = (p3 + p0) * 0.5f;
                             var sc = (s0 + s2) * 0.5f;//square center
-
-
 
                             var id = (f0 ? 8 : 0) + (f1 ? 4 : 0) + (f2 ? 2 : 0) + (f3 ? 1 : 0);
                             switch (id)
@@ -1745,29 +1604,14 @@ namespace CodeWalker.Project.Panels
                                 default://shouldn't happen?
                                     break;
                             }
-                        
-
 
                         }
                     }
                 }
 
-
-
                 return polys;
 
             }
-
-
-
-
-
-
-
-
-
-
-
 
             private int FindNextID(ref Plane vpl, float plt, int i, int dirnx, int dirny, int dirpy, float slope, out int dx, out int dy)
             {
@@ -1778,14 +1622,10 @@ namespace CodeWalker.Project.Panels
 
                 bool cgx = CanPolyIncludeNext(ref vpl, plt, i, dirnx, out ti);
 
-
-
-
                 dx = 0;
                 dy = 0;
                 return i;
             }
-
 
             private int MaxOffsetFromSlope(float s)
             {
@@ -1796,7 +1636,6 @@ namespace CodeWalker.Project.Panels
 
                 //return ((s>=1)||(s<=-1))?(int)s : (s>0)?1 : (s<0)?-1 : 0;
             }
-
 
             private int GetNextID(int i, int dir)
             {
@@ -1896,8 +1735,6 @@ namespace CodeWalker.Project.Panels
                 return ci;
             }
 
-
-
             private float FindSlope(ref Plane vpl, float plt, int i, int dirnx, int dirny, int dirpy, float maxslope)
             {
                 //find a slope from the given corner/start point that's less than the max slope
@@ -1988,10 +1825,8 @@ namespace CodeWalker.Project.Panels
 
                 }
 
-
                 return slope;
             }
-
 
             private int FindNextCornerID(ref Plane vpl, float plt, int i, int dirnx, int dirny, int dirpy, float slope, out int dx, out int dy)
             {
@@ -2106,10 +1941,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
-
-
-
         private void GenerateComplete()
         {
             try
@@ -2126,7 +1957,6 @@ namespace CodeWalker.Project.Panels
             catch { }
         }
 
-
         private void UpdateStatus(string text)
         {
             try
@@ -2142,7 +1972,6 @@ namespace CodeWalker.Project.Panels
             }
             catch { }
         }
-
 
     }
 }

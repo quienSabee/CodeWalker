@@ -22,8 +22,6 @@
 
 //shamelessly stolen
 
-
-
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -216,7 +214,6 @@ namespace CodeWalker.GameFiles
             return Encoding.UTF8.GetString(bytes.ToArray());
         }
 
-
         public Vector3 ReadVector3()
         {
             Vector3 v = new Vector3();
@@ -257,9 +254,6 @@ namespace CodeWalker.GameFiles
             return m;
         }
 
-
-
-
         //TODO: put this somewhere else...
         public static uint SizeOf(DataType type)
         {
@@ -278,9 +272,6 @@ namespace CodeWalker.GameFiles
                 case DataType.String: return 0; //how long is a string..?
             }
         }
-
-
-
 
     }
 
@@ -440,8 +431,6 @@ namespace CodeWalker.GameFiles
             Write((byte)0);
         }
 
-
-
         public void Write(Vector3 value)
         {
             Write(value.X);
@@ -477,7 +466,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
-
 
 }

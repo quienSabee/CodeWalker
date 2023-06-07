@@ -1,6 +1,4 @@
 
-
-
 cbuffer SkySystemLocals : register(b0)
 {
     float4 azimuthEastColor;           // Offset:    0 Size:    12 [unused]

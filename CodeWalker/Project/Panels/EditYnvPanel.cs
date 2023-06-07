@@ -56,7 +56,6 @@ namespace CodeWalker.Project.Panels
             Text = fn + (Ynv.HasChanged ? "*" : "");
         }
 
-
         public void UpdateYnvUI()
         {
             if (Ynv?.Nav == null)
@@ -109,8 +108,6 @@ namespace CodeWalker.Project.Panels
             }
         }
 
-
-
         private string GetAdjAreaIDsString(uint[] vals)
         {
             StringBuilder sb = new StringBuilder();
@@ -134,7 +131,6 @@ namespace CodeWalker.Project.Panels
             }
             return vals;
         }
-
 
         private void YnvAreaIDUpDownChange()
         {
@@ -176,7 +172,6 @@ namespace CodeWalker.Project.Panels
             }
             UpdateFormTitleYnvChanged();
         }
-
 
         private void YnvAreaIDXUpDown_ValueChanged(object sender, EventArgs e)
         {

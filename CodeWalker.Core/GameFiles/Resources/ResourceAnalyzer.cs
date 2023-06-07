@@ -27,7 +27,6 @@ namespace CodeWalker.GameFiles
             public Array Array { get; set; }
             public string String { get; set; }
 
-
             public override string ToString()
             {
                 var type = "########## ??? ##########";
@@ -103,7 +102,6 @@ namespace CodeWalker.GameFiles
 
             //Blocks = dlist.ToArray();
 
-
             var dlist2 = new List<ResourceAnalyzerItem>();
             long pos = 0;
             bool gfx = false;
@@ -140,10 +138,8 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             Blocks = dlist2.ToArray();
         }
-
 
     }
 }

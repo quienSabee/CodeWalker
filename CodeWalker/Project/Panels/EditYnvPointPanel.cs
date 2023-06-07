@@ -38,7 +38,6 @@ namespace CodeWalker.Project.Panels
             Text = "Nav Point " + YnvPoint.Index.ToString();
         }
 
-
         public void UpdateYnvPointUI()
         {
             if (YnvPoint == null)

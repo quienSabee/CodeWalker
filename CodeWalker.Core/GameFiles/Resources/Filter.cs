@@ -24,9 +24,7 @@ using System.Threading.Tasks;
     THE SOFTWARE.
 */
 
-
 //ruthlessly stolen
-
 
 namespace CodeWalker.GameFiles
 {
@@ -85,7 +83,6 @@ namespace CodeWalker.GameFiles
             };
         }
     }
-
 
     [TypeConverter(typeof(ExpandableObjectConverter))] public class FrameFilter : ResourceSystemBlock
     {
@@ -148,6 +145,5 @@ namespace CodeWalker.GameFiles
             };
         }
     }
-
 
 }

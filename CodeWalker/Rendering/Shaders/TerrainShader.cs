@@ -98,7 +98,6 @@ namespace CodeWalker.Rendering
 
         private Dictionary<VertexType, InputLayout> layouts = new Dictionary<VertexType, InputLayout>();
 
-
         public TerrainShader(Device device)
         {
             byte[] vspncct = File.ReadAllBytes("Shaders\\TerrainVS_PNCCT.cso");
@@ -137,8 +136,6 @@ namespace CodeWalker.Rendering
             layouts.Add(VertexType.PNCCTTX, new InputLayout(device, vspnccttx, VertexTypeGTAV.GetLayout(VertexType.PNCCTTX)));
             layouts.Add(VertexType.PNCCTTX_2, new InputLayout(device, vspnccttx, VertexTypeGTAV.GetLayout(VertexType.PNCCTTX_2)));
             layouts.Add(VertexType.PNCCTTTX, new InputLayout(device, vspncctttx, VertexTypeGTAV.GetLayout(VertexType.PNCCTTTX)));
-
-
 
             texsampler = new SamplerState(device, new SamplerStateDescription()
             {
@@ -182,11 +179,9 @@ namespace CodeWalker.Rendering
 
         }
 
-
         private void SetVertexShader(DeviceContext context, uint shaderhash)
         {
             //no longer used.
-
 
             //PNCCT     terrain_cb_w_4lyr_lod (terrain_cb_w_4lyr_lod.sps)
             //PNCCTT    terrain_cb_w_4lyr_2tex_blend_lod (terrain_cb_w_4lyr_2tex_blend_lod.sps)
@@ -204,7 +199,6 @@ namespace CodeWalker.Rendering
             //PNCCTTTX  terrain_cb_w_4lyr_2tex_pxm (terrain_cb_w_4lyr_2tex_pxm.sps)
             //PNCCTTTX  terrain_cb_w_4lyr_2tex_blend_pxm (terrain_cb_w_4lyr_2tex_blend_pxm.sps)
             //PNCCTTTX  terrain_cb_w_4lyr_2tex_blend_pxm_spm (terrain_cb_w_4lyr_2tex_blend_pxm_spm.sps)
-
 
             VertexType vt = VertexType.Default;
             switch (shaderhash)
@@ -318,11 +312,9 @@ namespace CodeWalker.Rendering
                     break;
             }
 
-
             VSSceneVars.Vars.ViewProj = Matrix.Transpose(camera.ViewProjMatrix);
             VSSceneVars.Update(context);
             VSSceneVars.SetVSCBuffer(context, 0);
-
 
             PSSceneVars.Vars.GlobalLights = lights.Params;
             PSSceneVars.Vars.EnableShadows = (shadowmap != null) ? 1u : 0u;
@@ -489,8 +481,6 @@ namespace CodeWalker.Rendering
                 //    }
                 //}
 
-
-
             }
 
             if (RenderMode == WorldRenderMode.SingleTexture)
@@ -532,13 +522,11 @@ namespace CodeWalker.Rendering
             bool usetint = ((tintpal != null) && (tintpal.ShaderResourceView != null));
             bool usenm = (((normals0 != null) && (normals0.ShaderResourceView != null)) || ((normals1 != null) && (normals1.ShaderResourceView != null)));
 
-
             float bumpiness = 1.0f;
             if (usenm)
             {
                 bumpiness = geom.bumpiness;
             }
-
 
             PSGeomVars.Vars.EnableTexture0 = usediff0 ? 1u : 0u;
             PSGeomVars.Vars.EnableTexture1 = usediff1 ? 1u : 0u;
@@ -558,7 +546,6 @@ namespace CodeWalker.Rendering
             VSGeomVars.Vars.TintYVal = tntpalind;
             VSGeomVars.Update(context);
             VSGeomVars.SetVSCBuffer(context, 4);
-
 
             context.VertexShader.SetSampler(0, texsamplertnt);
             context.PixelShader.SetSampler(0, AnisotropicFilter ? texsampleranis : texsampler);
@@ -607,7 +594,6 @@ namespace CodeWalker.Rendering
             context.VertexShader.Set(null);
             context.PixelShader.Set(null);
         }
-
 
         public void Dispose()
         {

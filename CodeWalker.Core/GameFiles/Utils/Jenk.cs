@@ -25,7 +25,6 @@ namespace CodeWalker.GameFiles
             HashHex = "0x" + HashUint.ToString("X");
         }
 
-
         public static uint GenHash(string text, JenkHashInputEncoding encoding)
         {
             uint h = 0;
@@ -95,7 +94,6 @@ namespace CodeWalker.GameFiles
         ASCII = 1,
     }
 
-
     public class JenkIndMatch
     {
         public string Hash { get; set; }
@@ -148,7 +146,6 @@ namespace CodeWalker.GameFiles
                 wordrank += wordlength; //linear word increment, ignoring 1-2char matches
             }
 
-
             if (Value.Length > 0)
             {
                 //the max value for a given length when 1+2+3+4+5+..n = n(n+1)/2
@@ -189,12 +186,6 @@ namespace CodeWalker.GameFiles
             return string.Format("{0} : {1} at line {2}", Filename, Excuse, Line);
         }
     }
-
-
-
-
-
-
 
     public static class JenkIndex
     {
@@ -260,6 +251,5 @@ namespace CodeWalker.GameFiles
         }
 
     }
-
 
 }

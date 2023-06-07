@@ -40,7 +40,6 @@ namespace CodeWalker
 
         Entity camEntity = new Entity();
 
-
         bool MouseLButtonDown = false;
         bool MouseRButtonDown = false;
         int MouseX;
@@ -48,22 +47,16 @@ namespace CodeWalker
         System.Drawing.Point MouseDownPoint;
         System.Drawing.Point MouseLastPoint;
 
-
         public GameFileCache GameFileCache { get; } = GameFileCacheFactory.Create();
-
 
         InputManager Input = new InputManager();
 
-
         bool initedOk = false;
-
-
 
         bool toolsPanelResizing = false;
         int toolsPanelResizeStartX = 0;
         int toolsPanelResizeStartLeft = 0;
         int toolsPanelResizeStartRight = 0;
-
 
         bool enableGrid = false;
         float gridSize = 1.0f;
@@ -71,12 +64,7 @@ namespace CodeWalker
         List<VertexTypePC> gridVerts = new List<VertexTypePC>();
         object gridSyncRoot = new object();
 
-
-
-
-
         Ped SelectedPed = new Ped();
-
 
         ComboBox[] ComponentComboBoxes = null;
         public class ComponentComboItem
@@ -113,8 +101,6 @@ namespace CodeWalker
             }
         }
 
-
-
         public PedsForm()
         {
             InitializeComponent();
@@ -134,7 +120,6 @@ namespace CodeWalker
                 CompDeclComboBox,
                 CompJbibComboBox
             };
-
 
             Renderer = new Renderer(this, GameFileCache);
             camera = Renderer.camera;
@@ -170,7 +155,6 @@ namespace CodeWalker
                 return;
             }
 
-
             camera.FollowEntity = camEntity;
             camera.FollowEntity.Position = Vector3.Zero;// prevworldpos;
             camera.FollowEntity.Orientation = Quaternion.LookAtLH(Vector3.Zero, Vector3.Up, Vector3.ForwardLH);
@@ -183,9 +167,7 @@ namespace CodeWalker
 
             Renderer.shaders.deferred = false; //no point using this here yet
 
-
             LoadSettings();
-
 
             formopen = true;
             new Thread(new ThreadStart(ContentThread)).Start();
@@ -223,13 +205,8 @@ namespace CodeWalker
 
             Renderer.Update(elapsed, MouseLastPoint.X, MouseLastPoint.Y);
 
-
-
             //UpdateWidgets();
             //BeginMouseHitTest();
-
-
-
 
             Renderer.BeginRender(context);
 
@@ -237,15 +214,12 @@ namespace CodeWalker
 
             Renderer.SelectedDrawable = null;// SelectedItem.Drawable;
 
-
             Renderer.RenderPed(SelectedPed);
 
             //UpdateMouseHitsFromRenderer();
             //RenderSelection();
 
-
             RenderGrid(context);
-
 
             Renderer.RenderQueued();
 
@@ -275,10 +249,6 @@ namespace CodeWalker
             return true;
         }
 
-
-
-
-
         private void Init()
         {
             //called from PedForm_Load
@@ -289,7 +259,6 @@ namespace CodeWalker
                 return;
             }
 
-
             MouseWheel += PedsForm_MouseWheel;
 
             if (!GTAFolder.UpdateGTAFolder(true))
@@ -298,8 +267,6 @@ namespace CodeWalker
                 return;
             }
 
-
-
             ShaderParamNames[] texsamplers = RenderableGeometry.GetTextureSamplerList();
             foreach (var texsampler in texsamplers)
             {
@@ -307,19 +274,14 @@ namespace CodeWalker
             }
             //TextureSamplerComboBox.SelectedIndex = 0;//LoadSettings will do this..
 
-
             UpdateGridVerts();
             GridSizeComboBox.SelectedIndex = 1;
             GridCountComboBox.SelectedIndex = 1;
 
-
-
             Input.Init();
-
 
             Renderer.Start();
         }
-
 
         private void ContentThread()
         {
@@ -354,17 +316,13 @@ namespace CodeWalker
 
             UpdateGlobalPedsUI();
 
-
             LoadWorld();
-
-
 
             //initialised = true;
 
             //EnableDLCModsUI();
 
             //UpdateStatus("Ready");
-
 
             Task.Run(() => {
                 while (formopen && !IsDisposed) //renderer content loop
@@ -393,9 +351,6 @@ namespace CodeWalker
             running = false;
         }
 
-
-
-
         private void LoadSettings()
         {
             var s = Settings.Default;
@@ -412,8 +367,6 @@ namespace CodeWalker
             //ErrorConsoleCheckBox.Checked = s.ShowErrorConsole;
             //StatusBarCheckBox.Checked = s.ShowStatusBar;
         }
-
-
 
         private void LoadWorld()
         {
@@ -433,11 +386,6 @@ namespace CodeWalker
             //UpdateCloudTypesComboBox(clouds);
 
         }
-
-
-
-
-
 
         private void UpdateStatus(string text)
         {
@@ -473,9 +421,6 @@ namespace CodeWalker
             catch { }
         }
 
-
-
-
         private void UpdateMousePosition(MouseEventArgs e)
         {
             MouseX = e.X;
@@ -501,12 +446,6 @@ namespace CodeWalker
             camera.UpdateProj = true;
 
         }
-
-
-
-
-
-
 
         private void AddDrawableTreeNode(DrawableBase drawable, string name, bool check)
         {
@@ -643,7 +582,6 @@ namespace CodeWalker
             }
         }
 
-
         private void UpdateGlobalPedsUI()
         {
             if (InvokeRequired)
@@ -666,8 +604,6 @@ namespace CodeWalker
                 ClipDictComboBox.AutoCompleteCustomSource.AddRange(ycdlist.ToArray());
                 ClipDictComboBox.Text = "";
 
-
-
                 PedNameComboBox.Items.Clear();
                 var peds = GameFileCache.PedsInitDict.Values.ToList();
                 peds.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
@@ -686,10 +622,6 @@ namespace CodeWalker
 
         }
 
-
-
-
-
         private void UpdateModelsUI()
         {
             //TODO: change to go through each component and add/update/remove treeview item accordingly?
@@ -704,7 +636,6 @@ namespace CodeWalker
 
             if (SelectedPed == null) return;
 
-
             for (int i = 0; i < 12; i++)
             {
                 var drawable = SelectedPed.Drawables[i];
@@ -717,9 +648,6 @@ namespace CodeWalker
             }
 
         }
-
-
-
 
         public void LoadPed()
         {
@@ -738,7 +666,6 @@ namespace CodeWalker
 
             LoadModel(SelectedPed.Yft, pedchange);
 
-
             var vi = SelectedPed.Ymt?.VariationInfo;
             if (vi != null)
             {
@@ -750,7 +677,6 @@ namespace CodeWalker
 
             ClipDictComboBox.Text = SelectedPed.InitData?.ClipDictionaryName ?? "";
             ClipComboBox.Text = "idle";
-
 
             DetailsPropertyGrid.SelectedObject = SelectedPed;
 
@@ -773,8 +699,6 @@ namespace CodeWalker
 
             //UpdateModelsUI(yft.Fragment.Drawable);
         }
-
-
 
         private void ClearCombo(ComboBox c)
         {
@@ -820,11 +744,6 @@ namespace CodeWalker
             UpdateModelsUI();
         }
 
-
-
-
-
-
         private void LoadClipDict(string name)
         {
             var ycdhash = JenkHash.GenHash(name.ToLowerInvariant());
@@ -834,8 +753,6 @@ namespace CodeWalker
                 Thread.Sleep(1);//kinda hacky
                 ycd = GameFileCache.GetYcd(ycdhash);
             }
-
-
 
             //if (ycd != null)
             //{
@@ -851,8 +768,6 @@ namespace CodeWalker
             //    //{ }
             //    ycd = ycd3;
             //}
-
-
 
             SelectedPed.Ycd = ycd;
 
@@ -890,10 +805,6 @@ namespace CodeWalker
             SelectedPed.AnimClip = cme;
         }
 
-
-
-
-
         private void UpdateTimeOfDayLabel()
         {
             int v = TimeOfDayTrackBar.Value;
@@ -904,7 +815,6 @@ namespace CodeWalker
             TimeOfDayLabel.Text = string.Format("{0:00}:{1:00}", ih, im);
         }
 
-
         private void UpdateControlInputs(float elapsed)
         {
             if (elapsed > 0.1f) elapsed = 0.1f;
@@ -912,7 +822,6 @@ namespace CodeWalker
             var s = Settings.Default;
 
             float moveSpeed = 2.0f;
-
 
             Input.Update();
 
@@ -923,8 +832,6 @@ namespace CodeWalker
                 //    SetControlMode(ControlMode == WorldControlMode.Free ? WorldControlMode.Ped : WorldControlMode.Free);
                 //}
             }
-
-
 
             if (Input.ShiftPressed)
             {
@@ -948,7 +855,6 @@ namespace CodeWalker
                 }
             }
 
-
             //if (MapViewEnabled == true)
             //{
             //    movevec *= elapsed * 100.0f * Math.Min(camera.OrthographicTargetSize * 0.01f, 30.0f);
@@ -964,15 +870,11 @@ namespace CodeWalker
                 movevec *= elapsed * moveSpeed * Math.Min(camera.TargetDistance, 50.0f);
             }
 
-
             Vector3 movewvec = camera.ViewInvQuaternion.Multiply(movevec);
             camEntity.Position += movewvec;
 
             //MapViewDragX = 0;
             //MapViewDragY = 0;
-
-
-
 
             if (Input.xbenable)
             {
@@ -988,11 +890,7 @@ namespace CodeWalker
 
             }
 
-
-
         }
-
-
 
         private void UpdateGridVerts()
         {
@@ -1048,15 +946,6 @@ namespace CodeWalker
             }
         }
 
-
-
-
-
-
-
-
-
-
         private void PedsForm_Load(object sender, EventArgs e)
         {
             Init();
@@ -1098,8 +987,6 @@ namespace CodeWalker
                 case MouseButtons.Left: MouseLButtonDown = false; break;
                 case MouseButtons.Right: MouseRButtonDown = false; break;
             }
-
-
 
             if (e.Button == MouseButtons.Left)
             {
@@ -1148,8 +1035,6 @@ namespace CodeWalker
 
             }
 
-
-
         }
 
         private void PedsForm_MouseWheel(object sender, MouseEventArgs e)
@@ -1182,7 +1067,6 @@ namespace CodeWalker
             bool ctrl = Input.CtrlPressed;
             bool shift = Input.ShiftPressed;
 
-
             if (!ctrl)
             {
                 if (k == kb.MoveSlowerZoomIn)
@@ -1194,7 +1078,6 @@ namespace CodeWalker
                     camera.MouseZoom(-1);
                 }
             }
-
 
             if (!Input.kbmoving) //don't trigger further actions if moving.
             {
@@ -1540,10 +1423,6 @@ namespace CodeWalker
             //    MessageBox.Show("Couldn't find embedded texture dict.");
             //}
         }
-
-
-
-
 
         private void PedNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {

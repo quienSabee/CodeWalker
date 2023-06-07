@@ -23,8 +23,6 @@ namespace CodeWalker.GameFiles
             return pso;
         }
 
-
-
         private static byte[] Traverse(XmlNode node, PsoBuilder pb, MetaName type = 0, bool isRoot = false)
         {
             if (type == 0)
@@ -50,7 +48,6 @@ namespace CodeWalker.GameFiles
                 Array.Clear(data, 0, infos.StructureLength); //shouldn't really be necessary...
 
                 PsoStructureEntryInfo arrEntry = null;
-
 
                 //if (isRoot)
                 //{
@@ -337,15 +334,12 @@ namespace CodeWalker.GameFiles
                                 break;
                             }
 
-
                         default:
                             break;
 
                     }
 
-
                 }
-
 
                 arrayResults.WriteArrays(data);
 
@@ -383,8 +377,6 @@ namespace CodeWalker.GameFiles
             if (kEntry.Type != PsoDataType.String)
             { }
 
-
-
             List<byte[]> nodesData = new List<byte[]>();
 
             foreach (XmlNode cnode in node.ChildNodes)
@@ -416,8 +408,6 @@ namespace CodeWalker.GameFiles
                 nodesData.Add(nodeBytes);
 
             }
-
-
 
             Write(0x1000000, data, entry.DataOffset);
             Write(0, data, entry.DataOffset + 4);
@@ -460,9 +450,6 @@ namespace CodeWalker.GameFiles
                 case 129: //also raw inline array? in junctions.pso  (AutoJunctionAdjustments)
                     break;
             }
-
-
-
 
             switch (arrEntry.Type)
             {
@@ -632,10 +619,8 @@ namespace CodeWalker.GameFiles
                                 break;
                         }
 
-
                         break;
                     }
-
 
                 case PsoDataType.Enum:
                     {
@@ -670,10 +655,8 @@ namespace CodeWalker.GameFiles
                         else
                         { }
 
-
                         break;
                     }
-
 
                 case PsoDataType.Array:
                     {
@@ -695,15 +678,10 @@ namespace CodeWalker.GameFiles
                             }
                             arrEntry.DataOffset = origOffset;
 
-
                         }
-
 
                         break;
                     }
-
-
-
 
                 default:
                     break;
@@ -777,7 +755,6 @@ namespace CodeWalker.GameFiles
                     break;
             }
         }
-
 
         private static byte[][] TraverseArrayStructureRaw(XmlNode node, PsoBuilder pb, MetaName type)
         {
@@ -946,9 +923,7 @@ namespace CodeWalker.GameFiles
         {
             var items = new List<Vector4>();
 
-
             var split = node.InnerText.Split('\n');// Regex.Split(node.InnerText, @"[\s\r\n\t]");
-
 
             float x = 0f;
             float y = 0f;
@@ -983,16 +958,13 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             return items.ToArray();
         }
         private static Vector2[] TraverseVector2ArrayRaw(XmlNode node)
         {
             var items = new List<Vector2>();
 
-
             var split = node.InnerText.Split('\n');// Regex.Split(node.InnerText, @"[\s\r\n\t]");
-
 
             float x = 0f;
             float y = 0f;
@@ -1024,7 +996,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
             return items.ToArray();
         }
         private static MetaHash[] TraverseHashArrayRaw(XmlNode node)
@@ -1039,9 +1010,6 @@ namespace CodeWalker.GameFiles
 
             return items.ToArray();
         }
-
-
-
 
         private static void Write(int val, byte[] data, int offset)
         {
@@ -1104,7 +1072,6 @@ namespace CodeWalker.GameFiles
             return null;
         }
 
-
         private static int GetEnumInt(MetaName type, string enumString, PsoDataType dataType)
         {
             var infos = PsoTypes.GetEnumInfo(type);
@@ -1113,7 +1080,6 @@ namespace CodeWalker.GameFiles
             {
                 return 0;
             }
-
 
             bool isFlags = (dataType == PsoDataType.Flags);// ||
                            //(dataType == PsoDataType.IntFlags2);// ||

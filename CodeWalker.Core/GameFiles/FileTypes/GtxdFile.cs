@@ -14,11 +14,7 @@ namespace CodeWalker.GameFiles
 
         public RbfFile Rbf { get; set; }
 
-
         public Dictionary<string, string> TxdRelationships { get; set; }
-
-
-
 
         public GtxdFile() : base(null, GameFileType.Gtxd)
         {
@@ -27,14 +23,11 @@ namespace CodeWalker.GameFiles
         {
         }
 
-
-
         public void Load(byte[] data, RpfFileEntry entry)
         {
             RpfFileEntry = entry;
             Name = entry.Name;
             FilePath = Name;
-
 
             if (entry.NameLower.EndsWith(".ymt"))
             {
@@ -66,9 +59,7 @@ namespace CodeWalker.GameFiles
                 Loaded = true;
             }
 
-
         }
-
 
         private void LoadTxdRelationships(RbfStructure rbfstruct)
         {
@@ -131,8 +122,6 @@ namespace CodeWalker.GameFiles
             //}
 
         }
-
-
 
         private void LoadTxdRelationships(string xml)
         {

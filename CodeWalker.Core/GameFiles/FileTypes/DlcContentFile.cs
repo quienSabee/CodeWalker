@@ -69,9 +69,7 @@ namespace CodeWalker.GameFiles
                         break;
                 }
 
-
             }
-
 
         }
 
@@ -333,8 +331,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
-
     public class DlcExtraFolderMountFile
     {
         public List<DlcExtraFolderMount> FolderMounts { get; set; } = new List<DlcExtraFolderMount>();
@@ -381,7 +377,6 @@ namespace CodeWalker.GameFiles
         }
     }
 
-
     public class DlcExtraTitleUpdateFile
     {
         public List<DlcExtraTitleUpdateMount> Mounts { get; set; } = new List<DlcExtraTitleUpdateMount>();
@@ -425,7 +420,5 @@ namespace CodeWalker.GameFiles
             return type + ": " + deviceName + " - " + path;
         }
     }
-
-
 
 }

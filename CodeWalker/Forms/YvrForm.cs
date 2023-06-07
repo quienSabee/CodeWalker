@@ -28,15 +28,10 @@ namespace CodeWalker.Forms
         }
         public string FilePath { get; set; }
 
-
-
-
         public YvrForm()
         {
             InitializeComponent();
         }
-
-
 
         private void UpdateFormTitle()
         {
@@ -61,7 +56,6 @@ namespace CodeWalker.Forms
                 LoadListView();
             }
         }
-
 
         private string GenerateText()
         {

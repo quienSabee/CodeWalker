@@ -18,7 +18,6 @@ namespace CodeWalker.Utils
             DialogResult = DialogResult.Cancel;
         }
 
-
         private string _MainText = string.Empty;
         public string MainText
         {
@@ -66,7 +65,6 @@ namespace CodeWalker.Utils
                 }
             }
         }
-
 
         private void OkButton_Click(object sender, EventArgs e)
         {

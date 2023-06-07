@@ -74,7 +74,6 @@ namespace CodeWalker.Rendering
 
         public bool Deferred = false;
 
-
         public TreesLodShader(Device device)
         {
             byte[] vsbytes = File.ReadAllBytes("Shaders\\TreesLodVS.cso");
@@ -95,8 +94,6 @@ namespace CodeWalker.Rendering
             //layouts.Add(VertexType.PNCCT, new InputLayout(device, vsbytes, VertexTypePNCCT.GetLayout()));
             layouts.Add(VertexType.PNCCTTTT, new InputLayout(device, vsbytes, VertexTypeGTAV.GetLayout(VertexType.PNCCTTTT)));
 
-
-
             texsampler = new SamplerState(device, new SamplerStateDescription()
             {
                 AddressU = TextureAddressMode.Wrap,
@@ -112,8 +109,6 @@ namespace CodeWalker.Rendering
             });
 
         }
-
-
 
         public override void SetShader(DeviceContext context)
         {
@@ -173,7 +168,6 @@ namespace CodeWalker.Rendering
             //trees_lod
             //PNCCT:
 
-
             if (geom.VertexType != VertexType.PNCCTTTT)
             { }
 
@@ -204,7 +198,6 @@ namespace CodeWalker.Rendering
                         case ShaderParamNames.treeLod2Params: VSGeomVars.Vars.treeLod2Params = (Vector4)sparams[i].Data; break;
                     }
                 }
-
 
             }
             else
@@ -264,7 +257,6 @@ namespace CodeWalker.Rendering
                     index++;
                 }
             }
-
 
             bool usediff = ((texture != null) && (texture.Texture2D != null) && (texture.ShaderResourceView != null));
             PSEntityVars.Vars.EnableTexture = usediff ? 1u : 0u;

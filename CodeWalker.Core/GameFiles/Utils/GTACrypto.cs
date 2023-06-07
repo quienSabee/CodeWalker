@@ -34,7 +34,6 @@ namespace CodeWalker.GameFiles
     public class GTACrypto
     {
 
-
         public static byte[] DecryptAES(byte[] data)
         {
             return DecryptAESData(data, GTA5Keys.PC_AES_KEY);
@@ -89,17 +88,12 @@ namespace CodeWalker.GameFiles
             return buffer;
         }
 
-
-
-
-
         public static byte[] GetNGKey(string name, uint length)
         {
             uint hash = GTA5Hash.CalculateHash(name);
             uint keyidx = (hash + length + (101 - 40)) % 0x65;
             return GTA5Keys.PC_NG_KEYS[keyidx];
         }
-
 
         public static byte[] DecryptNG(byte[] data, string name, uint length)
         {
@@ -155,7 +149,6 @@ namespace CodeWalker.GameFiles
             return buffer;
         }
 
-
         // round 1,2,16
         public static byte[] DecryptNGRoundA(byte[] data, uint[] key, uint[][] table)
         {
@@ -191,8 +184,6 @@ namespace CodeWalker.GameFiles
             Array.Copy(BitConverter.GetBytes(x4), 0, result, 12, 4);
             return result;
         }
-
-
 
         // round 3-15
         public static byte[] DecryptNGRoundB(byte[] data, uint[] key, uint[][] table)
@@ -248,22 +239,6 @@ namespace CodeWalker.GameFiles
             result[15] = (byte)((x4 >> 24) & 0xFF);
             return result;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public static byte[] EncryptNG(byte[] data, string name, uint length)
         {
@@ -421,9 +396,6 @@ namespace CodeWalker.GameFiles
                 lut[14].LookUp(BitConverter.ToUInt32( new byte[] { data[4],  data[5], data[6],   data[7]  }, 0)),
                 lut[15].LookUp(BitConverter.ToUInt32( new byte[] { data[8],  data[9], data[10], data[11]  }, 0))};
         }
-
-
-
 
     }
 }

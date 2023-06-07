@@ -112,7 +112,6 @@ namespace CodeWalker.World
         }
         public WidgetMode Mode { get; set; } = WidgetMode.Default;
 
-
         public event WidgetPositionChangeHandler OnPositionChange;
         public event WidgetRotationChangeHandler OnRotationChange;
         public event WidgetScaleChangeHandler OnScaleChange;
@@ -154,7 +153,6 @@ namespace CodeWalker.World
                 }
             }
         }
-
 
         public TransformWidget()
         {
@@ -224,7 +222,6 @@ namespace CodeWalker.World
             }
         }
 
-
     }
 
     public class DefaultWidget : Widget
@@ -235,7 +232,6 @@ namespace CodeWalker.World
         public float Size { get; set; } = 70.0f;
 
         public bool ObjectSpace { get; set; } = true;
-
 
         public override void Render(DeviceContext context, Camera cam, WidgetShader shader)
         {
@@ -275,7 +271,6 @@ namespace CodeWalker.World
 
         public bool ObjectSpace { get; set; } = true;
 
-
         public PositionWidget()
         {
         }
@@ -311,15 +306,12 @@ namespace CodeWalker.World
             WidgetAxis[] sideax1 = { WidgetAxis.Y, WidgetAxis.Z, WidgetAxis.X };
             WidgetAxis[] sideax2 = { WidgetAxis.Z, WidgetAxis.X, WidgetAxis.Y };
 
-
-
             Quaternion iori = Quaternion.Invert(ori);
             Vector3 camrel = iori.Multiply(Position - cam.Position);
             Vector3 cdir = Vector3.Normalize(camrel);
             Ray ray = cam.MouseRay;
             ray.Position = iori.Multiply(ray.Position);
             ray.Direction = iori.Multiply(ray.Direction);
-
 
             float dist = camrel.Length();
             float size = GetWorldSize(Size, dist, cam);
@@ -390,7 +382,6 @@ namespace CodeWalker.World
 
             MousedAxis = hitax;
 
-
             if (IsDragging && !WasDragging)
             {
                 //drag start. mark the start vector and axes
@@ -438,7 +429,6 @@ namespace CodeWalker.World
                     DraggedAxisSideDir = Vector3.Normalize(Vector3.Cross(cdir, DraggedAxisDir));
                 }
 
-
                 bool hit = GetAxisRayHit(DraggedAxisDir, DraggedAxisSideDir, camrel, ray, out DragStartVec);
                 if ((MousedAxis == WidgetAxis.None) || !hit)
                 {
@@ -477,11 +467,8 @@ namespace CodeWalker.World
                 }
             }
 
-
-
             WasDragging = IsDragging;
         }
-
 
     }
 
@@ -551,7 +538,6 @@ namespace CodeWalker.World
             float ocirchiti = ocircsize - ocircthick;
             float ocirchito = ocircsize + ocircthick;
 
-
             //test for the main axes hits
             float cullvalue = -0.18f;
             float hitd = float.MaxValue;
@@ -613,9 +599,7 @@ namespace CodeWalker.World
                 }
             }
 
-
             MousedAxis = hitax;
-
 
             if (IsDragging && !WasDragging)
             {
@@ -657,7 +641,6 @@ namespace CodeWalker.World
                     }
                 }
             }
-
 
             WasDragging = IsDragging;
         }
@@ -734,15 +717,12 @@ namespace CodeWalker.World
             WidgetAxis[] sideax1 = { WidgetAxis.Y, WidgetAxis.Z, WidgetAxis.X };
             WidgetAxis[] sideax2 = { WidgetAxis.Z, WidgetAxis.X, WidgetAxis.Y };
 
-
-
             Quaternion iori = Quaternion.Invert(ori);
             Vector3 camrel = iori.Multiply(Position - cam.Position);
             Vector3 cdir = Vector3.Normalize(camrel);
             Ray ray = cam.MouseRay;
             ray.Position = iori.Multiply(ray.Position);
             ray.Direction = iori.Multiply(ray.Direction);
-
 
             float dist = camrel.Length();
             float size = GetWorldSize(Size, dist, cam);
@@ -816,9 +796,7 @@ namespace CodeWalker.World
                 }
             }
 
-
             MousedAxis = hitax;
-
 
             if (IsDragging && !WasDragging)
             {
@@ -866,7 +844,6 @@ namespace CodeWalker.World
                     DraggedAxisDir = Vector3.Normalize(Vector3.Cross(cdir, (ad1 > ad2) ? Vector3.UnitY : Vector3.UnitZ));
                     DraggedAxisSideDir = Vector3.Normalize(Vector3.Cross(cdir, DraggedAxisDir));
                 }
-
 
                 bool hit = GetAxisRayHit(DraggedAxisDir, DraggedAxisSideDir, camrel, ray, out DragStartVec);
                 if ((MousedAxis == WidgetAxis.None) || !hit)
@@ -924,7 +901,6 @@ namespace CodeWalker.World
 
     }
 
-
     public delegate void WidgetPositionChangeHandler(Vector3 newpos, Vector3 oldpos);
     public delegate void WidgetRotationChangeHandler(Quaternion newrot, Quaternion oldrot);
     public delegate void WidgetScaleChangeHandler(Vector3 newscale, Vector3 oldscale);
@@ -947,10 +923,5 @@ namespace CodeWalker.World
         YZ = 6,
         XYZ = 7,
     }
-
-
-
-
-
 
 }

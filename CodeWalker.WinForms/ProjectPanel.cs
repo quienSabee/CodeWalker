@@ -19,7 +19,6 @@ namespace CodeWalker.Project
 
     }
 
-
     public class ProjectFloatWindow : FloatWindow
     {
         public ProjectFloatWindow(DockPanel dockPanel, DockPane pane)

@@ -1,6 +1,5 @@
 #include "Clouds.hlsli"
 
-
 Texture2D<float4> DensitySampler : register(t0);
 Texture2D<float4> NormalSampler : register(t1);
 Texture2D<float4> DetailDensitySampler : register(t2);
@@ -34,8 +33,6 @@ struct VS_OUTPUT
     float4 o9 : TEXCOORD9; //                 9   xyzw        9     NONE   float   xyzw
 };
 
-
-
 float4 main(VS_OUTPUT input) : SV_TARGET
 {
     float2 texc = input.o4;
@@ -45,25 +42,9 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 
     float dv = saturate((1.0 - d.g) * input.o1.w);
 
-
     float3 dc = gSunColor;
     return float4(dc, saturate(dv));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 //clouds_animsoft.fxc_PSCloudsVertScatterPiercing_AnimSoft
@@ -295,7 +276,5 @@ div_sat r0.x, r0.x, cb12[27].x
 mul o0.w, r0.x, r1.x
 ret 
 // Approximately 82 instruction slots used
-
-
 
 */

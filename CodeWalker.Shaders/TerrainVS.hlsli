@@ -1,7 +1,6 @@
 #include "Shadowmap.hlsli"
 #include "Quaternion.hlsli"
 
-
 cbuffer VSSceneVars : register(b0)
 {
     float4x4 ViewProj;
@@ -29,8 +28,6 @@ cbuffer VSGeomVars : register(b4)
     uint Pad5;
 }
 
-
-
 struct VS_OUTPUT
 {
     float4 Position : SV_POSITION;
@@ -50,9 +47,6 @@ struct VS_OUTPUT
 
 Texture2D<float4> TintPalette : register(t0);
 SamplerState TextureSS : register(s0);
-
-
-
 
 float3 ModelTransform(float3 ipos)
 {

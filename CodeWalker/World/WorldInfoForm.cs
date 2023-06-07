@@ -180,7 +180,6 @@ namespace CodeWalker.World
                 SelEntityPropertyGrid.SelectedObject = item.EntityDef;
             }
 
-
             if (item.EntityExtension != null)
             {
                 SelectionExtensionTabPage.Text = "Entity Extension";
@@ -319,7 +318,6 @@ namespace CodeWalker.World
 
         }
 
-
         private void DisplayTexture(Texture tex, int mip)
         {
             try
@@ -373,7 +371,6 @@ namespace CodeWalker.World
                     SelTextureMipTrackBar.Maximum = tex.Levels - 1;
                 }
                 DisplayTexture(tex, mip);
-
 
                 //try get owner drawable to get the name for the dictionary textbox...
                 object owner = null;
@@ -470,7 +467,6 @@ namespace CodeWalker.World
             ytd = null;
             return null;
         }
-
 
         private void WorldInfoForm_Load(object sender, EventArgs e)
         {

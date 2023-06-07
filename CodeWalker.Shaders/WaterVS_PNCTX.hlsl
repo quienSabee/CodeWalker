@@ -9,7 +9,6 @@ struct VS_INPUT
     float4 Tangent   : TANGENT;
 };
 
-
 VS_OUTPUT main(VS_INPUT input)
 {
     VS_OUTPUT output;

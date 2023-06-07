@@ -26,7 +26,6 @@ namespace CodeWalker.Forms
 
         private Renderer Renderer = null;
 
-
         volatile bool formopen = false;
         //volatile bool running = false;
         volatile bool pauserendering = false;
@@ -46,17 +45,13 @@ namespace CodeWalker.Forms
         System.Drawing.Point MouseLastPoint;
         bool MouseInvert = Settings.Default.MouseInvert;
 
-
-
         Vector3 prevworldpos = new Vector3(0, 0, 0); //also the start pos
 
         Entity camEntity = new Entity();
 
         //bool iseditmode = false;
 
-
         bool initedOk = false;
-
 
         private string fileName;
         public string FileName
@@ -77,10 +72,7 @@ namespace CodeWalker.Forms
         YptFile Ypt = null;
         YnvFile Ynv = null;
 
-
-
         InputManager Input = new InputManager();
-
 
         bool toolsPanelResizing = false;
         int toolsPanelResizeStartX = 0;
@@ -88,7 +80,6 @@ namespace CodeWalker.Forms
         int toolsPanelResizeStartRight = 0;
 
         Dictionary<DrawableBase, bool> DrawableDrawFlags = new Dictionary<DrawableBase, bool>();
-
 
         bool enableGrid = false;
         float gridSize = 1.0f;
@@ -99,7 +90,6 @@ namespace CodeWalker.Forms
         GameFileCache gameFileCache = null;
         Archetype currentArchetype = null;
         bool updateArchetypeStatus = true;
-
 
         ModelMatForm materialForm = null;
         bool modelModified = false;
@@ -115,7 +105,6 @@ namespace CodeWalker.Forms
         ExploreForm exploreForm = null;
         RpfFileEntry rpfFileEntry = null;
 
-
         bool animsInited = false;
         YcdFile Ycd = null;
         ClipMapEntry AnimClip = null;
@@ -123,8 +112,6 @@ namespace CodeWalker.Forms
         MetaHash ModelHash;
         Archetype ModelArchetype = null;
         bool EnableRootMotion = false;
-
-
 
         public ModelForm(ExploreForm ExpForm = null)
         {
@@ -166,7 +153,6 @@ namespace CodeWalker.Forms
                 return;
             }
 
-
             MouseWheel += ModelForm_MouseWheel;
 
             if (!GTAFolder.UpdateGTAFolder(true))
@@ -191,19 +177,14 @@ namespace CodeWalker.Forms
             }
             //TextureSamplerComboBox.SelectedIndex = 0;//LoadSettings will do this..
 
-
             UpdateGridVerts();
             GridSizeComboBox.SelectedIndex = 1;
             GridCountComboBox.SelectedIndex = 1;
 
-
-
             Input.Init();
-
 
             Renderer.Start();
         }
-
 
         public void InitScene(Device device)
         {
@@ -222,7 +203,6 @@ namespace CodeWalker.Forms
 
             //shaders.hdrLumBlendSpeed = 1000.0f;
 
-
             camera.FollowEntity = camEntity;
             camera.FollowEntity.Position = prevworldpos;
             camera.FollowEntity.Orientation = Quaternion.LookAtLH(Vector3.Zero, Vector3.Up, Vector3.ForwardLH);
@@ -235,9 +215,7 @@ namespace CodeWalker.Forms
 
             Renderer.shaders.deferred = false; //no point using this here yet
 
-
             LoadSettings();
-
 
             formopen = true;
             new Thread(new ThreadStart(ContentThread)).Start();
@@ -273,8 +251,6 @@ namespace CodeWalker.Forms
 
             UpdateControlInputs(elapsed);
 
-
-
             Renderer.Update(elapsed, MouseLastPoint.X, MouseLastPoint.Y);
 
             UpdateWidgets();
@@ -283,9 +259,7 @@ namespace CodeWalker.Forms
 
             Renderer.RenderSkyAndClouds();
 
-
             RenderSingleItem();
-
 
             RenderGrid(context);
 
@@ -307,7 +281,6 @@ namespace CodeWalker.Forms
         {
             return true;
         }
-
 
         private void ContentThread()
         {
@@ -333,13 +306,11 @@ namespace CodeWalker.Forms
             ////EnableCacheDependentUI();
             ////LoadWorld();
 
-
             //initialised = true;
 
             ////EnableDLCModsUI();
 
             UpdateStatus("Ready");
-
 
             while (formopen && !IsDisposed) //main asset loop
             {
@@ -375,8 +346,6 @@ namespace CodeWalker.Forms
                     }
                 }
 
-
-
                 //if ((gameFileCache != null) && (gameFileCache.IsInited))
                 //{
                 //    gameFileCache.ContentThreadProc();
@@ -394,10 +363,6 @@ namespace CodeWalker.Forms
 
             //running = false;
         }
-
-
-
-
 
         private void InitAnimation()
         {
@@ -425,10 +390,6 @@ namespace CodeWalker.Forms
             }
         }
 
-
-
-
-
         private void LoadSettings()
         {
             var s = Settings.Default;
@@ -446,10 +407,6 @@ namespace CodeWalker.Forms
             //StatusBarCheckBox.Checked = s.ShowStatusBar;
         }
 
-
-
-
-
         private void MoveCameraToView(Vector3 pos, float rad)
         {
             //move the camera to a default place where the given sphere is fully visible.
@@ -462,8 +419,6 @@ namespace CodeWalker.Forms
 
             camera.UpdateProj = true;
         }
-
-
 
         private Archetype TryGetArchetype(uint hash)
         {
@@ -480,12 +435,6 @@ namespace CodeWalker.Forms
 
             return arch;
         }
-
-
-
-
-
-
 
         private void UpdateGridVerts()
         {
@@ -627,14 +576,12 @@ namespace CodeWalker.Forms
             selectedLight.UpdateRenderable = true;
         }
 
-
         private void RenderSingleItem()
         {
             if (AnimClip != null)
             {
                 AnimClip.EnableRootMotion = EnableRootMotion;
             }
-
 
             if (Ydr != null)
             {
@@ -705,15 +652,7 @@ namespace CodeWalker.Forms
                 }
             }
 
-
         }
-
-
-
-
-
-
-
 
         public void LoadModel(YdrFile ydr)
         {
@@ -804,7 +743,6 @@ namespace CodeWalker.Forms
                 ModelArchetype = TryGetArchetype(ModelHash);
             }
 
-
             var dr = yft.Fragment?.Drawable;
             if (dr != null)
             {
@@ -884,7 +822,6 @@ namespace CodeWalker.Forms
             UpdateNavmeshUI(ynv);
         }
 
-
         private void TrySelectClipDict()
         {
             if (ModelArchetype != null)
@@ -894,16 +831,10 @@ namespace CodeWalker.Forms
             }
         }
 
-
-
-
-
         private void UpdateFormTitle()
         {
             Text = fileName + (modelModified ? "*" : "") + " - CodeWalker by dexyfex";
         }
-
-
 
         private void UpdateStatus(string text)
         {
@@ -936,12 +867,6 @@ namespace CodeWalker.Forms
             }
             catch { }
         }
-
-
-
-
-
-
 
         private void LoadClipDict(string name)
         {
@@ -992,11 +917,6 @@ namespace CodeWalker.Forms
             AnimClip = cme;
         }
 
-
-
-
-
-
         private void UpdateTimeOfDayLabel()
         {
             int v = TimeOfDayTrackBar.Value;
@@ -1007,9 +927,6 @@ namespace CodeWalker.Forms
             TimeOfDayLabel.Text = string.Format("{0:00}:{1:00}", ih, im);
         }
 
-
-
-
         private void UpdateControlInputs(float elapsed)
         {
             if (elapsed > 0.1f) elapsed = 0.1f;
@@ -1017,7 +934,6 @@ namespace CodeWalker.Forms
             var s = Settings.Default;
 
             float moveSpeed = 2.0f;
-
 
             Input.Update();
 
@@ -1028,8 +944,6 @@ namespace CodeWalker.Forms
                 //    SetControlMode(ControlMode == WorldControlMode.Free ? WorldControlMode.Ped : WorldControlMode.Free);
                 //}
             }
-
-
 
             if (Input.ShiftPressed)
             {
@@ -1053,7 +967,6 @@ namespace CodeWalker.Forms
                 }
             }
 
-
             //if (MapViewEnabled == true)
             //{
             //    movevec *= elapsed * 100.0f * Math.Min(camera.OrthographicTargetSize * 0.01f, 30.0f);
@@ -1069,15 +982,11 @@ namespace CodeWalker.Forms
                 movevec *= elapsed * moveSpeed * Math.Min(camera.TargetDistance, 50.0f);
             }
 
-
             Vector3 movewvec = camera.ViewInvQuaternion.Multiply(movevec);
             camEntity.Position += movewvec;
 
             //MapViewDragX = 0;
             //MapViewDragY = 0;
-
-
-
 
             if (Input.xbenable)
             {
@@ -1093,12 +1002,7 @@ namespace CodeWalker.Forms
 
             }
 
-
-
         }
-
-
-
 
         private void UpdateModelsUI(DrawableBase drawable, object detailsObject = null)
         {
@@ -1228,7 +1132,6 @@ namespace CodeWalker.Forms
         {
             DetailsPropertyGrid.SelectedObject = ynv;
         }
-
 
         private void AddDrawableTreeNode(DrawableBase drawable, uint hash, bool check)
         {
@@ -1365,8 +1268,6 @@ namespace CodeWalker.Forms
             }
         }
 
-
-
         private void UpdateEmbeddedTextures(DrawableBase dwbl)
         {
             if (dwbl == null) return;
@@ -1473,14 +1374,10 @@ namespace CodeWalker.Forms
             }
         }
 
-
-
-
         private void ShowMaterialEditor()
         {
             DrawableBase drawable = null;
             Dictionary<uint, Drawable> dict = null;
-
 
             if ((Ydr != null) && (Ydr.Loaded))
             {
@@ -1612,8 +1509,6 @@ namespace CodeWalker.Forms
             DeferredShadingCheckBox.Checked = true; //make sure we can see the lights we're editing (maybe this is bad for potatoes but meh)
         }
 
-
-
         public void OnLightFormClosed()
         {
             lightForm = null;
@@ -1627,16 +1522,11 @@ namespace CodeWalker.Forms
             materialForm = null;
         }
 
-
         public void OnModelModified()
         {
             modelModified = true;
             UpdateFormTitle();
         }
-
-
-
-
 
         private void Save(bool saveAs = false)
         {
@@ -1675,8 +1565,6 @@ namespace CodeWalker.Forms
                 fn = SaveFileDialog.FileName;
                 FilePath = fn;
             }
-
-
 
             byte[] fileBytes = null;
 
@@ -1721,7 +1609,6 @@ namespace CodeWalker.Forms
                 MessageBox.Show("Error saving file!\n fileBytes was null!");
                 return;
             }
-
 
             var rpfSave = editMode && (rpfFileEntry?.Parent != null) && !saveAs;
 
@@ -1780,15 +1667,10 @@ namespace CodeWalker.Forms
                 }
             }
 
-
             modelModified = false;
             UpdateFormTitle();
 
         }
-
-
-
-
 
         private void SaveAllTextures(bool includeEmbedded)
         {
@@ -1801,7 +1683,6 @@ namespace CodeWalker.Forms
             if (FolderBrowserDialog.ShowDialogNew() != DialogResult.OK) return;
             string folderpath = FolderBrowserDialog.SelectedPath;
             if (!folderpath.EndsWith("\\")) folderpath += "\\";
-
 
             var tryGetTextureFromYtd = new Func<uint, YtdFile, Texture>((texHash, ytd) => 
             {
@@ -2015,14 +1896,6 @@ namespace CodeWalker.Forms
 
         }
 
-
-
-
-
-
-
-
-
         private void ModelForm_Load(object sender, EventArgs e)
         {
             Init();
@@ -2055,7 +1928,6 @@ namespace CodeWalker.Forms
                     GrabbedWidget = null;
                 }
             }
-
 
             if (MouseRButtonDown)
             {
@@ -2133,8 +2005,6 @@ namespace CodeWalker.Forms
             MouseY = e.Y;
             MouseLastPoint = e.Location;
 
-
-
         }
 
         private void ModelForm_MouseWheel(object sender, MouseEventArgs e)
@@ -2178,7 +2048,6 @@ namespace CodeWalker.Forms
             bool ctrl = Input.CtrlPressed;
             bool shift = Input.ShiftPressed;
 
-
             if (!ctrl)
             {
                 if (k == kb.MoveSlowerZoomIn)
@@ -2190,7 +2059,6 @@ namespace CodeWalker.Forms
                     camera.MouseZoom(-1);
                 }
             }
-
 
             if (!Input.kbmoving) //don't trigger further actions if moving.
             {

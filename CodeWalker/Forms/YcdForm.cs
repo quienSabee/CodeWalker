@@ -34,7 +34,6 @@ namespace CodeWalker.Forms
         private bool LoadingXml = false;
         private bool DelayHighlight = false;
 
-
         public YcdForm()
         {
             InitializeComponent();
@@ -105,10 +104,7 @@ namespace CodeWalker.Forms
             //    XmlTextBox.Language = Language.XML;
             //}
 
-
             Cursor = Cursors.WaitCursor;
-
-
 
             XmlTextBox.Text = xml;
             //XmlTextBox.IsChanged = false;
@@ -117,8 +113,6 @@ namespace CodeWalker.Forms
             Cursor = Cursors.Default;
             LoadingXml = false;
         }
-
-
 
         public void LoadYcd(YcdFile ycd)
         {
@@ -162,7 +156,6 @@ namespace CodeWalker.Forms
                 }
             }
 
-
         }
 
         public void LoadXml()
@@ -173,7 +166,6 @@ namespace CodeWalker.Forms
                 UpdateXmlTextBox(xml);
             }
         }
-
 
         private void HTMLSyntaxHighlight(Range range)
         {

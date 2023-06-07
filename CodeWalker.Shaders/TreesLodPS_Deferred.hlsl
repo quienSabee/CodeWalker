@@ -1,6 +1,5 @@
 #include "TreesLodPS.hlsli"
 
-
 PS_OUTPUT main(VS_OUTPUT input)
 {
     //return float4(1,0,0,1);//red
@@ -18,8 +17,7 @@ PS_OUTPUT main(VS_OUTPUT input)
     }
 
     float3 norm = input.Normal;
-    
-    
+
     float3 spec = 0;
     
     c.a = saturate(c.a);

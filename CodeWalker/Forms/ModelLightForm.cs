@@ -100,9 +100,6 @@ namespace CodeWalker.Forms
             }
         }
 
-
-
-        
         public void UpdateUI()
         {
             var light = selectedLight;
@@ -205,7 +202,6 @@ namespace CodeWalker.Forms
             if (selectedLight == null) return;
             selectedLight.UpdateRenderable = true;
         }
-
 
         private LightAttributes NewLightAttribute()
         {
@@ -520,8 +516,6 @@ namespace CodeWalker.Forms
             }
         }
 
-
-
         public void SetWidgetModeUI(WidgetMode mode)
         {
             MoveMenuItem.Checked = (mode == WidgetMode.Position);
@@ -531,9 +525,6 @@ namespace CodeWalker.Forms
             ScaleMenuItem.Checked = (mode == WidgetMode.Scale);
             ScaleMenuItem.BackColor = (mode == WidgetMode.Scale) ? SystemColors.GradientActiveCaption : SystemColors.Control;
         }
-
-
-
 
         private void LightsTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {

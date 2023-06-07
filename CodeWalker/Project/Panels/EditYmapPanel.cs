@@ -142,7 +142,6 @@ namespace CodeWalker.Project.Panels
 
             }
 
-
         }
 
         private void UpdateYmapFlagsUI(bool updateCheckboxes, bool updateTextboxes)
@@ -256,7 +255,6 @@ namespace CodeWalker.Project.Panels
             flags = BitUtil.UpdateBit(flags, 0, YmapFlagsScriptedCheckBox.Checked);
             flags = BitUtil.UpdateBit(flags, 1, YmapFlagsLODCheckBox.Checked);
 
-
             lock (ProjectForm.ProjectSyncRoot)
             {
                 if (Ymap._CMapData.flags != flags)
@@ -344,7 +342,6 @@ namespace CodeWalker.Project.Panels
             YmapStreamingExtentsMaxTextBox.Text = FloatUtil.GetVector3String(md.streamingExtentsMax);
             populatingui = false;
         }
-
 
         private void YmapNameTextBox_TextChanged(object sender, EventArgs e)
         {

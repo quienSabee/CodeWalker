@@ -41,7 +41,6 @@ namespace CodeWalker.Tools
             }
         }
 
-
         private void UpdateExtractStatus(string text)
         {
             try
@@ -119,11 +118,8 @@ namespace CodeWalker.Tools
 
                 UpdateExtractStatus("Keys loaded.");
 
-
-
                 RpfManager rpfman = new RpfManager();
                 rpfman.Init(searchpath, UpdateExtractStatus, UpdateExtractStatus);
-
 
                 UpdateExtractStatus("Beginning file extraction...");
                 StringBuilder errsb = new StringBuilder();
@@ -170,7 +166,6 @@ namespace CodeWalker.Tools
                                     data = ResourceBuilder.AddResourceHeader(rrfe, data);
                                 }
 
-
                                 if (data != null)
                                 {
                                     var finf = new FileInfo(entry.Name);
@@ -184,7 +179,6 @@ namespace CodeWalker.Tools
                                     }
 
                                     File.WriteAllBytes(fpath, data);
-
 
                                 }
                                 else

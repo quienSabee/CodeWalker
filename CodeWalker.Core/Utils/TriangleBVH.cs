@@ -94,7 +94,6 @@ namespace CodeWalker
             }
         }
 
-
         public TriangleBVHItem RayIntersect(ref Ray ray, ref float hitdist)
         {
             if (ray.Intersects(Box) == false) return null;
@@ -211,7 +210,6 @@ namespace CodeWalker
             max = Vector3.Max(max, Corner3);
             Box = new BoundingBox(min, max);
         }
-
 
     }
 

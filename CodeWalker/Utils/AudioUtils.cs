@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 namespace CodeWalker.Utils
 {
 
-
-
     public class AudioPlayer
     {
         private XAudio2 xAudio2;
@@ -54,7 +52,6 @@ namespace CodeWalker.Utils
                 return (int)(trackLength * 1000);
             }
         }
-
 
         public void LoadAudio(params AwcStream[] audios)
         {
@@ -195,7 +192,6 @@ namespace CodeWalker.Utils
             }
         }
 
-
         public void Stop()
         {
             if (State != PlayerState.Stopped)
@@ -261,8 +257,6 @@ namespace CodeWalker.Utils
 
     }
 
-
-
     public class AudioDatabase
     {
 
@@ -274,7 +268,6 @@ namespace CodeWalker.Utils
 
         public void Init(GameFileCache gameFileCache, bool sounds = true, bool game = true)
         {
-
 
             var rpfman = gameFileCache.RpfMan;
 
@@ -355,8 +348,6 @@ namespace CodeWalker.Utils
                 }
             }
 
-
-
             var soundsdb = new Dictionary<uint, Dat54Sound>();
             var gamedb = new Dictionary<uint, Dat151RelData>();
             foreach (var datentry in datrelentries.Values)
@@ -385,8 +376,6 @@ namespace CodeWalker.Utils
             IsInited = true;
         }
 
-
     }
-
 
 }

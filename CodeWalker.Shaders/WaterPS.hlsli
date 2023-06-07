@@ -8,7 +8,6 @@ Texture2D<float4> WaterBumpSampler2 : register(t5);
 Texture2D<float4> WaterFog : register(t6);
 SamplerState TextureSS : register(s0);
 
-
 cbuffer PSSceneVars : register(b0)
 {
     ShaderGlobalLightParams GlobalLights;
@@ -44,7 +43,6 @@ cbuffer PSGeomVars : register(b2)
     float GeoPad3;
 }
 
-
 struct VS_OUTPUT
 {
     float4 Position : SV_POSITION;
@@ -66,10 +64,6 @@ struct PS_OUTPUT
     float4 Specular : SV_Target2;
     float4 Irradiance : SV_Target3;
 };
-
-
-
-
 
 float3 RippleNormal(VS_OUTPUT input, float3 worldpos)
 {

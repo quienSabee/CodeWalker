@@ -11,7 +11,6 @@ using System.Xml;
 namespace CodeWalker.GameFiles
 {
 
-
     [TypeConverter(typeof(ExpandableObjectConverter))] public class TextureDictionary : ResourceFileBase
     {
         public override long BlockLength
@@ -51,7 +50,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
         public TextureDictionary()
         { }
 
@@ -72,7 +70,6 @@ namespace CodeWalker.GameFiles
         public override void Write(ResourceDataWriter writer, params object[] parameters)
         {
             base.Write(writer, parameters);
-
 
             // write structure data
             writer.Write(this.Unknown_10h);
@@ -134,7 +131,6 @@ namespace CodeWalker.GameFiles
             td.ReadXml(node, ddsfolder);
             return td;
         }
-
 
         public override Tuple<long, IResourceBlock>[] GetParts()
         {
@@ -223,8 +219,6 @@ namespace CodeWalker.GameFiles
 
         private string_r NameBlock = null;
 
-
-
         public TextureUsage Usage
         {
             get
@@ -247,8 +241,6 @@ namespace CodeWalker.GameFiles
                 UsageData = (UsageData & 0x1F) + (((uint)value) << 5);
             }
         }
-
-
 
         public override void Read(ResourceDataReader reader, params object[] parameters)
         {
@@ -273,8 +265,6 @@ namespace CodeWalker.GameFiles
             this.Unknown_44h = reader.ReadUInt32();
             this.ExtraFlags = reader.ReadUInt32();
             this.Unknown_4Ch = reader.ReadUInt32();
-
-
 
             // read reference data
             this.Name = reader.ReadStringAt( //BlockAt<string_r>(
@@ -412,7 +402,6 @@ namespace CodeWalker.GameFiles
             ExtraFlags = Xml.GetChildUIntAttribute(node, "ExtraFlags", "value");
         }
 
-
         public override IResourceBlock[] GetReferences()
         {
             var list = new List<IResourceBlock>();
@@ -457,7 +446,6 @@ namespace CodeWalker.GameFiles
         public uint Unknown_84h { get; set; } // 0x00000000
         public uint Unknown_88h { get; set; } // 0x00000000
         public uint Unknown_8Ch { get; set; } // 0x00000000
-
 
         // reference data
         public TextureData Data { get; set; }
@@ -564,7 +552,6 @@ namespace CodeWalker.GameFiles
             Format = Xml.GetChildEnumInnerText<TextureFormat>(node, "Format");
             var filename = Xml.GetChildInnerText(node, "FileName");
 
-
             if ((!string.IsNullOrEmpty(filename)) && (!string.IsNullOrEmpty(ddsfolder)))
             {
                 var filepath = Path.Combine(ddsfolder, filename);
@@ -595,7 +582,6 @@ namespace CodeWalker.GameFiles
                     throw new Exception("Texture file not found:\n" + filepath);
                 }
             }
-
 
         }
 
@@ -654,7 +640,6 @@ namespace CodeWalker.GameFiles
             writer.Write(FullData);
         }
     }
-
 
     public enum TextureFormat : uint
     {
@@ -737,6 +722,5 @@ namespace CodeWalker.GameFiles
         MAPS_HALF = (1 << 23),
         UNK24 = (1 << 24),//used by almost everything...
     }
-
 
 }

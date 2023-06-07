@@ -326,14 +326,6 @@ namespace CodeWalker.GameFiles
             return MrfXml.GetXml(mrf);
         }
 
-
-
-
-
-
-
-
-
         public static string GetXml(Meta meta)
         {
             StringBuilder sb = new StringBuilder();
@@ -378,7 +370,6 @@ namespace CodeWalker.GameFiles
                 ErrorXml(sb, indent, "Couldn't find structure info entries for " + name + "!");
                 return;
             }
-
 
             switch (tagMode)
             {
@@ -735,8 +726,6 @@ namespace CodeWalker.GameFiles
             CloseTag(sb, 0, ename);
         }
 
-
-
         private static string GetEnumString(MetaCont cont, MetaStructureEntryInfo_s entry, int value)
         {
             var eName = entry.ReferenceKey;
@@ -777,9 +766,6 @@ namespace CodeWalker.GameFiles
                 return value.ToString(); //if we got here, there was no match...
             }
         }
-
-
-
 
         private class MetaCont
         {
@@ -843,7 +829,6 @@ namespace CodeWalker.GameFiles
             return sb.ToString();
         }
 
-
         private static void WriteNode(StringBuilder sb, int indent, PsoCont cont, int blockId, int offset, XmlTagMode tagMode = XmlTagMode.None, MetaName structName = 0)
         {
 
@@ -897,7 +882,6 @@ namespace CodeWalker.GameFiles
                     OpenTag(sb, indent, "Item type=\"" + name + "\"");
                     break;
             }
-
 
             var cind = indent + 1;
             for (int i = 0; i < structInfo.Entries.Length; i++)
@@ -1130,9 +1114,6 @@ namespace CodeWalker.GameFiles
                 }
             }
 
-
-
-
             switch (tagMode)
             {
                 case XmlTagMode.Structure:
@@ -1147,7 +1128,6 @@ namespace CodeWalker.GameFiles
 
         private static void WriteArrayNode(StringBuilder sb, int indent, PsoCont cont, int blockId, int offset, PsoStructureEntryInfo entry, PsoStructureInfo estruct, string ename)
         {
-
 
             var block = cont.Pso.GetBlock(blockId);
             var boffset = offset + block.Offset;
@@ -1440,7 +1420,6 @@ namespace CodeWalker.GameFiles
                     var sptr = MetaTypes.ConvertData<Array_Structure>(data, eoffset + 8);
                     sptr.SwapEnd();
 
-
                     if (x1 != 0x1000000)
                     {
                         var c1 = MetaTypes.SwapBytes(BitConverter.ToUInt16(data, eoffset));
@@ -1590,9 +1569,6 @@ namespace CodeWalker.GameFiles
             }
         }
 
-
-
-
         private static string GetStringValue(PsoFile pso, PsoStructureEntryInfo entry, byte[] data, int eoffset)
         {
             switch (entry.Unk_5h)
@@ -1620,14 +1596,12 @@ namespace CodeWalker.GameFiles
 
         }
 
-
         public class PsoCont
         {
             public PsoFile Pso { get; set; }
 
             public Dictionary<MetaName, PsoEnumInfo> EnumDict = new Dictionary<MetaName, PsoEnumInfo>();
             public Dictionary<MetaName, PsoStructureInfo> StructDict = new Dictionary<MetaName, PsoStructureInfo>();
-
 
             public PsoCont(PsoFile pso)
             {
@@ -1637,7 +1611,6 @@ namespace CodeWalker.GameFiles
                 {
                     return;
                 }
-
 
                 for (int i = 0; i < pso.SchemaSection.Entries.Length; i++)
                 {
@@ -1676,7 +1649,6 @@ namespace CodeWalker.GameFiles
 
                 }
             }
-
 
             public PsoStructureInfo GetStructureInfo(MetaName name)
             {
@@ -1749,7 +1721,6 @@ namespace CodeWalker.GameFiles
             bool oneline = ((rs.Children.Count == 1) && (rs.Children[0].Name == null) && (rs.Attributes.Count == 0));
 
             OpenTag(sb, indent, rs.Name + attStr, !oneline);
-
 
             foreach (var child in rs.Children)
             {
@@ -1825,23 +1796,17 @@ namespace CodeWalker.GameFiles
                     SelfClosingTag(sb, cind, v3.Name + " x=\"" + FloatUtil.ToString(v3.X) + "\" y=\"" + FloatUtil.ToString(v3.Y) + "\" z=\"" + FloatUtil.ToString(v3.Z) + "\"");
                 }
 
-
             }
 
             CloseTag(sb, oneline ? 0 : indent, rs.Name);
         }
 
-
-
     }
-
 
     public class MetaXmlBase
     {
 
         public const string XmlHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-
-
 
         public static void Indent(StringBuilder sb, int indent)
         {
@@ -2113,8 +2078,6 @@ namespace CodeWalker.GameFiles
             return FloatUtil.GetVector3String(MetaTypes.SwapBytes(v.XYZ()));
         }
 
-
-
         public static string HashString(MetaName h)
         {
             uint uh = (uint)h;
@@ -2146,7 +2109,6 @@ namespace CodeWalker.GameFiles
             //todo: make sure JenkIndex is built!
             //todo: do extra hash lookup here
 
-
             if (!string.IsNullOrEmpty(str)) return str;
             return "hash_" + h.Hex;
         }
@@ -2164,7 +2126,6 @@ namespace CodeWalker.GameFiles
             return "hash_" + uh.ToString("X").PadLeft(8, '0');
         }
 
-
         public static string UintString(uint h)
         {
             //string str;
@@ -2176,14 +2137,10 @@ namespace CodeWalker.GameFiles
             ////TODO: do extra hash lookup here
             ////if(Lookup.TryGetValue(uh, out str)) ...
 
-
             //if (h == 0) return "";
             return "0x" + h.ToString("X");
 
         }
-
-
-
 
         public static string XmlEscape(string unescaped)
         {
@@ -2196,9 +2153,6 @@ namespace CodeWalker.GameFiles
             { }
             return escaped;
         }
-
-
-
 
         public enum XmlTagMode
         {
@@ -2214,8 +2168,6 @@ namespace CodeWalker.GameFiles
         void WriteXml(StringBuilder sb, int indent);
         void ReadXml(XmlNode node);
     }
-
-
 
     public enum MetaFormat
     {

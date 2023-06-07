@@ -31,7 +31,6 @@ namespace CodeWalker.GameFiles
             Name = entry.Name;
             FilePath = Name;
 
-
             //always PSO .ymt
             MemoryStream ms = new MemoryStream(data);
             if (PsoFile.IsPSO(ms))
@@ -40,7 +39,6 @@ namespace CodeWalker.GameFiles
                 Pso.Load(data);
                 Xml = PsoXml.GetXml(Pso); //yep let's just convert that to XML :P
             }
-
 
             XmlDocument xdoc = new XmlDocument();
             if (!string.IsNullOrEmpty(Xml))
@@ -57,14 +55,10 @@ namespace CodeWalker.GameFiles
             else
             { }
 
-
             if (xdoc.DocumentElement != null)
             {
                 VehicleModColours = new CVehicleModColours(xdoc.DocumentElement);
             }
-
-
-
 
             Loaded = true;
         }

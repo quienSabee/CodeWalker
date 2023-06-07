@@ -9,7 +9,6 @@ cbuffer PSGeomVars : register(b0)
     uint Pad3;
 }
 
-
 struct VS_OUTPUT
 {
     float4 Position : SV_POSITION;
@@ -18,7 +17,6 @@ struct VS_OUTPUT
     //float4 Colour   : COLOR0;
     //float4 Tint     : COLOR1;
 };
-
 
 float4 main(VS_OUTPUT input) : SV_TARGET
 {

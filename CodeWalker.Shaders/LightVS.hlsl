@@ -1,12 +1,10 @@
 #include "Common.hlsli"
 
-
 struct VS_Output
 {
     float4 Pos : SV_POSITION;
     float4 Screen : TEXCOORD0;
 };
-
 
 cbuffer VSLightVars : register(b0)
 {
@@ -35,7 +33,6 @@ cbuffer VSLightInstVars : register(b1)
     float3 InstCullingPlaneNormal;
     float InstCullingPlaneOffset;
 }
-
 
 VS_Output main(float4 ipos : POSITION, uint iid : SV_InstanceID)
 {
