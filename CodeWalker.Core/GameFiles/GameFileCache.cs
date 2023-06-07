@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace CodeWalker.GameFiles
@@ -114,6 +113,7 @@ namespace CodeWalker.GameFiles
                 return requestQueue.Count;
             }
         }
+
         public int ItemCount
         {
             get
@@ -121,6 +121,7 @@ namespace CodeWalker.GameFiles
                 return mainCache.Count;
             }
         }
+
         public long MemoryUsage
         {
             get
@@ -142,9 +143,7 @@ namespace CodeWalker.GameFiles
         public void Clear()
         {
             IsInited = false;
-
             mainCache.Clear();
-
             textureLookup.Clear();
 
             GameFile queueclear;
@@ -215,6 +214,7 @@ namespace CodeWalker.GameFiles
 
             IsInited = true;
         }
+
         public void Init(Action<string> updateStatus, Action<string> errorLog, List<RpfFile> allRpfs)
         {
             UpdateStatus = updateStatus;
@@ -265,7 +265,6 @@ namespace CodeWalker.GameFiles
 
         private void InitDlc()
         {
-
             UpdateStatus("Building DLC List...");
             InitDlcList();
 
@@ -298,7 +297,6 @@ namespace CodeWalker.GameFiles
 
             UpdateStatus("Loading audio...");
             InitAudio();
-
         }
 
         private void InitDlcList()
@@ -712,6 +710,7 @@ namespace CodeWalker.GameFiles
             else
             { } //how to handle individual files? eg interiorProxies.meta
         }
+
         private void AddDlcOverlayRpf(string path, string umpath, DlcSetupFile setupfile, Dictionary<string, List<string>> overlays)
         {
             string opath = GetDlcOverlayPath(umpath, setupfile);
@@ -724,6 +723,7 @@ namespace CodeWalker.GameFiles
             }
             overlayList.Add(path);
         }
+
         private void RemoveDlcActiveMapRpfFile(string vpath, Dictionary<string, List<string>> overlays)
         {
             List<string> overlayList;
@@ -748,6 +748,7 @@ namespace CodeWalker.GameFiles
             else
             { } //nothing to remove?
         }
+
         private string GetDlcRpfPhysicalPath(string path, DlcSetupFile setupfile)
         {
             string devname = setupfile.deviceName.ToLowerInvariant();
@@ -774,6 +775,7 @@ namespace CodeWalker.GameFiles
             }
             return GetDlcPatchedPath(fpath);
         }
+
         private string GetDlcOverlayPath(string path, DlcSetupFile setupfile)
         {
             string devname = setupfile.deviceName.ToLowerInvariant();
@@ -781,6 +783,7 @@ namespace CodeWalker.GameFiles
             string opath = fpath.Replace(devname + ":/", "");
             return opath;
         }
+
         private string GetDlcRpfVirtualPath(string path)
         {
             path = path.Replace('\\', '/');
@@ -811,6 +814,7 @@ namespace CodeWalker.GameFiles
 
             return path;
         }
+
         private string GetDlcNameFromPath(string path)
         {
             string[] parts = path.ToLowerInvariant().Split('\\');
@@ -820,10 +824,12 @@ namespace CodeWalker.GameFiles
             }
             return path;
         }
+
         public static string GetDlcPlatformPath(string path)
         {
             return path.Replace("%PLATFORM%", "x64").Replace('\\', '/').Replace("platform:", "x64").ToLowerInvariant();
         }
+
         private string GetDlcMountedPath(string path)
         {
             foreach (var efm in DlcExtraFolderMounts)
@@ -841,6 +847,7 @@ namespace CodeWalker.GameFiles
             }
             return path;
         }
+
         private string GetDlcUnmountedPath(string path)
         {
             foreach (var efm in DlcExtraFolderMounts)
@@ -858,6 +865,7 @@ namespace CodeWalker.GameFiles
             }
             return path;
         }
+
         public string GetDlcPatchedPath(string path)
         {
             string p;
@@ -1143,7 +1151,6 @@ namespace CodeWalker.GameFiles
             YtdFile ytd2 = new YtdFile(GetYtdEntry(JenkHash.GenHash("vehshare")));
             LoadFile(ytd2);
             AddTextureLookups(ytd2);
-
         }
 
         private void InitMapCaches()
@@ -1205,7 +1212,6 @@ namespace CodeWalker.GameFiles
                     loadCacheFile(dlccachefile, false);
                 }
             }
-
         }
 
         private void InitArchetypeDicts()
@@ -1243,7 +1249,6 @@ namespace CodeWalker.GameFiles
             }
 
             archetypesLoaded = true;
-
         }
 
         private void AddYtypToDictionary(RpfEntry entry)
@@ -1309,7 +1314,6 @@ namespace CodeWalker.GameFiles
             ////        //}
             ////    }
             ////}
-
         }
 
         public void InitStringDicts()
@@ -1697,7 +1701,6 @@ namespace CodeWalker.GameFiles
                 if (!PedVariationsDict.ContainsKey(kvp.Key))
                 { }//checking we found them all!
             }
-
         }
 
         public void InitAudio()
@@ -1816,7 +1819,6 @@ namespace CodeWalker.GameFiles
             AudioCategsDict = audioCategsDict;
             AudioSoundsDict = audioSoundsDict;
             AudioGameDict = audioGameDict;
-
         }
 
         public bool SetDlcLevel(string dlc, bool enable)
@@ -2008,6 +2010,7 @@ namespace CodeWalker.GameFiles
                 return ydr;
             }
         }
+
         public YddFile GetYdd(uint hash)
         {
             if (!IsInited) return null;
@@ -2047,6 +2050,7 @@ namespace CodeWalker.GameFiles
                 return ydd;
             }
         }
+
         public YtdFile GetYtd(uint hash)
         {
             if (!IsInited) return null;
@@ -2086,6 +2090,7 @@ namespace CodeWalker.GameFiles
                 return ytd;
             }
         }
+
         public YmapFile GetYmap(uint hash)
         {
             if (!IsInited) return null;
@@ -2121,6 +2126,7 @@ namespace CodeWalker.GameFiles
                 return ymap;
             }
         }
+
         public YftFile GetYft(uint hash)
         {
             if (!IsInited) return null;
@@ -2160,6 +2166,7 @@ namespace CodeWalker.GameFiles
                 return yft;
             }
         }
+
         public YbnFile GetYbn(uint hash)
         {
             if (!IsInited) return null;
@@ -2230,6 +2237,7 @@ namespace CodeWalker.GameFiles
                 return ycd;
             }
         }
+
         public YedFile GetYed(uint hash)
         {
             if (!IsInited) return null;
@@ -2265,6 +2273,7 @@ namespace CodeWalker.GameFiles
                 return yed;
             }
         }
+
         public YnvFile GetYnv(uint hash)
         {
             if (!IsInited) return null;
@@ -2307,18 +2316,21 @@ namespace CodeWalker.GameFiles
             YdrDict.TryGetValue(hash, out entry);
             return entry;
         }
+
         public RpfFileEntry GetYddEntry(uint hash)
         {
             RpfFileEntry entry;
             YddDict.TryGetValue(hash, out entry);
             return entry;
         }
+
         public RpfFileEntry GetYtdEntry(uint hash)
         {
             RpfFileEntry entry;
             YtdDict.TryGetValue(hash, out entry);
             return entry;
         }
+
         public RpfFileEntry GetYmapEntry(uint hash)
         {
             RpfFileEntry entry;
@@ -2328,30 +2340,35 @@ namespace CodeWalker.GameFiles
             }
             return entry;
         }
+
         public RpfFileEntry GetYftEntry(uint hash)
         {
             RpfFileEntry entry;
             YftDict.TryGetValue(hash, out entry);
             return entry;
         }
+
         public RpfFileEntry GetYbnEntry(uint hash)
         {
             RpfFileEntry entry;
             YbnDict.TryGetValue(hash, out entry);
             return entry;
         }
+
         public RpfFileEntry GetYcdEntry(uint hash)
         {
             RpfFileEntry entry;
             YcdDict.TryGetValue(hash, out entry);
             return entry;
         }
+
         public RpfFileEntry GetYedEntry(uint hash)
         {
             RpfFileEntry entry;
             YedDict.TryGetValue(hash, out entry);
             return entry;
         }
+
         public RpfFileEntry GetYnvEntry(uint hash)
         {
             RpfFileEntry entry;
@@ -2483,6 +2500,7 @@ namespace CodeWalker.GameFiles
 
             }
         }
+
         public YtdFile TryGetTextureDictForTexture(uint hash)
         {
             lock (textureSyncRoot)
@@ -2496,6 +2514,7 @@ namespace CodeWalker.GameFiles
             }
             return null;
         }
+
         public YtdFile TryGetParentYtd(uint hash)
         {
             MetaHash phash;
@@ -2505,6 +2524,7 @@ namespace CodeWalker.GameFiles
             }
             return null;
         }
+
         public uint TryGetParentYtdHash(uint hash)
         {
             MetaHash phash = 0;
@@ -2859,6 +2879,7 @@ namespace CodeWalker.GameFiles
             { }
 
         }
+
         public void TestAudioYmts()
         {
 
@@ -2928,6 +2949,7 @@ namespace CodeWalker.GameFiles
             { }
 
         }
+
         public void TestAudioAwcs()
         {
 
@@ -2957,6 +2979,7 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
+
         public void TestMetas()
         {
             //find all RSC meta files and generate the MetaTypes init code
@@ -3031,6 +3054,7 @@ namespace CodeWalker.GameFiles
             string str = MetaTypes.GetTypesInitString();
 
         }
+
         public void TestPsos()
         {
             //find all PSO meta files and generate the PsoTypes init code
@@ -3131,6 +3155,7 @@ namespace CodeWalker.GameFiles
             {
             }
         }
+
         public void TestRbfs()
         {
             var exceptions = new List<Exception>();
@@ -3212,6 +3237,7 @@ namespace CodeWalker.GameFiles
             string diffrbfpaths = string.Join("\r\n", diffrbfs);
 
         }
+
         public void TestCuts()
         {
 
@@ -3253,6 +3279,7 @@ namespace CodeWalker.GameFiles
             {
             }
         }
+
         public void TestYlds()
         {
 
@@ -3338,6 +3365,7 @@ namespace CodeWalker.GameFiles
             if (exceptions.Count > 0)
             { }
         }
+
         public void TestYcds()
         {
             bool savetest = false;
@@ -3599,6 +3627,7 @@ namespace CodeWalker.GameFiles
             { }
 
         }
+
         public void TestYtds()
         {
             bool ddstest = false;
@@ -3692,6 +3721,7 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count > 0)
             { }
         }
+
         public void TestYbns()
         {
             bool xmltest = false;
@@ -3860,6 +3890,7 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count > 0)
             { }
         }
+
         public void TestYdrs()
         {
             bool savetest = false;
@@ -3918,6 +3949,7 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count != 13)
             { }
         }
+
         public void TestYdds()
         {
             bool savetest = false;
@@ -3982,6 +4014,7 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count > 0)
             { }
         }
+
         public void TestYfts()
         {
             bool savetest = false;
@@ -4058,6 +4091,7 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count > 0)
             { }
         }
+
         public void TestYpts()
         {
             var savetest = false;
@@ -4112,6 +4146,7 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count > 0)
             { }
         }
+
         public void TestYnvs()
         {
             bool xmltest = true;
@@ -4186,9 +4221,9 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count > 0)
             { }
         }
+
         public void TestYvrs()
         {
-
             var exceptions = new List<Exception>();
 
             foreach (RpfFile file in AllRpfs)
@@ -4235,9 +4270,9 @@ namespace CodeWalker.GameFiles
             if (exceptions.Count > 0)
             { }
         }
+
         public void TestYwrs()
         {
-
             var exceptions = new List<Exception>();
 
             foreach (RpfFile file in AllRpfs)
@@ -4282,6 +4317,7 @@ namespace CodeWalker.GameFiles
             if (exceptions.Count > 0)
             { }
         }
+
         public void TestYmaps()
         {
             foreach (RpfFile file in AllRpfs)
@@ -4305,6 +4341,7 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
+
         public void TestYpdbs()
         {
             foreach (RpfFile file in AllRpfs)
@@ -4352,6 +4389,7 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
+
         public void TestMrfs()
         {
             foreach (RpfFile file in AllRpfs)
@@ -4520,6 +4558,7 @@ namespace CodeWalker.GameFiles
                 //File.WriteAllText("mymrf.dot", mymrf.DumpStateGraph());
             }
         }
+
         public void TestFxcs()
         {
             foreach (RpfFile file in AllRpfs)
@@ -4584,6 +4623,7 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
+
         public void TestPlacements()
         {
             //int totplacements = 0;
@@ -4717,6 +4757,7 @@ namespace CodeWalker.GameFiles
 
             //return;
         }
+
         public void TestDrawables()
         {
 
@@ -4927,6 +4968,7 @@ namespace CodeWalker.GameFiles
             UpdateStatus((DateTime.Now - starttime).ToString() + " elapsed, " + drawablecount.ToString() + " drawables, " + errs.Count.ToString() + " errors.");
 
         }
+
         public void TestCacheFiles()
         {
             foreach (RpfFile file in AllRpfs)
@@ -4970,6 +5012,7 @@ namespace CodeWalker.GameFiles
                 }
             }
         }
+
         public void TestHeightmaps()
         {
             var errorfiles = new List<RpfEntry>();
@@ -5005,6 +5048,7 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count > 0)
             { }
         }
+
         public void TestWatermaps()
         {
             var errorfiles = new List<RpfEntry>();
@@ -5040,6 +5084,7 @@ namespace CodeWalker.GameFiles
             if (errorfiles.Count > 0)
             { }
         }
+
         public void GetShadersXml()
         {
             bool doydr = true;
@@ -5200,9 +5245,9 @@ namespace CodeWalker.GameFiles
             File.WriteAllText("C:\\Shaders.xml", xml);
 
         }
+
         public void GetArchetypeTimesList()
         {
-
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Name,AssetName,12am,1am,2am,3am,4am,5am,6am,7am,8am,9am,10am,11am,12pm,1pm,2pm,3pm,4pm,5pm,6pm,7pm,8pm,9pm,10pm,11pm,+12am,+1am,+2am,+3am,+4am,+5am,+6am,+7am");
             foreach (var ytyp in YtypDict.Values)
@@ -5227,9 +5272,7 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
             var csv = sb.ToString();
-
         }
 
         private class ShaderXmlDataCollection
@@ -5307,8 +5350,8 @@ namespace CodeWalker.GameFiles
                         }
                     }
                 }
-
             }
+
             public void AddItem<T>(T t, Dictionary<T, int> d)
             {
                 if (d.ContainsKey(t))
@@ -5320,6 +5363,7 @@ namespace CodeWalker.GameFiles
                     d[t] = 1;
                 }
             }
+
             public U GetItem<T, U>(T t, Dictionary<T, U> d) where U:new()
             {
                 U r = default(U);
@@ -5330,6 +5374,7 @@ namespace CodeWalker.GameFiles
                 }
                 return r;
             }
+
             public List<T> GetSortedList<T>(Dictionary<T, int> d)
             {
                 var kvps = d.ToList();
@@ -5348,5 +5393,4 @@ namespace CodeWalker.GameFiles
             }
         }
     }
-
 }

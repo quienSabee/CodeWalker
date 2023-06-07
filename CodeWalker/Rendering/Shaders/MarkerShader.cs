@@ -1,17 +1,11 @@
-﻿using SharpDX;
-using SharpDX.Direct3D11;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Device = SharpDX.Direct3D11.Device;
-using Buffer = SharpDX.Direct3D11.Buffer;
-using MapFlags = SharpDX.Direct3D11.MapFlags;
-using CodeWalker.GameFiles;
-using System.IO;
-using SharpDX.DXGI;
+﻿using CodeWalker.GameFiles;
 using CodeWalker.World;
+using SharpDX;
+using SharpDX.Direct3D11;
+using SharpDX.DXGI;
+using System;
+using System.IO;
+using Device = SharpDX.Direct3D11.Device;
 
 namespace CodeWalker.Rendering
 {
@@ -155,6 +149,5 @@ namespace CodeWalker.Rendering
 
             disposed = true;
         }
-
     }
 }

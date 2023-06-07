@@ -3,10 +3,8 @@ using System;
 
 namespace CodeWalker.GameFiles
 {
-
     public static class FxcParser
     {
-
         public static bool ParseShader(FxcShader shader)
         {
             ShaderBytecode ByteCodeObj;
@@ -43,7 +41,5 @@ namespace CodeWalker.GameFiles
 
             return true;
         }
-
     }
-
 }

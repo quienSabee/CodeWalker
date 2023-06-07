@@ -1,17 +1,11 @@
-﻿using SharpDX.Direct3D11;
-using SharpDX.DXGI;
+﻿using CodeWalker.GameFiles;
+using CodeWalker.World;
+using SharpDX;
+using SharpDX.Direct3D11;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Device = SharpDX.Direct3D11.Device;
-using Buffer = SharpDX.Direct3D11.Buffer;
-using MapFlags = SharpDX.Direct3D11.MapFlags;
-using SharpDX;
-using CodeWalker.GameFiles;
-using CodeWalker.World;
 
 namespace CodeWalker.Rendering
 {
@@ -480,7 +474,6 @@ namespace CodeWalker.Rendering
                 //        tntpalind = (vsentvarsdata.TintPaletteIndex + 0.5f) / tintpal.Texture.Height;
                 //    }
                 //}
-
             }
 
             if (RenderMode == WorldRenderMode.SingleTexture)
@@ -562,7 +555,6 @@ namespace CodeWalker.Rendering
             if (normals2 != null) normals2.SetPSResource(context, 9);
             if (normals3 != null) normals3.SetPSResource(context, 10);
             if (normals4 != null) normals4.SetPSResource(context, 11);
-
         }
 
         public override void UnbindResources(DeviceContext context)

@@ -388,7 +388,7 @@ namespace CodeWalker
             BeginMouseHitTest();
             
             Renderer.BeginRender(context);
-            //Renderer.RenderSkyAndClouds();
+            Renderer.RenderSkyAndClouds();
             Renderer.SelectedDrawable = SelectedItem.Drawable;
             if (renderworld)
             {
@@ -1042,7 +1042,6 @@ namespace CodeWalker
                             //YbnFile ybn = gameFileCache.GetYbn(hash);
                         }
                     }
-
                 }
             }
 
@@ -1060,7 +1059,6 @@ namespace CodeWalker
                 SelectedItem.EntityDef = selent;
                 UpdateSelectionUI(false);
             }
-
         }
 
         private void RenderYmaps()

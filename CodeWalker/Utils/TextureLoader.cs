@@ -1,13 +1,7 @@
 ﻿using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.WIC;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeWalker.Utils
 {

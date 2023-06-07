@@ -63,12 +63,10 @@ namespace CodeWalker
                 xbcontrollerstate = xbcontroller.GetState();
                 xbcontrollerstateprev = xbcontrollerstate;
             }
-
         }
 
         public void Update()
         {
-
             var s = Settings.Default;
 
             xbenable = (xbcontroller != null) && (xbcontroller.IsConnected);
@@ -97,7 +95,6 @@ namespace CodeWalker
                 xbrx *= ramt;
                 xbry *= ramt;
             }
-
         }
 
         public void KeyDown(KeyEventArgs e, bool enablemove)
@@ -121,7 +118,6 @@ namespace CodeWalker
             }
 
             kbmoving = kbmovefwd || kbmovebck || kbmovelft || kbmovergt || kbmoveup || kbmovedn || kbjump;
-
         }
 
         public void KeyUp(KeyEventArgs e)
@@ -139,7 +135,6 @@ namespace CodeWalker
             if (k == keyBindings.Jump) kbjump = false;
 
             kbmoving = kbmovefwd || kbmovebck || kbmovelft || kbmovergt || kbmoveup || kbmovedn || kbjump;
-
         }
 
         public void KeyboardStop()
@@ -215,7 +210,6 @@ namespace CodeWalker
         {
             return (((xbcontrollerstate.Gamepad.Buttons & b) != 0) && ((xbcontrollerstateprev.Gamepad.Buttons & b) == 0));
         }
-
     }
 
     public class KeyBindings
@@ -303,7 +297,5 @@ namespace CodeWalker
         {
             return (KeyBindings)MemberwiseClone();
         }
-
     }
-
 }

@@ -7,12 +7,8 @@ using SharpDX.Direct3D11;
 using SharpDX.XInput;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -617,9 +613,7 @@ namespace CodeWalker
                     PedNameComboBox.SelectedIndex = Math.Max(ind, 0);
                     //PedNameComboBox.SelectedIndex = 0;
                 }
-
             }
-
         }
 
         private void UpdateModelsUI()
@@ -646,7 +640,6 @@ namespace CodeWalker
                     AddDrawableTreeNode(drawable, drawablename, true);
                 }
             }
-
         }
 
         public void LoadPed()
@@ -681,7 +674,6 @@ namespace CodeWalker
             DetailsPropertyGrid.SelectedObject = SelectedPed;
 
             UpdateModelsUI();
-
         }
 
         public void LoadModel(YftFile yft, bool movecamera = true)
@@ -887,9 +879,7 @@ namespace CodeWalker
                 if (Input.ControllerButtonPressed(GamepadButtonFlags.DPadDown)) zoom -= zoomamt;
 
                 camera.ControllerZoom(zoom);
-
             }
-
         }
 
         private void UpdateGridVerts()
@@ -929,7 +919,6 @@ namespace CodeWalker
                         gridVerts.Add(new VertexTypePC() { Position = new Vector3(s, o, 0), Colour = cx });
                     }
                 }
-
             }
         }
 
@@ -1032,9 +1021,7 @@ namespace CodeWalker
                 }
 
                 UpdateMousePosition(e);
-
             }
-
         }
 
         private void PedsForm_MouseWheel(object sender, MouseEventArgs e)

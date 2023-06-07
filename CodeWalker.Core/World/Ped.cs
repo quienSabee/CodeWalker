@@ -1,12 +1,9 @@
 ﻿using CodeWalker.GameFiles;
 using SharpDX;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace CodeWalker.World
 {
@@ -51,7 +48,6 @@ namespace CodeWalker.World
         }
         public void Init(MetaHash pedhash, GameFileCache gfc)
         {
-
             Name = string.Empty;
             NameHash = 0;
             InitData = null;
@@ -287,6 +283,5 @@ namespace CodeWalker.World
             RenderEntity.SetPosition(Position);
             RenderEntity.SetOrientation(Rotation);
         }
-
     }
 }
