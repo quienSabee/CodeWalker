@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodeWalker.GameFiles
+﻿namespace CodeWalker.GameFiles
 {
     public abstract class GameFile : Cacheable<GameFileCacheKey>
     {
@@ -44,7 +38,6 @@ namespace CodeWalker.GameFiles
         {
             return (string.IsNullOrEmpty(Name)) ? JenkIndex.GetString(Key.Hash) : Name;
         }
-
     }
 
     public enum GameFileType : int
@@ -94,5 +87,4 @@ namespace CodeWalker.GameFiles
             Type = type;
         }
     }
-
 }

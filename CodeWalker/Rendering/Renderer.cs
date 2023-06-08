@@ -1,14 +1,13 @@
 ﻿using CodeWalker.GameFiles;
 using CodeWalker.Properties;
+using CodeWalker.Rendering.LiDAR;
 using CodeWalker.World;
 using SharpDX;
 using SharpDX.Direct3D11;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace CodeWalker.Rendering
 {
@@ -272,6 +271,11 @@ namespace CodeWalker.Rendering
             renderskeletonlist.Clear();
 
             HideEntities.Clear();
+        }
+
+        public void Foo()
+        {
+            CubemapRenderer.RenderCubemap(shaders, gameFileCache, renderableCache, weather, globalLights);
         }
 
         public void RenderSkyAndClouds()
@@ -1375,7 +1379,6 @@ namespace CodeWalker.Rendering
 
         private void RenderSkeletons()
         {
-
             skeletonLineVerts.Clear();
 
             const uint cred = 4278190335;// (uint)new Color4(1.0f, 0.0f, 0.0f, 1.0f).ToRgba();
@@ -1457,16 +1460,13 @@ namespace CodeWalker.Rendering
                         skeletonLineVerts.Add(vg);
                         skeletonLineVerts.Add(vb);
                     }
-
                 }
-
             }
 
             if (skeletonLineVerts.Count > 0)
             {
                 RenderLines(skeletonLineVerts, DepthStencilMode.DisableAll);
             }
-
         }
 
         public void RenderLines(List<VertexTypePC> linelist, DepthStencilMode dsmode = DepthStencilMode.Enabled)

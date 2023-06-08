@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Threading;
-using System.Diagnostics;
+﻿using CodeWalker.GameFiles;
+using CodeWalker.Project;
+using CodeWalker.Properties;
+using CodeWalker.Rendering;
+using CodeWalker.Tools;
+using CodeWalker.World;
 using SharpDX;
 using SharpDX.XInput;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using Device = SharpDX.Direct3D11.Device;
 using DeviceContext = SharpDX.Direct3D11.DeviceContext;
-using CodeWalker.World;
-using CodeWalker.Project;
-using CodeWalker.Rendering;
-using CodeWalker.GameFiles;
-using CodeWalker.Properties;
-using CodeWalker.Tools;
 
 namespace CodeWalker
 {
@@ -386,7 +386,7 @@ namespace CodeWalker
             Renderer.Update(elapsed, MouseLastPoint.X, MouseLastPoint.Y);
             UpdateWidgets();
             BeginMouseHitTest();
-            
+
             Renderer.BeginRender(context);
             Renderer.RenderSkyAndClouds();
             Renderer.SelectedDrawable = SelectedItem.Drawable;
@@ -406,11 +406,11 @@ namespace CodeWalker
             RenderSelection();
             RenderMoused();
             Renderer.RenderQueued();
-            //Renderer.RenderBounds(SelectionMode);
-            //Renderer.RenderSelectionGeometry(SelectionMode);
+            Renderer.RenderBounds(SelectionMode);
+            Renderer.RenderSelectionGeometry(SelectionMode);
             Renderer.RenderFinalPass();
-            //RenderMarkers();
-            //RenderWidgets();
+            RenderMarkers();
+            RenderWidgets();
             Renderer.EndRender();
 
             Monitor.Exit(Renderer.RenderSyncRoot);
@@ -527,7 +527,6 @@ namespace CodeWalker
             else
             {
                 //"play" mode
-
                 int mcx, mcy, mcw;
                 MouseButtons mcb, mcbp;
                 bool mlb = false, mrb = false;

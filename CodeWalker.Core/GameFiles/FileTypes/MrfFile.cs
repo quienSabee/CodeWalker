@@ -1,11 +1,11 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using TC = System.ComponentModel.TypeConverterAttribute;
-using EXP = System.ComponentModel.ExpandableObjectConverter;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using EXP = System.ComponentModel.ExpandableObjectConverter;
+using TC = System.ComponentModel.TypeConverterAttribute;
 
 namespace CodeWalker.GameFiles
 {

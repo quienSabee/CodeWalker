@@ -1,11 +1,8 @@
 ﻿using CodeWalker.Properties;
-using CodeWalker.Rendering;
+using CodeWalker.Rendering.LiDAR;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Shell;
 
@@ -19,8 +16,7 @@ namespace CodeWalker
         [STAThread]
         static void Main(string[] args)
         {
-            //CubemapRenderer.RenderCubemap();
-            CubemapRenderer.Foo2();
+            LiDAR.Run();
 
             bool menumode = false;
             bool explorermode = false;
@@ -71,7 +67,7 @@ namespace CodeWalker
             try
             {
 #endif
-                if (menumode)
+            if (menumode)
                 {
                     Application.Run(new MenuForm());
                 }

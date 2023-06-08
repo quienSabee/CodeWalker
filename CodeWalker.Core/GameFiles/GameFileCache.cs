@@ -962,7 +962,6 @@ namespace CodeWalker.GameFiles
                     }
                 }
             }
-
         }
 
         private void InitMapDicts()
@@ -1069,9 +1068,7 @@ namespace CodeWalker.GameFiles
                             ErrorLog(errstr);
                         }
                     }
-
                 }
-
             }
         }
 

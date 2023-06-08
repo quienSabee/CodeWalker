@@ -68,9 +68,7 @@ namespace CodeWalker.GameFiles
                     default:
                         break;
                 }
-
             }
-
         }
 
         public void LoadDicts(DlcSetupFile setupfile, RpfManager rpfman, GameFileCache gfc)
@@ -108,7 +106,6 @@ namespace CodeWalker.GameFiles
                     RpfDataFiles[dfn] = datafile;
                 }
             }
-
         }
 
         public override string ToString()
@@ -294,7 +291,6 @@ namespace CodeWalker.GameFiles
         {
             return (changeSetName != null) ? changeSetName : (associatedMap != null) ? associatedMap : null;
         }
-
     }
 
     public class DlcContentChangeSetExecutionConditions
@@ -420,5 +416,4 @@ namespace CodeWalker.GameFiles
             return type + ": " + deviceName + " - " + path;
         }
     }
-
 }

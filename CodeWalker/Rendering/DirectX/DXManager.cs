@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharpDX;
+using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
-using Color = SharpDX.Color;
-using Device = SharpDX.Direct3D11.Device;
-using Buffer = SharpDX.Direct3D11.Buffer;
-using DriverType = SharpDX.Direct3D.DriverType;
+using System;
 using System.Threading;
 using System.Windows.Forms;
-using SharpDX;
-using SharpDX.Direct3D;
+using Color = SharpDX.Color;
+using Device = SharpDX.Direct3D11.Device;
+using DriverType = SharpDX.Direct3D.DriverType;
 
 namespace CodeWalker.Rendering
 {
@@ -334,7 +329,6 @@ namespace CodeWalker.Rendering
 
                 Monitor.Exit(syncroot);
                 Rendering = false;
-
             }
         }
 

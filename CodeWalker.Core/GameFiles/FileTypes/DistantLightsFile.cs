@@ -1,10 +1,8 @@
 ﻿using SharpDX;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using TC = System.ComponentModel.TypeConverterAttribute;
 using EXP = System.ComponentModel.ExpandableObjectConverter;
+using TC = System.ComponentModel.TypeConverterAttribute;
 
 namespace CodeWalker.GameFiles
 {

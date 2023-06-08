@@ -1,16 +1,11 @@
-﻿using SharpDX.Direct3D11;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Device = SharpDX.Direct3D11.Device;
-using Buffer = SharpDX.Direct3D11.Buffer;
-using CodeWalker.World;
-using System.Collections.Concurrent;
-using CodeWalker.GameFiles;
-using System.Threading;
+﻿using CodeWalker.GameFiles;
 using CodeWalker.Properties;
+using CodeWalker.World;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
+using Device = SharpDX.Direct3D11.Device;
 
 namespace CodeWalker.Rendering
 {
@@ -36,6 +31,7 @@ namespace CodeWalker.Rendering
                     + waterquads.CacheUse;
             }
         }
+
         public int TotalItemCount
         {
             get
@@ -50,6 +46,7 @@ namespace CodeWalker.Rendering
                     + waterquads.CurrentLoadedCount;
             }
         }
+
         public int TotalQueueLength
         {
             get
@@ -64,6 +61,7 @@ namespace CodeWalker.Rendering
                     + waterquads.QueueLength;
             }
         }
+
         public int LoadedRenderableCount
         {
             get
@@ -71,6 +69,7 @@ namespace CodeWalker.Rendering
                 return renderables.CurrentLoadedCount;// loadedRenderables.Count;
             }
         }
+
         public int LoadedTextureCount
         {
             get
@@ -78,6 +77,7 @@ namespace CodeWalker.Rendering
                 return textures.CurrentLoadedCount;// loadedTextures.Count;
             }
         }
+
         public int MemCachedRenderableCount
         {
             get
@@ -85,6 +85,7 @@ namespace CodeWalker.Rendering
                 return renderables.CurrentCacheCount;// cacheRenderables.Count;
             }
         }
+
         public int MemCachedTextureCount
         {
             get
@@ -110,6 +111,7 @@ namespace CodeWalker.Rendering
         {
             currentDevice = device;
         }
+
         public void OnDeviceDestroyed()
         {
             currentDevice = null;

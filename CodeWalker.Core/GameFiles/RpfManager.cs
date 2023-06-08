@@ -308,6 +308,7 @@ namespace CodeWalker.GameFiles
             }
             return file;
         }
+
         public T GetFile<T>(RpfEntry e) where T : class, PackedFile, new()
         {
             T file = null;
@@ -324,6 +325,7 @@ namespace CodeWalker.GameFiles
             }
             return file;
         }
+
         public bool LoadFile<T>(T file, RpfEntry e) where T : class, PackedFile
         {
             byte[] data = null;

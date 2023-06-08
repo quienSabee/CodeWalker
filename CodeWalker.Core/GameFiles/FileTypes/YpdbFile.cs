@@ -1,9 +1,9 @@
 ﻿using SharpDX;
 using System.IO;
-using TC = System.ComponentModel.TypeConverterAttribute;
-using EXP = System.ComponentModel.ExpandableObjectConverter;
 using System.Text;
 using System.Xml;
+using EXP = System.ComponentModel.ExpandableObjectConverter;
+using TC = System.ComponentModel.TypeConverterAttribute;
 
 namespace CodeWalker.GameFiles
 {

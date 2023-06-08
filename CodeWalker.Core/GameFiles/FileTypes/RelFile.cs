@@ -1,15 +1,12 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using TC = System.ComponentModel.TypeConverterAttribute;
-using EXP = System.ComponentModel.ExpandableObjectConverter;
-using SharpDX;
 using System.Xml;
-using System.Text.RegularExpressions;
+using EXP = System.ComponentModel.ExpandableObjectConverter;
+using TC = System.ComponentModel.TypeConverterAttribute;
 
 /*
 

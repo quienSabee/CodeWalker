@@ -33,7 +33,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CodeWalker.GameFiles
@@ -231,7 +230,6 @@ namespace CodeWalker.GameFiles
 
         private static void UseMagicData(string path, string key)
         {
-
             if (string.IsNullOrEmpty(key))
             {
                 byte[] exedata = File.ReadAllBytes(path + "\\gta5.exe");

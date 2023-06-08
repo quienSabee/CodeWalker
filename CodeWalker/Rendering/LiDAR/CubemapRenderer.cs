@@ -1,39 +1,108 @@
-﻿using SharpDX;
+﻿using CodeWalker.GameFiles;
+using CodeWalker.World;
+using SharpDX;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using Device = SharpDX.Direct3D11.Device;
 using MapFlags = SharpDX.Direct3D11.MapFlags;
 
-namespace CodeWalker.Rendering
+namespace CodeWalker.Rendering.LiDAR
 {
     public class CubemapRenderer
     {
-        public static void RenderScene(DeviceContext context, RenderTargetView rt, DepthStencilView depth, ShaderManager shaders)
+        public static void RenderCubemap(ShaderManager shaderManager, GameFileCache gameFileCache, RenderableCache renderableCache, Weather weather, ShaderGlobalLights globalLights)
         {
-            context.OutputMerger.SetRenderTargets(depth, rt);
-            context.ClearRenderTargetView(rt, Color.Magenta);
-            context.ClearDepthStencilView(depth, DepthStencilClearFlags.Depth, 0.0f, 0);
+            int width = 1024;
+            int height = 1024;
 
-        }
+            Device device = new Device(DriverType.Hardware, DeviceCreationFlags.Debug);
+            device.DebugName = "cubemap-device";
+            DeviceContext context = device.ImmediateContext;
+            context.DebugName = "cubemap-context";
 
-        private static byte[] GetTextureData(DeviceContext context, Texture2D texture)
-        {
-            DataBox dataBox = context.MapSubresource(texture, 0, MapMode.Read, SharpDX.Direct3D11.MapFlags.None);
-            int width = texture.Description.Width;
-            int height = texture.Description.Height;
-            int size = width * height;
-            byte[] data = new byte[size];
-            System.Runtime.InteropServices.Marshal.Copy(dataBox.DataPointer, data, 0, size);
-            context.UnmapSubresource(texture, 0);
+            var textureDesc = new Texture2DDescription()
+            {
+                Width = width,
+                Height = height,
+                ArraySize = 1,
+                BindFlags = BindFlags.RenderTarget,
+                Usage = ResourceUsage.Default,
+                CpuAccessFlags = CpuAccessFlags.None,
+                Format = Format.R8G8B8A8_UNorm,
+                MipLevels = 1,
+                OptionFlags = ResourceOptionFlags.None,
+                SampleDescription = new SampleDescription(1, 0),
+            };
+            Texture2D texture = new Texture2D(device, textureDesc);
 
-            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            System.Drawing.Imaging.BitmapData bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, width, height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            System.Runtime.InteropServices.Marshal.Copy(data, 0, bitmapData.Scan0, size);
-            bitmap.UnlockBits(bitmapData);
-            bitmap.Save(@"C:\users\aforgione\desktop\foo.bmp");
+            var depthStencilDesc = new Texture2DDescription
+            {
+                Width = width,
+                Height = height,
+                ArraySize = 1,
+                BindFlags = BindFlags.DepthStencil,
+                Usage = ResourceUsage.Default,
+                CpuAccessFlags = CpuAccessFlags.None,
+                Format = Format.D32_Float,
+                MipLevels = 1,
+                OptionFlags = ResourceOptionFlags.None,
+                SampleDescription = new SampleDescription(1, 0)
+            };
+            var depthStencilBuffer = new Texture2D(device, depthStencilDesc);
 
-            return data;
+            RenderTargetView renderTargetView = new RenderTargetView(device, texture);
+            DepthStencilView depthStencilView = new DepthStencilView(device, depthStencilBuffer);
+
+            context.OutputMerger.SetRenderTargets(depthStencilView, renderTargetView);
+            context.Rasterizer.SetViewport(0, 0, width, height, 0.0f, 1.0f);
+            context.ClearRenderTargetView(renderTargetView, Color.CornflowerBlue);
+            context.ClearDepthStencilView(depthStencilView, DepthStencilClearFlags.Depth, 0.0f, 0);
+
+            Camera camera = new Camera(0f, 0f, 60f)
+            {
+                Position = new Vector3(0f, 0f, 0f),
+                ViewDirection = new Vector3(0f, 0f, 1f)
+            };
+            SimpleRenderer.RenderSky(context, camera, shaderManager, gameFileCache, renderableCache, weather, globalLights);
+
+            var textureStagingDesc = new Texture2DDescription
+            {
+                Width = textureDesc.Width,
+                Height = textureDesc.Height,
+                ArraySize = textureDesc.ArraySize,
+                BindFlags = BindFlags.None,
+                Usage = ResourceUsage.Staging,
+                CpuAccessFlags = CpuAccessFlags.Read,
+                Format = textureDesc.Format,
+                MipLevels = textureDesc.MipLevels,
+                OptionFlags = textureDesc.OptionFlags,
+                SampleDescription = textureDesc.SampleDescription
+            };
+            using (var textureStaging = new Texture2D(device, textureStagingDesc))
+            {
+                context.CopyResource(texture, textureStaging);
+
+                var textureData = context.MapSubresource(textureStaging, 0, MapMode.Read, MapFlags.None);
+                using (var bitmap = new System.Drawing.Bitmap(textureStagingDesc.Width, textureStagingDesc.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
+                {
+                    var bitmapData = bitmap.LockBits(
+                        new System.Drawing.Rectangle(0, 0, textureStagingDesc.Width, textureStagingDesc.Height),
+                        System.Drawing.Imaging.ImageLockMode.WriteOnly,
+                        bitmap.PixelFormat);
+
+                    Utilities.CopyMemory(bitmapData.Scan0, textureData.DataPointer, textureData.RowPitch * textureStagingDesc.Height);
+
+                    bitmap.UnlockBits(bitmapData);
+                    bitmap.Save("cubemap.png", System.Drawing.Imaging.ImageFormat.Png);
+                }
+                context.UnmapSubresource(textureStaging, 0);
+            }
+
+            renderTargetView.Dispose();
+            texture.Dispose();
+            context.Dispose();
+            device.Dispose();
         }
 
         public static void Foo()

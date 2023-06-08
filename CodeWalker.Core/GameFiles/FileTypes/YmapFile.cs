@@ -1,21 +1,17 @@
-﻿using SharpDX;
+﻿using CodeWalker.Core.Utils;
+using CodeWalker.World;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using CodeWalker.Core.Utils;
-using CodeWalker.World;
 
 namespace CodeWalker.GameFiles
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class YmapFile : GameFile, PackedFile
     {
-
         public Meta Meta { get; set; }
         public PsoFile Pso { get; set; }
         public RbfFile Rbf { get; set; }

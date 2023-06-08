@@ -1,11 +1,9 @@
-﻿
-using CodeWalker.Properties;
+﻿using CodeWalker.Properties;
 
 namespace CodeWalker.GameFiles
 {
     public static class GameFileCacheFactory
     {
-
         public static GameFileCache Create()
         {
             var s = Settings.Default;

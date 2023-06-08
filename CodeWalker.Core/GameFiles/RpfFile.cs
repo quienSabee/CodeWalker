@@ -615,6 +615,7 @@ namespace CodeWalker.GameFiles
             }
             return file;
         }
+
         public static T GetFile<T>(RpfEntry e, byte[] data) where T : class, PackedFile, new()
         {
             T file = null;
@@ -643,6 +644,7 @@ namespace CodeWalker.GameFiles
             }
             return file;
         }
+
         public static void LoadResourceFile<T>(T file, byte[] data, uint ver) where T : class, PackedFile
         {
             //direct load from a raw, compressed resource file (openIV-compatible format)
@@ -674,6 +676,7 @@ namespace CodeWalker.GameFiles
             file.Load(data, resentry);
 
         }
+
         public static RpfResourceFileEntry CreateResourceFileEntry(ref byte[] data, uint ver)
         {
             var resentry = new RpfResourceFileEntry();
